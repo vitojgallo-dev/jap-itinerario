@@ -2347,6 +2347,20 @@
       "Shinjuku Tokyo": [35.6896, 139.7006],
       "Tokyo Station Tokyo": [35.6812, 139.7671]
     };
+    const BOOKING_LINKS = {
+      "Tokyo Skytree": "https://www.tokyo-skytree.jp/en/ticket/",
+      "Shibuya Sky": "https://www.shibuya-scramble-square.com/sky/",
+      "teamLab Borderless Azabudai Tokyo": "https://www.teamlab.art/e/borderless-azabudai/",
+      "teamLab Planets Tokyo": "https://www.teamlab.art/e/planets/",
+      "Tokyo Tower night view": "https://www.tokyotower.co.jp/en/",
+      "Kanazawa 21st Century Museum of Contemporary Art": "https://www.kanazawa21.jp/",
+      "Osaka Castle": "https://www.osakacastle.net/",
+      "Umeda Sky Building Osaka": "https://www.skybldg.co.jp/en/",
+      "Osaka Aquarium Kaiyukan": "https://www.kaiyukan.com/language/eng/",
+      "Hiroshima Peace Memorial Museum": "https://hpmmuseum.jp/?lang=eng",
+      "Nikko Toshogu shrine": null,
+      "Hakone-Yumoto Station": null
+    };
     const CITY_META = {
       TOKYO: {
         color: "#E4572E",
@@ -2416,6 +2430,9 @@
     }
     function mapsSearchUrl(query) {
       return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
+    }
+    function ticketSearchUrl(title) {
+      return "https://www.google.com/search?q=" + encodeURIComponent(title + " biglietti prenotazione tickets");
     }
     function mapsDirUrl(o, d, m) {
       return "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(o) + "&destination=" + encodeURIComponent(d) + "&travelmode=" + m;
@@ -3451,6 +3468,11 @@
       const [showMap, setShowMap] = useState(false);
       const accent = evening ? "#C9B458" : cityMeta.color;
       const photo = usePlacePhoto(stop.maps, stop.photo);
+      // Ticket/booking: custom override > official link (may be null) > known ticketed key
+      const hasBookingKey = stop.maps && Object.prototype.hasOwnProperty.call(BOOKING_LINKS, stop.maps);
+      const officialUrl = hasBookingKey ? BOOKING_LINKS[stop.maps] : null;
+      const bookingUrl = stop.booking || officialUrl || (hasBookingKey ? ticketSearchUrl(stop.title) : null);
+      const showTicket = !!(stop.booking || hasBookingKey);
       return /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
@@ -3712,7 +3734,24 @@
         }
       }, /*#__PURE__*/React.createElement(Navigation, {
         size: 14
-      }), " Indicazioni")), showMap && /*#__PURE__*/React.createElement("div", {
+      }), " Indicazioni"), showTicket && !editing && /*#__PURE__*/React.createElement("a", {
+        className: "jp-sans",
+        href: bookingUrl,
+        target: "_blank",
+        rel: "noreferrer",
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+          background: accent,
+          color: "#0F1A2E",
+          textDecoration: "none",
+          borderRadius: 8,
+          padding: "7px 11px",
+          fontSize: 12.5,
+          fontWeight: 600
+        }
+      }, "🎫 ", officialUrl || stop.booking ? "Biglietti" : "Cerca biglietti")), showMap && /*#__PURE__*/React.createElement("div", {
         style: {
           marginTop: 10,
           borderRadius: 12,
@@ -3731,6 +3770,28 @@
         },
         loading: "lazy",
         referrerPolicy: "no-referrer-when-downgrade"
+      })), editing && /*#__PURE__*/React.createElement("div", {
+        style: {
+          marginTop: 10,
+          display: "flex",
+          alignItems: "center",
+          gap: 8
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "jp-sans",
+        style: {
+          fontSize: 12,
+          opacity: 0.7,
+          whiteSpace: "nowrap"
+        }
+      }, "🎫 Link biglietti:"), /*#__PURE__*/React.createElement("input", {
+        className: "edit-in jp-sans",
+        placeholder: officialUrl || "incolla un URL (Klook, sito ufficiale…)",
+        value: stop.booking || "",
+        onChange: e => onUpdateStop(cityIndex, dayIndex, stopIndex, "booking", e.target.value),
+        style: {
+          fontSize: 12.5
+        }
       }))), stop.move && !editing && /*#__PURE__*/React.createElement("div", {
         className: "jp-sans",
         style: {
