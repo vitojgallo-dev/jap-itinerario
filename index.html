@@ -2348,18 +2348,62 @@
       "Tokyo Station Tokyo": [35.6812, 139.7671]
     };
     const BOOKING_LINKS = {
-      "Tokyo Skytree": "https://www.tokyo-skytree.jp/en/ticket/",
+      "Tokyo Skytree": "https://www.tokyo-skytree.jp/",
       "Shibuya Sky": "https://www.shibuya-scramble-square.com/sky/",
-      "teamLab Borderless Azabudai Tokyo": "https://www.teamlab.art/e/borderless-azabudai/",
-      "teamLab Planets Tokyo": "https://www.teamlab.art/e/planets/",
-      "Tokyo Tower night view": "https://www.tokyotower.co.jp/en/",
+      "Tokyo Tower night view": "https://www.tokyotower.co.jp/",
       "Kanazawa 21st Century Museum of Contemporary Art": "https://www.kanazawa21.jp/",
       "Osaka Castle": "https://www.osakacastle.net/",
       "Umeda Sky Building Osaka": "https://www.skybldg.co.jp/en/",
-      "Osaka Aquarium Kaiyukan": "https://www.kaiyukan.com/language/eng/",
       "Hiroshima Peace Memorial Museum": "https://hpmmuseum.jp/?lang=eng",
+      "teamLab Borderless Azabudai Tokyo": "https://www.teamlab.art/e/borderless-azabudai/",
+      "teamLab Planets Tokyo": "https://www.teamlab.art/e/planets/",
+      "Osaka Aquarium Kaiyukan": "https://www.kaiyukan.com/language/eng/",
       "Nikko Toshogu shrine": null,
       "Hakone-Yumoto Station": null
+    };
+    const SPECIAL_DINING = {
+      "3": {
+        kind: "🍣 Cena sushi speciale",
+        city: "Tokyo",
+        note: "In 6 persone: prenotate con settimane di anticipo. Ai banchi omakase i posti sono pochissimi — chiedete se hanno tavolo o sala privata per gruppi.",
+        options: [{
+          tier: "Alto (omakase)",
+          name: "Sushi Rinda (Meguro)",
+          desc: "Chef parla inglese, atmosfera accogliente. Omakase ~29.000¥.",
+          url: "https://www.google.com/search?q=Sushi+Rinda+Meguro+reservation"
+        }, {
+          tier: "Medio",
+          name: "Sushi Tokyo Ten (Shibuya/Shinjuku)",
+          desc: "Edomae moderno, tourist-friendly, prenotabile online.",
+          url: "https://autoreserve.com/en/lists/JGu7uVbhNwKsSC3AA47R"
+        }, {
+          tier: "Accessibile",
+          name: "Uobei Shibuya (già nel tuo giorno 2)",
+          desc: "Sushi su 'treno' dal tablet, ~2.200¥ senza prenotazione. Facile in 6.",
+          url: "https://www.google.com/maps/search/?api=1&query=Uobei+Shibuya+Dogenzaka"
+        }]
+      },
+      "12": {
+        kind: "🥩 Cena wagyu speciale",
+        city: "Osaka",
+        note: "In 6 persone: al teppanyaki chiedete il tavolo/piastra per gruppo o la sala privata. Molti prenotano online (Tabelog/byFood).",
+        options: [{
+          tier: "Alto (teppanyaki A5)",
+          name: "Teppanyaki Ousaka (Juso)",
+          desc: "Spesso #1 a Osaka su Tripadvisor, wagyu+aragosta, staff multilingue, vista notturna.",
+          url: "https://www.google.com/search?q=Teppanyaki+Ousaka+reservation"
+        }, {
+          tier: "Medio (Kobe beef)",
+          name: "Teppanyaki Kobe Gyu Steak Zin (Namba)",
+          desc: "A5 Kobe, prenotazione online istantanea, corso omakase.",
+          url: "https://tabelog.com/en/osaka/A2701/A270202/27145189/"
+        }, {
+          tier: "Accessibile",
+          name: "Tetsuju (Namba)",
+          desc: "Bistecca A4+ di manzo nero, menu multilingue, ~5.000¥, casual.",
+          url: "https://www.google.com/search?q=Tetsuju+Namba+teppanyaki+reservation"
+        }]
+      }
     };
     const CITY_META = {
       TOKYO: {
@@ -2433,6 +2477,26 @@
     }
     function ticketSearchUrl(title) {
       return "https://www.google.com/search?q=" + encodeURIComponent(title + " biglietti prenotazione tickets");
+    }
+    // Given a trip start date (YYYY-MM-DD) and a day number (1-based), return the calendar date of that day.
+    function dateForDay(tripStart, dayNumber) {
+      if (!tripStart) return null;
+      const d = new Date(tripStart + "T00:00:00");
+      if (isNaN(d)) return null;
+      d.setDate(d.getDate() + (dayNumber - 1));
+      return d;
+    }
+    // Reminder state for a ticketed stop: 'today' (book today for tomorrow), 'soon', 'past', or null
+    function bookingReminder(tripStart, dayNumber) {
+      const target = dateForDay(tripStart, dayNumber);
+      if (!target) return null;
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      const diffDays = Math.round((target - now) / 86400000);
+      if (diffDays === 1) return "tomorrow"; // visit is tomorrow -> book NOW
+      if (diffDays === 0) return "today"; // visit is today
+      if (diffDays > 1) return "future"; // still upcoming
+      return "past"; // already passed
     }
     function mapsDirUrl(o, d, m) {
       return "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(o) + "&destination=" + encodeURIComponent(d) + "&travelmode=" + m;
@@ -2785,7 +2849,8 @@
         cityMeta: cityMeta,
         editing: editing,
         onUpdateStop: updateStop,
-        onUpdateDayTitle: updateDayTitle
+        onUpdateDayTitle: updateDayTitle,
+        tripStart: data.tripStart
       })), viewMode === "day" && /*#__PURE__*/React.createElement("div", {
         style: {
           position: "fixed",
@@ -2966,9 +3031,32 @@
         style: {
           padding: "16px 18px 8px",
           borderTop: "1px solid rgba(255,255,255,0.08)",
-          marginTop: 10
+          marginTop: 10,
+          display: "flex",
+          flexDirection: "column",
+          gap: 10
         }
-      }, /*#__PURE__*/React.createElement("button", {
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+        className: "jp-sans",
+        style: {
+          fontSize: 12,
+          opacity: 0.7,
+          display: "block",
+          marginBottom: 6
+        }
+      }, "📅 Data di partenza (Giorno 1) — per i promemoria biglietti"), /*#__PURE__*/React.createElement("input", {
+        type: "date",
+        className: "edit-in jp-sans",
+        value: data.tripStart || "",
+        onChange: e => {
+          const n = JSON.parse(JSON.stringify(data));
+          n.tripStart = e.target.value;
+          persist(n);
+        },
+        style: {
+          fontSize: 13
+        }
+      })), /*#__PURE__*/React.createElement("button", {
         className: "jp-sans",
         onClick: resetData,
         style: {
@@ -3006,7 +3094,8 @@
       cityMeta,
       editing,
       onUpdateStop,
-      onUpdateDayTitle
+      onUpdateDayTitle,
+      tripStart
     }) {
       const {
         city,
@@ -3084,7 +3173,9 @@
           stopIndex: realIdx,
           cityMeta: cityMeta,
           editing: editing,
-          onUpdateStop: onUpdateStop
+          onUpdateStop: onUpdateStop,
+          dayNumber: day.number,
+          tripStart: tripStart
         });
       }), eveningStops.length > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         className: "jp-sans",
@@ -3123,9 +3214,14 @@
           stopIndex: realIdx,
           cityMeta: cityMeta,
           editing: editing,
-          onUpdateStop: onUpdateStop
+          onUpdateStop: onUpdateStop,
+          dayNumber: day.number,
+          tripStart: tripStart
         });
-      }))), cityFoods.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
+      }))), SPECIAL_DINING[String(day.number)] && /*#__PURE__*/React.createElement(SpecialDining, {
+        data: SPECIAL_DINING[String(day.number)],
+        accent: cityMeta.color
+      }), cityFoods.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
         icon: /*#__PURE__*/React.createElement(Utensils, {
           size: 16
         }),
@@ -3463,7 +3559,9 @@
       stopIndex,
       cityMeta,
       editing,
-      onUpdateStop
+      onUpdateStop,
+      dayNumber,
+      tripStart
     }) {
       const [showMap, setShowMap] = useState(false);
       const accent = evening ? "#C9B458" : cityMeta.color;
@@ -3473,6 +3571,7 @@
       const officialUrl = hasBookingKey ? BOOKING_LINKS[stop.maps] : null;
       const bookingUrl = stop.booking || officialUrl || (hasBookingKey ? ticketSearchUrl(stop.title) : null);
       const showTicket = !!(stop.booking || hasBookingKey);
+      const reminder = showTicket ? bookingReminder(tripStart, dayNumber) : null;
       return /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
@@ -3692,7 +3791,27 @@
           margin: "0 0 10px",
           opacity: 0.9
         }
-      }, "💡 ", stop.tip), stop.maps && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      }, "💡 ", stop.tip), showTicket && !editing && (reminder === "tomorrow" || reminder === "today" || !tripStart) && /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
+        style: {
+          fontSize: 12.5,
+          lineHeight: 1.5,
+          borderRadius: 8,
+          padding: "8px 11px",
+          margin: "0 0 10px",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          background: reminder === "tomorrow" ? "rgba(228,87,46,0.18)" : reminder === "today" ? "rgba(228,87,46,0.14)" : "rgba(201,180,88,0.12)",
+          border: "1px solid " + (reminder === "tomorrow" || reminder === "today" ? "#E4572E" : "#C9B458"),
+          color: "#E8E2D5",
+          fontWeight: reminder === "tomorrow" ? 700 : 500
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          fontSize: 15
+        }
+      }, reminder === "tomorrow" ? "⏰" : "🎫"), /*#__PURE__*/React.createElement("span", null, reminder === "tomorrow" ? "Domani! Prenota i biglietti ORA se non l'hai già fatto." : reminder === "today" ? "È oggi — controlla di avere i biglietti." : "Richiede prenotazione: falla in anticipo (idealmente il giorno prima).")), stop.maps && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
           gap: 8,
@@ -3910,6 +4029,103 @@
           marginTop: 2
         }
       }, it.desc))))));
+    }
+    function SpecialDining({
+      data,
+      accent
+    }) {
+      return /*#__PURE__*/React.createElement("div", {
+        style: {
+          marginTop: 26,
+          border: "1px solid " + accent + "55",
+          borderRadius: 14,
+          overflow: "hidden"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
+        style: {
+          background: accent + "18",
+          padding: "12px 15px"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 15,
+          fontWeight: 700
+        }
+      }, data.kind), /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: 12,
+          opacity: 0.7,
+          marginTop: 2
+        }
+      }, data.city, " · scegli in base al budget")), /*#__PURE__*/React.createElement("div", {
+        style: {
+          padding: "12px 15px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 10
+        }
+      }, data.options.map((o, i) => /*#__PURE__*/React.createElement("div", {
+        key: i,
+        style: {
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: 10,
+          padding: "11px 13px"
+        }
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
+        style: {
+          fontSize: 11,
+          letterSpacing: 1,
+          textTransform: "uppercase",
+          color: accent,
+          marginBottom: 3
+        }
+      }, o.tier), /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
+        style: {
+          fontSize: 14.5,
+          fontWeight: 600
+        }
+      }, o.name), /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
+        style: {
+          fontSize: 12.5,
+          opacity: 0.75,
+          lineHeight: 1.45,
+          margin: "3px 0 8px"
+        }
+      }, o.desc), /*#__PURE__*/React.createElement("a", {
+        className: "jp-sans",
+        href: o.url,
+        target: "_blank",
+        rel: "noreferrer",
+        style: {
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          background: accent,
+          color: "#0F1A2E",
+          textDecoration: "none",
+          borderRadius: 8,
+          padding: "6px 11px",
+          fontSize: 12.5,
+          fontWeight: 600
+        }
+      }, /*#__PURE__*/React.createElement(Navigation, {
+        size: 13
+      }), " Prenota / info"))), /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
+        style: {
+          fontSize: 12,
+          lineHeight: 1.5,
+          background: "rgba(201,180,88,0.1)",
+          borderLeft: "3px solid #C9B458",
+          borderRadius: "0 6px 6px 0",
+          padding: "8px 11px"
+        }
+      }, "👥 ", data.note)));
     }
     function JapanMap({
       data,
