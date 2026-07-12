@@ -12,7 +12,10 @@
   #boot .k { font-size: 40px; margin-bottom: 10px; }
   #boot .msg { opacity: .7; font-size: 14px; line-height: 1.6; }
   #boot code { background: rgba(255,255,255,.1); padding: 2px 6px; border-radius: 4px; }
+  .leaflet-container { background: #1a2b47 !important; }
+  .leaflet-popup-content { font-family: system-ui, sans-serif; }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" crossorigin />
 </head>
 <body>
 <div id="root">
@@ -35,6 +38,8 @@
         onerror="var s=document.createElement('script');s.src='https://unpkg.com/react@18/umd/react.production.min.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin
         onerror="var s=document.createElement('script');s.src='https://unpkg.com/react-dom@18/umd/react-dom.production.min.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" crossorigin
+        onerror="var s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
 
 <script>
 // Wait until React + ReactDOM are available (covers CDN fallback timing), then run the app.
@@ -2247,6 +2252,101 @@
       }
     };
     const STORAGE_KEY = "japan_itinerary_v1";
+    const PLACE_COORDS = {
+      "Asakusa View Hotel Tokyo": [35.7146, 139.792],
+      "Nakamise Shopping Street Asakusa": [35.7118, 139.7955],
+      "Senso-ji Temple Asakusa": [35.7148, 139.7967],
+      "Sumida Park Tokyo": [35.7112, 139.8006],
+      "Tokyo Skytree": [35.7101, 139.8107],
+      "Tokyo Solamachi": [35.71, 139.8118],
+      "Akihabara Electric Town Tokyo": [35.6984, 139.7731],
+      "Maidreamin Akihabara": [35.6996, 139.7715],
+      "Don Quijote Akihabara": [35.6996, 139.7719],
+      "Hachiko Statue Shibuya": [35.659, 139.7005],
+      "Shibuya Crossing Tokyo": [35.6595, 139.7004],
+      "Shibuya Sky": [35.658, 139.7016],
+      "Meiji Jingu Tokyo": [35.6764, 139.6993],
+      "Takeshita Street Harajuku": [35.6716, 139.7053],
+      "Omote-Sando Avenue Tokyo": [35.6659, 139.7126],
+      "Tokyo Metropolitan Government Building observation deck": [35.6896, 139.6917],
+      "Omoide Yokocho Shinjuku": [35.6935, 139.6992],
+      "Godzilla Head Shinjuku Kabukicho": [35.6952, 139.702],
+      "Shinjuku Golden-Gai": [35.6939, 139.705],
+      "Tsukiji Outer Market Tokyo": [35.6654, 139.7707],
+      "Imperial Palace East Gardens Tokyo": [35.6852, 139.757],
+      "Ginza Kagari ramen": [35.6717, 139.7649],
+      "GINZA SIX Tokyo": [35.6693, 139.764],
+      "teamLab Borderless Azabudai Tokyo": [35.6605, 139.741],
+      "Tokyo Tower night view": [35.6586, 139.7454],
+      "Ginza Tokyo": [35.6717, 139.765],
+      "Nikko Hoshinoyado ryokan": [36.748, 139.603],
+      "Shinkyo Bridge Nikko": [36.7539, 139.599],
+      "Rinnoji Temple Nikko": [36.7555, 139.598],
+      "Nikko Toshogu shrine": [36.758, 139.5989],
+      "Futarasan Shrine Nikko": [36.7591, 139.5967],
+      "Yuba ryori Aburagen Nikko": [36.749, 139.607],
+      "Kegon Falls Nikko": [36.7385, 139.503],
+      "Tsuzumi-mon Gate Kanazawa Station": [36.578, 136.648],
+      "Omicho Market Kanazawa": [36.5716, 136.658],
+      "Kanazawa Castle Park": [36.5654, 136.6591],
+      "Kenrokuen Garden Kanazawa": [36.562, 136.6624],
+      "Kanazawa 21st Century Museum of Contemporary Art": [36.5605, 136.658],
+      "Nagamachi Samurai District Kanazawa": [36.568, 136.652],
+      "Higashi Chaya District Kanazawa": [36.572, 136.6668],
+      "Akamechan Kanazawa": [36.5716, 136.658],
+      "Hotel Kanazawa station": [36.578, 136.647],
+      "Shirakawa-go Gassho village": [36.2578, 136.906],
+      "Kyoto Gion Hotel": [35.0037, 135.7745],
+      "Fushimi Inari Taisha Kyoto": [34.9671, 135.7727],
+      "Kiyomizu-dera Kyoto": [34.9948, 135.785],
+      "Ninenzaka Kyoto": [34.9975, 135.7815],
+      "Yasaka Shrine Kyoto": [35.0036, 135.7785],
+      "Gion Kyoto": [35.0037, 135.7745],
+      "Pontocho Alley Kyoto": [35.0053, 135.7708],
+      "Kinkaku-ji Kyoto": [35.0394, 135.7292],
+      "Arashiyama Bamboo Forest Kyoto": [35.017, 135.6716],
+      "Tenryu-ji Arashiyama Kyoto": [35.0158, 135.6738],
+      "Nishiki Market Kyoto": [35.005, 135.7649],
+      "Nara Park deer": [34.6851, 135.843],
+      "Todai-ji Nara": [34.6889, 135.8398],
+      "Kasugataisha Shrine Nara": [34.6817, 135.8483],
+      "Isuien Garden Nara": [34.687, 135.836],
+      "Naramachi Historic District Nara": [34.678, 135.829],
+      "Mount Wakakusa Nara": [34.6852, 135.856],
+      "Eko-in temple Koyasan": [34.2141, 135.592],
+      "Danjo Garan Koyasan": [34.2131, 135.582],
+      "Kongobu-ji Koyasan": [34.2137, 135.5847],
+      "Daimon Gate Koyasan": [34.213, 135.573],
+      "Okunoin cemetery Koyasan": [34.217, 135.603],
+      "Hotel Forza Osaka Namba Dotonbori": [34.668, 135.503],
+      "Osaka Castle": [34.6873, 135.5259],
+      "Kuromon Market Osaka": [34.665, 135.506],
+      "Dotonbori Glico sign Osaka": [34.6686, 135.501],
+      "Dotonbori Osaka": [34.6687, 135.5013],
+      "Shinsekai Osaka": [34.6524, 135.5061],
+      "Umeda Sky Building Osaka": [34.7052, 135.49],
+      "Shitennoji temple Osaka": [34.6543, 135.5166],
+      "Sumiyoshi Taisha Osaka": [34.6127, 135.4933],
+      "Nipponbashi Denden Town Osaka": [34.6604, 135.506],
+      "Shinsaibashi Osaka": [34.672, 135.501],
+      "Hotel Park Side Hiroshima Peace Park": [34.3945, 132.455],
+      "Atomic Bomb Dome Hiroshima": [34.3955, 132.4536],
+      "Hiroshima Peace Memorial Museum": [34.3914, 132.4525],
+      "Okonomimura Hiroshima": [34.392, 132.46],
+      "Itsukushima Shrine Miyajima": [34.296, 132.3199],
+      "Hakone-Yumoto Station": [35.2325, 139.1069],
+      "Hakone Open-Air Museum": [35.2445, 139.051],
+      "Owakudani Hakone": [35.2447, 139.0197],
+      "Heiwa-no-Torii Hakone Shrine": [35.2044, 139.0257],
+      "Tenzan Onsen Hakone": [35.227, 139.101],
+      "Tokyo Station hotel area": [35.6812, 139.7671],
+      "Ueno Park Tokyo": [35.7156, 139.7745],
+      "Ameyoko market Ueno": [35.7092, 139.7746],
+      "Yanaka Ginza Tokyo": [35.7276, 139.766],
+      "Marunouchi Tokyo": [35.6812, 139.7649],
+      "Shinjuku Tokyo": [35.6896, 139.7006],
+      "Tokyo Station Tokyo": [35.6812, 139.7671]
+    };
     const CITY_META = {
       TOKYO: {
         color: "#E4572E",
@@ -3067,6 +3167,96 @@
         }
       }, n)))));
     }
+    function LeafletDayMap({
+      stops,
+      accent
+    }) {
+      const mapRef = React.useRef(null);
+      const containerRef = React.useRef(null);
+      useEffect(() => {
+        let cancelled = false;
+        let waitTries = 0;
+        function build() {
+          if (cancelled) return;
+          if (!window.L) {
+            // Leaflet not loaded yet — retry briefly
+            if (waitTries++ < 60) {
+              setTimeout(build, 100);
+            }
+            return;
+          }
+          if (!containerRef.current) return;
+          const L = window.L;
+          const pts = [];
+          stops.forEach((s, i) => {
+            const c = s.maps && PLACE_COORDS[s.maps];
+            if (c) pts.push({
+              s,
+              i,
+              latlng: [c[0], c[1]]
+            });
+          });
+          if (pts.length === 0) return;
+          if (!mapRef.current) {
+            mapRef.current = L.map(containerRef.current, {
+              scrollWheelZoom: false,
+              attributionControl: true
+            });
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+              maxZoom: 19,
+              attribution: "© OpenStreetMap"
+            }).addTo(mapRef.current);
+          }
+          const map = mapRef.current;
+          map.eachLayer(layer => {
+            if (!(layer instanceof L.TileLayer)) map.removeLayer(layer);
+          });
+          const latlngs = pts.map(p => p.latlng);
+          L.polyline(latlngs, {
+            color: accent,
+            weight: 3,
+            opacity: 0.8,
+            dashArray: "6 8"
+          }).addTo(map);
+          pts.forEach((p, order) => {
+            const col = p.s.evening ? "#C9B458" : accent;
+            const icon = L.divIcon({
+              className: "",
+              html: '<div style="background:' + col + ';color:#0F1A2E;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;border:2px solid #0F1A2E;box-shadow:0 1px 4px rgba(0,0,0,.5)">' + (order + 1) + '</div>',
+              iconSize: [26, 26],
+              iconAnchor: [13, 13]
+            });
+            L.marker(p.latlng, {
+              icon
+            }).addTo(map).bindPopup('<b>' + (order + 1) + '. ' + p.s.title + '</b><br/>' + p.s.time);
+          });
+          const bounds = L.latLngBounds(latlngs);
+          map.fitBounds(bounds, {
+            padding: [40, 40],
+            maxZoom: 16
+          });
+          setTimeout(() => {
+            if (mapRef.current) mapRef.current.invalidateSize();
+          }, 200);
+        }
+        build();
+        return () => {
+          cancelled = true;
+          if (mapRef.current) {
+            mapRef.current.remove();
+            mapRef.current = null;
+          }
+        };
+      }, [stops, accent]);
+      return /*#__PURE__*/React.createElement("div", {
+        ref: containerRef,
+        style: {
+          width: "100%",
+          height: "100%",
+          background: "#1a2b47"
+        }
+      });
+    }
     function DayRouteMap({
       points,
       accent,
@@ -3075,6 +3265,7 @@
       const [open, setOpen] = useState(true);
       const [mode, setMode] = useState("transit");
       const named = stops.filter(s => s.maps);
+      const withCoords = named.filter(s => PLACE_COORDS[s.maps]).length;
       return /*#__PURE__*/React.createElement("div", {
         style: {
           border: "1px solid " + accent + "55",
@@ -3121,22 +3312,28 @@
         size: 18
       }))), open && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         style: {
-          aspectRatio: "4 / 3",
-          minHeight: 340,
+          height: 360,
           background: "#1a2b47",
-          borderTop: "1px solid " + accent + "33"
+          borderTop: "1px solid " + accent + "33",
+          position: "relative"
         }
-      }, /*#__PURE__*/React.createElement("iframe", {
-        title: "Percorso",
-        src: mapsDayEmbedUrl(points),
+      }, withCoords >= 1 ? /*#__PURE__*/React.createElement(LeafletDayMap, {
+        stops: stops,
+        accent: accent
+      }) : /*#__PURE__*/React.createElement("div", {
+        className: "jp-sans",
         style: {
           width: "100%",
           height: "100%",
-          border: 0
-        },
-        loading: "lazy",
-        referrerPolicy: "no-referrer-when-downgrade"
-      })), /*#__PURE__*/React.createElement("div", {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          opacity: 0.6,
+          fontSize: 13,
+          padding: 20,
+          textAlign: "center"
+        }
+      }, "Mappa non disponibile per questa giornata. Usa il pulsante qui sotto per aprire il percorso in Google Maps.")), /*#__PURE__*/React.createElement("div", {
         style: {
           padding: "12px 15px",
           display: "flex",
@@ -3149,7 +3346,7 @@
           fontSize: 11.5,
           opacity: 0.55
         }
-      }, "Ordine del giorno:"), /*#__PURE__*/React.createElement("div", {
+      }, "Ordine del giorno (parti dal punto 1):"), /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
           flexWrap: "wrap",
