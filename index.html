@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#0F1A2E" />
-<title>Giappone — Itinerario 18 giorni</title>
+<title>Giappone \u2014 Itinerario 18 giorni</title>
 <style>
   html, body { margin: 0; padding: 0; background: #0F1A2E; color: #E8E2D5; }
   #root { min-height: 100vh; }
@@ -17,39 +17,43 @@
 <body>
 <div id="root">
   <div id="boot">
-    <div class="k">日本</div>
-    <div class="msg">Caricamento…<br/>Se resta fermo, controlla la connessione (la pagina scarica React una volta sola).</div>
+    <div class="k">\u65e5\u672c</div>
+    <div class="msg">Caricamento\u2026<br/>Se resta fermo, controlla la connessione (la pagina scarica React una volta sola).</div>
   </div>
 </div>
 
 <script>
+  // Global error surface: show errors on screen instead of a blank page
   window.addEventListener("error", function (e) {
     var r = document.getElementById("root");
-    if (r) r.innerHTML = '<div id="boot"><div class="k">⚠️</div><div class="msg">Si è verificato un errore nel caricamento.<br/><code>' + (e.message || e.type) + '</code></div></div>';
+    if (r) r.innerHTML = '<div id="boot"><div class="k">\u26a0\ufe0f</div><div class="msg">Si \u00e8 verificato un errore nel caricamento.<br/><code>' + (e.message || e.type) + '</code></div></div>';
   });
 </script>
 
+<!-- React from CDN (jsdelivr as primary; unpkg fallback injected if this fails) -->
 <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin
         onerror="var s=document.createElement('script');s.src='https://unpkg.com/react@18/umd/react.production.min.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin
         onerror="var s=document.createElement('script');s.src='https://unpkg.com/react-dom@18/umd/react-dom.production.min.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
 
 <script>
+// Wait until React + ReactDOM are available (covers CDN fallback timing), then run the app.
 (function () {
   var tries = 0;
   function start() {
     tries++;
     if (window.React && window.ReactDOM) {
-      try { runApp(); }
-      catch (err) {
+      try {
+        runApp();
+      } catch (err) {
         var r = document.getElementById("root");
-        if (r) r.innerHTML = '<div id="boot"><div class="k">⚠️</div><div class="msg">Errore di avvio:<br/><code>' + err.message + '</code></div></div>';
+        if (r) r.innerHTML = '<div id="boot"><div class="k">\u26a0\ufe0f</div><div class="msg">Errore di avvio:<br/><code>' + err.message + '</code></div></div>';
       }
       return;
     }
-    if (tries > 100) {
+    if (tries > 100) { // ~10s
       var r = document.getElementById("root");
-      if (r) r.innerHTML = '<div id="boot"><div class="k">⚠️</div><div class="msg">React non si è caricato.<br/>Controlla la connessione e ricarica la pagina.</div></div>';
+      if (r) r.innerHTML = '<div id="boot"><div class="k">\u26a0\ufe0f</div><div class="msg">React non si \u00e8 caricato.<br/>Controlla la connessione e ricarica la pagina.</div></div>';
       return;
     }
     setTimeout(start, 100);
@@ -2330,46 +2334,65 @@
       return "https://maps.google.com/maps?saddr=" + encodeURIComponent(points[0]) + "&daddr=" + points.slice(1).map(p => encodeURIComponent(p)).join("+to:") + "&output=embed";
     }
     const photoCache = {};
-    function usePlacePhoto(query) {
-      const [url, setUrl] = useState(query && photoCache[query] !== undefined ? photoCache[query] : null);
-      const [tried, setTried] = useState(query ? photoCache[query] !== undefined : true);
+    function fetchWikiThumb(term) {
+      const api = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages&piprop=thumbnail&pithumbsize=640&generator=search&gsrlimit=1&gsrsearch=" + encodeURIComponent(term);
+      return fetch(api).then(r => r.json()).then(j => {
+        const pages = j && j.query && j.query.pages;
+        if (pages) for (const k in pages) {
+          if (pages[k].thumbnail) return pages[k].thumbnail.source;
+        }
+        return null;
+      }).catch(() => null);
+    }
+    function fetchCommonsThumb(term) {
+      // Wikimedia Commons image search fallback
+      const api = "https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=1&gsrsearch=" + encodeURIComponent(term) + "&prop=imageinfo&iiprop=url&iiurlwidth=640";
+      return fetch(api).then(r => r.json()).then(j => {
+        const pages = j && j.query && j.query.pages;
+        if (pages) for (const k in pages) {
+          const ii = pages[k].imageinfo;
+          if (ii && ii[0] && ii[0].thumburl) return ii[0].thumburl;
+        }
+        return null;
+      }).catch(() => null);
+    }
+    // query: the search term; override: a user-set photo URL that wins if present
+    function usePlacePhoto(query, override) {
+      const key = query || "";
+      const [url, setUrl] = useState(override || (query && photoCache[key] !== undefined ? photoCache[key] : null));
+      const [tried, setTried] = useState(!!override || (query ? photoCache[key] !== undefined : true));
       useEffect(() => {
         let alive = true;
+        if (override) {
+          setUrl(override);
+          setTried(true);
+          return;
+        }
         if (!query) {
+          setUrl(null);
           setTried(true);
           return;
         }
-        if (photoCache[query] !== undefined) {
-          setUrl(photoCache[query]);
+        if (photoCache[key] !== undefined) {
+          setUrl(photoCache[key]);
           setTried(true);
           return;
         }
-        const api = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages&piprop=thumbnail&pithumbsize=640&generator=search&gsrlimit=1&gsrsearch=" + encodeURIComponent(query);
-        fetch(api).then(r => r.json()).then(j => {
-          let found = null;
-          const pages = j && j.query && j.query.pages;
-          if (pages) for (const k in pages) {
-            if (pages[k].thumbnail) {
-              found = pages[k].thumbnail.source;
-              break;
-            }
-          }
-          photoCache[query] = found;
+        // Try Wikipedia first, then Commons
+        fetchWikiThumb(query).then(found => {
+          if (found) return found;
+          return fetchCommonsThumb(query);
+        }).then(found => {
+          photoCache[key] = found || null;
           if (alive) {
-            setUrl(found);
-            setTried(true);
-          }
-        }).catch(() => {
-          photoCache[query] = null;
-          if (alive) {
-            setUrl(null);
+            setUrl(found || null);
             setTried(true);
           }
         });
         return () => {
           alive = false;
         };
-      }, [query]);
+      }, [query, override]);
       return {
         url,
         tried
@@ -2850,6 +2873,17 @@
         size: 14
       }), " Ripristina originale")))));
     }
+    function dedupeByName(arr) {
+      const seen = {};
+      const out = [];
+      arr.forEach(it => {
+        if (!seen[it.name]) {
+          seen[it.name] = 1;
+          out.push(it);
+        }
+      });
+      return out;
+    }
     function DayView({
       fd,
       cityMeta,
@@ -2866,6 +2900,12 @@
       const dayStops = day.stops.filter(s => !s.evening);
       const eveningStops = day.stops.filter(s => s.evening);
       const routePoints = day.stops.map(s => s.maps).filter(Boolean);
+      // Foods/optional/souvenir/notes in the source live only on the city's last day.
+      // Aggregate them across the whole city so every day of that city shows them.
+      const cityFoods = dedupeByName(city.days.flatMap(d => d.foods || []));
+      const cityOptional = dedupeByName(city.days.flatMap(d => d.optional || []));
+      const citySouvenir = dedupeByName(city.days.flatMap(d => d.souvenir || []));
+      const cityNotes = [...new Set(city.days.flatMap(d => d.notes || []))];
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         style: {
           marginBottom: 18
@@ -2968,28 +3008,28 @@
           editing: editing,
           onUpdateStop: onUpdateStop
         });
-      }))), day.foods && day.foods.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
+      }))), cityFoods.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
         icon: /*#__PURE__*/React.createElement(Utensils, {
           size: 16
         }),
         title: "Da provare",
         color: "#E4572E",
-        items: day.foods
-      }), day.optional && day.optional.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
+        items: cityFoods
+      }), cityOptional.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
         icon: /*#__PURE__*/React.createElement(Sparkles, {
           size: 16
         }),
         title: "Opzionale",
         color: "#8E7CC3",
-        items: day.optional
-      }), day.souvenir && day.souvenir.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
+        items: cityOptional
+      }), citySouvenir.length > 0 && /*#__PURE__*/React.createElement(SectionBlock, {
         icon: /*#__PURE__*/React.createElement(ShoppingBag, {
           size: 16
         }),
         title: "Souvenir",
         color: "#2A9D8F",
-        items: day.souvenir
-      }), day.notes && day.notes.length > 0 && /*#__PURE__*/React.createElement("div", {
+        items: citySouvenir
+      }), cityNotes.length > 0 && /*#__PURE__*/React.createElement("div", {
         style: {
           marginTop: 26,
           background: "rgba(255,255,255,0.04)",
@@ -3016,7 +3056,7 @@
           margin: 0,
           paddingLeft: 18
         }
-      }, day.notes.map((n, i) => /*#__PURE__*/React.createElement("li", {
+      }, cityNotes.map((n, i) => /*#__PURE__*/React.createElement("li", {
         key: i,
         className: "jp-sans",
         style: {
@@ -3032,11 +3072,12 @@
       accent,
       stops
     }) {
-      const [open, setOpen] = useState(false);
+      const [open, setOpen] = useState(true);
+      const [mode, setMode] = useState("transit");
       const named = stops.filter(s => s.maps);
       return /*#__PURE__*/React.createElement("div", {
         style: {
-          border: "1px solid " + accent + "44",
+          border: "1px solid " + accent + "55",
           borderRadius: 14,
           overflow: "hidden",
           background: "rgba(255,255,255,0.03)"
@@ -3049,7 +3090,7 @@
           display: "flex",
           alignItems: "center",
           gap: 10,
-          background: "none",
+          background: accent + "18",
           border: "none",
           color: "#E8E2D5",
           cursor: "pointer",
@@ -3080,7 +3121,8 @@
         size: 18
       }))), open && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         style: {
-          aspectRatio: "16 / 10",
+          aspectRatio: "4 / 3",
+          minHeight: 340,
           background: "#1a2b47",
           borderTop: "1px solid " + accent + "33"
         }
@@ -3099,14 +3141,13 @@
           padding: "12px 15px",
           display: "flex",
           flexDirection: "column",
-          gap: 6
+          gap: 8
         }
       }, /*#__PURE__*/React.createElement("div", {
         className: "jp-sans",
         style: {
           fontSize: 11.5,
-          opacity: 0.55,
-          marginBottom: 2
+          opacity: 0.55
         }
       }, "Ordine del giorno:"), /*#__PURE__*/React.createElement("div", {
         style: {
@@ -3144,11 +3185,42 @@
           display: "flex",
           gap: 8,
           flexWrap: "wrap",
-          marginTop: 8
+          alignItems: "center",
+          marginTop: 4
         }
-      }, /*#__PURE__*/React.createElement("a", {
+      }, /*#__PURE__*/React.createElement("div", {
         className: "jp-sans",
-        href: mapsDayRouteUrl(points, "transit"),
+        style: {
+          display: "flex",
+          background: "rgba(255,255,255,0.06)",
+          borderRadius: 8,
+          padding: 2
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        onClick: () => setMode("transit"),
+        style: {
+          background: mode === "transit" ? accent : "transparent",
+          color: mode === "transit" ? "#0F1A2E" : "#E8E2D5",
+          border: "none",
+          borderRadius: 6,
+          padding: "5px 10px",
+          cursor: "pointer",
+          fontSize: 12
+        }
+      }, "🚆 Treno/bus"), /*#__PURE__*/React.createElement("button", {
+        onClick: () => setMode("walking"),
+        style: {
+          background: mode === "walking" ? accent : "transparent",
+          color: mode === "walking" ? "#0F1A2E" : "#E8E2D5",
+          border: "none",
+          borderRadius: 6,
+          padding: "5px 10px",
+          cursor: "pointer",
+          fontSize: 12
+        }
+      }, "🚶 A piedi")), /*#__PURE__*/React.createElement("a", {
+        className: "jp-sans",
+        href: mapsDayRouteUrl(points, mode),
         target: "_blank",
         rel: "noreferrer",
         style: {
@@ -3165,7 +3237,7 @@
         }
       }, /*#__PURE__*/React.createElement(Navigation, {
         size: 14
-      }), " Apri percorso in Google Maps")))));
+      }), " Apri in Google Maps")))));
     }
     function StopCard({
       stop,
@@ -3181,7 +3253,7 @@
     }) {
       const [showMap, setShowMap] = useState(false);
       const accent = evening ? "#C9B458" : cityMeta.color;
-      const photo = usePlacePhoto(stop.maps);
+      const photo = usePlacePhoto(stop.maps, stop.photo);
       return /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
@@ -3271,7 +3343,53 @@
           inset: 0,
           background: "linear-gradient(180deg, transparent 55%, rgba(15,26,46,0.85))"
         }
-      })), /*#__PURE__*/React.createElement("div", {
+      }), editing && /*#__PURE__*/React.createElement("div", {
+        style: {
+          position: "absolute",
+          top: 8,
+          right: 8,
+          display: "flex",
+          gap: 6
+        }
+      }, /*#__PURE__*/React.createElement("button", {
+        className: "jp-sans",
+        onClick: () => {
+          const cur = stop.photo || "";
+          const v = window.prompt("Incolla l'URL di una foto per questa tappa (lascia vuoto per usare quella automatica):", cur);
+          if (v !== null) onUpdateStop(cityIndex, dayIndex, stopIndex, "photo", v.trim());
+        },
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 5,
+          background: "rgba(15,26,46,0.85)",
+          color: "#E8E2D5",
+          border: "1px solid rgba(255,255,255,0.25)",
+          borderRadius: 8,
+          padding: "6px 9px",
+          cursor: "pointer",
+          fontSize: 12
+        }
+      }, /*#__PURE__*/React.createElement(Edit3, {
+        size: 13
+      }), " Foto"), stop.photo && /*#__PURE__*/React.createElement("button", {
+        className: "jp-sans",
+        onClick: () => onUpdateStop(cityIndex, dayIndex, stopIndex, "photo", ""),
+        style: {
+          display: "flex",
+          alignItems: "center",
+          background: "rgba(15,26,46,0.85)",
+          color: "#E8E2D5",
+          border: "1px solid rgba(255,255,255,0.25)",
+          borderRadius: 8,
+          padding: "6px 8px",
+          cursor: "pointer",
+          fontSize: 12
+        },
+        title: "Rimuovi foto personalizzata"
+      }, /*#__PURE__*/React.createElement(X, {
+        size: 13
+      })))), /*#__PURE__*/React.createElement("div", {
         style: {
           padding: "14px 16px"
         }
