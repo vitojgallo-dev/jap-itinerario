@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#0F1A2E" />
-<title>Giappone \u2014 Itinerario 18 giorni</title>
+<title>Giappone — Itinerario 18 giorni</title>
 <style>
   html, body { margin: 0; padding: 0; background: #0F1A2E; color: #E8E2D5; }
   #root { min-height: 100vh; }
@@ -17,43 +17,39 @@
 <body>
 <div id="root">
   <div id="boot">
-    <div class="k">\u65e5\u672c</div>
-    <div class="msg">Caricamento\u2026<br/>Se resta fermo, controlla la connessione (la pagina scarica React una volta sola).</div>
+    <div class="k">日本</div>
+    <div class="msg">Caricamento…<br/>Se resta fermo, controlla la connessione (la pagina scarica React una volta sola).</div>
   </div>
 </div>
 
 <script>
-  // Global error surface: show errors on screen instead of a blank page
   window.addEventListener("error", function (e) {
     var r = document.getElementById("root");
-    if (r) r.innerHTML = '<div id="boot"><div class="k">\u26a0\ufe0f</div><div class="msg">Si \u00e8 verificato un errore nel caricamento.<br/><code>' + (e.message || e.type) + '</code></div></div>';
+    if (r) r.innerHTML = '<div id="boot"><div class="k">⚠️</div><div class="msg">Si è verificato un errore nel caricamento.<br/><code>' + (e.message || e.type) + '</code></div></div>';
   });
 </script>
 
-<!-- React from CDN (jsdelivr as primary; unpkg fallback injected if this fails) -->
 <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin
         onerror="var s=document.createElement('script');s.src='https://unpkg.com/react@18/umd/react.production.min.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
 <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin
         onerror="var s=document.createElement('script');s.src='https://unpkg.com/react-dom@18/umd/react-dom.production.min.js';s.crossOrigin='anonymous';document.head.appendChild(s);"></script>
 
 <script>
-// Wait until React + ReactDOM are available (covers CDN fallback timing), then run the app.
 (function () {
   var tries = 0;
   function start() {
     tries++;
     if (window.React && window.ReactDOM) {
-      try {
-        runApp();
-      } catch (err) {
+      try { runApp(); }
+      catch (err) {
         var r = document.getElementById("root");
-        if (r) r.innerHTML = '<div id="boot"><div class="k">\u26a0\ufe0f</div><div class="msg">Errore di avvio:<br/><code>' + err.message + '</code></div></div>';
+        if (r) r.innerHTML = '<div id="boot"><div class="k">⚠️</div><div class="msg">Errore di avvio:<br/><code>' + err.message + '</code></div></div>';
       }
       return;
     }
-    if (tries > 100) { // ~10s
+    if (tries > 100) {
       var r = document.getElementById("root");
-      if (r) r.innerHTML = '<div id="boot"><div class="k">\u26a0\ufe0f</div><div class="msg">React non si \u00e8 caricato.<br/>Controlla la connessione e ricarica la pagina.</div></div>';
+      if (r) r.innerHTML = '<div id="boot"><div class="k">⚠️</div><div class="msg">React non si è caricato.<br/>Controlla la connessione e ricarica la pagina.</div></div>';
       return;
     }
     setTimeout(start, 100);
@@ -2250,56 +2246,56 @@
     const CITY_META = {
       TOKYO: {
         color: "#E4572E",
-        kanji: "\u6771\u4eac",
-        romaji: "T\u014dky\u014d",
+        kanji: "東京",
+        romaji: "Tōkyō",
         lat: 35.6762,
         lng: 139.6503
       },
       NIKKO: {
         color: "#2A9D8F",
-        kanji: "\u65e5\u5149",
-        romaji: "Nikk\u014d",
+        kanji: "日光",
+        romaji: "Nikkō",
         lat: 36.7198,
         lng: 139.6982
       },
       KANAZAWA: {
         color: "#8E7CC3",
-        kanji: "\u91d1\u6ca2",
+        kanji: "金沢",
         romaji: "Kanazawa",
         lat: 36.5613,
         lng: 136.6562
       },
       KYOTO: {
         color: "#C1440E",
-        kanji: "\u4eac\u90fd",
-        romaji: "Ky\u014dto",
+        kanji: "京都",
+        romaji: "Kyōto",
         lat: 35.0116,
         lng: 135.7681
       },
       KOYASAN: {
         color: "#5B7553",
-        kanji: "\u9ad8\u91ce\u5c71",
-        romaji: "K\u014dyasan",
+        kanji: "高野山",
+        romaji: "Kōyasan",
         lat: 34.2131,
         lng: 135.5850
       },
       OSAKA: {
         color: "#F4A259",
-        kanji: "\u5927\u962a",
-        romaji: "\u014csaka",
+        kanji: "大阪",
+        romaji: "Ōsaka",
         lat: 34.6937,
         lng: 135.5023
       },
       HIROSHIMA: {
         color: "#4A7C99",
-        kanji: "\u5e83\u5cf6",
+        kanji: "広島",
         romaji: "Hiroshima",
         lat: 34.3853,
         lng: 132.4553
       },
       HAKONE: {
         color: "#6A8EAE",
-        kanji: "\u7bb1\u6839",
+        kanji: "箱根",
         romaji: "Hakone",
         lat: 35.2323,
         lng: 139.1069
@@ -2497,7 +2493,7 @@
           textTransform: "uppercase",
           opacity: 0.55
         }
-      }, "Giappone \\u00b7 18 giorni"), /*#__PURE__*/React.createElement("div", {
+      }, "Giappone · 18 giorni"), /*#__PURE__*/React.createElement("div", {
         style: {
           fontSize: 18,
           fontWeight: 600,
@@ -2509,11 +2505,11 @@
         style: {
           color: cityMeta.color
         }
-      }, "\\u65e5\\u672c"), " Il percorso") : /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
+      }, "日本"), " Il percorso") : /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
         style: {
           color: cityMeta.color
         }
-      }, cityMeta.kanji), " Giorno ", current.day.number, " \\u2014 ", cityMeta.romaji))), /*#__PURE__*/React.createElement("div", {
+      }, cityMeta.kanji), " Giorno ", current.day.number, " — ", cityMeta.romaji))), /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
           alignItems: "center",
@@ -2883,7 +2879,7 @@
           color: cityMeta.color,
           marginBottom: 4
         }
-      }, cityMeta.romaji, " \\u00b7 Giorno ", day.number), editing ? /*#__PURE__*/React.createElement("input", {
+      }, cityMeta.romaji, " · Giorno ", day.number), editing ? /*#__PURE__*/React.createElement("input", {
         className: "edit-in",
         value: day.title,
         onChange: e => onUpdateDayTitle(cityIndex, dayIndex, e.target.value),
@@ -3073,7 +3069,7 @@
           fontSize: 14,
           fontWeight: 600
         }
-      }, "Percorso della giornata \\u00b7 ", points.length, " tappe"), /*#__PURE__*/React.createElement("span", {
+      }, "Percorso della giornata · ", points.length, " tappe"), /*#__PURE__*/React.createElement("span", {
         style: {
           transform: open ? "rotate(90deg)" : "none",
           transition: "transform .2s",
@@ -3143,7 +3139,7 @@
           opacity: 0.3,
           fontSize: 12
         }
-      }, "\\u2192")))), /*#__PURE__*/React.createElement("div", {
+      }, "→")))), /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
           gap: 8,
@@ -3347,7 +3343,7 @@
           fontSize: 12.5,
           lineHeight: 1.45
         }
-      }, /*#__PURE__*/React.createElement("b", null, f.name), f.desc ? " \u2014 " + f.desc : "")))), stop.tip && !editing && /*#__PURE__*/React.createElement("div", {
+      }, /*#__PURE__*/React.createElement("b", null, f.name), f.desc ? " — " + f.desc : "")))), stop.tip && !editing && /*#__PURE__*/React.createElement("div", {
         className: "jp-sans",
         style: {
           fontSize: 12.5,
@@ -3359,7 +3355,7 @@
           margin: "0 0 10px",
           opacity: 0.9
         }
-      }, "\\ud83d\\udca1 ", stop.tip), stop.maps && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      }, "💡 ", stop.tip), stop.maps && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         style: {
           display: "flex",
           gap: 8,
@@ -3435,7 +3431,7 @@
         style: {
           opacity: 0.7
         }
-      }, "\\u2794 prossima tappa:"), stop.move.walk && /*#__PURE__*/React.createElement("a", {
+      }, "➔ prossima tappa:"), stop.move.walk && /*#__PURE__*/React.createElement("a", {
         href: mapsDirUrl(stop.move.walk.origin, stop.move.walk.destination, "walking"),
         target: "_blank",
         rel: "noreferrer",
@@ -3446,7 +3442,7 @@
           borderRadius: 6,
           padding: "3px 8px"
         }
-      }, "\\ud83d\\udeb6 a piedi"), stop.move.transit && /*#__PURE__*/React.createElement("a", {
+      }, "🚶 a piedi"), stop.move.transit && /*#__PURE__*/React.createElement("a", {
         href: mapsDirUrl(stop.move.transit.origin, stop.move.transit.destination, "transit"),
         target: "_blank",
         rel: "noreferrer",
@@ -3457,7 +3453,7 @@
           borderRadius: 6,
           padding: "3px 8px"
         }
-      }, "\\ud83d\\ude86 treno/bus")))));
+      }, "🚆 treno/bus")))));
     }
     function SectionBlock({
       icon,
@@ -3562,7 +3558,7 @@
           opacity: 0.75,
           margin: "0 0 16px"
         }
-      }, "Il percorso completo attraverso l'arcipelago \\u2014 tocca una tappa per aprirne le giornate."), /*#__PURE__*/React.createElement("div", {
+      }, "Il percorso completo attraverso l'arcipelago — tocca una tappa per aprirne le giornate."), /*#__PURE__*/React.createElement("div", {
         style: {
           borderRadius: 16,
           overflow: "hidden",
@@ -3716,7 +3712,7 @@
             fontSize: 12,
             opacity: 0.6
           }
-        }, "Giorni ", c.dayrange, " \\u00b7 ", c.days.length, " ", c.days.length === 1 ? "giornata" : "giornate")), /*#__PURE__*/React.createElement("span", {
+        }, "Giorni ", c.dayrange, " · ", c.days.length, " ", c.days.length === 1 ? "giornata" : "giornate")), /*#__PURE__*/React.createElement("span", {
           style: {
             opacity: 0.5,
             flexShrink: 0,
