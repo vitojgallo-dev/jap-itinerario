@@ -1,0 +1,9 @@
+.mappa-controlli { display: grid; gap: 8px; margin: 12px 0; }
+.mappa { height: calc(100dvh - 330px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); min-height: 300px; border-radius: 16px; overflow: hidden; isolation: isolate; border: 0.5px solid var(--bordo); }
+.leaflet-container { background: var(--superficie-2); font: 13px/1.4 var(--font); }
+.segnaposto-contenitore { background: none; border: 0; }
+.segnaposto {
+  display: flex; width: 28px; height: 28px; border-radius: 50%; align-items: center; justify-content: center;
+  background: var(--c); color: var(--t); font: 700 13px/1 var(--font); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+.segnaposto.fatto { opacity: 0.5; }
