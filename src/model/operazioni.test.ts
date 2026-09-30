@@ -36,6 +36,9 @@ describe('tappe', () => {
     expect(() => op.aggiornaTappa(base(), 'g9', 'a', {})).toThrow('giorno g9')
     expect(() => op.aggiornaTappa(base(), 'g0', 'z', {})).toThrow('tappa z')
   })
+  test('spostaTappa con da fuori range lancia errore', () => {
+    expect(() => op.spostaTappa(base(), 'g0', 5, 0)).toThrow('posizione 5 fuori dall\'elenco')
+  })
   test('nuovaTappa ha valori di partenza', () => {
     const n = op.nuovaTappa({ titolo: 'X' })
     expect(n).toMatchObject({ titolo: 'X', ora: null, tipo: 'visita', stato: 'da-fare', nota: '', descrizione: '', consiglio: '', sera: false })
@@ -61,6 +64,18 @@ describe('giorni', () => {
     expect(op.eliminaGiorno(base(), 'g1').giorni.map(g => g.id)).toEqual(['g0', 'g2'])
     expect(op.spostaGiorno(base(), 2, 0).giorni.map(g => g.id)).toEqual(['g2', 'g0', 'g1'])
     expect(op.aggiornaGiorno(base(), 'g2', { cittaId: 'tokyo', titolo: 'T' }).giorni[2]).toMatchObject({ cittaId: 'tokyo', titolo: 'T' })
+  })
+  test('spostaGiorno con a fuori range si clampizza al limite', () => {
+    expect(op.spostaGiorno(base(), 0, 99).giorni.map(g => g.id)).toEqual(['g1', 'g2', 'g0'])
+  })
+  test('duplicaGiorno non muta il viaggio originale', () => {
+    const v = base()
+    const n = op.duplicaGiorno(v, 'g1')
+    expect(v.giorni).toHaveLength(3)
+    expect(v.giorni[1].id).toBe('g1')
+    expect(v.giorni[1].tappe[0].stato).toBe('fatta')
+    expect(v.giorni[1].tappe[0].nota).toBe('bello')
+    expect(n.giorni).toHaveLength(4)
   })
   test('aggiornaAlloggio cambia tutti i giorni con lo stesso hotel', () => {
     const n = op.aggiornaAlloggio(base(), 'Hotel A', { indirizzoJa: '東京都台東区' })

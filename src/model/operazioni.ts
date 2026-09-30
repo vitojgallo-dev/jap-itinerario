@@ -22,9 +22,11 @@ export function ordinaPerOra(tappe: Tappa[]): Tappa[] {
 }
 
 function sposta<T>(elenco: T[], da: number, a: number): T[] {
+  if (da < 0 || da >= elenco.length) throw new Error(`posizione ${da} fuori dall'elenco`)
   const n = [...elenco]
   const [x] = n.splice(da, 1)
-  n.splice(a, 0, x)
+  const destinazione = Math.max(0, Math.min(a, n.length))
+  n.splice(destinazione, 0, x)
   return n
 }
 
