@@ -1,0 +1,6 @@
+.invito { display: flex; gap: 12px; align-items: center; margin: 12px 0; }
+.invito > svg { color: var(--tinta-testo); flex-shrink: 0; }
+.invito > div { flex: 1; min-width: 0; }
+.invito p { font-size: 14px; margin-top: 2px; }
+.istruzioni { padding-left: 22px; display: grid; gap: 12px; margin: 8px 0 16px; }
+.istruzioni svg { vertical-align: -3px; }

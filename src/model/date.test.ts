@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import {
   aggiungiGiorni, differenzaGiorni, formatoData, formatoDurata, istanteTokyo,
-  minutiDaOra, normalizzaOra, partiData,
+  minutiDaOra, normalizzaOra, oraDaMinuti, partiData,
 } from './date'
 
 describe('date', () => {
@@ -48,5 +48,10 @@ describe('date', () => {
     expect(formatoDurata(25)).toBe('25 min')
     expect(formatoDurata(60)).toBe('1 h')
     expect(formatoDurata(135)).toBe('2 h 15')
+  })
+
+  test('oraDaMinuti', () => {
+    expect(oraDaMinuti(510)).toBe('08:30')
+    expect(oraDaMinuti(24 * 60 + 15)).toBe('00:15')
   })
 })

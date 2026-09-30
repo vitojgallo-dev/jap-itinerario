@@ -72,3 +72,8 @@ export function formatoDurata(minuti: number): string {
   const h = Math.floor(minuti / 60), m = minuti % 60
   return m === 0 ? `${h} h` : `${h} h ${String(m).padStart(2, '0')}`
 }
+
+export function oraDaMinuti(m: number): string {
+  const x = ((m % 1440) + 1440) % 1440
+  return `${String(Math.floor(x / 60)).padStart(2, '0')}:${String(x % 60).padStart(2, '0')}`
+}
