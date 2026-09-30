@@ -1,0 +1,86 @@
+import { describe, expect, test } from 'vitest'
+import { giornoDiProva, tappaDiProva as t, viaggioDiProva } from './fixture'
+import * as op from './operazioni'
+
+const base = () => viaggioDiProva({
+  giorni: [
+    giornoDiProva({ id: 'g0', alloggio: { nome: 'Hotel A', query: 'Hotel A' }, tappe: [t({ id: 'a', ora: '09:00' }), t({ id: 'b', ora: '12:00' })] }),
+    giornoDiProva({ id: 'g1', alloggio: { nome: 'Hotel A', query: 'Hotel A' }, tappe: [t({ id: 'c', ora: '10:00', stato: 'fatta', nota: 'bello' })] }),
+    giornoDiProva({ id: 'g2', cittaId: 'kyoto' }),
+  ],
+})
+
+describe('tappe', () => {
+  test('aggiornaTappa non muta l\'originale e riordina se cambia l\'ora', () => {
+    const v = base()
+    const n = op.aggiornaTappa(v, 'g0', 'a', { ora: '13:00', titolo: 'A2' })
+    expect(v.giorni[0].tappe[0].titolo).toBe('a')
+    expect(n.giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
+    expect(n.giorni[0].tappe[1].titolo).toBe('A2')
+  })
+  test('aggiornaTappa senza ora non riordina', () => {
+    const v = op.spostaTappa(base(), 'g0', 0, 1)
+    expect(op.aggiornaTappa(v, 'g0', 'a', { nota: 'x' }).giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
+  })
+  test('aggiungiTappa la mette al posto giusto per ora', () => {
+    const n = op.aggiungiTappa(base(), 'g0', t({ id: 'n', ora: '10:30' }))
+    expect(n.giorni[0].tappe.map(x => x.id)).toEqual(['a', 'n', 'b'])
+    const senzaOra = op.aggiungiTappa(base(), 'g0', t({ id: 'm' }))
+    expect(senzaOra.giorni[0].tappe.map(x => x.id)).toEqual(['a', 'b', 'm'])
+  })
+  test('eliminaTappa e spostaTappa', () => {
+    expect(op.eliminaTappa(base(), 'g0', 'a').giorni[0].tappe.map(x => x.id)).toEqual(['b'])
+    expect(op.spostaTappa(base(), 'g0', 1, 0).giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
+  })
+  test('id sconosciuti lanciano un errore', () => {
+    expect(() => op.aggiornaTappa(base(), 'g9', 'a', {})).toThrow('giorno g9')
+    expect(() => op.aggiornaTappa(base(), 'g0', 'z', {})).toThrow('tappa z')
+  })
+  test('nuovaTappa ha valori di partenza', () => {
+    const n = op.nuovaTappa({ titolo: 'X' })
+    expect(n).toMatchObject({ titolo: 'X', ora: null, tipo: 'visita', stato: 'da-fare', nota: '', descrizione: '', consiglio: '', sera: false })
+    expect(n.id).toMatch(/^t-/)
+  })
+})
+
+describe('giorni', () => {
+  test('aggiungiGiorno dopo un indice', () => {
+    const n = op.aggiungiGiorno(base(), 0, 'kyoto')
+    expect(n.giorni).toHaveLength(4)
+    expect(n.giorni[1]).toMatchObject({ cittaId: 'kyoto', tappe: [], titolo: 'Nuovo giorno' })
+  })
+  test('duplicaGiorno cambia gli id e azzera stati e note', () => {
+    const n = op.duplicaGiorno(base(), 'g1')
+    expect(n.giorni).toHaveLength(4)
+    const copia = n.giorni[2]
+    expect(copia.id).not.toBe('g1')
+    expect(copia.tappe[0].id).not.toBe('c')
+    expect(copia.tappe[0]).toMatchObject({ stato: 'da-fare', nota: '' })
+  })
+  test('eliminaGiorno, spostaGiorno, aggiornaGiorno', () => {
+    expect(op.eliminaGiorno(base(), 'g1').giorni.map(g => g.id)).toEqual(['g0', 'g2'])
+    expect(op.spostaGiorno(base(), 2, 0).giorni.map(g => g.id)).toEqual(['g2', 'g0', 'g1'])
+    expect(op.aggiornaGiorno(base(), 'g2', { cittaId: 'tokyo', titolo: 'T' }).giorni[2]).toMatchObject({ cittaId: 'tokyo', titolo: 'T' })
+  })
+  test('aggiornaAlloggio cambia tutti i giorni con lo stesso hotel', () => {
+    const n = op.aggiornaAlloggio(base(), 'Hotel A', { indirizzoJa: '東京都台東区' })
+    expect(n.giorni.slice(0, 2).map(g => g.alloggio?.indirizzoJa)).toEqual(['東京都台東区', '東京都台東区'])
+    expect(n.giorni[2].alloggio).toBeNull()
+  })
+})
+
+describe('città, viaggio, impostazioni', () => {
+  test('aggiungiCitta, aggiornaCitta, eliminaCitta', () => {
+    const { viaggio, id } = op.aggiungiCitta(base(), { nome: 'Nara', kanji: '奈良', romaji: 'Nara', colore: '#123456', lat: 34.68, lng: 135.8, intro: '', clima: { max: 33, min: 23 } })
+    expect(viaggio.citta.find(c => c.id === id)?.nome).toBe('Nara')
+    expect(op.aggiornaCitta(viaggio, id, { colore: '#000000' }).citta.find(c => c.id === id)?.colore).toBe('#000000')
+    expect(op.eliminaCitta(viaggio, id).citta.some(c => c.id === id)).toBe(false)
+    expect(() => op.eliminaCitta(viaggio, 'kyoto')).toThrow('usata')
+  })
+  test('aggiornaViaggio, aggiornaPersona, aggiornaImpostazioni', () => {
+    const n = op.aggiornaImpostazioni(op.aggiornaPersona(op.aggiornaViaggio(base(), { dataPartenza: '2027-08-09' }), 'p1', 'V'), { tema: 'scuro' })
+    expect(n.dataPartenza).toBe('2027-08-09')
+    expect(n.persone[0].nome).toBe('V')
+    expect(n.impostazioni.tema).toBe('scuro')
+  })
+})
