@@ -1,5 +1,5 @@
 import { minutiDaOra } from '../src/model/date'
-import type { Avviso, Giorno, InfoEvento, Luogo, Tappa, TipoTappa, Viaggio } from '../src/model/tipi'
+import type { Avviso, Giorno, InfoEvento, Luogo, Suggerimento, Tappa, TipoTappa, Viaggio } from '../src/model/tipi'
 
 const L = (nome: string, query: string, lat: number, lng: number): Luogo => ({ nome, query, lat, lng })
 const FONTI = {
@@ -58,11 +58,16 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
   const g10 = g(10)
   const cena = tappa(g10, 'Cena a Nara o rientro a Kyoto')
   const kasuga = tappa(g10, 'Santuario Kasuga Taisha')
+  // Al G7 restano i suggerimenti di Nara; quelli di Kyoto vanno al G10 (centro e Nishiki).
+  // Il Kasuga Taisha di sera non serve più: ora è una tappa.
+  const diNara = (s: Suggerimento) => [s.nome, s.descrizione, s.luogo?.nome, s.luogo?.query].some(x => x?.includes('Nara'))
+  const suggerimentiNara = g10.suggerimenti.filter(s => s.nome !== 'Kasuga Taisha di sera (Nara)')
+  g(9).suggerimenti = [...g(9).suggerimenti, ...suggerimentiNara.filter(s => !diNara(s))]
   const nara: Giorno = {
     id: 'g-nara', cittaId: 'kyoto', titolo: 'Verso Kyoto, sera di lanterne a Nara',
     intro: 'Il 15 agosto è la sera più bella di Nara: 3.000 lanterne accese al Kasuga Taisha, lumini al Tōdai-ji e il falò Daimonji sul monte alle 20:00.',
     note: '', alloggio: structuredClone(hotelKyoto),
-    consigli: [], suggerimenti: g10.suggerimenti, speciale: null,
+    consigli: g10.consigli, suggerimenti: suggerimentiNara.filter(diNara), speciale: null,
     avvisi: [
       attenzione('Obon, giorno di controesodo: prenotate i posti Kanazawa → Kyoto appena aprono (un mese prima, alle 10:00).'),
       info('Stasera a Nara: Kasuga Chūgen Mantōrō (19–21:30) e falò Daimonji alle 20:00.'),
@@ -75,13 +80,13 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       nuova('t-nara-3', '11:45', 'Treno per Nara', 'spostamento',
         'Kintetsu Kyoto Line, espresso limitato circa 35 minuti; oppure JR Nara Line circa 45 minuti (coperta dal JR Pass).',
         L('Stazione di Kyoto', 'Kyoto Station', 34.9858, 135.7588), { spostamento: { modo: 'treno', minuti: 45 } }),
-      { ...tappa(g10, 'Parco di Nara + cervi'), ora: '13:00' },
-      { ...tappa(g10, 'Todai-ji (Grande Buddha)'), ora: '13:45' },
-      { ...tappa(g10, 'Giardino Isuien'), ora: '15:15' },
-      { ...tappa(g10, 'Naramachi (centro storico)'), ora: '16:15' },
-      { ...cena, ora: '18:00', titolo: 'Cena a Nara', sera: true, descrizione: 'Cena presto a Naramachi o vicino alla stazione Kintetsu, poi di nuovo nel parco per le lanterne.' },
+      { ...tappa(g10, 'Parco di Nara + cervi'), ora: '13:00', spostamento: { modo: 'piedi', minuti: 10 } },
+      { ...tappa(g10, 'Todai-ji (Grande Buddha)'), ora: '13:45', spostamento: { modo: 'piedi', minuti: 10 } },
+      { ...tappa(g10, 'Giardino Isuien'), ora: '15:15', spostamento: { modo: 'piedi', minuti: 20 } },
+      { ...tappa(g10, 'Naramachi (centro storico)'), ora: '16:15', spostamento: { modo: 'piedi', minuti: 5 } },
+      { ...cena, ora: '18:00', titolo: 'Cena a Nara', sera: true, descrizione: 'Cena presto a Naramachi o vicino alla stazione Kintetsu, poi di nuovo nel parco per le lanterne.', spostamento: { modo: 'piedi', minuti: 25 } },
       {
-        ...kasuga, ora: '19:00', sera: true, tipo: 'evento', titolo: 'Kasuga Chūgen Mantōrō',
+        ...kasuga, ora: '19:00', sera: true, tipo: 'evento', titolo: 'Kasuga Chūgen Mantōrō', spostamento: { modo: 'piedi', minuti: 10 },
         descrizione: 'Le 3.000 lanterne di pietra e bronzo del santuario accese tutte insieme, solo il 14 e il 15 agosto.',
         consiglio: "Il corridoio interno costa circa 700 ¥ e c'è coda: arrivate entro le 19.",
         ...evento({ nome: 'Kasuga Chūgen Mantōrō', nomeJa: '中元万燈籠', affidabilita: 'certa', fonte: FONTI.nara }),
@@ -89,7 +94,7 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       nuova('t-nara-4', '20:00', 'Falò Daimonji e lanterne del Tōdai-ji', 'evento',
         'Il falò a forma di 大 si accende sul monte Takamado: si vede bene dal prato di Tobihino. Intanto il Tōdai-ji è illuminato dai lumini del Mantō Kuyōe.',
         L('Prato di Tobihino', 'Tobihino Nara Park', 34.6845, 135.8440),
-        evento({ nome: 'Nara Daimonji Okuribi', nomeJa: '奈良大文字送り火', affidabilita: 'certa', fonte: FONTI.nara })),
+        { ...evento({ nome: 'Nara Daimonji Okuribi', nomeJa: '奈良大文字送り火', affidabilita: 'certa', fonte: FONTI.nara }), spostamento: { modo: 'piedi', minuti: 20 } }),
       nuova('t-nara-5', '21:00', 'Rientro a Kyoto', 'spostamento', 'Espressi Kintetsu fino a tarda sera; dopo il falò i treni sono pieni.',
         L('Stazione Kintetsu Nara', 'Kintetsu Nara Station', 34.6843, 135.8279), { spostamento: { modo: 'treno', minuti: 45 } }),
     ],
@@ -104,27 +109,30 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
     info('Gozan no Okuribi: i cinque falò si accendono fra le 20:00 e le 20:20. Da Arashiyama si vede il torii; per il 大 bisogna stare sul fiume Kamo.'),
     attenzione("Dopo le 21 treni e bus pienissimi: mettete in conto un'ora per rientrare."),
   ]
+  // Lo spostamento di una tappa porta alla tappa che la segue.
   g8.tappe = [
-    tappa(g8, 'Partenza'),
-    tappa(g8, "Kinkaku-ji (Padiglione d'Oro)"),
-    nuova('t-okuribi-1', '11:30', 'Pausa nelle ore calde', 'libero', 'A Kyoto a metà agosto si superano i 35°: pranzo e riposo in hotel, la giornata vera è stasera.'),
-    { ...tappa(g8, 'Tempio Tenryu-ji'), ora: '15:30', consiglio: 'Il giardino chiude alle 17:00.' },
-    { ...tappa(g8, 'Foresta di bambu di Arashiyama'), ora: '16:30', consiglio: 'Verso sera meno gente e meno caldo.' },
-    nuova('t-okuribi-2', '17:30', 'Cena ad Arashiyama', 'cibo', 'Tofu, yudofu e soba lungo il fiume; mangiate presto per prendere posto sulla riva.', { ...togetsukyo, nome: 'Arashiyama', query: 'Arashiyama Kyoto' }),
+    { ...tappa(g8, 'Partenza'), spostamento: { modo: 'mezzi', minuti: 45 } },
+    { ...tappa(g8, "Kinkaku-ji (Padiglione d'Oro)"), spostamento: { modo: 'mezzi', minuti: 45 } },
+    nuova('t-okuribi-1', '11:30', 'Pausa nelle ore calde', 'libero', 'A Kyoto a metà agosto si superano i 35°: pranzo e riposo in hotel, la giornata vera è stasera.',
+      undefined, { spostamento: { modo: 'treno', minuti: 45 } }),
+    { ...tappa(g8, 'Tempio Tenryu-ji'), ora: '15:30', consiglio: 'Il giardino chiude alle 17:00.', spostamento: { modo: 'piedi', minuti: 5 } },
+    { ...tappa(g8, 'Foresta di bambu di Arashiyama'), ora: '16:30', consiglio: 'Verso sera meno gente e meno caldo.', spostamento: { modo: 'piedi', minuti: 15 } },
+    nuova('t-okuribi-2', '17:30', 'Cena ad Arashiyama', 'cibo', 'Tofu, yudofu e soba lungo il fiume; mangiate presto per prendere posto sulla riva.', { ...togetsukyo, nome: 'Arashiyama', query: 'Arashiyama Kyoto' },
+      { spostamento: { modo: 'piedi', minuti: 5 } }),
     nuova('t-okuribi-3', '19:00', 'Lanterne sul fiume', 'evento',
       "Migliaia di lanterne affidate alla corrente del Katsura per accompagnare gli spiriti dell'Obon. La lanterna si può comprare dalle 12.",
       togetsukyo, evento({ nome: 'Arashiyama Tōrō Nagashi', nomeJa: '嵐山灯籠流し', affidabilita: 'certa', fonte: FONTI.arashiyama })),
     nuova('t-okuribi-4', '20:20', 'Falò a forma di torii', 'evento',
       "L'ultimo dei cinque falò dell'Okuribi, sul monte Mandara, proprio sopra il fiume: il momento più bello della serata.",
-      structuredClone(togetsukyo), evento({ nome: 'Gozan no Okuribi', nomeJa: '五山送り火', affidabilita: 'certa', fonte: FONTI.okuribi })),
-    nuova('t-okuribi-5', '21:00', 'Rientro in hotel', 'spostamento', 'Randen o JR Sagano Line; aspettatevi code alle stazioni.', structuredClone(hotelKyoto), { spostamento: { modo: 'treno', minuti: 50 } }),
+      structuredClone(togetsukyo), { ...evento({ nome: 'Gozan no Okuribi', nomeJa: '五山送り火', affidabilita: 'certa', fonte: FONTI.okuribi }), spostamento: { modo: 'treno', minuti: 50 } }),
+    nuova('t-okuribi-5', '21:00', 'Rientro in hotel', 'spostamento', 'Randen o JR Sagano Line; aspettatevi code alle stazioni.', structuredClone(hotelKyoto)),
   ]
 
   // G11 — Kurama e Kibune
   const kurama: Giorno = {
     id: 'g-kurama', cittaId: 'kyoto', titolo: 'Kurama e Kibune, in montagna sopra Kyoto',
     intro: "Un'ora di treno e dieci gradi in meno: il tempio di Kurama fra i cedri, il sentiero nel bosco e il pranzo sulle piattaforme sopra il torrente.",
-    note: '', alloggio: structuredClone(hotelKyoto), consigli: g10.consigli, suggerimenti: [], speciale: null,
+    note: '', alloggio: structuredClone(hotelKyoto), consigli: [], suggerimenti: [], speciale: null,
     avvisi: [info("Alternativa: Uji (Byōdō-in e matcha). Se preferite, cambiate il giorno dall'app.")],
     tappe: [
       nuova('t-kurama-1', '09:00', 'Treno Eizan per Kurama', 'spostamento', 'Da Demachiyanagi circa 30 minuti; non è coperto dal JR Pass.',
@@ -182,6 +190,127 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       nuova('t-partenza-5', '17:00', 'In aeroporto', 'spostamento', 'Check-in, rimborso tax-free, ultimi yen al konbini.', structuredClone(haneda)),
     ],
   }
+
+  // Trasferimenti: ogni giorno comincia da dove si è dormito la notte prima.
+  // Cambia l'ora; una tappa che slitta dopo le 18 diventa di sera, una già di sera resta tale.
+  const conOra = (t: Tappa, ora: string): Tappa => ({ ...t, ora, sera: t.sera || minutiDaOra(ora)! >= 18 * 60 })
+
+  // G4 — da Asakusa a Nikko
+  const g4 = g(4)
+  g4.titolo = 'Templi di Nikko, lago Chuzenji e cascata Kegon'
+  g4.tappe = [
+    nuova('t-nikko-1', '07:00', 'Treno Asakusa → Nikko', 'spostamento',
+      'Tobu Limited Express (Spacia X o Revaty) da Asakusa a Tobu-Nikko, circa 1 ora e 50. Si prenota; non è coperto dal JR Pass.',
+      L('Stazione Tobu di Asakusa', 'Tobu Asakusa Station', 35.7115, 139.7982), { spostamento: { modo: 'treno', minuti: 110 } }),
+    conOra(tappa(g4, 'Ponte Shinkyo'), '09:15'),
+    conOra(tappa(g4, 'Tempio Rinno-ji'), '09:40'),
+    conOra(tappa(g4, 'Nikko Toshogu'), '10:30'),
+    conOra(tappa(g4, 'Santuario Futarasan'), '12:15'),
+    conOra(tappa(g4, 'Pranzo a Nikko'), '13:00'),
+    conOra(tappa(g4, 'Lago Chuzenji + Cascata Kegon'), '14:30'),
+    conOra(tappa(g4, 'Onsen e cena kaiseki'), '17:30'),
+  ]
+
+  // G5 — da Nikko a Kanazawa, visite compattate nel pomeriggio; museo e Nagamachi passano al G6
+  const g5 = g(5)
+  const hotelKanazawa = structuredClone(g5.alloggio)
+  if (!hotelKanazawa) throw new Error('alloggio di Kanazawa mancante')
+  const museo = tappa(g5, 'Museo del 21 secolo')
+  const nagamachi = tappa(g5, 'Quartiere samurai Nagamachi')
+  const omicho = tappa(g5, 'Mercato Omicho')
+  g5.titolo = 'Verso Kanazawa: mercato, Kenrokuen e il quartiere delle geishe'
+  g5.tappe = [
+    nuova('t-kanazawa-1', '07:30', 'Treno Nikko → Kanazawa', 'spostamento',
+      "JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya, Hokuriku Shinkansen fino a Kanazawa: circa 4 ore e 30, coperto dal JR Pass. Con l'inizio dell'Obon i posti riservati sono indispensabili.",
+      L('Stazione JR di Nikko', 'JR Nikko Station', 36.7479, 139.6187), { spostamento: { modo: 'treno', minuti: 270 } }),
+    {
+      ...conOra(tappa(g5, 'Partenza e Porta Tsuzumi'), '12:15'), titolo: 'Bagagli in hotel e Porta Tsuzumi', tipo: 'hotel',
+      descrizione: "Lasciate le valigie in hotel, davanti alla stazione, e passate sotto la grande porta di legno Tsuzumi-mon.",
+      luogo: structuredClone(hotelKanazawa), spostamento: { modo: 'piedi', minuti: 15 },
+    },
+    { ...conOra(omicho, '12:45'), tipo: 'cibo', descrizione: `${omicho.descrizione} Il pranzo si fa qui, ai banchi o nei piccoli locali di kaisendon.`, spostamento: { modo: 'piedi', minuti: 20 } },
+    { ...conOra(tappa(g5, 'Giardino Kenrokuen'), '14:00'), spostamento: { modo: 'piedi', minuti: 10 } },
+    { ...conOra(tappa(g5, 'Castello di Kanazawa'), '15:15'), spostamento: { modo: 'piedi', minuti: 25 } },
+    conOra(tappa(g5, 'Quartiere geishe Higashi Chaya'), '16:30'),
+    { ...conOra(tappa(g5, 'Lanterne a Higashi Chaya'), '18:00'), spostamento: { modo: 'mezzi', minuti: 15 } },
+    conOra(tappa(g5, 'Cena'), '19:00'),
+  ]
+  const g6 = g(6)
+  const rientroG6 = tappa(g6, 'Rientro a Kanazawa')
+  rientroG6.descrizione = 'Autobus di ritorno alla stazione di Kanazawa. Il pomeriggio resta per il museo e il quartiere samurai.'
+  rientroG6.spostamento = { modo: 'mezzi', minuti: 15 }
+  g6.tappe = [
+    ...g6.tappe,
+    { ...conOra(museo, '15:30'), spostamento: { modo: 'piedi', minuti: 15 } },
+    conOra(nagamachi, '17:00'),
+  ]
+
+  // G12 — da Kyoto a Osaka
+  const g12 = g(12)
+  g12.tappe = [
+    nuova('t-osaka-1', '08:30', 'Treno Kyoto → Osaka e bagagli in hotel', 'spostamento',
+      "JR Special Rapid, circa 30 minuti fino a Osaka, poi metro per Namba. Bagagli all'Hotel Forza, a due passi da Dotonbori.",
+      L('Stazione di Kyoto', 'Kyoto Station', 34.9858, 135.7588), { spostamento: { modo: 'treno', minuti: 50 } }),
+    conOra(tappa(g12, 'Partenza per il castello'), '09:30'),
+    conOra(tappa(g12, 'Castello di Osaka'), '10:00'),
+    ...g12.tappe.filter(t => t.titolo !== 'Partenza per il castello' && t.titolo !== 'Castello di Osaka'),
+  ]
+
+  // G14 — solo il titolo
+  g(14).titolo = 'Templi del sud e ultimi acquisti'
+
+  // G16 — da Osaka a Hakone
+  const g16 = g(16)
+  const ryokan = tappa(g16, 'Partenza dal ryokan')
+  const alloggioHakone = structuredClone(g16.alloggio)
+  if (!alloggioHakone) throw new Error('alloggio di Hakone mancante')
+  g16.titolo = "Da Osaka a Hakone: museo all'aperto, Owakudani e lago Ashi"
+  g16.intro = "Mattina in Shinkansen fino a Odawara, bagagli al ryokan e poi il giro ad anello col Free Pass: museo all'aperto, la valle vulcanica di Owakudani e il lago Ashi. La sera onsen e kaiseki."
+  g16.tappe = [
+    nuova('t-hakone-1', '07:30', 'Treno Osaka → Hakone', 'spostamento',
+      "Shinkansen Hikari da Shin-Osaka a Odawara, circa 2 ore e 10 (JR Pass), poi Hakone Tozan fino a Hakone-Yumoto, 15 minuti. Conviene comprare l'Hakone Free Pass a Odawara.",
+      L('Stazione di Shin-Osaka', 'Shin-Osaka Station', 34.7334, 135.5001), { spostamento: { modo: 'treno', minuti: 150 } }),
+    {
+      ...conOra(ryokan, '10:30'), titolo: 'Bagagli al ryokan', tipo: 'hotel', luogo: alloggioHakone,
+      descrizione: "Lasciate le valigie al ryokan (il check-in è nel pomeriggio), poi si parte per il giro ad anello col Free Pass: treno a cremagliera, funivia, battello, bus.",
+    },
+    conOra(tappa(g16, "Museo all'aperto di Hakone"), '11:15'),
+    conOra(tappa(g16, 'Owakudani'), '13:30'),
+    conOra(tappa(g16, 'Lago Ashi e Torii di Hakone'), '15:00'),
+    conOra(tappa(g16, 'Tenzan Onsen'), '17:00'),
+    conOra(tappa(g16, 'Bagno serale cena kaiseki'), '19:00'),
+  ]
+
+  // G17 — da Hakone a Tokyo
+  const g17 = g(17)
+  g17.titolo = 'Ritorno a Tokyo: Ueno, Ameyoko e la vecchia Yanaka'
+  g17.tappe = [
+    nuova('t-tokyo-1', '09:00', 'Treno Hakone → Tokyo', 'spostamento',
+      "Odakyu Romancecar da Hakone-Yumoto a Shinjuku, circa 1 ora e 30 (non coperto dal JR Pass), oppure Hakone Tozan fino a Odawara e Shinkansen per Tokyo. Lasciate i bagagli nel nuovo hotel prima di ripartire.",
+      L('Stazione di Hakone-Yumoto', 'Hakone-Yumoto Station', 35.2327, 139.1057), { spostamento: { modo: 'treno', minuti: 90 } }),
+    conOra(tappa(g17, 'Ueno: parco e museo'), '11:30'),
+    conOra(tappa(g17, 'Ameyoko (mercato)'), '13:00'),
+    conOra(tappa(g17, 'Yanaka Ginza (vecchia Tokyo)'), '14:30'),
+    conOra(tappa(g17, 'Ginza o Marunouchi'), '16:30'),
+    conOra(tappa(g17, 'Quartiere a scelta di sera'), '18:30'),
+  ]
+
+  // G18 — ultimo giorno pieno: aeroporto, ultima notte e tax-free passano al G19
+  const g18 = g(18)
+  const mattina = tappa(g18, 'Mattina libera + valigie')
+  const souvenir = tappa(g18, 'Ultimi souvenir')
+  const cenaChiusura = tappa(g18, 'Cena di chiusura')
+  g18.titolo = 'Ultimo giorno pieno a Tokyo'
+  mattina.titolo = 'Mattina libera'
+  if (mattina.luogo) mattina.luogo.nome = 'Mattina libera'
+  souvenir.descrizione = souvenir.descrizione.replace(" prima dell'aeroporto", '')
+  cenaChiusura.descrizione = cenaChiusura.descrizione.replace(" Poi trasferimento verso l'aeroporto.", '')
+  cenaChiusura.consiglio = ''
+  const perIlG19 = (c: string) => /ultima notte|aeroporto|tax-free/i.test(c)
+  const consigliPartenza = g18.consigli.filter(perIlG19)
+  g18.consigli = g18.consigli.filter(c => !perIlG19(c))
+  // Il consiglio sulla cena parlava del treno per l'aeroporto (e nel vecchio testo era troncato).
+  partenza.consigli = [...consigliPartenza, "Per l'aeroporto: da Tokyo Station il Narita Express arriva a Narita in circa 1 ora."]
 
   // Avvisi sui giorni che restano
   g(2).avvisi = [info('Fuochi di Jingū Gaien: data 2027 da verificare, di solito fra il 7 e il 21 agosto.')]

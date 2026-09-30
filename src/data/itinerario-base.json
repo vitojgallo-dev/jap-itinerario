@@ -1018,7 +1018,7 @@
   {
    "id": "g4",
    "cittaId": "nikko",
-   "titolo": "1 giorno",
+   "titolo": "Templi di Nikko, lago Chuzenji e cascata Kegon",
    "intro": "",
    "note": "",
    "alloggio": {
@@ -1098,28 +1098,29 @@
    "speciale": null,
    "tappe": [
     {
-     "id": "t4-0",
-     "ora": "08:30",
-     "titolo": "Colazione partenza",
-     "descrizione": "Dal ryokan i templi sono a pochi minuti. Inizia presto.",
+     "id": "t-nikko-1",
+     "ora": "07:00",
+     "titolo": "Treno Asakusa → Nikko",
+     "descrizione": "Tobu Limited Express (Spacia X o Revaty) da Asakusa a Tobu-Nikko, circa 1 ora e 50. Si prenota; non è coperto dal JR Pass.",
      "consiglio": "",
-     "tipo": "cibo",
+     "tipo": "spostamento",
      "sera": false,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Colazione partenza",
-      "query": "Nikko Hoshinoyado ryokan",
-      "lat": 36.748,
-      "lng": 139.603
+      "nome": "Stazione Tobu di Asakusa",
+      "query": "Tobu Asakusa Station",
+      "lat": 35.7115,
+      "lng": 139.7982
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "treno",
+      "minuti": 110
      }
     },
     {
      "id": "t4-1",
-     "ora": "08:45",
+     "ora": "09:15",
      "titolo": "Ponte Shinkyo",
      "descrizione": "L'iconico ponte rosso laccato sul fiume Daiya.",
      "consiglio": "",
@@ -1139,7 +1140,7 @@
     },
     {
      "id": "t4-2",
-     "ora": "09:10",
+     "ora": "09:40",
      "titolo": "Tempio Rinno-ji",
      "descrizione": "Tempio buddista con la sala dei tre Buddha dorati. Apre alle 8.",
      "consiglio": "",
@@ -1159,7 +1160,7 @@
     },
     {
      "id": "t4-3",
-     "ora": "10:00",
+     "ora": "10:30",
      "titolo": "Nikko Toshogu",
      "descrizione": "Il capolavoro: mausoleo decoratissimo, tre scimmie sagge, gatto dormiente, pagoda a 5 piani. ~1.5-2 ore.",
      "consiglio": "Apre alle 9:00. Biglietto combinato per gli interni.",
@@ -1182,7 +1183,7 @@
     },
     {
      "id": "t4-4",
-     "ora": "12:00",
+     "ora": "12:15",
      "titolo": "Santuario Futarasan",
      "descrizione": "Il santuario più antico di Nikko, tra i cedri.",
      "consiglio": "",
@@ -1259,7 +1260,7 @@
   {
    "id": "g5",
    "cittaId": "kanazawa",
-   "titolo": "Kanazawa città",
+   "titolo": "Verso Kanazawa: mercato, Kenrokuen e il quartiere delle geishe",
    "intro": "",
    "note": "",
    "alloggio": {
@@ -1322,32 +1323,54 @@
    "speciale": null,
    "tappe": [
     {
-     "id": "t5-0",
-     "ora": "08:30",
-     "titolo": "Partenza e Porta Tsuzumi",
-     "descrizione": "La spettacolare porta di legno davanti alla stazione.",
+     "id": "t-kanazawa-1",
+     "ora": "07:30",
+     "titolo": "Treno Nikko → Kanazawa",
+     "descrizione": "JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya, Hokuriku Shinkansen fino a Kanazawa: circa 4 ore e 30, coperto dal JR Pass. Con l'inizio dell'Obon i posti riservati sono indispensabili.",
      "consiglio": "",
      "tipo": "spostamento",
      "sera": false,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Partenza e Porta Tsuzumi",
-      "query": "Tsuzumi-mon Gate Kanazawa Station",
-      "lat": 36.578,
-      "lng": 136.648
+      "nome": "Stazione JR di Nikko",
+      "query": "JR Nikko Station",
+      "lat": 36.7479,
+      "lng": 139.6187
      },
      "spostamento": {
-      "modo": "mezzi"
+      "modo": "treno",
+      "minuti": 270
+     }
+    },
+    {
+     "id": "t5-0",
+     "ora": "12:15",
+     "titolo": "Bagagli in hotel e Porta Tsuzumi",
+     "descrizione": "Lasciate le valigie in hotel, davanti alla stazione, e passate sotto la grande porta di legno Tsuzumi-mon.",
+     "consiglio": "",
+     "tipo": "hotel",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "Hotel Kanazawa",
+      "query": "Hotel Kanazawa station",
+      "lat": 36.578,
+      "lng": 136.647
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
      "id": "t5-1",
-     "ora": "09:00",
+     "ora": "12:45",
      "titolo": "Mercato Omicho",
-     "descrizione": "La 'cucina di Kanazawa': pesce, granchio, ricci freschissimi.",
+     "descrizione": "La 'cucina di Kanazawa': pesce, granchio, ricci freschissimi. Il pranzo si fa qui, ai banchi o nei piccoli locali di kaisendon.",
      "consiglio": "",
-     "tipo": "visita",
+     "tipo": "cibo",
      "sera": false,
      "stato": "da-fare",
      "nota": "",
@@ -1356,31 +1379,15 @@
       "query": "Omicho Market Kanazawa",
       "lat": 36.5716,
       "lng": 136.658
-     }
-    },
-    {
-     "id": "t5-2",
-     "ora": "10:30",
-     "titolo": "Castello di Kanazawa",
-     "descrizione": "Castello ricostruito con mura in pietra e torrette bianche, in un grande parco.",
-     "consiglio": "",
-     "tipo": "visita",
-     "sera": false,
-     "stato": "da-fare",
-     "nota": "",
-     "luogo": {
-      "nome": "Castello di Kanazawa",
-      "query": "Kanazawa Castle Park",
-      "lat": 36.5654,
-      "lng": 136.6591
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
      "id": "t5-3",
-     "ora": "11:30",
+     "ora": "14:00",
      "titolo": "Giardino Kenrokuen",
      "descrizione": "Uno dei tre giardini più belli del Giappone.",
      "consiglio": "",
@@ -1395,55 +1402,34 @@
       "lng": 136.6624
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
-     "id": "t5-4",
-     "ora": "13:00",
-     "titolo": "Museo del 21 secolo",
-     "descrizione": "Famoso per la 'Piscina' di Leandro Erlich. Prenota lo slot.",
-     "consiglio": "Chiuso il lunedì.",
-     "tipo": "visita",
-     "sera": false,
-     "stato": "da-fare",
-     "nota": "",
-     "luogo": {
-      "nome": "Museo del 21 secolo",
-      "query": "Kanazawa 21st Century Museum of Contemporary Art",
-      "lat": 36.5605,
-      "lng": 136.658
-     },
-     "biglietti": {
-      "link": "https://www.kanazawa21.jp/"
-     },
-     "spostamento": {
-      "modo": "piedi"
-     }
-    },
-    {
-     "id": "t5-5",
-     "ora": "14:30",
-     "titolo": "Quartiere samurai Nagamachi",
-     "descrizione": "Vicoli con muri di terra e residenze samurai dell'epoca Edo.",
+     "id": "t5-2",
+     "ora": "15:15",
+     "titolo": "Castello di Kanazawa",
+     "descrizione": "Castello ricostruito con mura in pietra e torrette bianche, in un grande parco.",
      "consiglio": "",
      "tipo": "visita",
      "sera": false,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Quartiere samurai Nagamachi",
-      "query": "Nagamachi Samurai District Kanazawa",
-      "lat": 36.568,
-      "lng": 136.652
+      "nome": "Castello di Kanazawa",
+      "query": "Kanazawa Castle Park",
+      "lat": 36.5654,
+      "lng": 136.6591
      },
      "spostamento": {
-      "modo": "mezzi"
+      "modo": "piedi",
+      "minuti": 25
      }
     },
     {
      "id": "t5-6",
-     "ora": "16:00",
+     "ora": "16:30",
      "titolo": "Quartiere geishe Higashi Chaya",
      "descrizione": "Case da tè in legno e botteghe. Famosa la foglia d'oro.",
      "consiglio": "",
@@ -1460,7 +1446,7 @@
     },
     {
      "id": "t5-7",
-     "ora": "17:30",
+     "ora": "18:00",
      "titolo": "Lanterne a Higashi Chaya",
      "descrizione": "Resta nel quartiere fino al tramonto, quando si accendono le lanterne: l'ora più bella per le foto e una passeggiata tranquilla.",
      "consiglio": "",
@@ -1473,6 +1459,10 @@
       "query": "Higashi Chaya District Kanazawa",
       "lat": 36.572,
       "lng": 136.6668
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1638,7 +1628,7 @@
      "id": "t6-2",
      "ora": "14:30",
      "titolo": "Rientro a Kanazawa",
-     "descrizione": "Pomeriggio libero: ultimi acquisti o relax prima della prossima tappa.",
+     "descrizione": "Autobus di ritorno alla stazione di Kanazawa. Il pomeriggio resta per il museo e il quartiere samurai.",
      "consiglio": "",
      "tipo": "spostamento",
      "sera": false,
@@ -1649,6 +1639,54 @@
       "query": "Hotel Kanazawa station",
       "lat": 36.578,
       "lng": 136.647
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
+     }
+    },
+    {
+     "id": "t5-4",
+     "ora": "15:30",
+     "titolo": "Museo del 21 secolo",
+     "descrizione": "Famoso per la 'Piscina' di Leandro Erlich. Prenota lo slot.",
+     "consiglio": "Chiuso il lunedì.",
+     "tipo": "visita",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "Museo del 21 secolo",
+      "query": "Kanazawa 21st Century Museum of Contemporary Art",
+      "lat": 36.5605,
+      "lng": 136.658
+     },
+     "biglietti": {
+      "link": "https://www.kanazawa21.jp/"
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
+     }
+    },
+    {
+     "id": "t5-5",
+     "ora": "17:00",
+     "titolo": "Quartiere samurai Nagamachi",
+     "descrizione": "Vicoli con muri di terra e residenze samurai dell'epoca Edo.",
+     "consiglio": "",
+     "tipo": "visita",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "Quartiere samurai Nagamachi",
+      "query": "Nagamachi Samurai District Kanazawa",
+      "lat": 36.568,
+      "lng": 136.652
+     },
+     "spostamento": {
+      "modo": "mezzi"
      }
     }
    ]
@@ -1665,7 +1703,12 @@
     "lat": 35.0037,
     "lng": 135.7745
    },
-   "consigli": [],
+   "consigli": [
+    "Kyoto si gira molto in bus: carta IC e app degli orari.",
+    "Templi top appena aprono: la differenza di folla è enorme.",
+    "Fushimi Inari è aperto 24h è gratuito: l'alba qui è magica.",
+    "Pontocho e Gion sono il meglio per le serate; in estate le terrazze sul fiume Kamo."
+   ],
    "suggerimenti": [
     {
      "tipo": "cibo",
@@ -1709,88 +1752,6 @@
       "query": "Naramachi Historic District Nara",
       "lat": 34.678,
       "lng": 135.829
-     }
-    },
-    {
-     "tipo": "opzionale",
-     "nome": "Kyoto Handicraft Center",
-     "descrizione": "laboratori di cerimonia del tè, calligrafia e stampa woodblock",
-     "luogo": {
-      "nome": "Kyoto Handicraft Center",
-      "query": "Kyoto Handicraft Center"
-     }
-    },
-    {
-     "tipo": "opzionale",
-     "nome": "Philosopher's Path",
-     "descrizione": "passeggiata lungo il canale tra i templi di Higashiyama nord",
-     "luogo": {
-      "nome": "Philosopher's Path",
-      "query": "Philosopher's Path Kyoto"
-     }
-    },
-    {
-     "tipo": "opzionale",
-     "nome": "Nishiki + lezione di cucina",
-     "descrizione": "corsi per imparare a fare sushi o dolci wagashi",
-     "luogo": {
-      "nome": "Nishiki + lezione di cucina",
-      "query": "Nishiki Market Kyoto",
-      "lat": 35.005,
-      "lng": 135.7649
-     }
-    },
-    {
-     "tipo": "opzionale",
-     "nome": "Kasuga Taisha di sera (Nara)",
-     "descrizione": "durante alcuni festival le 3.000 lanterne vengono accese: spettacolo",
-     "luogo": {
-      "nome": "Kasuga Taisha di sera (Nara)",
-      "query": "Kasugataisha Shrine Nara",
-      "lat": 34.6817,
-      "lng": 135.8483
-     }
-    },
-    {
-     "tipo": "souvenir",
-     "nome": "Kyoto Handicraft Center",
-     "descrizione": "kimono, stampe, ceramiche set da tè di qualità, tax-free",
-     "luogo": {
-      "nome": "Kyoto Handicraft Center",
-      "query": "Kyoto Handicraft Center"
-     }
-    },
-    {
-     "tipo": "souvenir",
-     "nome": "Omamori a Kiyomizu / Fushimi",
-     "descrizione": "portafortuna dei templi (amore a Jishu, affari a Fushimi Inari)",
-     "luogo": {
-      "nome": "Omamori a Kiyomizu / Fushimi",
-      "query": "Kiyomizu-dera Kyoto",
-      "lat": 34.9948,
-      "lng": 135.785
-     }
-    },
-    {
-     "tipo": "souvenir",
-     "nome": "Botteghe di Ninenzaka",
-     "descrizione": "ventagli, bacchette, incensi, ceramiche cartoline tradizionali",
-     "luogo": {
-      "nome": "Botteghe di Ninenzaka",
-      "query": "Ninenzaka Kyoto",
-      "lat": 34.9975,
-      "lng": 135.7815
-     }
-    },
-    {
-     "tipo": "souvenir",
-     "nome": "Nishiki Market",
-     "descrizione": "coltelli giapponesi, tè matcha e utensili da cucina come regalo",
-     "luogo": {
-      "nome": "Nishiki Market",
-      "query": "Nishiki Market Kyoto",
-      "lat": 35.005,
-      "lng": 135.7649
      }
     }
    ],
@@ -1886,7 +1847,8 @@
       "lng": 135.843
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -1904,6 +1866,10 @@
       "query": "Todai-ji Nara",
       "lat": 34.6889,
       "lng": 135.8398
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -1923,7 +1889,8 @@
       "lng": 135.836
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -1941,6 +1908,10 @@
       "query": "Naramachi Historic District Nara",
       "lat": 34.678,
       "lng": 135.829
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -1960,7 +1931,8 @@
       "lng": 135.829
      },
      "spostamento": {
-      "modo": "mezzi"
+      "modo": "piedi",
+      "minuti": 25
      }
     },
     {
@@ -1980,7 +1952,8 @@
       "lng": 135.8483
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 10
      },
      "evento": {
       "nome": "Kasuga Chūgen Mantōrō",
@@ -2010,6 +1983,10 @@
       "nomeJa": "奈良大文字送り火",
       "affidabilita": "certa",
       "fonte": "https://www.narashikanko.or.jp/event/detail_10262.html"
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -2097,7 +2074,8 @@
       "lng": 135.7745
      },
      "spostamento": {
-      "modo": "mezzi"
+      "modo": "mezzi",
+      "minuti": 45
      }
     },
     {
@@ -2117,7 +2095,8 @@
       "lng": 135.7292
      },
      "spostamento": {
-      "modo": "mezzi"
+      "modo": "mezzi",
+      "minuti": 45
      }
     },
     {
@@ -2129,7 +2108,11 @@
      "tipo": "libero",
      "sera": false,
      "stato": "da-fare",
-     "nota": ""
+     "nota": "",
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 45
+     }
     },
     {
      "id": "t8-3",
@@ -2146,6 +2129,10 @@
       "query": "Tenryu-ji Arashiyama Kyoto",
       "lat": 35.0158,
       "lng": 135.6738
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -2165,7 +2152,8 @@
       "lng": 135.6716
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -2183,6 +2171,10 @@
       "query": "Arashiyama Kyoto",
       "lat": 35.0129,
       "lng": 135.6778
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -2229,6 +2221,10 @@
       "nomeJa": "五山送り火",
       "affidabilita": "certa",
       "fonte": "https://kyototravel.info/gozannookuribi"
+     },
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 50
      }
     },
     {
@@ -2246,10 +2242,6 @@
       "query": "Kyoto Gion Hotel",
       "lat": 35.0037,
       "lng": 135.7745
-     },
-     "spostamento": {
-      "modo": "treno",
-      "minuti": 50
      }
     }
    ]
@@ -2482,6 +2474,77 @@
       "lat": 35.005,
       "lng": 135.7649
      }
+    },
+    {
+     "tipo": "opzionale",
+     "nome": "Kyoto Handicraft Center",
+     "descrizione": "laboratori di cerimonia del tè, calligrafia e stampa woodblock",
+     "luogo": {
+      "nome": "Kyoto Handicraft Center",
+      "query": "Kyoto Handicraft Center"
+     }
+    },
+    {
+     "tipo": "opzionale",
+     "nome": "Philosopher's Path",
+     "descrizione": "passeggiata lungo il canale tra i templi di Higashiyama nord",
+     "luogo": {
+      "nome": "Philosopher's Path",
+      "query": "Philosopher's Path Kyoto"
+     }
+    },
+    {
+     "tipo": "opzionale",
+     "nome": "Nishiki + lezione di cucina",
+     "descrizione": "corsi per imparare a fare sushi o dolci wagashi",
+     "luogo": {
+      "nome": "Nishiki + lezione di cucina",
+      "query": "Nishiki Market Kyoto",
+      "lat": 35.005,
+      "lng": 135.7649
+     }
+    },
+    {
+     "tipo": "souvenir",
+     "nome": "Kyoto Handicraft Center",
+     "descrizione": "kimono, stampe, ceramiche set da tè di qualità, tax-free",
+     "luogo": {
+      "nome": "Kyoto Handicraft Center",
+      "query": "Kyoto Handicraft Center"
+     }
+    },
+    {
+     "tipo": "souvenir",
+     "nome": "Omamori a Kiyomizu / Fushimi",
+     "descrizione": "portafortuna dei templi (amore a Jishu, affari a Fushimi Inari)",
+     "luogo": {
+      "nome": "Omamori a Kiyomizu / Fushimi",
+      "query": "Kiyomizu-dera Kyoto",
+      "lat": 34.9948,
+      "lng": 135.785
+     }
+    },
+    {
+     "tipo": "souvenir",
+     "nome": "Botteghe di Ninenzaka",
+     "descrizione": "ventagli, bacchette, incensi, ceramiche cartoline tradizionali",
+     "luogo": {
+      "nome": "Botteghe di Ninenzaka",
+      "query": "Ninenzaka Kyoto",
+      "lat": 34.9975,
+      "lng": 135.7815
+     }
+    },
+    {
+     "tipo": "souvenir",
+     "nome": "Nishiki Market",
+     "descrizione": "coltelli giapponesi, tè matcha e utensili da cucina come regalo",
+     "luogo": {
+      "nome": "Nishiki Market",
+      "query": "Nishiki Market Kyoto",
+      "lat": 35.005,
+      "lng": 135.7649
+     }
     }
    ],
    "speciale": null,
@@ -2551,12 +2614,7 @@
     "lat": 35.0037,
     "lng": 135.7745
    },
-   "consigli": [
-    "Kyoto si gira molto in bus: carta IC e app degli orari.",
-    "Templi top appena aprono: la differenza di folla è enorme.",
-    "Fushimi Inari è aperto 24h è gratuito: l'alba qui è magica.",
-    "Pontocho e Gion sono il meglio per le serate; in estate le terrazze sul fiume Kamo."
-   ],
+   "consigli": [],
    "suggerimenti": [],
    "speciale": null,
    "avvisi": [
@@ -2796,8 +2854,29 @@
    },
    "tappe": [
     {
+     "id": "t-osaka-1",
+     "ora": "08:30",
+     "titolo": "Treno Kyoto → Osaka e bagagli in hotel",
+     "descrizione": "JR Special Rapid, circa 30 minuti fino a Osaka, poi metro per Namba. Bagagli all'Hotel Forza, a due passi da Dotonbori.",
+     "consiglio": "",
+     "tipo": "spostamento",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "Stazione di Kyoto",
+      "query": "Kyoto Station",
+      "lat": 34.9858,
+      "lng": 135.7588
+     },
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 50
+     }
+    },
+    {
      "id": "t12-0",
-     "ora": "09:00",
+     "ora": "09:30",
      "titolo": "Partenza per il castello",
      "descrizione": "Inizia dal simbolo storico.",
      "consiglio": "",
@@ -2817,7 +2896,7 @@
     },
     {
      "id": "t12-1",
-     "ora": "09:30",
+     "ora": "10:00",
      "titolo": "Castello di Osaka",
      "descrizione": "Castello nel parco, museo interno e vista dall'alto.",
      "consiglio": "",
@@ -2999,7 +3078,7 @@
   {
    "id": "g14",
    "cittaId": "osaka",
-   "titolo": "templi del sud + ultimi acquisti (itinerario d'esempio)",
+   "titolo": "Templi del sud e ultimi acquisti",
    "intro": "",
    "note": "",
    "alloggio": {
@@ -3381,8 +3460,8 @@
   {
    "id": "g16",
    "cittaId": "hakone",
-   "titolo": "1 giorno",
-   "intro": "",
+   "titolo": "Da Osaka a Hakone: museo all'aperto, Owakudani e lago Ashi",
+   "intro": "Mattina in Shinkansen fino a Odawara, bagagli al ryokan e poi il giro ad anello col Free Pass: museo all'aperto, la valle vulcanica di Owakudani e il lago Ashi. La sera onsen e kaiseki.",
    "note": "",
    "alloggio": {
     "nome": "ryokan con onsen a Hakone-Yumoto",
@@ -3482,17 +3561,38 @@
    "speciale": null,
    "tappe": [
     {
-     "id": "t16-0",
-     "ora": "08:30",
-     "titolo": "Partenza dal ryokan",
-     "descrizione": "Inizia il giro ad anello col Free Pass: treno a cremagliera, funivia, battello, bus.",
+     "id": "t-hakone-1",
+     "ora": "07:30",
+     "titolo": "Treno Osaka → Hakone",
+     "descrizione": "Shinkansen Hikari da Shin-Osaka a Odawara, circa 2 ore e 10 (JR Pass), poi Hakone Tozan fino a Hakone-Yumoto, 15 minuti. Conviene comprare l'Hakone Free Pass a Odawara.",
      "consiglio": "",
      "tipo": "spostamento",
      "sera": false,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Partenza dal ryokan",
+      "nome": "Stazione di Shin-Osaka",
+      "query": "Shin-Osaka Station",
+      "lat": 34.7334,
+      "lng": 135.5001
+     },
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 150
+     }
+    },
+    {
+     "id": "t16-0",
+     "ora": "10:30",
+     "titolo": "Bagagli al ryokan",
+     "descrizione": "Lasciate le valigie al ryokan (il check-in è nel pomeriggio), poi si parte per il giro ad anello col Free Pass: treno a cremagliera, funivia, battello, bus.",
+     "consiglio": "",
+     "tipo": "hotel",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "ryokan con onsen a Hakone-Yumoto",
       "query": "Hakone-Yumoto Station",
       "lat": 35.2325,
       "lng": 139.1069
@@ -3506,7 +3606,7 @@
     },
     {
      "id": "t16-1",
-     "ora": "09:30",
+     "ora": "11:15",
      "titolo": "Museo all'aperto di Hakone",
      "descrizione": "Sculture all'aperto (Moore, Picasso) e un pediluvio termale tra le opere.",
      "consiglio": "",
@@ -3526,7 +3626,7 @@
     },
     {
      "id": "t16-2",
-     "ora": "11:30",
+     "ora": "13:30",
      "titolo": "Owakudani",
      "descrizione": "Valle vulcanica con fumarole sulfuree vista sul Fuji.",
      "consiglio": "",
@@ -3543,7 +3643,7 @@
     },
     {
      "id": "t16-3",
-     "ora": "13:30",
+     "ora": "15:00",
      "titolo": "Lago Ashi e Torii di Hakone",
      "descrizione": "Il torii rosso che si specchia nel lago col Fuji sullo sfondo. Battello 'nave pirata'.",
      "consiglio": "La coda per la foto al torii può essere lunga (1h+): valuta o",
@@ -3563,7 +3663,7 @@
     },
     {
      "id": "t16-4",
-     "ora": "16:30",
+     "ora": "17:00",
      "titolo": "Tenzan Onsen",
      "descrizione": "Terme tradizionali con vasche all'aperto (rotenburo) tra i monti. Tattoo-friendly (~1.400 yen).",
      "consiglio": "",
@@ -3580,7 +3680,7 @@
     },
     {
      "id": "t16-5",
-     "ora": "18:30",
+     "ora": "19:00",
      "titolo": "Bagno serale cena kaiseki",
      "descrizione": "Rientro al ryokan: onsen privato sotto le stelle cena kaiseki tradizionale. La sera di Hakone è fatta per rilassarsi: l'onsen notturno è il momento clou.",
      "consiglio": "Molti ryokan offrono il bagno privato prenotabile (kashikiri):",
@@ -3603,7 +3703,7 @@
   {
    "id": "g17",
    "cittaId": "tokyo",
-   "titolo": "quartieri nuovi e shopping",
+   "titolo": "Ritorno a Tokyo: Ueno, Ameyoko e la vecchia Yanaka",
    "intro": "Rientro nella capitale per chiudere il viaggio: zone non ancora viste, ultimi acquisti e una serata d'addio. Base consigliata: una zona ben collegata all'aeroporto (Tokyo Station, Shinagawa o di nuovo Asakusa).",
    "note": "",
    "alloggio": null,
@@ -3641,25 +3741,29 @@
    "speciale": null,
    "tappe": [
     {
-     "id": "t17-0",
+     "id": "t-tokyo-1",
      "ora": "09:00",
-     "titolo": "Partenza",
-     "descrizione": "Giornata per scoprire le zone che ti mancano e fare gli ultimi acquisti.",
+     "titolo": "Treno Hakone → Tokyo",
+     "descrizione": "Odakyu Romancecar da Hakone-Yumoto a Shinjuku, circa 1 ora e 30 (non coperto dal JR Pass), oppure Hakone Tozan fino a Odawara e Shinkansen per Tokyo. Lasciate i bagagli nel nuovo hotel prima di ripartire.",
      "consiglio": "",
      "tipo": "spostamento",
      "sera": false,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Partenza",
-      "query": "Tokyo Station hotel area",
-      "lat": 35.6812,
-      "lng": 139.7671
+      "nome": "Stazione di Hakone-Yumoto",
+      "query": "Hakone-Yumoto Station",
+      "lat": 35.2327,
+      "lng": 139.1057
+     },
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 90
      }
     },
     {
      "id": "t17-1",
-     "ora": "09:30",
+     "ora": "11:30",
      "titolo": "Ueno: parco e museo",
      "descrizione": "Grande parco con musei (Museo Nazionale di Tokyo), zoo e templi. Ottimo per la mattina.",
      "consiglio": "",
@@ -3679,7 +3783,7 @@
     },
     {
      "id": "t17-2",
-     "ora": "11:30",
+     "ora": "13:00",
      "titolo": "Ameyoko (mercato)",
      "descrizione": "Vivace mercato di strada sotto i binari: cibo, dolci, vestiti e affari.",
      "consiglio": "",
@@ -3696,7 +3800,7 @@
     },
     {
      "id": "t17-3",
-     "ora": "13:30",
+     "ora": "14:30",
      "titolo": "Yanaka Ginza (vecchia Tokyo)",
      "descrizione": "Quartiere retro sopravvissuto al tempo: vie tranquille, gatti, botteghe artigiane atmosfera di vecchia Tokyo.",
      "consiglio": "",
@@ -3713,7 +3817,7 @@
     },
     {
      "id": "t17-4",
-     "ora": "16:00",
+     "ora": "16:30",
      "titolo": "Ginza o Marunouchi",
      "descrizione": "Ultimi acquisti eleganti e i depachika (piani alimentari) per souvenir gastronomici.",
      "consiglio": "",
@@ -3750,14 +3854,12 @@
   {
    "id": "g18",
    "cittaId": "tokyo",
-   "titolo": "2 giorni finali",
+   "titolo": "Ultimo giorno pieno a Tokyo",
    "intro": "",
    "note": "",
    "alloggio": null,
    "consigli": [
-    "Scegli un hotel ben collegato all'aeroporto per l'ultima notte: risparmi stress il giorno della partenza.",
     "Lascia spazio in valigia: gli ultimi giorni sono i più pericolosi per gli acquisti.",
-    "Tax-free: porta il passaporto per gli acquisti sopra i 5.000 yen nei negozi aderenti.",
     "Conserva un po' di contanti per l'ultimo giorno (mercati e piccoli negozi).",
     "Tokyo Skytree (giorno 1): nelle giornate limpide si scorge all'orizzonte.",
     "Hakone --- Owakudani e Lago Ashi (giorno 16): la vista classica del Fuji, se il cielo è sereno. È il tuo miglior colpo 'incluso'.",
@@ -3841,7 +3943,7 @@
     {
      "id": "t18-0",
      "ora": "09:00",
-     "titolo": "Mattina libera + valigie",
+     "titolo": "Mattina libera",
      "descrizione": "Ultimi giri o un'esperienza che ti sei perso (un onsen urbano, un cafe a tema, l'ultimo ramen).",
      "consiglio": "",
      "tipo": "visita",
@@ -3849,7 +3951,7 @@
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Mattina libera + valigie",
+      "nome": "Mattina libera",
       "query": "Tokyo Station hotel area",
       "lat": 35.6812,
       "lng": 139.7671
@@ -3859,7 +3961,7 @@
      "id": "t18-1",
      "ora": "11:00",
      "titolo": "Ultimi souvenir",
-     "descrizione": "La stazione di Tokyo ha 'Character Street' e tanti negozi: perfetta per gli ultimissimi regali prima dell'aeroporto.",
+     "descrizione": "La stazione di Tokyo ha 'Character Street' e tanti negozi: perfetta per gli ultimissimi regali.",
      "consiglio": "",
      "tipo": "visita",
      "sera": false,
@@ -3876,8 +3978,8 @@
      "id": "t18-2",
      "ora": "18:00",
      "titolo": "Cena di chiusura",
-     "descrizione": "Un'ultima cena speciale (sushi, wagyu o izakaya) per salutare il Giappone. Poi trasferimento verso l'aeroporto.",
-     "consiglio": "Per l'aeroporto: da Tokyo Station il Narita Express (~1h per",
+     "descrizione": "Un'ultima cena speciale (sushi, wagyu o izakaya) per salutare il Giappone.",
+     "consiglio": "",
      "tipo": "cibo",
      "sera": true,
      "stato": "da-fare",
@@ -3898,7 +4000,11 @@
    "intro": "Volo verso le 20:00: in aeroporto intorno alle 17.",
    "note": "",
    "alloggio": null,
-   "consigli": [],
+   "consigli": [
+    "Scegli un hotel ben collegato all'aeroporto per l'ultima notte: risparmi stress il giorno della partenza.",
+    "Tax-free: porta il passaporto per gli acquisti sopra i 5.000 yen nei negozi aderenti.",
+    "Per l'aeroporto: da Tokyo Station il Narita Express arriva a Narita in circa 1 ora."
+   ],
    "suggerimenti": [],
    "speciale": null,
    "avvisi": [

@@ -56,4 +56,49 @@ describe('itinerario di partenza 2027', () => {
     const senza = v.giorni.flatMap(g => g.tappe).filter(t => t.luogo && (t.luogo.lat == null || t.luogo.lng == null))
     expect(senza.map(t => t.titolo)).toEqual([])
   })
+  test('i giorni di trasferimento cominciano col viaggio da dove si è dormito', () => {
+    for (const i of [4, 5, 12, 16, 17]) {
+      expect(v.giorni[i].tappe[0].tipo, `G${i}`).toBe('spostamento')
+    }
+    expect(v.giorni[4].tappe[0].titolo).toBe('Treno Asakusa → Nikko')
+    expect(v.giorni[5].tappe[0].titolo).toBe('Treno Nikko → Kanazawa')
+    expect(v.giorni[12].tappe[0].titolo).toBe('Treno Kyoto → Osaka e bagagli in hotel')
+    expect(v.giorni[16].tappe[0].titolo).toBe('Treno Osaka → Hakone')
+    expect(v.giorni[17].tappe[0].titolo).toBe('Treno Hakone → Tokyo')
+  })
+  test('museo e Nagamachi passano al pomeriggio del G6', () => {
+    const titoli = (i: number) => v.giorni[i].tappe.map(t => t.titolo)
+    expect(titoli(5)).not.toContain('Museo del 21 secolo')
+    expect(titoli(5)).not.toContain('Quartiere samurai Nagamachi')
+    expect(titoli(6).slice(-2)).toEqual(['Museo del 21 secolo', 'Quartiere samurai Nagamachi'])
+  })
+  test('gli orari di ogni giorno sono in ordine', () => {
+    for (const [i, g] of v.giorni.entries()) {
+      const ore = g.tappe.map(t => t.ora).filter((o): o is string => o !== null)
+      expect(ore, `G${i}`).toEqual([...ore].sort())
+    }
+  })
+  test('nessun testo del G18 parla di aeroporto', () => {
+    expect(JSON.stringify(v.giorni[18]).toLowerCase()).not.toContain('aeroporto')
+  })
+  test('i consigli su ultima notte, aeroporto e tax-free sono al G19', () => {
+    expect(v.giorni[19].consigli.some(c => /aeroporto/i.test(c))).toBe(true)
+    expect(v.giorni[19].consigli.some(c => /tax-free/i.test(c))).toBe(true)
+    expect(v.giorni[18].consigli.some(c => /tax-free|ultima notte/i.test(c))).toBe(false)
+  })
+  test('al G7 restano solo i suggerimenti di Nara, quelli di Kyoto sono al G10', () => {
+    const g7 = v.giorni[7].suggerimenti
+    expect(g7.length).toBeGreaterThan(0)
+    expect(g7.filter(s => !JSON.stringify(s).includes('Nara')).map(s => s.nome)).toEqual([])
+    expect(g7.map(s => s.nome)).not.toContain('Kasuga Taisha di sera (Nara)')
+    expect(v.giorni[10].suggerimenti.map(s => s.nome)).toEqual(expect.arrayContaining(["Philosopher's Path", 'Botteghe di Ninenzaka']))
+  })
+  test('i consigli generici di Kyoto sono al G7, il G11 non ne ha', () => {
+    expect(v.giorni[7].consigli.length).toBeGreaterThan(0)
+    expect(v.giorni[11].consigli).toEqual([])
+  })
+  test('nessun titolo di giorno è un segnaposto della vecchia app', () => {
+    const titoli = v.giorni.map(g => g.titolo)
+    expect(titoli.filter(t => /1 giorno|d'esempio/.test(t))).toEqual([])
+  })
 })
