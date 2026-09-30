@@ -65,24 +65,30 @@ Viaggio {
   titolo: string
   dataPartenza: string        // "2027-08-08": data del primo giorno (G0)
   persone: Persona[]          // { id, nome }, 3 all'inizio
-  citta: Citta[]              // { id, nome, kanji, romaji, colore, lat, lng, climaAgosto }
+  citta: Citta[]              // { id, nome, kanji, romaji, colore, lat, lng, intro,
+                              //   clima: { max, min } (medie di agosto, °C) }
   giorni: Giorno[]            // IN ORDINE: la posizione dà numero e data
-  prenotazioni: Prenotazione[]
-  spese: Spesa[]
-  checklist: VoceChecklist[]
-  impostazioni: { tema, valutaBase, cambioManuale? }
+  prenotazioni: Prenotazione[]   // fase 2
+  spese: Spesa[]                 // fase 2
+  checklist: VoceChecklist[]     // fase 3
+  impostazioni: { tema: "auto"|"chiaro"|"scuro", ultimoBackup? }
 }
 Giorno {
-  id, cittaId, titolo, note,
-  alloggio?: string           // id di una Prenotazione di tipo hotel
+  id, cittaId, titolo, intro, note,   // note = nota personale
+  alloggio: Luogo | null      // hotel della sera (fase 2: collegato alle prenotazioni)
+  consigli: string[]          // dal vecchio "notes"
+  avvisi: { testo, livello: "info"|"attenzione" }[]   // Obon, festivi, caldo
+  suggerimenti: { tipo: "cibo"|"opzionale"|"souvenir", nome, descrizione, luogo? }[]
+  speciale: { titolo, nota, opzioni: { livello, nome, descrizione, link }[] } | null
   tappe: Tappa[]
 }
+Luogo { nome, query, lat?, lng?, indirizzoJa? }
 Tappa {
   id, ora: "HH:MM", durataMin?, titolo, descrizione, consiglio,
   tipo: "visita" | "cibo" | "evento" | "spostamento" | "hotel" | "libero",
-  luogo?: { nome, query, lat?, lng?, indirizzoJa? },
+  luogo?: Luogo,
   sera: boolean,
-  link?: string               // prenotazione/biglietti
+  biglietti?: { link: string | null }  // presente = serve biglietto; null = cerca online
   spostamento?: { modo: "piedi"|"mezzi"|"treno"|"taxi", minuti?, nota? }  // verso la tappa dopo
   evento?: { nome, nomeJa, affidabilita: "certa"|"probabile"|"da-verificare", fonte }
   stato: "da-fare" | "fatta" | "saltata"
@@ -105,9 +111,17 @@ città è una proprietà del giorno, quindi "un giorno in più a Kyoto" signific
 aggiungere un giorno con `cittaId = kyoto`.
 
 **Migrazione**: al primo avvio, se esiste `localStorage["japan_itinerary_v1"]`
-(stessa origine della versione attuale), il suo contenuto viene convertito nel
-nuovo modello al posto dei dati di partenza, e la chiave vecchia resta intatta
-come copia di sicurezza. `versione` permette migrazioni future.
+(stessa origine della versione attuale), l'app chiede una volta sola se
+partire dal **nuovo itinerario** (sezione 5) o dalle **modifiche salvate nella
+versione vecchia**, convertite nel nuovo modello. La chiave vecchia resta
+intatta come copia di sicurezza, e la scelta si può rifare da *Viaggio →
+Impostazioni*. `versione` permette migrazioni future.
+
+I dati di partenza si generano con uno script (`npm run genera-base`) che legge
+il vecchio `index.html` (conservato in `legacy/`), lo converte con la stessa
+funzione di migrazione usata dall'app, e applica le modifiche della sezione 5
+riferendosi alle tappe per titolo: se una tappa citata non esiste, lo script
+si ferma invece di produrre un itinerario sbagliato.
 
 **Backup e condivisione**: esportazione dell'intero viaggio in un file `.json`
 (con Web Share API sul telefono, per mandarlo su WhatsApp agli altri due) e
