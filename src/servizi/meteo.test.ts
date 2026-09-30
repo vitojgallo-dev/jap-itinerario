@@ -59,4 +59,10 @@ describe('meteoDelGiorno', () => {
     expect(await meteoDelGiorno(35, 135, '2027-08-16', '2026-09-30', { prendi, storage: memoria(), ora: ORA })).toBeNull()
     expect(prendi).not.toHaveBeenCalled()
   })
+  test('storage.getItem che butta: meteoDelGiorno risolve (no reject)', async () => {
+    const storage = { getItem: () => { throw new Error('privacy mode') }, setItem: () => {} }
+    const prendi = vi.fn().mockResolvedValue(risposta)
+    const r = await meteoDelGiorno(35.01, 135.77, '2027-08-16', '2027-08-16', { prendi, storage, ora: ORA })
+    expect(r).toEqual({ meteo: expect.objectContaining({ max: 35 }), salvato: ORA })
+  })
 })

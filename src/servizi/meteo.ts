@@ -42,28 +42,41 @@ export interface DipendenzeMeteo {
   ora: number
 }
 
-const predefinite = (): DipendenzeMeteo => ({
-  prendi: async url => { const r = await fetch(url); if (!r.ok) throw new Error(String(r.status)); return r.json() },
-  storage: localStorage,
-  ora: Date.now(),
-})
+const predefinite = (): DipendenzeMeteo => {
+  let storage: DipendenzeMeteo['storage']
+  try {
+    localStorage.getItem('_test_')
+    storage = localStorage
+  } catch {
+    storage = { getItem: () => null, setItem: () => {} }
+  }
+  return {
+    prendi: async url => { const r = await fetch(url); if (!r.ok) throw new Error(String(r.status)); return r.json() },
+    storage,
+    ora: Date.now(),
+  }
+}
 
 const VALIDITA_MS = 3 * 3_600_000
 
 /** Previsione del giorno, dalla cache se ha meno di 3 ore; se la rete manca, l'ultima salvata. */
 export async function meteoDelGiorno(lat: number, lng: number, data: string, oggi: string, dip: DipendenzeMeteo = predefinite()): Promise<{ meteo: MeteoGiorno; salvato: number } | null> {
-  if (!previsioneDisponibile(data, oggi)) return null
-  const chiave = `giappone-meteo:${lat.toFixed(2)},${lng.toFixed(2)}:${data}`
-  let inCache: { meteo: MeteoGiorno; salvato: number } | null = null
-  try { inCache = JSON.parse(dip.storage.getItem(chiave) || 'null') } catch { inCache = null }
-  if (inCache && dip.ora - inCache.salvato < VALIDITA_MS) return inCache
   try {
-    const meteo = leggiMeteo(await dip.prendi(urlMeteo(lat, lng, data)))
-    if (meteo) {
-      const nuovo = { meteo, salvato: dip.ora }
-      try { dip.storage.setItem(chiave, JSON.stringify(nuovo)) } catch { /* memoria piena */ }
-      return nuovo
-    }
-  } catch { /* offline o servizio giù */ }
-  return inCache
+    if (!previsioneDisponibile(data, oggi)) return null
+    const chiave = `giappone-meteo:${lat.toFixed(2)},${lng.toFixed(2)}:${data}`
+    let inCache: { meteo: MeteoGiorno; salvato: number } | null = null
+    try { inCache = JSON.parse(dip.storage.getItem(chiave) || 'null') } catch { inCache = null }
+    if (inCache && dip.ora - inCache.salvato < VALIDITA_MS) return inCache
+    try {
+      const meteo = leggiMeteo(await dip.prendi(urlMeteo(lat, lng, data)))
+      if (meteo) {
+        const nuovo = { meteo, salvato: dip.ora }
+        try { dip.storage.setItem(chiave, JSON.stringify(nuovo)) } catch { /* memoria piena */ }
+        return nuovo
+      }
+    } catch { /* offline o servizio giù */ }
+    return inCache
+  } catch {
+    return null
+  }
 }
