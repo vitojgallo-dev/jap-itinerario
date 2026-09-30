@@ -1,0 +1,13 @@
+.editor { padding-bottom: 8px; }
+.editor-azioni { display: grid; gap: 10px; margin-top: 20px; }
+.errore { color: var(--pericolo); font-size: 14px; margin: -6px 0 8px 4px; }
+.interruttore { display: flex; align-items: center; gap: 10px; min-height: 44px; margin: 6px 4px; }
+.interruttore input { width: 22px; height: 22px; accent-color: var(--tinta-forte); }
+.cerca-luogo { margin: 12px 0; display: grid; gap: 8px; }
+.etichetta-campo { font-size: 13px; color: var(--testo-2); margin-left: 4px; }
+.luogo-scelto { display: flex; gap: 10px; align-items: center; padding: 10px 12px; background: var(--superficie); border-radius: 12px; border: 0.5px solid var(--bordo); }
+.luogo-scelto > div { flex: 1; min-width: 0; }
+.risultati { max-height: 280px; overflow-y: auto; }
+.editor-giorno { margin: 8px 0 16px; }
+.editor-giorno-azioni { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.aggiungi-tappa { margin: 4px 0 8px; }

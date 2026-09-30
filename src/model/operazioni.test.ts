@@ -99,3 +99,14 @@ describe('città, viaggio, impostazioni', () => {
     expect(n.impostazioni.tema).toBe('scuro')
   })
 })
+
+describe('sostituisciTappa', () => {
+  test('toglie davvero i campi eliminati e riordina', () => {
+    const v = op.aggiornaTappa(base(), 'g0', 'a', { evento: { nome: 'E', affidabilita: 'certa' } })
+    const senzaEvento = { ...v.giorni[0].tappe[0], ora: '15:00' }
+    delete senzaEvento.evento
+    const n = op.sostituisciTappa(v, 'g0', senzaEvento)
+    expect(n.giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
+    expect('evento' in n.giorni[0].tappe[1]).toBe(false)
+  })
+})

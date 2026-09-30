@@ -43,6 +43,14 @@ export function aggiornaTappa(v: Viaggio, giornoId: string, tappaId: string, mod
   })
 }
 
+/** Sostituisce l'intera tappa (i campi assenti vengono tolti) e riordina per ora. */
+export function sostituisciTappa(v: Viaggio, giornoId: string, tappa: Tappa): Viaggio {
+  return conGiorno(v, giornoId, g => {
+    if (!g.tappe.some(t => t.id === tappa.id)) throw new Error(`tappa ${tappa.id} inesistente in ${giornoId}`)
+    return { ...g, tappe: ordinaPerOra(g.tappe.map(t => (t.id === tappa.id ? tappa : t))) }
+  })
+}
+
 export function aggiungiTappa(v: Viaggio, giornoId: string, tappa: Tappa): Viaggio {
   return conGiorno(v, giornoId, g => {
     const m = minutiDaOra(tappa.ora)
