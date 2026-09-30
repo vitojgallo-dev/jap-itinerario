@@ -9,7 +9,6 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'icona.svg'],
       manifest: {
         name: 'Giappone 2027',
         short_name: 'Giappone',
@@ -37,7 +36,8 @@ export default defineConfig({
             options: { cacheName: 'mappe', expiration: { maxEntries: 4000, purgeOnQuotaError: true, maxAgeSeconds: 60 * 60 * 24 * 30 }, cacheableResponse: { statuses: [200] } },
           },
           {
-            urlPattern: ({ url }) => url.hostname === 'upload.wikimedia.org',
+            // Solo le immagini: le chiamate alle API di Commons (commons.wikimedia.org) non vanno in questa cache.
+            urlPattern: ({ request, url }) => request.destination === 'image' && (url.hostname === 'upload.wikimedia.org' || url.hostname === 'thumb.wikimedia.org'),
             handler: 'CacheFirst',
             options: { cacheName: 'foto', expiration: { maxEntries: 800, purgeOnQuotaError: true, maxAgeSeconds: 60 * 60 * 24 * 180 }, cacheableResponse: { statuses: [200] } },
           },

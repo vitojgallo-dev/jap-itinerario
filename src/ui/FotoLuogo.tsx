@@ -1,6 +1,6 @@
 import { MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { cercaFoto } from '../servizi/foto'
+import { cercaFoto, serveCors } from '../servizi/foto'
 import { linkSicuro } from '../servizi/mappe'
 
 /** Foto del luogo, cercata solo quando la card sta per entrare nello schermo. */
@@ -30,7 +30,7 @@ export function FotoLuogo({ query, override: scelta, className = '', alt = '' }:
 
   return (
     <div ref={rif} className={`foto ${className}${url === undefined ? ' foto-attesa' : ''}`}>
-      {url ? <img src={url} alt={alt} crossOrigin="anonymous" loading="lazy" decoding="async" onError={() => setUrl(null)} /> : url === null ? <MapPin size={28} aria-hidden /> : null}
+      {url ? <img src={url} alt={alt} crossOrigin={serveCors(url) ? 'anonymous' : undefined} loading="lazy" decoding="async" onError={() => setUrl(null)} /> : url === null ? <MapPin size={28} aria-hidden /> : null}
     </div>
   )
 }

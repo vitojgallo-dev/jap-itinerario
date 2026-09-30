@@ -83,3 +83,17 @@ export function cercaFoto(query: string): Promise<string | null> {
   inCorso.set(query, p)
   return p
 }
+
+const HOST_CORS = ['upload.wikimedia.org', 'thumb.wikimedia.org']
+
+/**
+ * Se l'immagine va chiesta con CORS: solo quelle di Wikimedia, che lo permette e che il service worker
+ * mette in cache. Una foto scelta a mano da un altro sito, chiesta con CORS, non si caricherebbe.
+ */
+export function serveCors(url: string): boolean {
+  try {
+    return HOST_CORS.includes(new URL(url).hostname)
+  } catch {
+    return false
+  }
+}

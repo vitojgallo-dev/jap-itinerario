@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest'
-import { leggiCommons, leggiWikipedia, urlWikipedia } from './foto'
+import { leggiCommons, leggiWikipedia, serveCors, urlWikipedia } from './foto'
 
 test('legge la miniatura di Wikipedia', () => {
   expect(leggiWikipedia({ query: { pages: { '1': { thumbnail: { source: 'https://upload.wikimedia.org/a.jpg' } } } } })).toBe('https://upload.wikimedia.org/a.jpg')
@@ -103,4 +103,13 @@ test('cercaFoto: valore "null" in storage non causa crash', async () => {
   const result = await cercaFotoFresh('Tokyo')
   expect(result).toBeNull()
   expect(mockFetch).toHaveBeenCalledTimes(2)
+})
+
+test('serveCors solo per le immagini di Wikimedia', () => {
+  expect(serveCors('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Senso-ji.jpg/800px-Senso-ji.jpg')).toBe(true)
+  expect(serveCors('https://thumb.wikimedia.org/x.jpg')).toBe(true)
+  expect(serveCors('https://commons.wikimedia.org/w/api.php?action=query')).toBe(false)
+  expect(serveCors('https://upload.wikimedia.org.example.com/x.jpg')).toBe(false)
+  expect(serveCors('https://www.japan-guide.com/g18/3003_01.jpg')).toBe(false)
+  expect(serveCors('non è un indirizzo')).toBe(false)
 })
