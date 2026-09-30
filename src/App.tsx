@@ -5,6 +5,7 @@ import { cittaDi } from './model/riepilogo'
 import Mappa from './schermate/mappa/Mappa'
 import Oggi from './schermate/oggi/Oggi'
 import Programma from './schermate/programma/Programma'
+import { PrimoAvvio } from './schermate/viaggio/PrimoAvvio'
 import SchermataViaggio from './schermate/viaggio/SchermataViaggio'
 import { useViaggio } from './store/viaggio'
 import { calcolaTinta } from './ui/colore'
@@ -42,6 +43,7 @@ export default function App() {
       {rotta.schermata === 'mappa' && <Mappa indice={rotta.indice} />}
       {rotta.schermata === 'viaggio' && <SchermataViaggio />}
       <TabBar attiva={rotta.schermata} />
+      <PrimoAvvio />
       <Toaster position="top-center" theme={tema === 'scuro' ? 'dark' : 'light'} offset="calc(12px + env(safe-area-inset-top))" />
     </>
   )
