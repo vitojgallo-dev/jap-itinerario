@@ -21,6 +21,16 @@
 8. Modalità aereo: l'app si apre lo stesso, con le foto e le mappe già viste.
 9. Viaggio → Salva o condividi un backup: mandarlo su WhatsApp agli altri; loro lo aprono con Viaggio → Importa un backup.
 
+### Nota per iPhone: le modifiche fatte nella versione vecchia
+Su iPhone l'app installata sulla Home ha una memoria separata da Safari: le modifiche fatte nella vecchia versione aperta in Safari non compaiono nell'app installata. Per portarle con sé:
+1. aprire il sito in Safari (non dall'icona);
+2. se compare "Nuova versione", scegliere "Le mie modifiche vecchie", se servono;
+3. Viaggio → Salva o condividi un backup;
+4. installare l'app sulla Home;
+5. aprirla dall'icona e fare Viaggio → Importa un backup, scegliendo il file appena salvato.
+
+Su Android non serve: l'app installata e il browser condividono gli stessi dati.
+
 ## Rimasto da fare (fasi 2 e 3)
 - Prenotazioni (voli, hotel, biglietti, QR offline) e spese divise fra voi 3.
 - Checklist, frasario, emergenze, guida pratica, calendario .ics.

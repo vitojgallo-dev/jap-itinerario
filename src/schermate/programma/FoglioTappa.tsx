@@ -7,9 +7,10 @@ import { Foglio } from '../../ui/Foglio'
 import { EditorTappa } from './EditorTappa'
 import { VistaTappa } from './VistaTappa'
 
-export function FoglioTappa({ giornoId, tappaId, onChiudi }: { giornoId: string | null; tappaId: string | null; onChiudi: () => void }) {
+/** La tappa aperta: in sola lettura, oppure con l'editor se `modificabile` e la modalità modifica è accesa. */
+export function FoglioTappa({ giornoId, tappaId, onChiudi, modificabile = false }: { giornoId: string | null; tappaId: string | null; onChiudi: () => void; modificabile?: boolean }) {
   const viaggio = useViaggio(s => s.viaggio)
-  const modifica = useViaggio(s => s.modifica)
+  const modifica = useViaggio(s => s.modifica) && modificabile
   const applica = useViaggio(s => s.applica)
   const applicaAnnullabile = useViaggio(s => s.applicaAnnullabile)
   const indice = viaggio.giorni.findIndex(g => g.id === giornoId)

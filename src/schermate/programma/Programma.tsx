@@ -70,7 +70,7 @@ export default function Programma({ indice }: { indice: number | null }) {
         {i > 0 ? <a className="pulsante" href={hrefRotta('programma', i - 1)}><ChevronLeft size={18} aria-hidden /> G{i - 1}</a> : <span />}
         {i < n - 1 && <a className="pulsante" href={hrefRotta('programma', i + 1)}>G{i + 1} <ChevronRight size={18} aria-hidden /></a>}
       </nav>
-      <FoglioTappa giornoId={giorno.id} tappaId={aperta} onChiudi={() => setAperta(null)} />
+      <FoglioTappa giornoId={giorno.id} tappaId={aperta} onChiudi={() => setAperta(null)} modificabile />
       <FoglioNuovaTappa key={nuove} giornoId={giorno.id} aperto={nuovaAperta} onChiudi={() => setNuovaAperta(false)} />
     </div>
   )

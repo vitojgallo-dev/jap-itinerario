@@ -16,14 +16,19 @@ export function Meteo({ citta, data, oggi }: { citta: Citta; data: string; oggi:
     return () => { vivo = false }
   }, [citta.lat, citta.lng, data, oggi])
 
-  if (r === undefined && previsioneDisponibile(data, oggi)) return <div className="card meteo foto-attesa" aria-busy="true">Carico il meteo…</div>
+  const disponibile = previsioneDisponibile(data, oggi)
+  if (r === undefined && disponibile) return <div className="card meteo foto-attesa" aria-busy="true">Carico il meteo…</div>
   if (!r) {
     return (
       <div className="card meteo">
         <Thermometer size={30} aria-hidden />
         <div>
           <strong>{citta.clima.max}° / {citta.clima.min}°</strong>
-          <div className="testo-2">Clima tipico di agosto a {citta.nome}. La previsione arriva 15 giorni prima.</div>
+          <div className="testo-2">
+            {disponibile
+              ? `Previsione non disponibile adesso: clima tipico di agosto a ${citta.nome}.`
+              : `Clima tipico di agosto a ${citta.nome}. La previsione arriva 15 giorni prima.`}
+          </div>
         </div>
       </div>
     )
@@ -38,8 +43,7 @@ export function Meteo({ citta, data, oggi }: { citta: Citta; data: string; oggi:
         <div>
           <strong>{r.meteo.max}° / {r.meteo.min}° · {etichetta}</strong>
           <div className="testo-2">
-            {r.meteo.pioggia != null ? `Pioggia ${r.meteo.pioggia}%` : ''}
-            {vecchio ? ` · dato delle ${oraTokyo(r.salvato)}` : ''}
+            {[r.meteo.pioggia != null && `Pioggia ${r.meteo.pioggia}%`, vecchio && `dato delle ${oraTokyo(r.salvato)}`].filter(Boolean).join(' · ')}
           </div>
         </div>
       </div>

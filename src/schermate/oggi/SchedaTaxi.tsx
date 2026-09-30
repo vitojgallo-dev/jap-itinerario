@@ -10,7 +10,11 @@ import { Foglio } from '../../ui/Foglio'
 /** Scheda a tutto schermo da mostrare al tassista. */
 export function SchedaTaxi({ aperto, onChiudi, alloggio }: { aperto: boolean; onChiudi: () => void; alloggio: Luogo }) {
   const applica = useViaggio(s => s.applica)
-  const copia = () => navigator.clipboard?.writeText(alloggio.indirizzoJa ?? '').then(() => toast('Indirizzo copiato'), () => toast('Copia non riuscita'))
+  const copia = () => {
+    // Senza clipboard (http, browser vecchi) l'avviso deve arrivare comunque.
+    if (!navigator.clipboard) { toast('Copia non riuscita'); return }
+    navigator.clipboard.writeText(alloggio.indirizzoJa ?? '').then(() => toast('Indirizzo copiato'), () => toast('Copia non riuscita'))
+  }
   return (
     <Foglio aperto={aperto} onChiudi={onChiudi} titolo="Per il tassista" pieno>
       <div className="taxi">
@@ -25,7 +29,7 @@ export function SchedaTaxi({ aperto, onChiudi, alloggio }: { aperto: boolean; on
         </Campo>
         <div className="fila">
           <a className="pulsante" href={urlCerca(alloggio)} target="_blank" rel="noreferrer"><MapPin size={18} aria-hidden /> Mappa</a>
-          {alloggio.indirizzoJa && <button type="button" className="pulsante" onClick={() => void copia()}><Copy size={18} aria-hidden /> Copia</button>}
+          {alloggio.indirizzoJa && <button type="button" className="pulsante" onClick={copia}><Copy size={18} aria-hidden /> Copia</button>}
         </div>
       </div>
     </Foglio>
