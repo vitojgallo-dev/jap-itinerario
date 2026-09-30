@@ -1,12 +1,13 @@
 import { toast } from 'sonner'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { validaViaggio } from '../model/validazione'
 import type { Viaggio } from '../model/tipi'
 import { leggiV1, viaggioBase } from './avvio'
 
 type SceltaV1 = 'da-chiedere' | 'fatta'
 
-interface StatoApp {
+export interface StatoApp {
   viaggio: Viaggio
   sceltaV1: SceltaV1
   modifica: boolean
@@ -34,11 +35,21 @@ export const useViaggio = create<StatoApp>()(
       sceltaV1: sceltaIniziale(),
       modifica: false,
       precedente: null,
-      applica: fn => set({ viaggio: fn(get().viaggio) }),
+      applica: fn => set({ viaggio: fn(get().viaggio), precedente: null }),
       applicaAnnullabile: (fn, messaggio) => {
         const prima = get().viaggio
         set({ viaggio: fn(prima), precedente: prima })
-        toast(messaggio, { action: { label: 'Annulla', onClick: () => get().annulla() }, duration: 6000 })
+        toast(messaggio, {
+          action: {
+            label: 'Annulla',
+            onClick: () => {
+              if (get().precedente === prima) {
+                get().annulla()
+              }
+            },
+          },
+          duration: 6000,
+        })
       },
       annulla: () => {
         const p = get().precedente
@@ -53,6 +64,13 @@ export const useViaggio = create<StatoApp>()(
       version: 2,
       storage: createJSONStorage(() => localStorage),
       partialize: s => ({ viaggio: s.viaggio, sceltaV1: s.sceltaV1 }),
+      merge: (persistito, attuale) => {
+        const p = persistito as Partial<StatoApp> | undefined
+        const esito = validaViaggio(p?.viaggio)
+        return esito.ok
+          ? { ...attuale, viaggio: esito.viaggio, sceltaV1: p?.sceltaV1 === 'da-chiedere' ? 'da-chiedere' : 'fatta' }
+          : attuale
+      },
     },
   ),
 )
