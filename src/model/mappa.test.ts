@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { giornoDiProva, tappaDiProva, viaggioDiProva } from './fixture'
-import { puntiGiorno, puntiViaggio, vicini } from './mappa'
+import { coloreSicuro, puntiGiorno, puntiViaggio, vicini } from './mappa'
 
 const L = (lat: number, lng: number) => ({ nome: 'x', query: 'x', lat, lng })
 const v = viaggioDiProva({
@@ -23,4 +23,12 @@ test('vicini: ordinati per distanza, senza doppioni dello stesso posto', () => {
   const r = vicini(v, { lat: 35.70, lng: 139.78 }, 3)
   expect(r.map(p => p.id)).toEqual(['a', 'c', 'e'])
   expect(r[0].km).toBeLessThan(2)
+})
+
+test.each([
+  ['#E4572E', '#E4572E'],
+  ['"><img src=x onerror=alert(1)>', '#8E8E93'],
+  ['', '#8E8E93'],
+])('coloreSicuro(%j) = %s', (ingresso, atteso) => {
+  expect(coloreSicuro(ingresso)).toBe(atteso)
 })

@@ -7,23 +7,33 @@ import { testoSu } from '../../ui/colore'
 
 type Coppia = [number, number]
 
+// Un'icona per combinazione di numero, colore e stato: lo stesso oggetto fra un render e l'altro, così Leaflet non ricrea i segnaposto.
+const cacheIcone = new Map<string, L.DivIcon>()
 function icona(p: PuntoMappa) {
-  return L.divIcon({
-    className: 'segnaposto-contenitore',
-    html: `<span class="segnaposto${p.stato === 'fatta' ? ' fatto' : ''}" style="--c:${p.colore};--t:${testoSu(p.colore)}">${p.numero}</span>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-  })
+  const chiave = `${p.numero}|${p.colore}|${p.stato}`
+  let i = cacheIcone.get(chiave)
+  if (!i) {
+    i = L.divIcon({
+      className: 'segnaposto-contenitore',
+      html: `<span class="segnaposto${p.stato === 'fatta' ? ' fatto' : ''}" style="--c:${p.colore};--t:${testoSu(p.colore)}">${p.numero}</span>`,
+      iconSize: [44, 44],
+      iconAnchor: [22, 22],
+    })
+    cacheIcone.set(chiave, i)
+  }
+  return i
 }
 
 function Inquadra({ punti, posizione }: { punti: PuntoMappa[]; posizione: Coppia | null }) {
   const map = useMap()
+  const firma = punti.map(p => `${p.id}:${p.lat},${p.lng}`).join('|')
   useEffect(() => {
     const pts: Coppia[] = punti.map(p => [p.lat, p.lng])
     if (posizione) pts.push(posizione)
     if (pts.length === 1) map.setView(pts[0], 15)
     else if (pts.length > 1) map.fitBounds(pts, { padding: [36, 36] })
-  }, [map, punti, posizione])
+    // Rinquadra solo se cambiano i luoghi o la posizione, non a ogni modifica dello store (es. una tappa segnata fatta).
+  }, [map, firma, posizione])
   return null
 }
 
@@ -36,13 +46,12 @@ interface Props {
 }
 
 export function MappaLeaflet({ punti, percorso, posizione, tema, onApri }: Props) {
-  const stile = tema === 'scuro' ? 'dark_all' : 'rastertiles/voyager'
   // Stabile fra un render e l'altro, così aprire una tappa non rifà l'inquadratura.
   const pos = useMemo<Coppia | null>(() => (posizione ? [posizione.lat, posizione.lng] : null), [posizione])
   return (
-    <MapContainer className="mappa" center={[36.2, 138.2]} zoom={5} zoomControl={false}>
-      <TileLayer key={stile} url={`https://{s}.basemaps.cartocdn.com/${stile}/{z}/{x}/{y}{r}.png`} subdomains="abcd" maxZoom={20}
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>' />
+    <MapContainer className={'mappa' + (tema === 'scuro' ? ' mappa-scura' : '')} center={[36.2, 138.2]} zoom={5} zoomControl={false}>
+      <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19}
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
       {percorso && punti.length > 1 && (
         <Polyline positions={punti.map(p => [p.lat, p.lng] as Coppia)} pathOptions={{ color: punti[0].colore, weight: 3, opacity: 0.75, dashArray: '6 8' }} />
       )}

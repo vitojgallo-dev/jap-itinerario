@@ -7,9 +7,14 @@ export interface PuntoMappa {
   lat: number; lng: number; titolo: string; colore: string; stato: StatoTappa
 }
 
+/** Il colore finisce in HTML e in stili: passa solo un esadecimale a sei cifre (i dati possono venire da un backup importato). */
+export function coloreSicuro(colore: string | undefined): string {
+  return colore && /^#[0-9a-fA-F]{6}$/.test(colore) ? colore : '#8E8E93'
+}
+
 function punti(v: Viaggio, indice: number): PuntoMappa[] {
   const g = v.giorni[indice]
-  const colore = cittaDi(v, g).colore
+  const colore = coloreSicuro(cittaDi(v, g).colore)
   return g.tappe.flatMap((t, i) => {
     const l = t.luogo
     if (l?.lat == null || l.lng == null) return []
