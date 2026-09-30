@@ -1,7 +1,7 @@
 import { CalendarDays, Ticket } from 'lucide-react'
 import { dataGiorno, formatoData, istanteTokyo } from '../../model/date'
 import { backupDaFare, bigliettiDaPrenotare, cittaDi } from '../../model/riepilogo'
-import { urlCercaBiglietti } from '../../servizi/mappe'
+import { hrefBiglietti } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
 import { PromemoriaBackup } from '../../ui/Backup'
 import { BarraNav, Gruppo, Riga, TitoloGrande } from '../../ui/componenti'
@@ -37,7 +37,7 @@ export function PrimaDelViaggio({ giorniMancanti, adesso }: { giorniMancanti: nu
         <Gruppo titolo="Biglietti da prenotare" piede="Molte attrazioni aprono le prenotazioni uno o due mesi prima.">
           {biglietti.map(b => (
             <Riga key={b.tappa.id} icona={<Ticket size={20} />} titolo={b.tappa.titolo} sottotitolo={`${formatoData(b.data, 'breve')} · G${b.indice}`}
-              href={b.tappa.biglietti!.link ?? urlCercaBiglietti(b.tappa.titolo)} />
+              href={hrefBiglietti(b.tappa)} />
           ))}
         </Gruppo>
       )}

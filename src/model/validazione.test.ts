@@ -1,5 +1,6 @@
 import { expect, test } from 'vitest'
-import { giornoDiProva, tappaDiProva, viaggioDiProva } from './fixture'
+import base from '../data/itinerario-base.json'
+import { cittaDiProva, giornoDiProva, tappaDiProva, viaggioDiProva } from './fixture'
 import { validaViaggio } from './validazione'
 
 test('accetta un viaggio corretto', () => {
@@ -33,4 +34,49 @@ test('elenca gli errori interni', () => {
       'tappa a: tipo non valido "x"',
     ]))
   }
+})
+
+const rifiutato = (x: unknown) => {
+  const r = validaViaggio(x)
+  expect(r.ok).toBe(false)
+  return r.ok ? [] : r.errori
+}
+
+test('rifiuta una città senza clima', () => {
+  const { clima: _, ...senza } = cittaDiProva[0]
+  expect(rifiutato(viaggioDiProva({ citta: [senza as never, cittaDiProva[1]] }))).toContain('città tokyo: clima mancante')
+})
+
+test('rifiuta uno speciale vuoto', () => {
+  const v = viaggioDiProva({ giorni: [giornoDiProva({ id: 'g0', speciale: {} as never })] })
+  expect(rifiutato(v)).toContain('giorno g0: speciale non valido')
+})
+
+test('rifiuta un link dei biglietti che non è un testo', () => {
+  const v = viaggioDiProva({ giorni: [giornoDiProva({ id: 'g0', tappe: [tappaDiProva({ id: 'a', biglietti: { link: 5 as never } })] })] })
+  expect(rifiutato(v)).toContain('tappa a: biglietti non validi')
+})
+
+test('rifiuta una latitudine scritta come testo', () => {
+  const luogo = { nome: 'X', query: 'X', lat: '35' as never, lng: 139 }
+  const v = viaggioDiProva({ giorni: [giornoDiProva({ id: 'g0', tappe: [tappaDiProva({ id: 'a', luogo })] })] })
+  expect(rifiutato(v)).toContain('tappa a: lat del luogo deve essere un numero')
+})
+
+test('rifiuta date di partenza che non esistono', () => {
+  expect(rifiutato(viaggioDiProva({ dataPartenza: '9999-99-99' }))).toContain('dataPartenza non valida: 9999-99-99')
+  expect(rifiutato(viaggioDiProva({ dataPartenza: '2027-02-31' }))).toContain('dataPartenza non valida: 2027-02-31')
+})
+
+test('rifiuta una persona nulla', () => {
+  expect(rifiutato(viaggioDiProva({ persone: [null as never] }))).toContain('persona non valida')
+})
+
+test('rifiuta un tema sconosciuto', () => {
+  expect(rifiutato(viaggioDiProva({ impostazioni: { tema: 'rosa' as never } }))).toContain('tema non valido: rosa')
+})
+
+test('l\'itinerario base resta valido', () => {
+  const r = validaViaggio(structuredClone(base))
+  expect(r.ok ? [] : r.errori).toEqual([])
 })

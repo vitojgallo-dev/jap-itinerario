@@ -1,6 +1,7 @@
 import { toast } from 'sonner'
+import { validaViaggio } from '../../model/validazione'
 import { useViaggio } from '../../store/viaggio'
-import { leggiV1, viaggioDaV1 } from '../../store/avvio'
+import { ERRORE_V1, leggiV1, viaggioDaV1 } from '../../store/avvio'
 import { Foglio } from '../../ui/Foglio'
 
 /** Una volta sola: se sul telefono c'è la vecchia app modificata, chiede da cosa partire. */
@@ -12,9 +13,13 @@ export function PrimoAvvio() {
   const recupera = () => {
     try {
       const v1 = leggiV1(localStorage)
-      if (v1) sostituisci(viaggioDaV1(v1))
+      if (v1) {
+        const esito = validaViaggio(viaggioDaV1(v1))
+        if (esito.ok) sostituisci(esito.viaggio)
+        else toast(ERRORE_V1)
+      }
     } catch {
-      toast('Non riesco a leggere i dati della versione vecchia: resta il nuovo itinerario.')
+      toast(ERRORE_V1)
     }
     chiudi()
   }

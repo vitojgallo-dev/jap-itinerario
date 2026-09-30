@@ -3,7 +3,7 @@ import { promemoriaBiglietto } from '../../model/adesso'
 import { formatoDurata, istanteTokyo } from '../../model/date'
 import { aggiornaTappa } from '../../model/operazioni'
 import type { Giorno, StatoTappa, Tappa } from '../../model/tipi'
-import { urlCerca, urlCercaBiglietti, urlIndicazioni } from '../../servizi/mappe'
+import { hrefBiglietti, linkSicuro, urlCerca, urlIndicazioni } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
 import { Badge, Campo, Gruppo, Riga, Segmentato } from '../../ui/componenti'
 import { FotoLuogo } from '../../ui/FotoLuogo'
@@ -22,16 +22,17 @@ export function VistaTappa({ giorno, tappa, data }: { giorno: Giorno; tappa: Tap
   const oggi = istanteTokyo(useAdesso()).data
   const agg = (m: Partial<Tappa>) => applica(v => aggiornaTappa(v, giorno.id, tappa.id, m))
   const l = tappa.luogo
+  const fonte = linkSicuro(tappa.evento?.fonte)
   const righe = [
     l && <Riga key="mezzi" icona={<Navigation size={20} />} titolo="Indicazioni coi mezzi" href={urlIndicazioni(l, 'transit')} />,
     l && <Riga key="piedi" icona={<Footprints size={20} />} titolo="Indicazioni a piedi" href={urlIndicazioni(l, 'walking')} />,
     l && <Riga key="maps" icona={<MapPin size={20} />} titolo="Apri in Google Maps" sottotitolo={l.query} href={urlCerca(l)} />,
     tappa.biglietti && (
-      <Riga key="biglietti" icona={<Ticket size={20} />} titolo={tappa.biglietti.link ? 'Sito dei biglietti' : 'Cerca i biglietti'}
+      <Riga key="biglietti" icona={<Ticket size={20} />} titolo={linkSicuro(tappa.biglietti.link) ? 'Sito dei biglietti' : 'Cerca i biglietti'}
         sottotitolo={testoPromemoria(promemoriaBiglietto(data, oggi)) || undefined}
-        href={tappa.biglietti.link ?? urlCercaBiglietti(tappa.titolo)} />
+        href={hrefBiglietti(tappa)} />
     ),
-    tappa.evento?.fonte && <Riga key="fonte" icona={<Info size={20} />} titolo="Fonte dell'evento" href={tappa.evento.fonte} />,
+    fonte && <Riga key="fonte" icona={<Info size={20} />} titolo="Fonte dell'evento" href={fonte} />,
   ].filter(Boolean)
 
   return (

@@ -28,3 +28,13 @@ export function urlCercaBiglietti(titolo: string): string {
 export function modoGoogle(m: ModoSpostamento): ModoGoogle {
   return m === 'piedi' ? 'walking' : m === 'taxi' ? 'driving' : 'transit'
 }
+
+/** `u` solo se è un indirizzo web (http o https): un link arrivato da un backup non deve poter eseguire codice. */
+export function linkSicuro(u: unknown): string | undefined {
+  return typeof u === 'string' && /^https?:\/\//i.test(u) ? u : undefined
+}
+
+/** Dove porta il pulsante dei biglietti: il link salvato se è sicuro, altrimenti la ricerca. */
+export function hrefBiglietti(t: { titolo: string; biglietti?: { link: unknown } }): string {
+  return linkSicuro(t.biglietti?.link) ?? urlCercaBiglietti(t.titolo)
+}

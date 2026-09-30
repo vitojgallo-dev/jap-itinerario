@@ -104,3 +104,34 @@ test('blob persistito corrotto cede il passo all\'itinerario base', async () => 
   expect(store.viaggio.titolo).toBe('Giappone — agosto 2027')
   expect(store.viaggio.versione).toBe(2)
 })
+
+test('un salvataggio non valido viene copiato da parte prima di ripartire dalla base', async () => {
+  const grezzo = JSON.stringify({ state: { viaggio: { versione: 2, titolo: 5 }, sceltaV1: 'fatta' }, version: 2 })
+  storageMock.set('giappone-viaggio', grezzo)
+
+  vi.resetModules()
+  const module = await import('./viaggio')
+  const store = module.useViaggio.getState() as unknown as StatoApp
+
+  expect(storageMock.get('giappone-viaggio-scartato')).toBe(grezzo)
+  expect(store.viaggio.titolo).toBe('Giappone — agosto 2027')
+  expect(toastMock).toHaveBeenCalledWith('I dati salvati erano danneggiati: ne ho tenuto una copia e riparto dall\'itinerario 2027.')
+})
+
+test('anche un salvataggio che non è JSON viene copiato da parte', async () => {
+  storageMock.set('giappone-viaggio', '{rotto')
+
+  vi.resetModules()
+  const module = await import('./viaggio')
+  module.useViaggio.getState().setModifica(true)
+
+  expect(storageMock.get('giappone-viaggio-scartato')).toBe('{rotto')
+  expect(toastMock).toHaveBeenCalledTimes(1)
+})
+
+test('senza nulla di salvato non copia niente e non avvisa', async () => {
+  vi.resetModules()
+  await import('./viaggio')
+  expect(storageMock.has('giappone-viaggio-scartato')).toBe(false)
+  expect(toastMock).not.toHaveBeenCalled()
+})

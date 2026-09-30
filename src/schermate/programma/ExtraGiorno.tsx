@@ -1,7 +1,7 @@
 import { Lightbulb } from 'lucide-react'
 import { aggiornaGiorno } from '../../model/operazioni'
 import type { Giorno, Suggerimento } from '../../model/tipi'
-import { urlCerca } from '../../servizi/mappe'
+import { linkSicuro, urlCerca } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
 import { Gruppo, Riga } from '../../ui/componenti'
 
@@ -13,7 +13,7 @@ export function ExtraGiorno({ giorno }: { giorno: Giorno }) {
     <>
       {giorno.speciale && (
         <Gruppo titolo={giorno.speciale.titolo} piede={giorno.speciale.nota}>
-          {giorno.speciale.opzioni.map((o, i) => <Riga key={i} titolo={o.nome} sottotitolo={`${o.livello} · ${o.descrizione}`} href={o.link} />)}
+          {giorno.speciale.opzioni.map((o, i) => <Riga key={i} titolo={o.nome} sottotitolo={`${o.livello} · ${o.descrizione}`} href={linkSicuro(o.link)} />)}
         </Gruppo>
       )}
       {SEZIONI.map(([tipo, titolo]) => {

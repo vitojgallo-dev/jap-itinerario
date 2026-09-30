@@ -4,8 +4,9 @@ import { toast } from 'sonner'
 import { dataGiorno, formatoData } from '../../model/date'
 import { aggiornaImpostazioni, aggiornaPersona, aggiornaViaggio, aggiungiCitta } from '../../model/operazioni'
 import type { Tema, Viaggio } from '../../model/tipi'
+import { validaViaggio } from '../../model/validazione'
 import { leggiBackup } from '../../servizi/backup'
-import { leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
+import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
 import { useViaggio } from '../../store/viaggio'
 import { useEsportaBackup } from '../../ui/Backup'
 import { BarraNav, Campo, Gruppo, Riga, Segmentato, TitoloGrande } from '../../ui/componenti'
@@ -29,13 +30,24 @@ export default function SchermataViaggio() {
   const file = useRef<HTMLInputElement>(null)
   const [daImportare, setDaImportare] = useState<Viaggio | null>(null)
   const [cittaAperta, setCittaAperta] = useState<string | null>(null)
-  let v1 = null
-  try { v1 = leggiV1(localStorage) } catch { /* niente */ }
+  const [ripristino, setRipristino] = useState(false)
+  // La chiave vecchia non cambia mai mentre l'app è aperta: basta leggerla una volta.
+  const [v1] = useState(() => {
+    try { return leggiV1(localStorage) } catch { return null }
+  })
   const ultimo = viaggio.impostazioni.ultimoBackup
 
   const importa = async (f: File | undefined) => {
     if (!f) return
-    const esito = leggiBackup(await f.text())
+    let testo: string
+    try {
+      testo = await f.text()
+    } catch {
+      toast('Non riesco a leggere il file.')
+      if (file.current) file.current.value = ''
+      return
+    }
+    const esito = leggiBackup(testo)
     if (!esito.ok) toast(esito.errore)
     else setDaImportare(esito.viaggio)
     if (file.current) file.current.value = ''
@@ -47,13 +59,15 @@ export default function SchermataViaggio() {
   }
   const recuperaV1 = () => {
     if (!v1) return
-    let recuperato: Viaggio
+    let esito: ReturnType<typeof validaViaggio>
     try {
-      recuperato = viaggioDaV1(v1)
+      esito = validaViaggio(viaggioDaV1(v1))
     } catch {
-      toast('Non riesco a leggere i dati della versione vecchia: resta il nuovo itinerario.')
+      toast(ERRORE_V1)
       return
     }
+    if (!esito.ok) { toast(ERRORE_V1); return }
+    const recuperato = esito.viaggio
     applicaAnnullabile(() => recuperato, 'Modifiche vecchie recuperate')
   }
 
@@ -93,7 +107,7 @@ export default function SchermataViaggio() {
         <Riga icona={<Download size={20} />} titolo="Salva o condividi un backup" sottotitolo="Anche per mandare l'itinerario agli altri" onClick={() => void esporta()} />
         <Riga icona={<Upload size={20} />} titolo="Importa un backup" onClick={() => file.current?.click()} />
         {v1 && <Riga icona={<History size={20} />} titolo="Recupera le modifiche della versione vecchia" onClick={recuperaV1} />}
-        <Riga icona={<RotateCcw size={20} />} titolo="Ripristina l'itinerario 2027" pericolo onClick={() => applicaAnnullabile(() => viaggioBase(), 'Itinerario ripristinato')} />
+        <Riga icona={<RotateCcw size={20} />} titolo="Ripristina l'itinerario 2027" pericolo onClick={() => setRipristino(true)} />
       </Gruppo>
       <input ref={file} type="file" accept=".json,application/json" hidden onChange={e => void importa(e.target.files?.[0])} />
 
@@ -116,6 +130,10 @@ export default function SchermataViaggio() {
             <button type="button" className="pulsante primario largo" onClick={() => { const n = daImportare; applicaAnnullabile(() => n, 'Backup importato'); setDaImportare(null) }}>Importa</button>
           </>
         )}
+      </Foglio>
+      <Foglio aperto={ripristino} onChiudi={() => setRipristino(false)} titolo="Ripristina l'itinerario 2027">
+        <p className="testo-2" style={{ margin: '8px 0 16px' }}>Sostituisce l'itinerario su questo telefono (si può annullare subito dopo).</p>
+        <button type="button" className="pulsante primario largo" onClick={() => { applicaAnnullabile(() => viaggioBase(), 'Itinerario ripristinato'); setRipristino(false) }}>Ripristina</button>
       </Foglio>
     </div>
   )

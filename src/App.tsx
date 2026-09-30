@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react'
 import { Toaster } from 'sonner'
 import { faseViaggio } from './model/adesso'
+import { coloreSicuro } from './model/mappa'
 import { cittaDi } from './model/riepilogo'
 import Mappa from './schermate/mappa/Mappa'
 import Oggi from './schermate/oggi/Oggi'
@@ -23,7 +24,7 @@ export default function App() {
   // Il colore dei controlli è quello della città del giorno che si sta guardando (o di oggi).
   const indice = Math.min(rotta.indice ?? (fase.fase === 'durante' ? fase.indice : 0), viaggio.giorni.length - 1)
   const giorno = viaggio.giorni[indice]
-  const colore = giorno ? cittaDi(viaggio, giorno).colore : '#C8452C'
+  const colore = coloreSicuro(giorno ? cittaDi(viaggio, giorno).colore : '#C8452C')
 
   useLayoutEffect(() => {
     const r = document.documentElement

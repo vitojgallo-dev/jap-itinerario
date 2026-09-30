@@ -1,9 +1,9 @@
 import { toast } from 'sonner'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist, type PersistStorage } from 'zustand/middleware'
 import { validaViaggio } from '../model/validazione'
 import type { Viaggio } from '../model/tipi'
-import { leggiV1, viaggioBase } from './avvio'
+import { CHIAVE_SCARTATO, CHIAVE_VIAGGIO, leggiV1, viaggioBase } from './avvio'
 
 type SceltaV1 = 'da-chiedere' | 'fatta'
 
@@ -26,6 +26,34 @@ function sceltaIniziale(): SceltaV1 {
   } catch {
     return 'fatta'
   }
+}
+
+type Persistito = Pick<StatoApp, 'viaggio' | 'sceltaV1'>
+
+// Come createJSONStorage, ma un blob che non è JSON arriva a `merge` come "niente di valido"
+// invece di interrompere l'idratazione (che lascerebbe il prossimo `set` scriverci sopra in silenzio).
+const archivio: PersistStorage<Persistito> = {
+  getItem: nome => {
+    const grezzo = localStorage.getItem(nome)
+    if (grezzo === null) return null
+    try {
+      return JSON.parse(grezzo)
+    } catch {
+      return null
+    }
+  },
+  setItem: (nome, valore) => localStorage.setItem(nome, JSON.stringify(valore)),
+  removeItem: nome => localStorage.removeItem(nome),
+}
+
+/** Se c'è un salvataggio (non valido), lo mette da parte prima che l'itinerario base lo sovrascriva. */
+function scartaSalvato() {
+  let grezzo: string | null = null
+  try {
+    grezzo = localStorage.getItem(CHIAVE_VIAGGIO)
+    if (grezzo !== null) localStorage.setItem(CHIAVE_SCARTATO, grezzo)
+  } catch { /* memoria piena o non disponibile: resta almeno l'avviso */ }
+  if (grezzo !== null) toast('I dati salvati erano danneggiati: ne ho tenuto una copia e riparto dall\'itinerario 2027.')
 }
 
 export const useViaggio = create<StatoApp>()(
@@ -60,16 +88,16 @@ export const useViaggio = create<StatoApp>()(
       setSceltaV1: sceltaV1 => set({ sceltaV1 }),
     }),
     {
-      name: 'giappone-viaggio',
+      name: CHIAVE_VIAGGIO,
       version: 2,
-      storage: createJSONStorage(() => localStorage),
+      storage: archivio,
       partialize: s => ({ viaggio: s.viaggio, sceltaV1: s.sceltaV1 }),
       merge: (persistito, attuale) => {
         const p = persistito as Partial<StatoApp> | undefined
         const esito = validaViaggio(p?.viaggio)
-        return esito.ok
-          ? { ...attuale, viaggio: esito.viaggio, sceltaV1: p?.sceltaV1 === 'da-chiedere' ? 'da-chiedere' : 'fatta' }
-          : attuale
+        if (esito.ok) return { ...attuale, viaggio: esito.viaggio, sceltaV1: p?.sceltaV1 === 'da-chiedere' ? 'da-chiedere' : 'fatta' }
+        scartaSalvato()
+        return attuale
       },
     },
   ),

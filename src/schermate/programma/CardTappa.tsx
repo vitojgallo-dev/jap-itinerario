@@ -4,7 +4,7 @@ import { promemoriaBiglietto, type Promemoria } from '../../model/adesso'
 import { formatoDurata, istanteTokyo } from '../../model/date'
 import { aggiornaTappa } from '../../model/operazioni'
 import type { Tappa } from '../../model/tipi'
-import { urlCercaBiglietti, urlIndicazioni } from '../../servizi/mappe'
+import { hrefBiglietti, urlIndicazioni } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
 import { Badge } from '../../ui/componenti'
 import { FotoLuogo } from '../../ui/FotoLuogo'
@@ -47,7 +47,7 @@ export function CardTappa({ tappa, giornoId, data, onApri, maniglia }: Props) {
           </a>
         )}
         {tappa.biglietti && (
-          <a className="pulsante piccolo" href={tappa.biglietti.link ?? urlCercaBiglietti(tappa.titolo)} target="_blank" rel="noreferrer">
+          <a className="pulsante piccolo" href={hrefBiglietti(tappa)} target="_blank" rel="noreferrer">
             <Ticket size={16} aria-hidden /> Biglietti
           </a>
         )}

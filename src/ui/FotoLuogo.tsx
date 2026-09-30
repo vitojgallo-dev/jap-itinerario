@@ -1,9 +1,12 @@
 import { MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { cercaFoto } from '../servizi/foto'
+import { linkSicuro } from '../servizi/mappe'
 
 /** Foto del luogo, cercata solo quando la card sta per entrare nello schermo. */
-export function FotoLuogo({ query, override, className = '', alt = '' }: { query?: string; override?: string; className?: string; alt?: string }) {
+export function FotoLuogo({ query, override: scelta, className = '', alt = '' }: { query?: string; override?: string; className?: string; alt?: string }) {
+  // La foto scelta a mano vale solo se è un indirizzo web: altrimenti si cerca come se non ci fosse.
+  const override = linkSicuro(scelta)
   const rif = useRef<HTMLDivElement>(null)
   const [visibile, setVisibile] = useState(false)
   const [url, setUrl] = useState<string | null | undefined>(override || undefined)
