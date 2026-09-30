@@ -1,5 +1,11 @@
 export const SFONDO = { chiaro: '#F6F1E7', scuro: '#0E0F13' } as const
 
+/** Superfici su cui sta il testo colorato: card e gruppi, e la base opaca delle barre (tab bar, barra nav). */
+export const SUPERFICI = {
+  chiaro: { card: '#FFFDF8', barra: '#FBF8F2' },
+  scuro: { card: '#1A1C23', barra: '#16171D' },
+} as const
+
 function rgb(hex: string): [number, number, number] {
   const h = hex.replace('#', '')
   const n = parseInt(h.length === 3 ? [...h].map(c => c + c).join('') : h, 16)
@@ -25,11 +31,12 @@ function mescola(a: string, b: string, t: number): string {
   return esadecimale(A.map((x, i) => x + (B[i] - x) * t))
 }
 
-/** Mescola `colore` verso `verso` a passi del 5% finché il contrasto con `contro` basta. */
-function finoAContrasto(colore: string, verso: string, contro: string, minimo = 4.5): string {
+/** Mescola `colore` verso `verso` a passi del 5% finché il contrasto con ogni fondo di `contro` basta. */
+function finoAContrasto(colore: string, verso: string, contro: string | string[], minimo = 4.5): string {
+  const fondi = Array.isArray(contro) ? contro : [contro]
   for (let i = 0; i <= 20; i++) {
     const c = mescola(colore, verso, i / 20)
-    if (contrasto(c, contro) >= minimo) return c
+    if (fondi.every(f => contrasto(c, f) >= minimo)) return c
   }
   return verso
 }
@@ -40,21 +47,23 @@ export function testoSu(hex: string): '#FFFFFF' | '#111114' {
 
 export interface Tinta { forte: string; suForte: string; testo: string; tenue: string }
 
-/** Varianti leggibili del colore della città per il tema attivo. */
+/** Varianti leggibili del colore della città per il tema attivo. `testo` regge su pagina, card, barre e badge `tenue`. */
 export function calcolaTinta(hex: string, tema: 'chiaro' | 'scuro'): Tinta {
+  const tenue = tema === 'chiaro' ? mescola(hex, '#FFFFFF', 0.86) : mescola(hex, SFONDO.scuro, 0.8)
+  const fondi = [SFONDO[tema], SUPERFICI[tema].card, SUPERFICI[tema].barra, tenue]
   if (tema === 'chiaro') {
     return {
       forte: finoAContrasto(hex, '#000000', '#FFFFFF'),
       suForte: '#FFFFFF',
-      testo: finoAContrasto(hex, '#000000', SFONDO.chiaro),
-      tenue: mescola(hex, '#FFFFFF', 0.86),
+      testo: finoAContrasto(hex, '#000000', fondi),
+      tenue,
     }
   }
   const suForte = testoSu(hex)
   return {
     forte: finoAContrasto(hex, suForte === '#FFFFFF' ? '#000000' : '#FFFFFF', suForte),
     suForte,
-    testo: finoAContrasto(hex, '#FFFFFF', SFONDO.scuro),
-    tenue: mescola(hex, SFONDO.scuro, 0.8),
+    testo: finoAContrasto(hex, '#FFFFFF', fondi),
+    tenue,
   }
 }

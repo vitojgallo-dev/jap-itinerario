@@ -28,18 +28,33 @@ export function useTemaRisolto(scelta: Tema): 'chiaro' | 'scuro' {
 
 interface EventoInstallazione extends Event { prompt(): Promise<void> }
 
+// `beforeinstallprompt` parte una volta sola, all'avvio: lo si cattura appena il modulo è importato,
+// altrimenti una schermata montata dopo lo perderebbe.
+let eventoInstallazione: EventoInstallazione | null = null
+const ascoltatoriInstallazione = new Set<() => void>()
+
+function impostaEvento(e: EventoInstallazione | null) {
+  eventoInstallazione = e
+  ascoltatoriInstallazione.forEach(cb => cb())
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); impostaEvento(e as EventoInstallazione) })
+  window.addEventListener('appinstalled', () => impostaEvento(null))
+}
+
+function iscriviInstallazione(cb: () => void) {
+  ascoltatoriInstallazione.add(cb)
+  return () => { ascoltatoriInstallazione.delete(cb) }
+}
+
 export function useInstallazione() {
-  const [evento, setEvento] = useState<EventoInstallazione | null>(null)
-  useEffect(() => {
-    const h = (e: Event) => { e.preventDefault(); setEvento(e as EventoInstallazione) }
-    addEventListener('beforeinstallprompt', h)
-    return () => removeEventListener('beforeinstallprompt', h)
-  }, [])
+  const evento = useSyncExternalStore(iscriviInstallazione, () => eventoInstallazione)
   const installata = matchMedia('(display-mode: standalone)').matches || (navigator as { standalone?: boolean }).standalone === true
   return {
     installata,
     ios: /iphone|ipad|ipod/i.test(navigator.userAgent),
     puoInstallare: evento !== null,
-    installa: async () => { if (evento) { await evento.prompt(); setEvento(null) } },
+    installa: async () => { if (evento) { await evento.prompt(); impostaEvento(null) } },
   }
 }
