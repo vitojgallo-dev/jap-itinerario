@@ -21,7 +21,7 @@ export default function Programma({ indice }: { indice: number | null }) {
   const [aperta, setAperta] = useState<string | null>(null)
   const n = viaggio.giorni.length
   const i = Math.min(Math.max(indice ?? (fase.fase === 'durante' ? fase.indice : 0), 0), Math.max(n - 1, 0))
-  useEffect(() => { scrollTo({ top: 0 }) }, [i])
+  useEffect(() => { scrollTo({ top: 0 }); setAperta(null) }, [i])
 
   if (n === 0) {
     return (

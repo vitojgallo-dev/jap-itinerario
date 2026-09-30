@@ -14,8 +14,8 @@
 .voce-timeline { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 10px; }
 .voce-ora { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--tinta-testo); text-align: right; padding-top: 14px; }
 .voce-ora.sera { color: var(--testo-2); }
-.segmento { grid-column: 2; display: flex; align-items: center; gap: 8px; color: var(--testo-2); font-size: 14px; margin: 2px 0 2px 18px; padding: 8px 0 8px 16px; border-left: 2px dotted var(--bordo); }
-.segmento a { margin-left: auto; font-weight: 600; text-decoration: none; min-height: 36px; display: inline-flex; align-items: center; }
+.segmento { grid-column: 2; display: flex; align-items: center; gap: 8px; color: var(--testo-2); font-size: 14px; margin: 2px 0 2px 18px; padding: 2px 0 2px 16px; border-left: 2px dotted var(--bordo); }
+.segmento a { margin-left: auto; font-weight: 600; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
 
 .card-tappa { background: var(--superficie); border-radius: 16px; border: 0.5px solid var(--bordo); box-shadow: var(--ombra); overflow: hidden; }
 .card-tappa.fatta { opacity: 0.62; }
