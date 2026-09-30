@@ -72,26 +72,27 @@ export function migraV1(v1: V1Data, extra: V1Extra, opzioni: { dataPartenza: str
       citta.push({
         id, nome: nomeCitta(c.city), kanji: m?.kanji ?? '', romaji: m?.romaji ?? nomeCitta(c.city),
         colore: m?.color ?? '#8E8E93', lat: m?.lat ?? 36.2, lng: m?.lng ?? 138.2,
-        intro: pulisciIntro(c.intro), clima: CLIMA_AGOSTO[id] ?? { max: 31, min: 24 },
+        intro: pulisciIntro(c.intro ?? ''), clima: CLIMA_AGOSTO[id] ?? { max: 31, min: 24 },
       })
     }
-    const nomeBase = c.base.split(',')[0].trim()
+    const nomeBase = (c.base ?? '').split(',')[0].trim()
     const alloggio = nomeBase ? luogo(nomeBase, QUERY_ALLOGGIO[c.city] ?? `${nomeBase} ${nomeCitta(c.city)}`) : null
-    c.days.forEach((d, i) => {
-      const tappe: Tappa[] = d.stops.map((s, si) => {
+    const giorniCitta = c.days ?? []
+    giorniCitta.forEach((d, i) => {
+      const tappe: Tappa[] = (d.stops ?? []).map((s, si) => {
         const bigliettoNoto = s.maps in extra.linkBiglietti
         const t: Tappa = {
           id: `t${d.number}-${si}`,
-          ora: normalizzaOra(s.time),
-          titolo: s.title,
+          ora: normalizzaOra(s.time ?? ''),
+          titolo: s.title ?? '',
           descrizione: s.desc ?? '',
           consiglio: s.tip ?? '',
-          tipo: tipoDaTitolo(s.title),
+          tipo: tipoDaTitolo(s.title ?? ''),
           sera: !!s.evening,
           stato: 'da-fare',
           nota: '',
         }
-        if (s.maps) t.luogo = luogo(s.title, s.maps)
+        if (s.maps) t.luogo = luogo(s.title ?? '', s.maps)
         if (s.booking) t.biglietti = { link: s.booking }
         else if (bigliettoNoto) t.biglietti = { link: extra.linkBiglietti[s.maps] }
         if (s.move?.walk) t.spostamento = { modo: 'piedi' }
@@ -103,8 +104,8 @@ export function migraV1(v1: V1Data, extra: V1Extra, opzioni: { dataPartenza: str
       giorni.push({
         id: `g${d.number}`,
         cittaId: id,
-        titolo: d.title,
-        intro: d.intro || (!primoBlocco && i === 0 ? pulisciIntro(c.intro) : ''),
+        titolo: d.title ?? '',
+        intro: d.intro || (!primoBlocco && i === 0 ? pulisciIntro(c.intro ?? '') : ''),
         note: '',
         alloggio: alloggio ? { ...alloggio } : null,
         consigli: d.notes ?? [],

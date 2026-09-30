@@ -41,6 +41,44 @@ describe('migraV1 sui dati veri della vecchia app', () => {
   })
 })
 
+describe('migraV1 con dati incompleti (vecchie versioni salvate in localStorage)', () => {
+  const minimo = {
+    title: 'Minimo',
+    cities: [
+      { city: 'TOKYO', days: [{ number: 1 }, { number: 2, title: 'Due', stops: [{ booking: 'https://x', photo: 'https://p' }] }] },
+      { city: 'KYOTO', base: 'Hotel Uno, via Due', intro: 'Ciao', days: [{
+        number: 3,
+        title: 'Tre',
+        stops: [
+          { time: '9:00', title: 'A piedi', move: { walk: { origin: 'a', destination: 'b' } } },
+          { time: '10:00', title: 'Con mezzi', move: { transit: { origin: 'a', destination: 'b' } } },
+        ],
+      }] },
+    ],
+  } as unknown as Parameters<typeof migraV1>[0]
+
+  test('non lancia e degrada', () => {
+    const r = migraV1(minimo, extra, { dataPartenza: '2027-08-08' })
+    expect(r.giorni[0].alloggio).toBeNull()
+    expect(r.giorni[0].tappe).toEqual([])
+    expect(r.giorni[0].titolo).toBe('')
+    expect(r.citta[0].intro).toBe('')
+  })
+  test('prenotazione e foto', () => {
+    const r = migraV1(minimo, extra, { dataPartenza: '2027-08-08' })
+    const t = r.giorni[1].tappe[0]
+    expect(t.biglietti).toEqual({ link: 'https://x' })
+    expect(t.foto).toBe('https://p')
+    expect(t.titolo).toBe('')
+    expect(t.ora).toBeNull()
+  })
+  test('spostamento solo a piedi o solo con mezzi', () => {
+    const r = migraV1(minimo, extra, { dataPartenza: '2027-08-08' })
+    expect(r.giorni[2].tappe[0].spostamento?.modo).toBe('piedi')
+    expect(r.giorni[2].tappe[1].spostamento?.modo).toBe('mezzi')
+  })
+})
+
 test('tipoDaTitolo', () => {
   expect(tipoDaTitolo('Pranzo a Solamachi')).toBe('cibo')
   expect(tipoDaTitolo('Colazione in hotel + partenza')).toBe('cibo')
