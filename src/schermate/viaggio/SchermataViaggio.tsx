@@ -102,7 +102,7 @@ export default function SchermataViaggio() {
         : <><InvitoInstallazione /><Gruppo titolo="Come si installa"><div style={{ padding: '8px 16px' }}><IstruzioniInstallazione ios={ios} /></div></Gruppo></>}
 
       <p className="testo-3" style={{ margin: '24px 16px' }}>
-        Mappe © OpenStreetMap e CARTO · Meteo Open-Meteo · Foto Wikipedia e Wikimedia Commons · Ricerca luoghi Nominatim
+        Mappe © OpenStreetMap · Meteo Open-Meteo · Foto Wikipedia e Wikimedia Commons · Ricerca luoghi Nominatim
       </p>
 
       <EditorCitta cittaId={cittaAperta} onChiudi={() => setCittaAperta(null)} />
