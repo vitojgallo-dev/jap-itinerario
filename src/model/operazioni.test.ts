@@ -109,4 +109,14 @@ describe('sostituisciTappa', () => {
     expect(n.giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
     expect('evento' in n.giorni[0].tappe[1]).toBe(false)
   })
+  test('senza cambio di ora sostituisce sul posto e conserva l ordine manuale', () => {
+    const v = op.spostaTappa(base(), 'g0', 1, 0)
+    expect(v.giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
+    const n = op.sostituisciTappa(v, 'g0', { ...v.giorni[0].tappe[1], descrizione: 'nuova' })
+    expect(n.giorni[0].tappe.map(x => x.id)).toEqual(['b', 'a'])
+    expect(n.giorni[0].tappe[1].descrizione).toBe('nuova')
+  })
+  test('una tappa inesistente lancia', () => {
+    expect(() => op.sostituisciTappa(base(), 'g0', t({ id: 'z' }))).toThrow('tappa z')
+  })
 })

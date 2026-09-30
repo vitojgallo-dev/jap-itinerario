@@ -13,7 +13,7 @@ export function CercaLuogo({ etichetta, luogo, citta, onCambia }: Props) {
   const q = testo.trim()
 
   const cerca = async () => {
-    if (!q) return
+    if (!q || stato === 'cerca') return
     setStato('cerca')
     try {
       setRisultati(await cercaLuoghi(`${q} ${citta.nome}`))
@@ -41,7 +41,7 @@ export function CercaLuogo({ etichetta, luogo, citta, onCambia }: Props) {
         <input className="campo-in" style={{ flex: 1, minWidth: 0 }} value={testo} placeholder={`Cerca a ${citta.nome}`} aria-label={`Cerca: ${etichetta}`}
           onChange={e => { setTesto(e.target.value); setStato('fermo') }}
           onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); void cerca() } }} />
-        <button type="button" className="pulsante" onClick={() => void cerca()}>{stato === 'cerca' ? 'Cerco…' : 'Cerca'}</button>
+        <button type="button" className="pulsante" disabled={stato === 'cerca'} onClick={() => void cerca()}>{stato === 'cerca' ? 'Cerco…' : 'Cerca'}</button>
       </div>
       {stato === 'errore' && <p className="errore">Ricerca non disponibile. Riprova, o usa il solo nome.</p>}
       {risultati && (risultati.length > 0
