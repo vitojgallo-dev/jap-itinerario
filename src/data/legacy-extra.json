@@ -1,0 +1,500 @@
+{
+ "coordinate": {
+  "Asakusa View Hotel Tokyo": [
+   35.7146,
+   139.792
+  ],
+  "Nakamise Shopping Street Asakusa": [
+   35.7118,
+   139.7955
+  ],
+  "Senso-ji Temple Asakusa": [
+   35.7148,
+   139.7967
+  ],
+  "Sumida Park Tokyo": [
+   35.7112,
+   139.8006
+  ],
+  "Tokyo Skytree": [
+   35.7101,
+   139.8107
+  ],
+  "Tokyo Solamachi": [
+   35.71,
+   139.8118
+  ],
+  "Akihabara Electric Town Tokyo": [
+   35.6984,
+   139.7731
+  ],
+  "Maidreamin Akihabara": [
+   35.6996,
+   139.7715
+  ],
+  "Don Quijote Akihabara": [
+   35.6996,
+   139.7719
+  ],
+  "Hachiko Statue Shibuya": [
+   35.659,
+   139.7005
+  ],
+  "Shibuya Crossing Tokyo": [
+   35.6595,
+   139.7004
+  ],
+  "Shibuya Sky": [
+   35.658,
+   139.7016
+  ],
+  "Meiji Jingu Tokyo": [
+   35.6764,
+   139.6993
+  ],
+  "Takeshita Street Harajuku": [
+   35.6716,
+   139.7053
+  ],
+  "Omote-Sando Avenue Tokyo": [
+   35.6659,
+   139.7126
+  ],
+  "Tokyo Metropolitan Government Building observation deck": [
+   35.6896,
+   139.6917
+  ],
+  "Omoide Yokocho Shinjuku": [
+   35.6935,
+   139.6992
+  ],
+  "Godzilla Head Shinjuku Kabukicho": [
+   35.6952,
+   139.702
+  ],
+  "Shinjuku Golden-Gai": [
+   35.6939,
+   139.705
+  ],
+  "Tsukiji Outer Market Tokyo": [
+   35.6654,
+   139.7707
+  ],
+  "Imperial Palace East Gardens Tokyo": [
+   35.6852,
+   139.757
+  ],
+  "Ginza Kagari ramen": [
+   35.6717,
+   139.7649
+  ],
+  "GINZA SIX Tokyo": [
+   35.6693,
+   139.764
+  ],
+  "teamLab Borderless Azabudai Tokyo": [
+   35.6605,
+   139.741
+  ],
+  "Tokyo Tower night view": [
+   35.6586,
+   139.7454
+  ],
+  "Ginza Tokyo": [
+   35.6717,
+   139.765
+  ],
+  "Nikko Hoshinoyado ryokan": [
+   36.748,
+   139.603
+  ],
+  "Shinkyo Bridge Nikko": [
+   36.7539,
+   139.599
+  ],
+  "Rinnoji Temple Nikko": [
+   36.7555,
+   139.598
+  ],
+  "Nikko Toshogu shrine": [
+   36.758,
+   139.5989
+  ],
+  "Futarasan Shrine Nikko": [
+   36.7591,
+   139.5967
+  ],
+  "Yuba ryori Aburagen Nikko": [
+   36.749,
+   139.607
+  ],
+  "Kegon Falls Nikko": [
+   36.7385,
+   139.503
+  ],
+  "Tsuzumi-mon Gate Kanazawa Station": [
+   36.578,
+   136.648
+  ],
+  "Omicho Market Kanazawa": [
+   36.5716,
+   136.658
+  ],
+  "Kanazawa Castle Park": [
+   36.5654,
+   136.6591
+  ],
+  "Kenrokuen Garden Kanazawa": [
+   36.562,
+   136.6624
+  ],
+  "Kanazawa 21st Century Museum of Contemporary Art": [
+   36.5605,
+   136.658
+  ],
+  "Nagamachi Samurai District Kanazawa": [
+   36.568,
+   136.652
+  ],
+  "Higashi Chaya District Kanazawa": [
+   36.572,
+   136.6668
+  ],
+  "Akamechan Kanazawa": [
+   36.5716,
+   136.658
+  ],
+  "Hotel Kanazawa station": [
+   36.578,
+   136.647
+  ],
+  "Shirakawa-go Gassho village": [
+   36.2578,
+   136.906
+  ],
+  "Kyoto Gion Hotel": [
+   35.0037,
+   135.7745
+  ],
+  "Fushimi Inari Taisha Kyoto": [
+   34.9671,
+   135.7727
+  ],
+  "Kiyomizu-dera Kyoto": [
+   34.9948,
+   135.785
+  ],
+  "Ninenzaka Kyoto": [
+   34.9975,
+   135.7815
+  ],
+  "Yasaka Shrine Kyoto": [
+   35.0036,
+   135.7785
+  ],
+  "Gion Kyoto": [
+   35.0037,
+   135.7745
+  ],
+  "Pontocho Alley Kyoto": [
+   35.0053,
+   135.7708
+  ],
+  "Kinkaku-ji Kyoto": [
+   35.0394,
+   135.7292
+  ],
+  "Arashiyama Bamboo Forest Kyoto": [
+   35.017,
+   135.6716
+  ],
+  "Tenryu-ji Arashiyama Kyoto": [
+   35.0158,
+   135.6738
+  ],
+  "Nishiki Market Kyoto": [
+   35.005,
+   135.7649
+  ],
+  "Nara Park deer": [
+   34.6851,
+   135.843
+  ],
+  "Todai-ji Nara": [
+   34.6889,
+   135.8398
+  ],
+  "Kasugataisha Shrine Nara": [
+   34.6817,
+   135.8483
+  ],
+  "Isuien Garden Nara": [
+   34.687,
+   135.836
+  ],
+  "Naramachi Historic District Nara": [
+   34.678,
+   135.829
+  ],
+  "Mount Wakakusa Nara": [
+   34.6852,
+   135.856
+  ],
+  "Eko-in temple Koyasan": [
+   34.2141,
+   135.592
+  ],
+  "Danjo Garan Koyasan": [
+   34.2131,
+   135.582
+  ],
+  "Kongobu-ji Koyasan": [
+   34.2137,
+   135.5847
+  ],
+  "Daimon Gate Koyasan": [
+   34.213,
+   135.573
+  ],
+  "Okunoin cemetery Koyasan": [
+   34.217,
+   135.603
+  ],
+  "Hotel Forza Osaka Namba Dotonbori": [
+   34.668,
+   135.503
+  ],
+  "Osaka Castle": [
+   34.6873,
+   135.5259
+  ],
+  "Kuromon Market Osaka": [
+   34.665,
+   135.506
+  ],
+  "Dotonbori Glico sign Osaka": [
+   34.6686,
+   135.501
+  ],
+  "Dotonbori Osaka": [
+   34.6687,
+   135.5013
+  ],
+  "Shinsekai Osaka": [
+   34.6524,
+   135.5061
+  ],
+  "Umeda Sky Building Osaka": [
+   34.7052,
+   135.49
+  ],
+  "Shitennoji temple Osaka": [
+   34.6543,
+   135.5166
+  ],
+  "Sumiyoshi Taisha Osaka": [
+   34.6127,
+   135.4933
+  ],
+  "Nipponbashi Denden Town Osaka": [
+   34.6604,
+   135.506
+  ],
+  "Shinsaibashi Osaka": [
+   34.672,
+   135.501
+  ],
+  "Hotel Park Side Hiroshima Peace Park": [
+   34.3945,
+   132.455
+  ],
+  "Atomic Bomb Dome Hiroshima": [
+   34.3955,
+   132.4536
+  ],
+  "Hiroshima Peace Memorial Museum": [
+   34.3914,
+   132.4525
+  ],
+  "Okonomimura Hiroshima": [
+   34.392,
+   132.46
+  ],
+  "Itsukushima Shrine Miyajima": [
+   34.296,
+   132.3199
+  ],
+  "Hakone-Yumoto Station": [
+   35.2325,
+   139.1069
+  ],
+  "Hakone Open-Air Museum": [
+   35.2445,
+   139.051
+  ],
+  "Owakudani Hakone": [
+   35.2447,
+   139.0197
+  ],
+  "Heiwa-no-Torii Hakone Shrine": [
+   35.2044,
+   139.0257
+  ],
+  "Tenzan Onsen Hakone": [
+   35.227,
+   139.101
+  ],
+  "Tokyo Station hotel area": [
+   35.6812,
+   139.7671
+  ],
+  "Ueno Park Tokyo": [
+   35.7156,
+   139.7745
+  ],
+  "Ameyoko market Ueno": [
+   35.7092,
+   139.7746
+  ],
+  "Yanaka Ginza Tokyo": [
+   35.7276,
+   139.766
+  ],
+  "Marunouchi Tokyo": [
+   35.6812,
+   139.7649
+  ],
+  "Shinjuku Tokyo": [
+   35.6896,
+   139.7006
+  ],
+  "Tokyo Station Tokyo": [
+   35.6812,
+   139.7671
+  ]
+ },
+ "linkBiglietti": {
+  "Tokyo Skytree": "https://www.tokyo-skytree.jp/",
+  "Shibuya Sky": "https://www.shibuya-scramble-square.com/sky/",
+  "Tokyo Tower night view": "https://www.tokyotower.co.jp/",
+  "Kanazawa 21st Century Museum of Contemporary Art": "https://www.kanazawa21.jp/",
+  "Osaka Castle": "https://www.osakacastle.net/",
+  "Umeda Sky Building Osaka": "https://www.skybldg.co.jp/en/",
+  "Hiroshima Peace Memorial Museum": "https://hpmmuseum.jp/?lang=eng",
+  "teamLab Borderless Azabudai Tokyo": "https://www.teamlab.art/e/borderless-azabudai/",
+  "teamLab Planets Tokyo": "https://www.teamlab.art/e/planets/",
+  "Osaka Aquarium Kaiyukan": "https://www.kaiyukan.com/language/eng/",
+  "Nikko Toshogu shrine": null,
+  "Hakone-Yumoto Station": null
+ },
+ "ceneSpeciali": {
+  "3": {
+   "kind": "🍣 Cena sushi speciale",
+   "city": "Tokyo",
+   "note": "In 6 persone: prenotate con settimane di anticipo. Ai banchi omakase i posti sono pochissimi — chiedete se hanno tavolo o sala privata per gruppi.",
+   "options": [
+    {
+     "tier": "Alto (omakase)",
+     "name": "Sushi Rinda (Meguro)",
+     "desc": "Chef parla inglese, atmosfera accogliente. Omakase ~29.000¥.",
+     "url": "https://www.google.com/search?q=Sushi+Rinda+Meguro+reservation"
+    },
+    {
+     "tier": "Medio",
+     "name": "Sushi Tokyo Ten (Shibuya/Shinjuku)",
+     "desc": "Edomae moderno, tourist-friendly, prenotabile online.",
+     "url": "https://autoreserve.com/en/lists/JGu7uVbhNwKsSC3AA47R"
+    },
+    {
+     "tier": "Accessibile",
+     "name": "Uobei Shibuya (già nel tuo giorno 2)",
+     "desc": "Sushi su 'treno' dal tablet, ~2.200¥ senza prenotazione. Facile in 6.",
+     "url": "https://www.google.com/maps/search/?api=1&query=Uobei+Shibuya+Dogenzaka"
+    }
+   ]
+  },
+  "12": {
+   "kind": "🥩 Cena wagyu speciale",
+   "city": "Osaka",
+   "note": "In 6 persone: al teppanyaki chiedete il tavolo/piastra per gruppo o la sala privata. Molti prenotano online (Tabelog/byFood).",
+   "options": [
+    {
+     "tier": "Alto (teppanyaki A5)",
+     "name": "Teppanyaki Ousaka (Juso)",
+     "desc": "Spesso #1 a Osaka su Tripadvisor, wagyu+aragosta, staff multilingue, vista notturna.",
+     "url": "https://www.google.com/search?q=Teppanyaki+Ousaka+reservation"
+    },
+    {
+     "tier": "Medio (Kobe beef)",
+     "name": "Teppanyaki Kobe Gyu Steak Zin (Namba)",
+     "desc": "A5 Kobe, prenotazione online istantanea, corso omakase.",
+     "url": "https://tabelog.com/en/osaka/A2701/A270202/27145189/"
+    },
+    {
+     "tier": "Accessibile",
+     "name": "Tetsuju (Namba)",
+     "desc": "Bistecca A4+ di manzo nero, menu multilingue, ~5.000¥, casual.",
+     "url": "https://www.google.com/search?q=Tetsuju+Namba+teppanyaki+reservation"
+    }
+   ]
+  }
+ },
+ "metaCitta": {
+  "TOKYO": {
+   "color": "#E4572E",
+   "kanji": "東京",
+   "romaji": "Tōkyō",
+   "lat": 35.6762,
+   "lng": 139.6503
+  },
+  "NIKKO": {
+   "color": "#2A9D8F",
+   "kanji": "日光",
+   "romaji": "Nikkō",
+   "lat": 36.7198,
+   "lng": 139.6982
+  },
+  "KANAZAWA": {
+   "color": "#8E7CC3",
+   "kanji": "金沢",
+   "romaji": "Kanazawa",
+   "lat": 36.5613,
+   "lng": 136.6562
+  },
+  "KYOTO": {
+   "color": "#C1440E",
+   "kanji": "京都",
+   "romaji": "Kyōto",
+   "lat": 35.0116,
+   "lng": 135.7681
+  },
+  "KOYASAN": {
+   "color": "#5B7553",
+   "kanji": "高野山",
+   "romaji": "Kōyasan",
+   "lat": 34.2131,
+   "lng": 135.585
+  },
+  "OSAKA": {
+   "color": "#F4A259",
+   "kanji": "大阪",
+   "romaji": "Ōsaka",
+   "lat": 34.6937,
+   "lng": 135.5023
+  },
+  "HIROSHIMA": {
+   "color": "#4A7C99",
+   "kanji": "広島",
+   "romaji": "Hiroshima",
+   "lat": 34.3853,
+   "lng": 132.4553
+  },
+  "HAKONE": {
+   "color": "#6A8EAE",
+   "kanji": "箱根",
+   "romaji": "Hakone",
+   "lat": 35.2323,
+   "lng": 139.1069
+  }
+ }
+}
