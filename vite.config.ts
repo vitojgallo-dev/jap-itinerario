@@ -34,12 +34,12 @@ export default defineConfig({
           {
             urlPattern: ({ url }) => url.hostname === 'tile.openstreetmap.org',
             handler: 'CacheFirst',
-            options: { cacheName: 'mappe', expiration: { maxEntries: 4000, maxAgeSeconds: 60 * 60 * 24 * 30 }, cacheableResponse: { statuses: [0, 200] } },
+            options: { cacheName: 'mappe', expiration: { maxEntries: 4000, purgeOnQuotaError: true, maxAgeSeconds: 60 * 60 * 24 * 30 }, cacheableResponse: { statuses: [200] } },
           },
           {
             urlPattern: ({ url }) => url.hostname === 'upload.wikimedia.org',
             handler: 'CacheFirst',
-            options: { cacheName: 'foto', expiration: { maxEntries: 800, maxAgeSeconds: 60 * 60 * 24 * 180 }, cacheableResponse: { statuses: [0, 200] } },
+            options: { cacheName: 'foto', expiration: { maxEntries: 800, purgeOnQuotaError: true, maxAgeSeconds: 60 * 60 * 24 * 180 }, cacheableResponse: { statuses: [200] } },
           },
         ],
       },

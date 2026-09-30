@@ -57,7 +57,7 @@ export function MappaLeaflet({ punti, percorso, posizione, tema, onApri }: Props
   const pos = useMemo<Coppia | null>(() => (posizione ? [posizione.lat, posizione.lng] : null), [posizione])
   return (
     <MapContainer className="mappa" center={[36.2, 138.2]} zoom={5} zoomControl={false}>
-      <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19}
+      <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19} crossOrigin={true}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
       {percorso && punti.length > 1 && (
         <Polyline positions={punti.map(p => [p.lat, p.lng] as Coppia)} pathOptions={{ color: punti[0].colore, weight: 3, opacity: 0.75, dashArray: '6 8' }} />

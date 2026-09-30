@@ -27,7 +27,7 @@ export function FotoLuogo({ query, override, className = '', alt = '' }: { query
 
   return (
     <div ref={rif} className={`foto ${className}${url === undefined ? ' foto-attesa' : ''}`}>
-      {url ? <img src={url} alt={alt} loading="lazy" decoding="async" onError={() => setUrl(null)} /> : url === null ? <MapPin size={28} aria-hidden /> : null}
+      {url ? <img src={url} alt={alt} crossOrigin="anonymous" loading="lazy" decoding="async" onError={() => setUrl(null)} /> : url === null ? <MapPin size={28} aria-hidden /> : null}
     </div>
   )
 }

@@ -5,7 +5,7 @@ import './ui/tema.css'
 import './ui/base.css'
 
 // Chiede al browser di non cancellare i dati quando lo spazio scarseggia.
-void navigator.storage?.persist?.()
+void navigator.storage?.persist?.()?.catch(() => {})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
