@@ -37,6 +37,13 @@ function Inquadra({ punti, posizione }: { punti: PuntoMappa[]; posizione: Coppia
   return null
 }
 
+/** MapContainer fissa la className al montaggio: il tema scuro va applicato al contenitore a mano, così segue anche i cambi dal vivo. */
+function TemaMappa({ scuro }: { scuro: boolean }) {
+  const map = useMap()
+  useEffect(() => { map.getContainer().classList.toggle('mappa-scura', scuro) }, [map, scuro])
+  return null
+}
+
 interface Props {
   punti: PuntoMappa[]
   percorso: boolean
@@ -49,7 +56,7 @@ export function MappaLeaflet({ punti, percorso, posizione, tema, onApri }: Props
   // Stabile fra un render e l'altro, così aprire una tappa non rifà l'inquadratura.
   const pos = useMemo<Coppia | null>(() => (posizione ? [posizione.lat, posizione.lng] : null), [posizione])
   return (
-    <MapContainer className={'mappa' + (tema === 'scuro' ? ' mappa-scura' : '')} center={[36.2, 138.2]} zoom={5} zoomControl={false}>
+    <MapContainer className="mappa" center={[36.2, 138.2]} zoom={5} zoomControl={false}>
       <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" maxZoom={19}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' />
       {percorso && punti.length > 1 && (
@@ -59,6 +66,7 @@ export function MappaLeaflet({ punti, percorso, posizione, tema, onApri }: Props
         <Marker key={p.id} position={[p.lat, p.lng]} icon={icona(p)} title={p.titolo} eventHandlers={{ click: () => onApri(p) }} />
       ))}
       {pos && <CircleMarker center={pos} radius={8} pathOptions={{ color: '#FFFFFF', weight: 3, fillColor: '#1E88E5', fillOpacity: 1 }} />}
+      <TemaMappa scuro={tema === 'scuro'} />
       <Inquadra punti={punti} posizione={pos} />
     </MapContainer>
   )
