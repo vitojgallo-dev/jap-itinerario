@@ -1,4 +1,4 @@
-import { createStore, del, get, set, type UseStore } from 'idb-keyval'
+import { createStore, del, get, keys, set, type UseStore } from 'idb-keyval'
 import { nuovoId } from '../model/id'
 import { mimeAmmesso, mimeFoto } from '../model/mime'
 import type { Allegato, Viaggio } from '../model/tipi'
@@ -24,6 +24,8 @@ export interface ArchivioAllegati {
   leggi(id: string): Promise<Blob | undefined>
   scrivi(id: string, dati: Blob): Promise<void>
   elimina(id: string): Promise<void>
+  /** Tutti gli id presenti, per la pulizia degli orfani all'avvio. Facoltativo: senza, la pulizia non parte. */
+  chiavi?(): Promise<string[]>
 }
 
 let negozio: UseStore | null = null
@@ -34,6 +36,7 @@ export const archivioIndexedDb: ArchivioAllegati = {
   leggi: async id => get<Blob>(id, negozioAllegati()),
   scrivi: async (id, dati) => set(id, dati, negozioAllegati()),
   elimina: async id => del(id, negozioAllegati()),
+  chiavi: async () => (await keys(negozioAllegati())).filter((k): k is string => typeof k === 'string'),
 }
 
 /** Le dimensioni con il lato lungo al massimo `lato`, in pixel interi; le foto più piccole restano come sono. */

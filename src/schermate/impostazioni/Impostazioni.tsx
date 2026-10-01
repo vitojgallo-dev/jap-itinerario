@@ -5,7 +5,7 @@ import { dataGiorno, formatoData } from '../../model/date'
 import { aggiornaImpostazioni, aggiornaPersona, aggiornaViaggio, aggiungiCitta } from '../../model/operazioni'
 import type { Tema, Viaggio } from '../../model/tipi'
 import { validaViaggio } from '../../model/validazione'
-import { avvisoImportazione, eliminaSeOrfani, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
+import { avvisoImportazione, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
 import { leggiBackup, type AllegatiBackup } from '../../servizi/backup'
 import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
 import { useViaggio } from '../../store/viaggio'
@@ -15,6 +15,7 @@ import { useAggiungiDatiDiPartenza } from '../../ui/datiDiPartenza'
 import { Foglio } from '../../ui/Foglio'
 import { useInstallazione } from '../../ui/hook'
 import { InvitoInstallazione, IstruzioniInstallazione } from '../../ui/Installazione'
+import { pulisciQuandoNonAnnullabile } from '../../ui/pulisciDopoAnnulla'
 import { hrefRotta } from '../../ui/rotta'
 import { EditorCitta } from './EditorCitta'
 
@@ -76,9 +77,7 @@ export default function Impostazioni() {
   }
 
   // Finita la finestra per annullare, gli allegati che il viaggio sostituito usava (e il nuovo no) si cancellano.
-  const pulisciDopo = (ids: string[]) => {
-    if (ids.length) setTimeout(() => void eliminaSeOrfani(ids, useViaggio.getState().viaggio), 7000)
-  }
+  const pulisciDopo = (ids: string[], prima: Viaggio) => pulisciQuandoNonAnnullabile(ids, prima)
   const confermaImportazione = async () => {
     if (!daImportare) return
     const { viaggio: nuovo, allegati, scartati } = daImportare
@@ -86,17 +85,19 @@ export default function Impostazioni() {
     const vecchi = idAllegati(useViaggio.getState().viaggio)
     // Gli id che il viaggio attuale usa e che sono già nell'archivio non si sovrascrivono.
     const esito = await ripristinaAllegati(allegati, undefined, vecchi)
+    const prima = useViaggio.getState().viaggio
     applicaAnnullabile(() => nuovo, 'Backup importato')
     const avviso = avvisoImportazione(nuovo, esito, scartati)
     if (avviso) toast(avviso)
     // Se l'importazione viene annullata, gli allegati appena scritti restano orfani: si cancellano insieme ai vecchi.
-    pulisciDopo([...vecchi, ...esito.scritti])
+    pulisciDopo([...vecchi, ...esito.scritti], prima)
   }
   const ripristina = () => {
-    const vecchi = idAllegati(viaggio)
+    const prima = useViaggio.getState().viaggio
+    const vecchi = idAllegati(prima)
     applicaAnnullabile(() => viaggioBase(), 'Itinerario ripristinato')
     setRipristino(false)
-    pulisciDopo(vecchi)
+    pulisciDopo(vecchi, prima)
   }
 
   return (

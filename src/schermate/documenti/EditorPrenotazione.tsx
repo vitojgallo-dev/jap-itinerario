@@ -6,6 +6,7 @@ import { CITTA_SCONOSCIUTA, cittaDi } from '../../model/riepilogo'
 import { formatoNumero, leggiImporto } from '../../model/spese'
 import { TIPI_PRENOTAZIONE, type Allegato, type Citta, type Prenotazione, type TipoPrenotazione, type Valuta, type Viaggio } from '../../model/tipi'
 import { salvaAllegato } from '../../servizi/allegati'
+import { linkSicuro } from '../../servizi/mappe'
 import { Campo, Segmentato } from '../../ui/componenti'
 import { ETICHETTA_PRENOTAZIONE } from '../../ui/icone'
 import { CercaLuogo } from '../programma/CercaLuogo'
@@ -68,9 +69,12 @@ export function EditorPrenotazione({ viaggio, iniziale, onSalva, onAllegato, onE
 
   const salva = () => {
     const importo = leggiImporto(costo)
-    if (costo.trim() && (importo === null || importo < 0)) { setErrori(['Il costo non è un numero.']); return }
-    const pulita: Prenotazione = { ...b, titolo: b.titolo.trim(), ...(importo !== null ? { costo: { importo, valuta: valutaCosto } } : {}) }
-    if (importo === null) delete pulita.costo
+    const messaggi: string[] = []
+    if (costo.trim() && (importo === null || importo < 0)) messaggi.push('Il costo non è un numero.')
+    const link = (b.link ?? '').trim()
+    if (link && !linkSicuro(link)) messaggi.push('Il link deve cominciare con http:// o https://.')
+    const pulita: Prenotazione = { ...b, titolo: b.titolo.trim(), link, ...(importo !== null && importo >= 0 ? { costo: { importo, valuta: valutaCosto } } : {}) }
+    if (importo === null || importo < 0) delete pulita.costo
     for (const k of ['inizio', 'fine', 'codice', 'riferimento', 'daPrenotareEntro', 'link', 'tappaId'] as const) {
       if (!pulita[k]?.trim()) delete pulita[k]
     }
@@ -78,8 +82,8 @@ export function EditorPrenotazione({ viaggio, iniziale, onSalva, onAllegato, onE
     if (!pulita.luogo) delete pulita.luogo
     if (pulita.stato === 'prenotata') delete pulita.daPrenotareEntro
     if (!viaggia || pulita.fusoFine === pulita.fuso) delete pulita.fusoFine
-    const e = controllaPrenotazione(pulita)
-    if (e.length) { setErrori(e); return }
+    messaggi.push(...controllaPrenotazione(pulita))
+    if (messaggi.length) { setErrori(messaggi); return }
     onSalva(pulita)
   }
 
