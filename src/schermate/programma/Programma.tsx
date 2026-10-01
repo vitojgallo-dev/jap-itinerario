@@ -39,7 +39,7 @@ export default function Programma({ indice }: { indice: number | null }) {
         <BarraNav titolo="Programma" />
         <TitoloGrande>Programma</TitoloGrande>
         <Vuoto titolo="Nessun giorno"
-          testo={viaggio.citta.length ? 'Aggiungi il primo giorno del viaggio.' : 'Aggiungi prima una città in Viaggio.'}
+          testo={viaggio.citta.length ? 'Aggiungi il primo giorno del viaggio.' : 'Aggiungi prima una città in Impostazioni.'}
           azione={viaggio.citta.length > 0 && (
             <button type="button" className="pulsante primario" onClick={() => applica(v => aggiungiGiorno(v, -1, v.citta[0].id))}>Aggiungi giorno</button>
           )} />

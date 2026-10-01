@@ -1,4 +1,4 @@
-import { Check, Download, History, Plus, RotateCcw, Upload } from 'lucide-react'
+import { Check, Download, History, ListPlus, Plus, RotateCcw, Upload } from 'lucide-react'
 import { useRef, useState, type CSSProperties } from 'react'
 import { toast } from 'sonner'
 import { dataGiorno, formatoData } from '../../model/date'
@@ -10,10 +10,12 @@ import { leggiBackup, type AllegatiBackup } from '../../servizi/backup'
 import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
 import { useViaggio } from '../../store/viaggio'
 import { useEsportaBackup } from '../../ui/Backup'
-import { BarraNav, Campo, Gruppo, Riga, Segmentato, TitoloGrande } from '../../ui/componenti'
+import { BarraNav, Campo, Gruppo, LinkIndietro, Riga, Segmentato, TitoloGrande } from '../../ui/componenti'
+import { useAggiungiDatiDiPartenza } from '../../ui/datiDiPartenza'
 import { Foglio } from '../../ui/Foglio'
 import { useInstallazione } from '../../ui/hook'
 import { InvitoInstallazione, IstruzioniInstallazione } from '../../ui/Installazione'
+import { hrefRotta } from '../../ui/rotta'
 import { EditorCitta } from './EditorCitta'
 
 const TEMI: { valore: Tema; etichetta: string }[] = [
@@ -22,11 +24,12 @@ const TEMI: { valore: Tema; etichetta: string }[] = [
   { valore: 'scuro', etichetta: 'Notte' },
 ]
 
-export default function SchermataViaggio() {
+export default function Impostazioni() {
   const viaggio = useViaggio(s => s.viaggio)
   const applica = useViaggio(s => s.applica)
   const applicaAnnullabile = useViaggio(s => s.applicaAnnullabile)
   const esporta = useEsportaBackup()
+  const aggiungiPartenza = useAggiungiDatiDiPartenza()
   const { installata, ios } = useInstallazione()
   const file = useRef<HTMLInputElement>(null)
   const [daImportare, setDaImportare] = useState<{ viaggio: Viaggio; allegati: AllegatiBackup; scartati: number } | null>(null)
@@ -98,8 +101,8 @@ export default function SchermataViaggio() {
 
   return (
     <div className="schermata">
-      <BarraNav titolo="Viaggio" />
-      <TitoloGrande sotto="Prenotazioni, spese e checklist arrivano nelle prossime versioni.">Viaggio</TitoloGrande>
+      <BarraNav titolo="Impostazioni" sinistra={<LinkIndietro href={hrefRotta('oggi')} etichetta="Oggi" />} />
+      <TitoloGrande>Impostazioni</TitoloGrande>
 
       <Gruppo titolo="Il viaggio" piede="Cambiando la data del primo giorno, tutte le date si spostano insieme.">
         <div style={{ padding: '4px 16px 8px' }}>
@@ -129,8 +132,9 @@ export default function SchermataViaggio() {
       </Gruppo>
 
       <Gruppo titolo="Dati" piede={ultimo ? `Ultimo backup: ${new Date(ultimo).toLocaleString('it-IT', { dateStyle: 'medium', timeStyle: 'short' })}` : 'Nessun backup ancora.'}>
-        <Riga icona={<Download size={20} />} titolo="Salva o condividi un backup" sottotitolo="Anche per mandare l'itinerario agli altri" onClick={() => void esporta()} />
+        <Riga icona={<Download size={20} />} titolo="Salva o condividi un backup" sottotitolo="Con gli allegati: anche per mandare tutto agli altri" onClick={() => void esporta()} />
         <Riga icona={<Upload size={20} />} titolo="Importa un backup" onClick={() => file.current?.click()} />
+        <Riga icona={<ListPlus size={20} />} titolo="Aggiungi prenotazioni e orari del 2027" sottotitolo="Solo quelli che mancano su questo telefono" onClick={aggiungiPartenza} />
         {v1 && <Riga icona={<History size={20} />} titolo="Recupera le modifiche della versione vecchia" onClick={recuperaV1} />}
         <Riga icona={<RotateCcw size={20} />} titolo="Ripristina l'itinerario 2027" pericolo onClick={() => setRipristino(true)} />
       </Gruppo>
@@ -141,7 +145,7 @@ export default function SchermataViaggio() {
         : <><InvitoInstallazione /><Gruppo titolo="Come si installa"><div style={{ padding: '8px 16px' }}><IstruzioniInstallazione ios={ios} /></div></Gruppo></>}
 
       <p className="testo-3" style={{ margin: '24px 16px' }}>
-        Mappe © OpenStreetMap · Meteo Open-Meteo · Foto Wikipedia e Wikimedia Commons · Ricerca luoghi Nominatim
+        Mappe © OpenStreetMap · Meteo Open-Meteo · Foto Wikipedia e Wikimedia Commons · Ricerca luoghi Nominatim · Cambio BCE via Frankfurter · Orari OpenStreetMap via Overpass
       </p>
 
       <EditorCitta cittaId={cittaAperta} onChiudi={() => setCittaAperta(null)} />

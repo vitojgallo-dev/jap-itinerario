@@ -4,7 +4,7 @@ import { backupDaFare, bigliettiDaPrenotare, cittaDi } from '../../model/riepilo
 import { hrefBiglietti } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
 import { PromemoriaBackup } from '../../ui/Backup'
-import { BarraNav, Gruppo, Riga, TitoloGrande } from '../../ui/componenti'
+import { BarraNav, Gruppo, LinkImpostazioni, Riga, TitoloGrande } from '../../ui/componenti'
 import { InvitoInstallazione } from '../../ui/Installazione'
 import { hrefRotta } from '../../ui/rotta'
 import { Meteo } from './Meteo'
@@ -16,7 +16,7 @@ export function PrimaDelViaggio({ giorniMancanti, adesso }: { giorniMancanti: nu
   const biglietti = bigliettiDaPrenotare(viaggio)
   return (
     <div className="schermata">
-      <BarraNav titolo="Oggi" />
+      <BarraNav titolo="Oggi" sinistra={<LinkImpostazioni />} />
       <TitoloGrande sopra="Si parte fra">{viaggio.titolo}</TitoloGrande>
       <div className="card conto">
         <div className="conto-numero">{giorniMancanti}</div>

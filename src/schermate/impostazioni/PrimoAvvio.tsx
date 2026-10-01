@@ -26,7 +26,7 @@ export function PrimoAvvio() {
   return (
     <Foglio aperto={sceltaV1 === 'da-chiedere'} onChiudi={chiudi} titolo="Nuova versione">
       <p style={{ margin: '8px 0 12px' }}>L'app è stata rifatta, con un itinerario 2027 aggiornato: arrivo e partenza, le sere dei festival di Nara e Arashiyama, Kurama e Himeji al posto di Koyasan e Hiroshima.</p>
-      <p className="testo-2" style={{ marginBottom: 16 }}>Su questo telefono c'erano anche delle modifiche fatte nella versione vecchia. Da cosa vuoi partire? Potrai cambiare idea da Viaggio → Dati.</p>
+      <p className="testo-2" style={{ marginBottom: 16 }}>Su questo telefono c'erano anche delle modifiche fatte nella versione vecchia. Da cosa vuoi partire? Potrai cambiare idea da Impostazioni → Dati.</p>
       <div style={{ display: 'grid', gap: 10 }}>
         <button type="button" className="pulsante primario largo" onClick={chiudi}>Nuovo itinerario 2027</button>
         <button type="button" className="pulsante largo" onClick={recupera}>Le mie modifiche vecchie</button>

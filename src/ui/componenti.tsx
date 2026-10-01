@@ -1,5 +1,6 @@
-import { ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Settings } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { hrefRotta } from './rotta'
 
 export function BarraNav({ titolo, sinistra, destra }: { titolo: ReactNode; sinistra?: ReactNode; destra?: ReactNode }) {
   return (
@@ -96,5 +97,22 @@ export function Campo({ etichetta, children }: { etichetta: string; children: Re
       <span>{etichetta}</span>
       {children}
     </label>
+  )
+}
+
+/** L'ingranaggio in alto a sinistra di Oggi. */
+export function LinkImpostazioni() {
+  return (
+    <a className="pulsante-icona" href={hrefRotta('impostazioni')} aria-label="Impostazioni">
+      <Settings size={22} aria-hidden />
+    </a>
+  )
+}
+
+export function LinkIndietro({ href, etichetta }: { href: string; etichetta: string }) {
+  return (
+    <a className="pulsante-testo indietro" href={href}>
+      <ChevronLeft size={22} aria-hidden /> {etichetta}
+    </a>
   )
 }

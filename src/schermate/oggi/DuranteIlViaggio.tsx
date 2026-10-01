@@ -6,7 +6,7 @@ import { aggiornaTappa } from '../../model/operazioni'
 import { cittaDi } from '../../model/riepilogo'
 import { useViaggio } from '../../store/viaggio'
 import { Avvisi } from '../../ui/Avvisi'
-import { BarraNav, Gruppo, Riga, TitoloGrande } from '../../ui/componenti'
+import { BarraNav, Gruppo, LinkImpostazioni, Riga, TitoloGrande } from '../../ui/componenti'
 import { hrefRotta } from '../../ui/rotta'
 import { FoglioTappa } from '../programma/FoglioTappa'
 import { CardAdesso } from './CardAdesso'
@@ -28,7 +28,7 @@ export function DuranteIlViaggio({ indice, adesso }: { indice: number; adesso: D
 
   return (
     <div className="schermata">
-      <BarraNav titolo={`${citta.nome} · G${indice}`} />
+      <BarraNav titolo={`${citta.nome} · G${indice}`} sinistra={<LinkImpostazioni />} />
       <TitoloGrande sopra={formatoData(data, 'lungo')} sotto={giorno.titolo}>
         <span className="kanji">{citta.kanji}</span> {citta.nome}
       </TitoloGrande>

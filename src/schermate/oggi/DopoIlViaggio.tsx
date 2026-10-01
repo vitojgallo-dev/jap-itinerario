@@ -1,6 +1,6 @@
 import { statistiche } from '../../model/riepilogo'
 import { useViaggio } from '../../store/viaggio'
-import { BarraNav, TitoloGrande } from '../../ui/componenti'
+import { BarraNav, LinkImpostazioni, TitoloGrande } from '../../ui/componenti'
 import { hrefRotta } from '../../ui/rotta'
 
 export function DopoIlViaggio() {
@@ -8,7 +8,7 @@ export function DopoIlViaggio() {
   const s = statistiche(viaggio)
   return (
     <div className="schermata">
-      <BarraNav titolo="Oggi" />
+      <BarraNav titolo="Oggi" sinistra={<LinkImpostazioni />} />
       <TitoloGrande sopra="Bentornati" sotto={viaggio.titolo}>おかえりなさい</TitoloGrande>
       <div className="statistiche">
         <div className="card statistica"><b>{s.giorni}</b>giorni</div>
