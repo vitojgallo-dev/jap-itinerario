@@ -68,6 +68,7 @@ button.riga:active, a.riga:active { background: var(--riempimento); }
 .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--tinta-tenue); color: var(--tinta-testo); white-space: nowrap; }
 .badge.avviso { background: var(--avviso-sfondo); color: var(--avviso-testo); }
 .badge.neutro { background: var(--riempimento); color: var(--testo-2); }
+.badge.pericolo { background: var(--pericolo-sfondo); color: var(--pericolo); }
 
 .segmentato { display: flex; background: var(--riempimento); border-radius: 10px; padding: 2px; gap: 2px; }
 .segmentato button { flex: 1; min-height: 44px; border: 0; background: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; }

@@ -13,6 +13,8 @@
   --barra-tab: rgba(251, 248, 242, 0.92);
   --ombra: 0 1px 2px rgba(60, 40, 10, 0.05), 0 6px 18px rgba(60, 40, 10, 0.06);
   --pericolo: #b3261e;
+  --pericolo-sfondo: #fbe4e1;
+  --su-pericolo: #ffffff;
   --successo: #2e7d4f;
   --avviso-sfondo: #fbebd0;
   --avviso-testo: #6e4200;
@@ -39,6 +41,8 @@
   --barra-tab: rgba(22, 23, 29, 0.92);
   --ombra: none;
   --pericolo: #ff6b6b;
+  --pericolo-sfondo: #3a1618;
+  --su-pericolo: #111114;
   --successo: #4cc38a;
   --avviso-sfondo: #3a2a10;
   --avviso-testo: #ffcf7a;

@@ -77,7 +77,7 @@ export function Segmentato<T extends string>({ valore, opzioni, onCambia, etiche
   )
 }
 
-export function Badge({ tono = 'tinta', children }: { tono?: 'tinta' | 'avviso' | 'neutro'; children: ReactNode }) {
+export function Badge({ tono = 'tinta', children }: { tono?: 'tinta' | 'avviso' | 'neutro' | 'pericolo'; children: ReactNode }) {
   return <span className={'badge' + (tono === 'tinta' ? '' : ` ${tono}`)}>{children}</span>
 }
 
