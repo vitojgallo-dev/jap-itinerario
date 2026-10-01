@@ -5,7 +5,8 @@ import { dataGiorno, formatoData } from '../../model/date'
 import { aggiornaImpostazioni, aggiornaPersona, aggiornaViaggio, aggiungiCitta } from '../../model/operazioni'
 import type { Tema, Viaggio } from '../../model/tipi'
 import { validaViaggio } from '../../model/validazione'
-import { leggiBackup } from '../../servizi/backup'
+import { eliminaSeOrfani, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
+import { leggiBackup, type AllegatiBackup } from '../../servizi/backup'
 import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
 import { useViaggio } from '../../store/viaggio'
 import { useEsportaBackup } from '../../ui/Backup'
@@ -28,7 +29,7 @@ export default function SchermataViaggio() {
   const esporta = useEsportaBackup()
   const { installata, ios } = useInstallazione()
   const file = useRef<HTMLInputElement>(null)
-  const [daImportare, setDaImportare] = useState<Viaggio | null>(null)
+  const [daImportare, setDaImportare] = useState<{ viaggio: Viaggio; allegati: AllegatiBackup } | null>(null)
   const [cittaAperta, setCittaAperta] = useState<string | null>(null)
   const [ripristino, setRipristino] = useState(false)
   // La chiave vecchia non cambia mai mentre l'app è aperta: basta leggerla una volta.
@@ -49,7 +50,7 @@ export default function SchermataViaggio() {
     }
     const esito = leggiBackup(testo)
     if (!esito.ok) toast(esito.errore)
-    else setDaImportare(esito.viaggio)
+    else setDaImportare({ viaggio: esito.viaggio, allegati: esito.allegati })
     if (file.current) file.current.value = ''
   }
   const nuovaCitta = () => {
@@ -69,6 +70,30 @@ export default function SchermataViaggio() {
     if (!esito.ok) { toast(ERRORE_V1); return }
     const recuperato = esito.viaggio
     applicaAnnullabile(() => recuperato, 'Modifiche vecchie recuperate')
+  }
+
+  // Finita la finestra per annullare, gli allegati che il viaggio sostituito usava (e il nuovo no) si cancellano.
+  const pulisciDopo = (ids: string[]) => {
+    if (ids.length) setTimeout(() => void eliminaSeOrfani(ids, useViaggio.getState().viaggio), 7000)
+  }
+  const confermaImportazione = async () => {
+    if (!daImportare) return
+    const { viaggio: nuovo, allegati } = daImportare
+    setDaImportare(null)
+    const vecchi = idAllegati(useViaggio.getState().viaggio)
+    try {
+      await ripristinaAllegati(allegati)
+    } catch {
+      toast("Gli allegati del backup non entrano nello spazio del telefono: importo solo l'itinerario.")
+    }
+    applicaAnnullabile(() => nuovo, 'Backup importato')
+    pulisciDopo(vecchi)
+  }
+  const ripristina = () => {
+    const vecchi = idAllegati(viaggio)
+    applicaAnnullabile(() => viaggioBase(), 'Itinerario ripristinato')
+    setRipristino(false)
+    pulisciDopo(vecchi)
   }
 
   return (
@@ -123,17 +148,19 @@ export default function SchermataViaggio() {
       <Foglio aperto={!!daImportare} onChiudi={() => setDaImportare(null)} titolo="Importa backup">
         {daImportare && (
           <>
-            <p style={{ margin: '8px 0' }}><strong>{daImportare.titolo}</strong></p>
+            <p style={{ margin: '8px 0' }}><strong>{daImportare.viaggio.titolo}</strong></p>
             <p className="testo-2" style={{ marginBottom: 16 }}>
-              {daImportare.giorni.length} giorni dal {formatoData(daImportare.dataPartenza, 'lungo')}. Sostituisce l'itinerario su questo telefono (si può annullare subito dopo).
+              {daImportare.viaggio.giorni.length} giorni dal {formatoData(daImportare.viaggio.dataPartenza, 'lungo')}
+              {Object.keys(daImportare.allegati).length > 0 && `, con ${Object.keys(daImportare.allegati).length} allegati`}.
+              {' '}Sostituisce l'itinerario su questo telefono (si può annullare subito dopo).
             </p>
-            <button type="button" className="pulsante primario largo" onClick={() => { const n = daImportare; applicaAnnullabile(() => n, 'Backup importato'); setDaImportare(null) }}>Importa</button>
+            <button type="button" className="pulsante primario largo" onClick={() => void confermaImportazione()}>Importa</button>
           </>
         )}
       </Foglio>
       <Foglio aperto={ripristino} onChiudi={() => setRipristino(false)} titolo="Ripristina l'itinerario 2027">
         <p className="testo-2" style={{ margin: '8px 0 16px' }}>Sostituisce l'itinerario su questo telefono (si può annullare subito dopo).</p>
-        <button type="button" className="pulsante primario largo" onClick={() => { applicaAnnullabile(() => viaggioBase(), 'Itinerario ripristinato'); setRipristino(false) }}>Ripristina</button>
+        <button type="button" className="pulsante primario largo" onClick={ripristina}>Ripristina</button>
       </Foglio>
     </div>
   )

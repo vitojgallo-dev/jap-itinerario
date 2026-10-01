@@ -6,7 +6,7 @@ const adesso = new Date('2027-08-10T12:00:00+09:00')
 
 test('andata e ritorno', () => {
   const v = viaggioDiProva()
-  expect(leggiBackup(JSON.stringify(creaBackup(v, adesso)))).toEqual({ ok: true, viaggio: v })
+  expect(leggiBackup(JSON.stringify(creaBackup(v, adesso)))).toEqual({ ok: true, viaggio: v, allegati: {} })
 })
 
 test('errori chiari', () => {
