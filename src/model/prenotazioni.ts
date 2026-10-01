@@ -8,6 +8,6 @@ export function notteCoperta(v: Viaggio, data: string): Prenotazione | null {
   const coprono = v.prenotazioni.filter(p =>
     p.tipo === 'hotel' && p.stato === 'prenotata' && p.inizio && p.fine
     && p.inizio.slice(0, 10) <= data && data < p.fine.slice(0, 10))
-  coprono.sort((a, b) => (a.inizio! < b.inizio! ? 1 : -1))
+  coprono.sort((a, b) => b.inizio!.localeCompare(a.inizio!) || a.id.localeCompare(b.id))
   return coprono[0] ?? null
 }

@@ -22,6 +22,24 @@ describe('notteCoperta', () => {
     expect(notteCoperta(v, '2027-08-12')?.id).toBe('nikko')
     expect(notteCoperta(v, '2027-08-13')?.id).toBe('kanazawa')
   })
+  test('se due si sovrappongono vince il check-in più recente', () => {
+    const w = viaggioDiProva({
+      prenotazioni: [
+        p({ id: 'vecchio', tipo: 'hotel', stato: 'prenotata', inizio: '2027-08-10T15:00', fine: '2027-08-14T10:00' }),
+        p({ id: 'nuovo', tipo: 'hotel', stato: 'prenotata', inizio: '2027-08-12T15:00', fine: '2027-08-16T10:00' }),
+      ],
+    })
+    expect(notteCoperta(w, '2027-08-13')?.id).toBe('nuovo')
+    expect(notteCoperta(w, '2027-08-11')?.id).toBe('vecchio')
+  })
+  test('a parità di check-in la scelta è deterministica', () => {
+    const lista = [
+      p({ id: 'b', tipo: 'hotel', stato: 'prenotata', inizio: '2027-08-10T15:00', fine: '2027-08-14T10:00' }),
+      p({ id: 'a', tipo: 'hotel', stato: 'prenotata', inizio: '2027-08-10T15:00', fine: '2027-08-14T10:00' }),
+    ]
+    expect(notteCoperta(viaggioDiProva({ prenotazioni: lista }), '2027-08-11')?.id).toBe('a')
+    expect(notteCoperta(viaggioDiProva({ prenotazioni: [...lista].reverse() }), '2027-08-11')?.id).toBe('a')
+  })
   test('solo hotel prenotati, con check-in e check-out', () => {
     expect(notteCoperta(v, '2027-08-21')).toBeNull()
     expect(notteCoperta(v, '2027-08-16')?.id).toBe('kyoto')
