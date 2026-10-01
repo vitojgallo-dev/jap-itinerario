@@ -7,6 +7,7 @@ import { PromemoriaBackup } from '../../ui/Backup'
 import { BarraNav, Gruppo, LinkImpostazioni, Riga, TitoloGrande } from '../../ui/componenti'
 import { InvitoInstallazione } from '../../ui/Installazione'
 import { hrefRotta } from '../../ui/rotta'
+import { CardProssimo } from './CardProssimo'
 import { Meteo } from './Meteo'
 
 export function PrimaDelViaggio({ giorniMancanti, adesso }: { giorniMancanti: number; adesso: Date }) {
@@ -25,6 +26,7 @@ export function PrimaDelViaggio({ giorniMancanti, adesso }: { giorniMancanti: nu
           <div className="testo-2">{formatoData(viaggio.dataPartenza, 'lungo')} – {formatoData(fine, 'lungo')}</div>
         </div>
       </div>
+      <CardProssimo adesso={adesso} />
       <InvitoInstallazione />
       {backupDaFare(viaggio.impostazioni.ultimoBackup, adesso) && <PromemoriaBackup />}
       {primo && giorniMancanti <= 15 && <Meteo citta={cittaDi(viaggio, primo)} data={viaggio.dataPartenza} oggi={istanteTokyo(adesso).data} />}

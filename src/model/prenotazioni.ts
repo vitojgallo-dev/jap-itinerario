@@ -1,5 +1,6 @@
 import { differenzaGiorni, formatoData } from './date'
 import { utcDaLocale } from './fusi'
+import { istanteSicuro } from './ics'
 import { nuovoId } from './id'
 import { TIPI_PRENOTAZIONE, type Prenotazione, type Tappa, type TipoPrenotazione, type Viaggio } from './tipi'
 
@@ -117,4 +118,18 @@ export function tappaCollegata(v: Viaggio, tappaId: string | undefined): { indic
     if (tappa) return { indice, tappa }
   }
   return null
+}
+
+/** La prenotazione che comincia prima, fra adesso e le prossime 24 ore, e quanti minuti mancano. */
+export function prossimaPrenotazione(v: Viaggio, adesso: Date): { prenotazione: Prenotazione; minuti: number } | null {
+  let migliore: { prenotazione: Prenotazione; minuti: number } | null = null
+  for (const p of v.prenotazioni) {
+    // Gli istanti non validi (dati importati) si saltano: la card non deve mai far cadere Oggi.
+    const inizio = istanteSicuro(p.inizio, p.fuso)
+    if (!inizio) continue
+    const minuti = Math.round((inizio.getTime() - adesso.getTime()) / 60_000)
+    if (minuti <= 0 || minuti > 24 * 60) continue
+    if (!migliore || minuti < migliore.minuti) migliore = { prenotazione: p, minuti }
+  }
+  return migliore
 }

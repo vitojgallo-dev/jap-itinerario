@@ -9,6 +9,7 @@ import { Avvisi } from '../../ui/Avvisi'
 import { BarraNav, TitoloGrande, Vuoto } from '../../ui/componenti'
 import { useAdesso } from '../../ui/hook'
 import { hrefRotta } from '../../ui/rotta'
+import { Stanotte } from '../oggi/Stanotte'
 import { EditorGiorno } from './EditorGiorno'
 import { ExtraGiorno } from './ExtraGiorno'
 import { FoglioNuovaTappa, FoglioTappa } from './FoglioTappa'
@@ -65,6 +66,7 @@ export default function Programma({ indice }: { indice: number | null }) {
           <Plus size={18} aria-hidden /> Aggiungi tappa
         </button>
       )}
+      <Stanotte indice={i} />
       <ExtraGiorno giorno={giorno} />
       <nav className="giorno-nav" aria-label="Giorno precedente e successivo">
         {i > 0 ? <a className="pulsante" href={hrefRotta('programma', i - 1)}><ChevronLeft size={18} aria-hidden /> G{i - 1}</a> : <span />}

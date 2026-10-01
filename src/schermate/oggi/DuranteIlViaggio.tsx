@@ -1,4 +1,4 @@
-import { BedDouble, Check, Circle } from 'lucide-react'
+import { Check, Circle } from 'lucide-react'
 import { useState } from 'react'
 import { tappeAdessoDopo } from '../../model/adesso'
 import { dataGiorno, formatoData, formatoDurata, istanteTokyo } from '../../model/date'
@@ -10,14 +10,14 @@ import { BarraNav, Gruppo, LinkImpostazioni, Riga, TitoloGrande } from '../../ui
 import { hrefRotta } from '../../ui/rotta'
 import { FoglioTappa } from '../programma/FoglioTappa'
 import { CardAdesso } from './CardAdesso'
+import { CardProssimo } from './CardProssimo'
 import { Meteo } from './Meteo'
-import { SchedaTaxi } from './SchedaTaxi'
+import { Stanotte } from './Stanotte'
 
 export function DuranteIlViaggio({ indice, adesso }: { indice: number; adesso: Date }) {
   const viaggio = useViaggio(s => s.viaggio)
   const applica = useViaggio(s => s.applica)
   const [aperta, setAperta] = useState<string | null>(null)
-  const [taxi, setTaxi] = useState(false)
   const giorno = viaggio.giorni[indice]
   const citta = cittaDi(viaggio, giorno)
   const data = dataGiorno(viaggio, indice)
@@ -34,6 +34,7 @@ export function DuranteIlViaggio({ indice, adesso }: { indice: number; adesso: D
       </TitoloGrande>
       <Meteo citta={citta} data={data} oggi={oggi} />
       <Avvisi avvisi={giorno.avvisi} />
+      <CardProssimo adesso={adesso} />
       {ora && <CardAdesso etichetta="Adesso" tappa={ora} onApri={() => setAperta(ora.id)} onFatto={() => fatta(ora.id)} />}
       {dopo && (
         <CardAdesso secondaria tappa={dopo} onApri={() => setAperta(dopo.id)}
@@ -48,13 +49,7 @@ export function DuranteIlViaggio({ indice, adesso }: { indice: number; adesso: D
           ))}
         </Gruppo>
       )}
-      {giorno.alloggio && (
-        <Gruppo titolo="Stanotte">
-          <Riga icona={<BedDouble size={20} />} titolo={giorno.alloggio.nome}
-            sottotitolo={giorno.alloggio.indirizzoJa || "Tocca per l'indirizzo da mostrare al tassista"} onClick={() => setTaxi(true)} />
-        </Gruppo>
-      )}
-      {giorno.alloggio && <SchedaTaxi aperto={taxi} onChiudi={() => setTaxi(false)} alloggio={giorno.alloggio} />}
+      <Stanotte indice={indice} />
       <FoglioTappa giornoId={giorno.id} tappaId={aperta} onChiudi={() => setAperta(null)} />
     </div>
   )

@@ -35,7 +35,7 @@ function idSicuro(id: string): string {
 }
 
 /** Converte "YYYY-MM-DDTHH:MM" nel fuso dato; null se la stringa o il fuso non sono validi (il file non deve mai lanciare). */
-function istanteSicuro(locale: string | undefined, fuso: string | undefined): Date | null {
+export function istanteSicuro(locale: string | undefined, fuso: string | undefined): Date | null {
   if (!locale || !LOCALE.test(locale) || !fusoValido(fuso)) return null
   return utcDaLocale(locale, fuso)
 }

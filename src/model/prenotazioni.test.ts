@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { giornoDiProva, prenotazioneDiProva as p, tappaDiProva, viaggioDiProva } from './fixture'
 import {
   aggiornaPrenotazione, aggiungiPrenotazione, controllaPrenotazione, descriviIstante, descriviQuando, eliminaPrenotazione,
-  etichetteDate, gruppiDocumenti, notteCoperta, nuovaPrenotazione, scadenza, sostituisciPrenotazione, tappaCollegata,
+  etichetteDate, gruppiDocumenti, notteCoperta, nuovaPrenotazione, prossimaPrenotazione, scadenza, sostituisciPrenotazione, tappaCollegata,
 } from './prenotazioni'
 
 describe('notteCoperta', () => {
@@ -133,4 +133,32 @@ test('tappaCollegata', () => {
   expect(tappaCollegata(v, 't1')).toMatchObject({ indice: 1, tappa: { titolo: 'Skytree' } })
   expect(tappaCollegata(v, 'z')).toBeNull()
   expect(tappaCollegata(v, undefined)).toBeNull()
+})
+
+describe('prossimaPrenotazione', () => {
+  const v = viaggioDiProva({
+    prenotazioni: [
+      p({ id: 'andata', tipo: 'volo', inizio: '2027-08-07T12:30', fuso: 'Europe/Rome' }),
+      p({ id: 'hotel', tipo: 'hotel', inizio: '2027-08-08T15:00' }),
+      p({ id: 'senza' }),
+    ],
+  })
+  test('la prima che comincia nelle prossime 24 ore, con i minuti che mancano', () => {
+    expect(prossimaPrenotazione(v, new Date('2027-08-07T07:30:00Z'))).toMatchObject({ prenotazione: { id: 'andata' }, minuti: 180 })
+    expect(prossimaPrenotazione(v, new Date('2027-08-06T10:31:00Z'))?.minuti).toBe(1439)
+  })
+  test('troppo lontana o già cominciata: si passa alla successiva o a niente', () => {
+    expect(prossimaPrenotazione(v, new Date('2027-08-06T10:29:00Z'))).toBeNull()
+    expect(prossimaPrenotazione(v, new Date('2027-08-07T10:30:00Z'))).toMatchObject({ prenotazione: { id: 'hotel' }, minuti: 1170 })
+  })
+  test('date o fusi non validi (dati importati) si saltano senza lanciare', () => {
+    const w = viaggioDiProva({
+      prenotazioni: [
+        p({ id: 'storta', inizio: 'domani' }),
+        p({ id: 'fuso', inizio: '2027-08-07T12:30', fuso: 'Marte/Olimpo' }),
+        p({ id: 'buona', inizio: '2027-08-07T12:30', fuso: 'Europe/Rome' }),
+      ],
+    })
+    expect(prossimaPrenotazione(w, new Date('2027-08-07T07:30:00Z'))?.prenotazione.id).toBe('buona')
+  })
 })
