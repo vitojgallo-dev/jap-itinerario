@@ -160,11 +160,18 @@ export function controllaSpesa(s: Spesa): string[] {
   return e
 }
 
-/** "12,50" → 12.5; "1.234,5" → 1234.5; vuoto o non numerico → null. */
+/**
+ * "12,50" → 12.5; "1.234,5" → 1234.5; "1,234.5" → 1234.5; "1.500" → 1500 (il punto a gruppi di tre cifre è delle migliaia).
+ * Vuoto, negativo o con altro dentro (esponenti, esadecimali, doppi separatori) → null.
+ */
 export function leggiImporto(testo: string): number | null {
-  const t = testo.replace(/\s/g, '')
-  if (t === '') return null
-  const n = Number(t.includes(',') ? t.replace(/\./g, '').replace(',', '.') : t)
+  const t = testo.replace(/[\s\u00A0]/g, '')
+  let normale: string
+  if (/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(t)) normale = t.replace(/\./g, '').replace(',', '.')
+  else if (/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(t)) normale = t.replace(/,/g, '')
+  else if (/^\d+([.,]\d+)?$/.test(t)) normale = t.replace(',', '.')
+  else return null
+  const n = Number(normale)
   return Number.isFinite(n) ? n : null
 }
 
@@ -174,13 +181,13 @@ function raggruppa(n: number): string {
 
 export function formatoYen(yen: number): string {
   const r = Math.round(yen)
-  return `${r < 0 ? '-' : ''}${raggruppa(Math.abs(r))} ¥`
+  return `${r < 0 ? '-' : ''}${raggruppa(Math.abs(r))}\u00A0¥`
 }
 
 export function formatoEuro(euro: number): string {
   const c = Math.round(euro * 100)
   const a = Math.abs(c)
-  return `${c < 0 ? '-' : ''}${raggruppa(Math.floor(a / 100))},${String(a % 100).padStart(2, '0')} €`
+  return `${c < 0 ? '-' : ''}${raggruppa(Math.floor(a / 100))},${String(a % 100).padStart(2, '0')}\u00A0€`
 }
 
 export function formatoImporto(importo: number, valuta: Valuta): string {

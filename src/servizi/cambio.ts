@@ -13,8 +13,12 @@ export function leggiCambio(j: unknown): Cambio | null {
   return { valore, data }
 }
 
+const TIMEOUT_MS = 8000
+
 const prendiJson = async (url: string): Promise<unknown> => {
-  const r = await fetch(url)
+  // Se la rete si pianta, dopo 8 s la richiesta cade e si usa l'ultimo cambio salvato.
+  const signal = typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(TIMEOUT_MS) : undefined
+  const r = await fetch(url, { signal })
   if (!r.ok) throw new Error(String(r.status))
   return r.json()
 }
