@@ -1,4 +1,4 @@
-import { Check, Download, History, ListPlus, Plus, RotateCcw, Upload } from 'lucide-react'
+import { CalendarPlus, Check, Download, History, ListPlus, Plus, RotateCcw, Upload } from 'lucide-react'
 import { useRef, useState, type CSSProperties } from 'react'
 import { toast } from 'sonner'
 import { dataGiorno, formatoData } from '../../model/date'
@@ -10,6 +10,7 @@ import { leggiBackup, type AllegatiBackup } from '../../servizi/backup'
 import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
 import { useViaggio } from '../../store/viaggio'
 import { useEsportaBackup } from '../../ui/Backup'
+import { FoglioCalendario } from '../../ui/Calendario'
 import { BarraNav, Campo, Gruppo, LinkIndietro, Riga, Segmentato, TitoloGrande } from '../../ui/componenti'
 import { useAggiungiDatiDiPartenza } from '../../ui/datiDiPartenza'
 import { Foglio } from '../../ui/Foglio'
@@ -36,6 +37,7 @@ export default function Impostazioni() {
   const [daImportare, setDaImportare] = useState<{ viaggio: Viaggio; allegati: AllegatiBackup; scartati: number } | null>(null)
   const [cittaAperta, setCittaAperta] = useState<string | null>(null)
   const [ripristino, setRipristino] = useState(false)
+  const [calendario, setCalendario] = useState(false)
   // La chiave vecchia non cambia mai mentre l'app è aperta: basta leggerla una volta.
   const [v1] = useState(() => {
     try { return leggiV1(localStorage) } catch { return null }
@@ -141,6 +143,10 @@ export default function Impostazioni() {
       </Gruppo>
       <input ref={file} type="file" accept=".json,application/json" hidden onChange={e => void importa(e.target.files?.[0])} />
 
+      <Gruppo titolo="Promemoria" piede="Voli, treni, hotel e biglietti con i loro avvisi, le scadenze per prenotare e il tax-free del ritorno.">
+        <Riga icona={<CalendarPlus size={20} />} titolo="Aggiungi al calendario" sottotitolo="giappone-2027.ics" onClick={() => setCalendario(true)} />
+      </Gruppo>
+
       {installata
         ? <Gruppo titolo="App"><Riga icona={<Check size={20} />} titolo="Installata sulla Home" /></Gruppo>
         : <><InvitoInstallazione /><Gruppo titolo="Come si installa"><div style={{ padding: '8px 16px' }}><IstruzioniInstallazione ios={ios} /></div></Gruppo></>}
@@ -150,6 +156,7 @@ export default function Impostazioni() {
       </p>
 
       <EditorCitta cittaId={cittaAperta} onChiudi={() => setCittaAperta(null)} />
+      <FoglioCalendario aperto={calendario} onChiudi={() => setCalendario(false)} />
       <Foglio aperto={!!daImportare} onChiudi={() => setDaImportare(null)} titolo="Importa backup">
         {daImportare && (
           <>

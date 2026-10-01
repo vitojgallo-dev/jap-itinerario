@@ -3,6 +3,7 @@ import { Toaster } from 'sonner'
 import { faseViaggio } from './model/adesso'
 import { coloreSicuro } from './model/mappa'
 import { cittaDi } from './model/riepilogo'
+import { PulsanteAggiungi } from './schermate/aggiungi/Aggiungi'
 import Documenti from './schermate/documenti/Documenti'
 import Impostazioni from './schermate/impostazioni/Impostazioni'
 import { PrimoAvvio } from './schermate/impostazioni/PrimoAvvio'
@@ -28,6 +29,10 @@ export default function App() {
   const giorno = viaggio.giorni[indice]
   const colore = coloreSicuro(giorno ? cittaDi(viaggio, giorno).colore : '#C8452C')
 
+  // Su Oggi, Programma, l'elenco dei Documenti e Spese; sulla Mappa coprirebbe i controlli.
+  const conAggiungi = rotta.schermata === 'oggi' || rotta.schermata === 'programma' || rotta.schermata === 'spese'
+    || (rotta.schermata === 'documenti' && rotta.id === null)
+
   // #/viaggio (fase 1) porta a #/impostazioni.
   useEffect(() => {
     const altrove = reindirizzamento(location.hash)
@@ -45,6 +50,11 @@ export default function App() {
     r.style.setProperty('--tinta-tenue', t.tenue)
   }, [tema, colore])
 
+  // Dove c'è il "+" le schermate lasciano più spazio in fondo, perché l'ultima riga non finisca sotto il tasto.
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('con-fab', conAggiungi)
+  }, [conAggiungi])
+
   return (
     <>
       {rotta.schermata === 'oggi' && <Oggi />}
@@ -53,6 +63,7 @@ export default function App() {
       {rotta.schermata === 'documenti' && <Documenti id={rotta.id} />}
       {rotta.schermata === 'spese' && <Spese id={rotta.id} />}
       {rotta.schermata === 'impostazioni' && <Impostazioni />}
+      {conAggiungi && <PulsanteAggiungi indiceGiorno={indice} />}
       <TabBar attiva={rotta.schermata} />
       <PrimoAvvio />
       <Toaster position="top-center" theme={tema === 'scuro' ? 'dark' : 'light'} offset="calc(12px + env(safe-area-inset-top))" />

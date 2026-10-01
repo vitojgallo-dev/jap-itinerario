@@ -97,6 +97,15 @@ button.riga:active, a.riga:active { background: var(--riempimento); }
 .tabbar a[aria-current='page'] { color: var(--tinta-testo); }
 .tabbar a[aria-current='page'] .tabbar-pillola { background: var(--tinta-tenue); }
 .indietro { display: inline-flex; align-items: center; text-decoration: none; padding-left: 0; white-space: nowrap; }
+/* Il "+" (56 px) sta sopra la tab bar (56 px) con 16 px di margine: il fondo della pagina sale sopra entrambi. */
+.con-fab .schermata { padding-bottom: calc(140px + env(safe-area-inset-bottom)); }
+.fab {
+  position: fixed; z-index: 45; right: max(16px, calc((100vw - 720px) / 2 + 16px)); bottom: calc(56px + 16px + env(safe-area-inset-bottom));
+  width: 56px; height: 56px; border-radius: 50%; border: 0; background: var(--tinta-forte); color: var(--su-tinta);
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28); cursor: pointer; transition: transform 0.12s ease;
+}
+.fab:active { transform: scale(0.94); }
+@media (prefers-reduced-motion: reduce) { .fab { transition: none; } }
 
 .foglio-velo { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); z-index: 50; }
 .foglio {
