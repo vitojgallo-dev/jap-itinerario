@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { formatoData } from '../../model/date'
 import { aggiornaImpostazioni } from '../../model/operazioni'
-import { formatoNumero, formatoNumeroPieno, leggiImporto } from '../../model/spese'
+import { CAMBIO_PLAUSIBILE, ERRORE_CAMBIO_FUORI_INTERVALLO, cambioPlausibile, formatoNumero, formatoNumeroPieno, leggiImporto, leggiTasso } from '../../model/spese'
 import type { Impostazioni, Valuta } from '../../model/tipi'
 import { useViaggio } from '../../store/viaggio'
 import { Campo, Gruppo, Segmentato } from '../../ui/componenti'
@@ -12,28 +12,30 @@ const VALUTE: { valore: Valuta; etichetta: string }[] = [{ valore: 'JPY', etiche
 
 /**
  * Un numero scritto con la virgola, salvato quando si esce dal campo. Vuoto = tolto; uguale a quello salvato = non si fa niente
- * (niente arrotondamenti, e l'annulla resta com'era); un testo che non è un numero maggiore di zero resta nel campo con l'errore.
+ * (niente arrotondamenti, e l'annulla resta com'era); un testo non valido resta nel campo con l'errore.
+ * `tasso`: si legge con `leggiTasso` (solo decimali) e deve stare nell'intervallo dei cambi plausibili.
  */
-function CampoNumero({ etichetta, valore, onCambia }: { etichetta: string; valore: number | undefined; onCambia: (n: number | null) => void }) {
+function CampoNumero({ etichetta, valore, onCambia, tasso }: { etichetta: string; valore: number | undefined; onCambia: (n: number | null) => void; tasso?: boolean }) {
   const mostra = (v: number | undefined) => (v !== undefined ? formatoNumeroPieno(v) : '')
   const [testo, setTesto] = useState(mostra(valore))
-  const [errore, setErrore] = useState(false)
+  const [errore, setErrore] = useState<string | null>(null)
   // Se il valore cambia altrove (un backup importato), il campo lo segue.
-  useEffect(() => { setTesto(mostra(valore)); setErrore(false) }, [valore])
+  useEffect(() => { setTesto(mostra(valore)); setErrore(null) }, [valore])
   const esci = () => {
-    if (testo.trim() === '') { setErrore(false); if (valore !== undefined) onCambia(null); return }
-    const n = leggiImporto(testo)
-    if (n === null || n <= 0) { setErrore(true); return }
-    setErrore(false)
+    if (testo.trim() === '') { setErrore(null); if (valore !== undefined) onCambia(null); return }
+    const n = tasso ? leggiTasso(testo) : leggiImporto(testo)
+    if (n === null || n <= 0) { setErrore('Scrivi un numero maggiore di zero, o lascia vuoto.'); return }
+    if (tasso && !cambioPlausibile(n)) { setErrore(ERRORE_CAMBIO_FUORI_INTERVALLO); return }
+    setErrore(null)
     if (n !== valore) onCambia(n)
   }
   return (
     <div className="campo-numero">
       <Campo etichetta={etichetta}>
-        <input inputMode="decimal" value={testo} aria-invalid={errore} onChange={e => { setTesto(e.target.value); setErrore(false) }} onBlur={esci}
+        <input inputMode="decimal" value={testo} aria-invalid={errore !== null} onChange={e => { setTesto(e.target.value); setErrore(null) }} onBlur={esci}
           onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }} />
       </Campo>
-      {errore && <p className="errore" role="alert">Scrivi un numero maggiore di zero, o lascia vuoto.</p>}
+      {errore && <p className="errore" role="alert">{errore}</p>}
     </div>
   )
 }
@@ -60,7 +62,7 @@ export function ImpostazioniSpese() {
               onCambia={x => { setValuta(x); if (budget) imposta({ budgetGiornaliero: { ...budget, valuta: x } }) }} />
           </div>
         </div>
-        <CampoNumero etichetta="Cambio manuale (¥ per 1 €, vuoto = automatico)" valore={imp.cambioManuale}
+        <CampoNumero tasso etichetta={`Cambio manuale (¥ per 1 €, da ${CAMBIO_PLAUSIBILE.min} a ${CAMBIO_PLAUSIBILE.max}; vuoto = automatico)`} valore={imp.cambioManuale}
           onCambia={n => imposta({ cambioManuale: n ?? undefined })} />
       </div>
     </Gruppo>

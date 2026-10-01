@@ -156,12 +156,22 @@ export function eliminaSpesa(v: Viaggio, id: string): Viaggio {
   return { ...v, spese: v.spese.filter(s => s.id !== id) }
 }
 
-/** I messaggi in linea del foglio: importo > 0, almeno una persona, un cambio. */
+/** Quanti yen vale 1 euro: fuori da questo intervallo è quasi certamente un errore di battitura (161,274 letto come 161274). */
+export const CAMBIO_PLAUSIBILE = { min: 50, max: 500 } as const
+
+export function cambioPlausibile(n: number): boolean {
+  return n >= CAMBIO_PLAUSIBILE.min && n <= CAMBIO_PLAUSIBILE.max
+}
+
+export const ERRORE_CAMBIO_FUORI_INTERVALLO = `Il cambio sembra sbagliato: di solito è fra ${CAMBIO_PLAUSIBILE.min} e ${CAMBIO_PLAUSIBILE.max} yen per 1 euro.`
+
+/** I messaggi in linea del foglio: importo > 0, almeno una persona, un cambio plausibile. */
 export function controllaSpesa(s: Spesa): string[] {
   const e: string[] = []
   if (!(s.importo > 0)) e.push('Scrivi un importo maggiore di zero.')
   if (s.divisaFra.length === 0) e.push('Scegli almeno una persona con cui dividere.')
   if (!(s.cambio > 0)) e.push('Serve il cambio: scrivi quanti yen vale 1 euro.')
+  else if (!cambioPlausibile(s.cambio)) e.push(ERRORE_CAMBIO_FUORI_INTERVALLO)
   return e
 }
 
@@ -177,6 +187,14 @@ export function leggiImporto(testo: string): number | null {
   else if (/^\d+([.,]\d+)?$/.test(t)) normale = t.replace(',', '.')
   else return null
   const n = Number(normale)
+  return Number.isFinite(n) ? n : null
+}
+
+/** Un cambio scritto a mano: virgola o punto sono sempre decimali (un cambio non ha migliaia). "161,274" → 161.274. */
+export function leggiTasso(testo: string): number | null {
+  const t = testo.replace(/[\s ]/g, '')
+  if (!/^\d+([.,]\d+)?$/.test(t)) return null
+  const n = Number(t.replace(',', '.'))
   return Number.isFinite(n) ? n : null
 }
 

@@ -183,3 +183,22 @@ test('formatoNumeroPieno non arrotonda e torna uguale con leggiImporto', () => {
   expect(sp.formatoNumeroPieno(161.274)).toBe('161,2740')
   for (const n of [161.2745, 12.345, 0.5, 1500]) expect(sp.leggiImporto(sp.formatoNumeroPieno(n))).toBe(n)
 })
+
+test('leggiTasso: virgola e punto sono sempre decimali', () => {
+  expect(sp.leggiTasso('161,274')).toBe(161.274)
+  expect(sp.leggiTasso('161.274')).toBe(161.274)
+  expect(sp.leggiTasso('1,500')).toBe(1.5)
+  expect(sp.leggiTasso(' 162 ')).toBe(162)
+  expect(sp.leggiTasso('abc')).toBeNull()
+  expect(sp.leggiTasso('')).toBeNull()
+  expect(sp.leggiTasso('-3')).toBeNull()
+  expect(sp.leggiTasso('1.234,5')).toBeNull()
+})
+
+test('controllaSpesa: il cambio deve essere plausibile', () => {
+  expect(sp.controllaSpesa(s({ id: 'a', cambio: 160 }))).toEqual([])
+  expect(sp.controllaSpesa(s({ id: 'a', cambio: 161274 }))).toEqual([sp.ERRORE_CAMBIO_FUORI_INTERVALLO])
+  expect(sp.controllaSpesa(s({ id: 'a', cambio: 1.6 }))).toEqual([sp.ERRORE_CAMBIO_FUORI_INTERVALLO])
+  expect(sp.controllaSpesa(s({ id: 'a', cambio: sp.CAMBIO_PLAUSIBILE.min }))).toEqual([])
+  expect(sp.controllaSpesa(s({ id: 'a', cambio: sp.CAMBIO_PLAUSIBILE.max }))).toEqual([])
+})

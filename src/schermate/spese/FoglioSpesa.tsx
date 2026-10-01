@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { istanteTokyo } from '../../model/date'
 import { aggiornaImpostazioni } from '../../model/operazioni'
 import {
-  aggiungiSpesa, cambioDaUsare, controllaSpesa, eliminaSpesa, formatoImporto, formatoNumeroPieno, leggiImporto, nuovaSpesa, sostituisciSpesa,
+  aggiungiSpesa, cambioDaUsare, cambioPlausibile, controllaSpesa, eliminaSpesa, formatoImporto, formatoNumeroPieno, leggiImporto, leggiTasso, nuovaSpesa, sostituisciSpesa,
 } from '../../model/spese'
 import { CATEGORIE_SPESA, type MetodoPagamento, type Spesa, type Valuta } from '../../model/tipi'
 import { useViaggio } from '../../store/viaggio'
@@ -42,7 +42,9 @@ function EditorSpesa({ iniziale, onFatto }: { iniziale: Spesa | null; onFatto: (
   const agg = (m: Partial<Spesa>) => { setB(x => ({ ...x, ...m })); setErrori([]) }
   // Il cambio si chiede se non se ne conosce nessuno (offline al primo uso); in modifica anche per le spese in euro, dove conta.
   // Valori mostrati e riletti senza arrotondare: salvare senza toccare non cambia niente.
-  const chiediCambio = cambioNoto === null || (iniziale !== null && b.valuta === 'EUR')
+  // Lo si chiede anche se quello che avremmo usato è fuori dall'intervallo plausibile (un salvataggio con un cambio storto), per poterlo correggere.
+  const cambioSalvato = iniziale && iniziale.cambio > 0 ? iniziale.cambio : cambioNoto
+  const chiediCambio = cambioSalvato === null || !cambioPlausibile(cambioSalvato) || (iniziale !== null && b.valuta === 'EUR')
   const divisa = (id: string) => b.divisaFra.includes(id)
   const alterna = (id: string) => agg({ divisaFra: viaggio.persone.map(p => p.id).filter(x => (x === id ? !divisa(id) : divisa(x))) })
 
@@ -50,7 +52,7 @@ function EditorSpesa({ iniziale, onFatto }: { iniziale: Spesa | null; onFatto: (
     const s: Spesa = {
       ...b,
       importo: leggiImporto(importo) ?? 0,
-      cambio: chiediCambio ? leggiImporto(cambio) ?? 0 : iniziale && iniziale.cambio > 0 ? iniziale.cambio : cambioNoto ?? 0,
+      cambio: chiediCambio ? leggiTasso(cambio) ?? 0 : cambioSalvato ?? 0,
       descrizione: b.descrizione.trim() || ETICHETTA_CATEGORIA[b.categoria],
     }
     const e = controllaSpesa(s)
