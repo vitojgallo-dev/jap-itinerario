@@ -1,6 +1,6 @@
 import { linkSicuro } from '../servizi/mappe'
 import { aggiungiGiorni, dataGiorno } from './date'
-import { utcDaLocale } from './fusi'
+import { fusoValido, utcDaLocale } from './fusi'
 import type { Luogo, Prenotazione, Viaggio } from './tipi'
 
 const DOMINIO = 'jap-itinerario'
@@ -26,6 +26,19 @@ export function testoIcs(s: string): string {
 }
 
 const codificatore = new TextEncoder()
+
+const LOCALE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/
+
+/** Solo caratteri sicuri in un UID: un id importato con a capo non può iniettare righe nel file. */
+function idSicuro(id: string): string {
+  return id.replace(/[^A-Za-z0-9._-]/g, '_')
+}
+
+/** Converte "YYYY-MM-DDTHH:MM" nel fuso dato; null se la stringa o il fuso non sono validi (il file non deve mai lanciare). */
+function istanteSicuro(locale: string | undefined, fuso: string | undefined): Date | null {
+  if (!locale || !LOCALE.test(locale) || !fusoValido(fuso)) return null
+  return utcDaLocale(locale, fuso)
+}
 
 /** Spezza una riga a 75 ottetti (RFC 5545 §3.1) senza tagliare un carattere; la continuazione comincia con uno spazio. */
 export function piegaRiga(riga: string): string {
@@ -57,17 +70,19 @@ function luogoTesto(l: Luogo | undefined): string | undefined {
 
 /** L'ultimo volo che parte dal primo giorno del viaggio in poi (quello di andata parte prima). */
 export function voloDiRitorno(v: Viaggio): Prenotazione | null {
-  const voli = v.prenotazioni.filter(p => p.tipo === 'volo' && p.inizio && p.inizio.slice(0, 10) >= v.dataPartenza)
-  voli.sort((a, b) => utcDaLocale(b.inizio!, b.fuso).getTime() - utcDaLocale(a.inizio!, a.fuso).getTime())
-  return voli[0] ?? null
+  const voli = v.prenotazioni
+    .filter(p => p.tipo === 'volo' && p.inizio && p.inizio.slice(0, 10) >= v.dataPartenza)
+    .map(p => ({ p, t: istanteSicuro(p.inizio, p.fuso) }))
+    .filter((x): x is { p: Prenotazione; t: Date } => x.t !== null)
+  voli.sort((a, b) => b.t.getTime() - a.t.getTime())
+  return voli[0]?.p ?? null
 }
 
-function eventoPrenotazione(p: Prenotazione, inizioLocale: string): EventoCalendario {
-  const inizio = utcDaLocale(inizioLocale, p.fuso)
-  const fine = p.fine ? utcDaLocale(p.fine, p.fusoFine ?? p.fuso) : null
+function eventoPrenotazione(p: Prenotazione, inizio: Date): EventoCalendario {
+  const fine = istanteSicuro(p.fine, p.fusoFine ?? p.fuso)
   const descrizione = [p.codice && `Codice: ${p.codice}`, p.riferimento, p.note].filter(Boolean).join('\n')
   return {
-    uid: `prenotazione-${p.id}@${DOMINIO}`,
+    uid: `prenotazione-${idSicuro(p.id)}@${DOMINIO}`,
     quando: { tipo: 'ore', inizio, fine: fine && fine.getTime() > inizio.getTime() ? fine : new Date(inizio.getTime() + ORA_MS) },
     titolo: p.titolo,
     luogo: luogoTesto(p.luogo),
@@ -80,10 +95,11 @@ function eventoPrenotazione(p: Prenotazione, inizioLocale: string): EventoCalend
 export function eventiCalendario(v: Viaggio, opzioni: { tappe: boolean }): EventoCalendario[] {
   const eventi: EventoCalendario[] = []
   for (const p of v.prenotazioni) {
-    if (p.inizio) eventi.push(eventoPrenotazione(p, p.inizio))
+    const inizio = istanteSicuro(p.inizio, p.fuso)
+    if (inizio) eventi.push(eventoPrenotazione(p, inizio))
     if (p.stato === 'da-prenotare' && p.daPrenotareEntro) {
       eventi.push({
-        uid: `prenotare-${p.id}@${DOMINIO}`,
+        uid: `prenotare-${idSicuro(p.id)}@${DOMINIO}`,
         quando: { tipo: 'giorno', data: p.daPrenotareEntro },
         titolo: `Prenotare: ${p.titolo}`,
         descrizione: linkSicuro(p.link),
@@ -92,8 +108,9 @@ export function eventiCalendario(v: Viaggio, opzioni: { tappe: boolean }): Event
     }
   }
   const ritorno = voloDiRitorno(v)
-  if (ritorno?.inizio) {
-    const partenza = utcDaLocale(ritorno.inizio, ritorno.fuso).getTime()
+  const partenzaRitorno = ritorno ? istanteSicuro(ritorno.inizio, ritorno.fuso) : null
+  if (ritorno && partenzaRitorno) {
+    const partenza = partenzaRitorno.getTime()
     eventi.push({
       uid: `taxfree@${DOMINIO}`,
       quando: { tipo: 'ore', inizio: new Date(partenza - 4 * ORA_MS), fine: new Date(partenza - 3.5 * ORA_MS) },
@@ -103,13 +120,16 @@ export function eventiCalendario(v: Viaggio, opzioni: { tappe: boolean }): Event
     })
   }
   if (opzioni.tappe) {
+    // Le tappe già raccontate da una prenotazione non si ripetono.
+    const collegate = new Set(v.prenotazioni.map(p => p.tappaId).filter(Boolean))
     v.giorni.forEach((g, i) => {
       const data = dataGiorno(v, i)
       for (const t of g.tappe) {
-        if (!t.ora) continue
-        const inizio = utcDaLocale(`${data}T${t.ora}`, 'Asia/Tokyo')
+        if (!t.ora || collegate.has(t.id)) continue
+        const inizio = istanteSicuro(`${data}T${t.ora}`, 'Asia/Tokyo')
+        if (!inizio) continue
         eventi.push({
-          uid: `tappa-${t.id}@${DOMINIO}`,
+          uid: `tappa-${idSicuro(t.id)}@${DOMINIO}`,
           quando: { tipo: 'ore', inizio, fine: new Date(inizio.getTime() + (t.durataMin || 60) * 60_000) },
           titolo: t.titolo,
           luogo: luogoTesto(t.luogo),

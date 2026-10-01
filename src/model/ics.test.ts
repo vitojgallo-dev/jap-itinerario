@@ -135,3 +135,62 @@ describe('generaIcs', () => {
     for (const r of generaIcs(v, { tappe: true, adesso }).split('\r\n')) expect(byte(r)).toBeLessThanOrEqual(75)
   })
 })
+
+describe('robustezza', () => {
+  test('un id con a capo non inietta righe: UID solo con caratteri sicuri', () => {
+    const cattivo = 'x\r\nEND:VCALENDAR\r\nBEGIN:VEVENT'
+    const v = viaggioDiProva({
+      giorni: [giornoDiProva({ id: 'g0', tappe: [tappaDiProva({ id: cattivo, ora: '10:00' })] })],
+      prenotazioni: [p({ id: cattivo, inizio: '2027-08-09T10:00' })],
+    })
+    const testo = generaIcs(v, { tappe: true, adesso })
+    const righe = testo.split('\r\n')
+    expect(righe.filter(r => r === 'BEGIN:VCALENDAR').length).toBe(1)
+    expect(righe.filter(r => r === 'END:VCALENDAR').length).toBe(1)
+    const uid = righe.filter(r => r.startsWith('UID:'))
+    expect(uid.length).toBe(2)
+    for (const u of uid) expect(u).toMatch(/^UID:[A-Za-z0-9._@-]+$/)
+  })
+  test('inizio o fuso malformati: nessuna eccezione, prenotazione saltata', () => {
+    const v = viaggioDiProva({
+      prenotazioni: [
+        p({ id: 'a', inizio: 'abc' }),
+        p({ id: 'b', inizio: '2027-08-07' }),
+        p({ id: 'c', inizio: '2027-08-09T10:00', fuso: 'Marte/Olimpo' }),
+        p({ id: 'd', tipo: 'volo', inizio: '2027-08-10T20:00', fuso: 'Marte/Olimpo' }),
+        p({ id: 'e', tipo: 'volo', inizio: 'abc' }),
+      ],
+    })
+    expect(() => generaIcs(v, { tappe: true, adesso })).not.toThrow()
+    const e = eventiCalendario(v, { tappe: false })
+    expect(e.some(x => x.uid.startsWith('prenotazione-'))).toBe(false)
+    expect(voloDiRitorno(v)).toBeNull()
+  })
+  test('fine malformata o fusoFine ignoto: un\'ora dopo l\'inizio', () => {
+    const v = viaggioDiProva({
+      prenotazioni: [
+        p({ id: 'a', inizio: '2027-08-09T10:00', fine: 'boh' }),
+        p({ id: 'b', inizio: '2027-08-09T10:00', fine: '2027-08-09T12:00', fusoFine: 'Marte/Olimpo' }),
+      ],
+    })
+    for (const x of eventiCalendario(v, { tappe: false })) {
+      expect(x.quando).toEqual({ tipo: 'ore', inizio: new Date('2027-08-09T01:00:00Z'), fine: new Date('2027-08-09T02:00:00Z') })
+    }
+  })
+  test('una tappa con ora malformata è saltata senza eccezioni', () => {
+    const v = viaggioDiProva({ giorni: [giornoDiProva({ id: 'g0', tappe: [tappaDiProva({ id: 't', ora: '25' })] })] })
+    expect(() => eventiCalendario(v, { tappe: true })).not.toThrow()
+    expect(eventiCalendario(v, { tappe: true }).some(x => x.uid.startsWith('tappa-'))).toBe(false)
+  })
+  test('una tappa collegata a una prenotazione non compare due volte', () => {
+    const v = viaggioDiProva({
+      giorni: [giornoDiProva({ id: 'g0', tappe: [
+        tappaDiProva({ id: 't-coll', ora: '11:00', titolo: 'Collegata' }),
+        tappaDiProva({ id: 't-lib', ora: '12:00', titolo: 'Libera' }),
+      ] })],
+      prenotazioni: [p({ id: 'x', inizio: '2027-08-08T11:00', tappaId: 't-coll' })],
+    })
+    const tappe = eventiCalendario(v, { tappe: true }).filter(x => x.uid.startsWith('tappa-'))
+    expect(tappe.map(x => x.uid)).toEqual(['tappa-t-lib@jap-itinerario'])
+  })
+})
