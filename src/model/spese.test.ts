@@ -57,6 +57,15 @@ describe('rimborsiMinimi', () => {
     const dopo = [...spese, ...rimborsi.map(r => sp.spesaRimborso(r, '2027-08-12', 160))]
     expect(Object.values(sp.saldi(persone, dopo))).toEqual([0, 0, 0])
   })
+  test('rimborsoDaSaldare: la direzione giusta, e dopo averlo applicato non c\'è più (due tocchi non lo duplicano)', () => {
+    const v = viaggioDiProva({ persone, spese: [s({ id: 'a', importo: 3000, pagatoDa: 'p1', divisaFra: ['p1', 'p2', 'p3'] })] })
+    expect(sp.rimborsoDaSaldare(v, 'p2', 'p1')).toEqual({ da: 'p2', a: 'p1', yen: 1000 })
+    expect(sp.rimborsoDaSaldare(v, 'p1', 'p2')).toBeNull()
+    expect(sp.rimborsoDaSaldare(v, 'p2', 'p3')).toBeNull()
+    const dopo = sp.aggiungiSpesa(v, sp.spesaRimborso(sp.rimborsoDaSaldare(v, 'p2', 'p1')!, '2027-08-12', 160))
+    expect(sp.rimborsoDaSaldare(dopo, 'p2', 'p1')).toBeNull()
+    expect(sp.rimborsoDaSaldare(dopo, 'p3', 'p1')).toEqual({ da: 'p3', a: 'p1', yen: 1000 })
+  })
   test('il rimborso è una spesa "altro" divisa col solo creditore', () => {
     const r = sp.spesaRimborso({ da: 'p2', a: 'p1', yen: 1500 }, '2027-08-12', 161)
     expect(r).toMatchObject({ data: '2027-08-12', importo: 1500, valuta: 'JPY', cambio: 161, categoria: 'altro', descrizione: 'Rimborso', pagatoDa: 'p2', divisaFra: ['p1'], rimborso: true })
@@ -166,4 +175,11 @@ test('formati degli importi', () => {
   expect(sp.formatoImporto(9, 'EUR')).toBe('9,00\u00A0€')
   expect(sp.formatoNumero(162.35)).toBe('162,35')
   expect(sp.formatoNumero(160)).toBe('160')
+})
+
+test('formatoNumeroPieno non arrotonda e torna uguale con leggiImporto', () => {
+  expect(sp.formatoNumeroPieno(161.2745)).toBe('161,2745')
+  expect(sp.formatoNumeroPieno(160)).toBe('160')
+  expect(sp.formatoNumeroPieno(161.274)).toBe('161,2740')
+  for (const n of [161.2745, 12.345, 0.5, 1500]) expect(sp.leggiImporto(sp.formatoNumeroPieno(n))).toBe(n)
 })

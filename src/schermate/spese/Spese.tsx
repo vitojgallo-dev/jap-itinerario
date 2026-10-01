@@ -1,10 +1,10 @@
 import { Banknote, CreditCard, Trash2 } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { differenzaGiorni, formatoData } from '../../model/date'
+import { useEffect, useRef, useState } from 'react'
+import { differenzaGiorni, formatoData, istanteTokyo } from '../../model/date'
 import { aggiornaImpostazioni } from '../../model/operazioni'
 import {
   aggiungiSpesa, cambioDaUsare, dataPredefinita, eliminaSpesa, formatoEuro, formatoImporto, formatoYen, inYen,
-  riepilogoSpese, rimborsiMinimi, saldi, spesaRimborso, type Rimborso,
+  riepilogoSpese, rimborsiMinimi, rimborsoDaSaldare, saldi, spesaRimborso, type Rimborso,
 } from '../../model/spese'
 import type { MetodoPagamento, Spesa } from '../../model/tipi'
 import { scaricaCambio } from '../../servizi/cambio'
@@ -62,15 +62,15 @@ function RigaSpesa({ spesa, nome, onApri, onElimina }: { spesa: Spesa; nome: str
   )
 }
 
-function Budget({ spesoYen, budgetYen, data }: { spesoYen: number; budgetYen: number; data: string }) {
+function Budget({ spesoYen, budgetYen, titolo }: { spesoYen: number; budgetYen: number; titolo: string }) {
   const oltre = spesoYen > budgetYen
   return (
     <div className="card budget">
       <div className="budget-testa">
-        <strong>Oggi · {formatoData(data, 'breve')}</strong>
+        <strong>{titolo}</strong>
         <span className={oltre ? 'budget-oltre' : 'testo-2'}>{formatoYen(spesoYen)} di {formatoYen(budgetYen)}</span>
       </div>
-      <div className="budget-barra" role="progressbar" aria-label="Budget di oggi" aria-valuemin={0} aria-valuemax={Math.round(budgetYen)}
+      <div className="budget-barra" role="progressbar" aria-label={`Budget: ${titolo}`} aria-valuemin={0} aria-valuemax={Math.round(budgetYen)}
         aria-valuenow={Math.round(Math.min(spesoYen, budgetYen))}>
         <div className={oltre ? 'oltre' : undefined} style={{ width: `${Math.min(100, (spesoYen / budgetYen) * 100)}%` }} />
       </div>
@@ -107,13 +107,24 @@ export default function Spese({ id }: { id: string | null }) {
   const oggi = dataPredefinita(viaggio, adesso)
   const spesoOggi = riepilogoSpese(viaggio.spese.filter(s => s.data === oggi)).yen
   const budget = viaggio.impostazioni.budgetGiornaliero
+  // Prima della partenza la data predefinita è il G0: dirlo, non scrivere "Oggi".
+  const primaDellaPartenza = differenzaGiorni(viaggio.dataPartenza, istanteTokyo(adesso).data) < 0
+  const titoloBudget = `${primaDellaPartenza ? 'G0' : 'Oggi'} · ${formatoData(oggi, 'breve')}`
   const budgetYen = !budget ? null : budget.valuta === 'JPY' ? budget.importo : cambio ? budget.importo * cambio : null
   // Un rimborso è una spesa: gli serve un cambio, quello di adesso o quello dell'ultima spesa.
   const cambioRimborsi = cambio ?? viaggio.spese[viaggio.spese.length - 1]?.cambio ?? null
   const equivalente = (yen: number) => (cambioRimborsi ? ` · ≈ ${formatoEuro(yen / cambioRimborsi)}` : '')
+  // Il blocco evita due tocchi ravvicinati sullo stesso bottone; il resto lo fa rimborsoDaSaldare, che guarda i saldi di adesso.
+  const saldando = useRef(false)
   const salda = (x: Rimborso) => {
-    if (!cambioRimborsi) return
-    applicaAnnullabile(v => aggiungiSpesa(v, spesaRimborso(x, oggi, cambioRimborsi)), `${nome(x.da)} ha saldato ${nome(x.a)}`)
+    if (saldando.current) return
+    const v = useViaggio.getState().viaggio
+    const attuale = rimborsoDaSaldare(v, x.da, x.a)
+    const cambioOra = cambioDaUsare(v.impostazioni) ?? v.spese[v.spese.length - 1]?.cambio ?? null
+    if (!attuale || !cambioOra) return
+    saldando.current = true
+    setTimeout(() => { saldando.current = false }, 800)
+    applicaAnnullabile(u => aggiungiSpesa(u, spesaRimborso(attuale, oggi, cambioOra)), `${nome(x.da)} ha saldato ${nome(x.a)}`)
   }
   const elimina = (s: Spesa) => applicaAnnullabile(v => eliminaSpesa(v, s.id), 'Spesa eliminata')
   const giornoDelViaggio = (data: string) => {
@@ -144,7 +155,7 @@ export default function Spese({ id }: { id: string | null }) {
               </p>
             )}
           </div>
-          {budgetYen !== null && <Budget spesoYen={spesoOggi} budgetYen={budgetYen} data={oggi} />}
+          {budgetYen !== null && <Budget spesoYen={spesoOggi} budgetYen={budgetYen} titolo={titoloBudget} />}
           <Gruppo titolo="Chi deve a chi" piede="In yen, col cambio di ogni spesa; il numero minimo di rimborsi.">
             {rimborsi.length === 0 ? <Riga titolo="Siete pari" /> : rimborsi.map(x => (
               <div key={`${x.da}-${x.a}`} className="rimborso">

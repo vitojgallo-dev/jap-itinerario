@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { istanteTokyo } from '../../model/date'
 import { aggiornaImpostazioni } from '../../model/operazioni'
 import {
-  aggiungiSpesa, cambioDaUsare, controllaSpesa, eliminaSpesa, formatoImporto, formatoNumero, leggiImporto, nuovaSpesa, sostituisciSpesa,
+  aggiungiSpesa, cambioDaUsare, controllaSpesa, eliminaSpesa, formatoImporto, formatoNumeroPieno, leggiImporto, nuovaSpesa, sostituisciSpesa,
 } from '../../model/spese'
 import { CATEGORIE_SPESA, type MetodoPagamento, type Spesa, type Valuta } from '../../model/tipi'
 import { useViaggio } from '../../store/viaggio'
@@ -36,12 +36,13 @@ function EditorSpesa({ iniziale, onFatto }: { iniziale: Spesa | null; onFatto: (
   const adesso = useAdesso()
   const cambioNoto = cambioDaUsare(viaggio.impostazioni)
   const [b, setB] = useState<Spesa>(() => iniziale ?? nuovaSpesa(viaggio, adesso))
-  const [importo, setImporto] = useState(() => (iniziale ? formatoNumero(iniziale.importo) : ''))
-  const [cambio, setCambio] = useState(() => (iniziale ? formatoNumero(iniziale.cambio) : ''))
+  const [importo, setImporto] = useState(() => (iniziale ? formatoNumeroPieno(iniziale.importo) : ''))
+  const [cambio, setCambio] = useState(() => (iniziale ? formatoNumeroPieno(iniziale.cambio) : ''))
   const [errori, setErrori] = useState<string[]>([])
   const agg = (m: Partial<Spesa>) => { setB(x => ({ ...x, ...m })); setErrori([]) }
-  // Il cambio si chiede solo se non se ne conosce nessuno (offline al primo uso); in modifica si può correggere.
-  const chiediCambio = iniziale !== null || cambioNoto === null
+  // Il cambio si chiede se non se ne conosce nessuno (offline al primo uso); in modifica anche per le spese in euro, dove conta.
+  // Valori mostrati e riletti senza arrotondare: salvare senza toccare non cambia niente.
+  const chiediCambio = cambioNoto === null || (iniziale !== null && b.valuta === 'EUR')
   const divisa = (id: string) => b.divisaFra.includes(id)
   const alterna = (id: string) => agg({ divisaFra: viaggio.persone.map(p => p.id).filter(x => (x === id ? !divisa(id) : divisa(x))) })
 
@@ -49,7 +50,7 @@ function EditorSpesa({ iniziale, onFatto }: { iniziale: Spesa | null; onFatto: (
     const s: Spesa = {
       ...b,
       importo: leggiImporto(importo) ?? 0,
-      cambio: chiediCambio ? leggiImporto(cambio) ?? 0 : cambioNoto ?? 0,
+      cambio: chiediCambio ? leggiImporto(cambio) ?? 0 : iniziale && iniziale.cambio > 0 ? iniziale.cambio : cambioNoto ?? 0,
       descrizione: b.descrizione.trim() || ETICHETTA_CATEGORIA[b.categoria],
     }
     const e = controllaSpesa(s)
@@ -80,7 +81,7 @@ function EditorSpesa({ iniziale, onFatto }: { iniziale: Spesa | null; onFatto: (
     <form className="editor" onSubmit={e => { e.preventDefault(); salva() }}>
       <div className="fila importo-fila">
         <Campo etichetta="Importo">
-          <input className="importo-grande" inputMode="decimal" autoFocus value={importo} placeholder="0" aria-invalid={errori.includes(ERRORE_IMPORTO)}
+          <input className="importo-grande" inputMode="decimal" autoFocus={iniziale === null} value={importo} placeholder="0" aria-invalid={errori.includes(ERRORE_IMPORTO)}
             onChange={e => { setImporto(e.target.value); setErrori([]) }} />
         </Campo>
         <div className="importo-valuta"><Segmentato etichetta="Valuta" valore={b.valuta} opzioni={VALUTE} onCambia={valuta => agg({ valuta })} /></div>

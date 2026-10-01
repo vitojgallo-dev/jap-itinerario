@@ -70,6 +70,11 @@ export function spesaRimborso(r: Rimborso, data: string, cambio: number): Spesa 
   }
 }
 
+/** Il rimborso di `da` verso `a` così com'è adesso: null se quel debito non c'è (già saldato, o è dall'altra parte). */
+export function rimborsoDaSaldare(v: Viaggio, da: Id, a: Id): Rimborso | null {
+  return rimborsiMinimi(saldi(v.persone, v.spese)).find(r => r.da === da && r.a === a) ?? null
+}
+
 export interface RiepilogoSpese {
   yen: number
   euro: number
@@ -197,4 +202,14 @@ export function formatoImporto(importo: number, valuta: Valuta): string {
 /** Un numero da rimettere in un campo di testo: al massimo due decimali, con la virgola. */
 export function formatoNumero(n: number): string {
   return String(Math.round(n * 100) / 100).replace('.', ',')
+}
+
+/**
+ * Come `formatoNumero`, ma senza arrotondare: per rimettere in un campo il valore salvato, così salvare senza toccare non lo cambia.
+ * Con esattamente tre decimali ("161,274") `leggiImporto` leggerebbe le migliaia: si aggiunge uno zero ("161,2740").
+ */
+export function formatoNumeroPieno(n: number): string {
+  const t = String(n)
+  const decimali = t.split('.')[1]
+  return (decimali?.length === 3 ? t + '0' : t).replace('.', ',')
 }

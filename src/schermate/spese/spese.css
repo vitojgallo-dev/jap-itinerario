@@ -38,3 +38,4 @@ button.spesa-riga:active { background: var(--superficie-2); }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .scelta[aria-checked='true'], .scelta[aria-pressed='true'] { background: var(--tinta-forte); color: var(--su-tinta); border-color: transparent; font-weight: 600; }
+.campo-numero { flex: 1 1 150px; min-width: 0; }

@@ -1,23 +1,40 @@
 import { useEffect, useState } from 'react'
 import { formatoData } from '../../model/date'
 import { aggiornaImpostazioni } from '../../model/operazioni'
-import { formatoNumero, leggiImporto } from '../../model/spese'
+import { formatoNumero, formatoNumeroPieno, leggiImporto } from '../../model/spese'
 import type { Impostazioni, Valuta } from '../../model/tipi'
 import { useViaggio } from '../../store/viaggio'
 import { Campo, Gruppo, Segmentato } from '../../ui/componenti'
+import '../programma/editor.css'
+import './spese.css'
 
 const VALUTE: { valore: Valuta; etichetta: string }[] = [{ valore: 'JPY', etichetta: '¥ Yen' }, { valore: 'EUR', etichetta: '€ Euro' }]
 
-/** Un numero scritto con la virgola, salvato quando si esce dal campo. */
+/**
+ * Un numero scritto con la virgola, salvato quando si esce dal campo. Vuoto = tolto; uguale a quello salvato = non si fa niente
+ * (niente arrotondamenti, e l'annulla resta com'era); un testo che non è un numero maggiore di zero resta nel campo con l'errore.
+ */
 function CampoNumero({ etichetta, valore, onCambia }: { etichetta: string; valore: number | undefined; onCambia: (n: number | null) => void }) {
-  const [testo, setTesto] = useState(valore !== undefined ? formatoNumero(valore) : '')
+  const mostra = (v: number | undefined) => (v !== undefined ? formatoNumeroPieno(v) : '')
+  const [testo, setTesto] = useState(mostra(valore))
+  const [errore, setErrore] = useState(false)
   // Se il valore cambia altrove (un backup importato), il campo lo segue.
-  useEffect(() => { setTesto(valore !== undefined ? formatoNumero(valore) : '') }, [valore])
+  useEffect(() => { setTesto(mostra(valore)); setErrore(false) }, [valore])
+  const esci = () => {
+    if (testo.trim() === '') { setErrore(false); if (valore !== undefined) onCambia(null); return }
+    const n = leggiImporto(testo)
+    if (n === null || n <= 0) { setErrore(true); return }
+    setErrore(false)
+    if (n !== valore) onCambia(n)
+  }
   return (
-    <Campo etichetta={etichetta}>
-      <input inputMode="decimal" value={testo} onChange={e => setTesto(e.target.value)} onBlur={() => onCambia(leggiImporto(testo))}
-        onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }} />
-    </Campo>
+    <div className="campo-numero">
+      <Campo etichetta={etichetta}>
+        <input inputMode="decimal" value={testo} aria-invalid={errore} onChange={e => { setTesto(e.target.value); setErrore(false) }} onBlur={esci}
+          onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }} />
+      </Campo>
+      {errore && <p className="errore" role="alert">Scrivi un numero maggiore di zero, o lascia vuoto.</p>}
+    </div>
   )
 }
 
@@ -37,14 +54,14 @@ export function ImpostazioniSpese() {
       <div style={{ padding: '4px 16px 8px' }}>
         <div className="fila">
           <CampoNumero etichetta="Budget di ogni giorno" valore={budget?.importo}
-            onCambia={n => imposta({ budgetGiornaliero: n !== null && n > 0 ? { importo: n, valuta } : undefined })} />
+            onCambia={n => imposta({ budgetGiornaliero: n !== null ? { importo: n, valuta } : undefined })} />
           <div style={{ flex: 1, minWidth: 150 }}>
             <Segmentato etichetta="Valuta del budget" valore={valuta} opzioni={VALUTE}
               onCambia={x => { setValuta(x); if (budget) imposta({ budgetGiornaliero: { ...budget, valuta: x } }) }} />
           </div>
         </div>
         <CampoNumero etichetta="Cambio manuale (¥ per 1 €, vuoto = automatico)" valore={imp.cambioManuale}
-          onCambia={n => imposta({ cambioManuale: n !== null && n > 0 ? n : undefined })} />
+          onCambia={n => imposta({ cambioManuale: n ?? undefined })} />
       </div>
     </Gruppo>
   )
