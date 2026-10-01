@@ -1,8 +1,7 @@
-import { differenzaGiorni, formatoData } from './date'
-import { utcDaLocale } from './fusi'
-import { istanteSicuro } from './ics'
+import { dataGiorno, differenzaGiorni, formatoData } from './date'
+import { istanteSicuro, utcDaLocale } from './fusi'
 import { nuovoId } from './id'
-import { TIPI_PRENOTAZIONE, type Prenotazione, type Tappa, type TipoPrenotazione, type Viaggio } from './tipi'
+import { TIPI_PRENOTAZIONE, type Luogo, type Prenotazione, type Tappa, type TipoPrenotazione, type Viaggio } from './tipi'
 
 /**
  * L'hotel prenotato che copre la notte di `data`: dal giorno del check-in al giorno prima del check-out.
@@ -129,7 +128,22 @@ export function prossimaPrenotazione(v: Viaggio, adesso: Date): { prenotazione: 
     if (!inizio) continue
     const minuti = Math.round((inizio.getTime() - adesso.getTime()) / 60_000)
     if (minuti <= 0 || minuti > 24 * 60) continue
-    if (!migliore || minuti < migliore.minuti) migliore = { prenotazione: p, minuti }
+    if (!migliore || minuti < migliore.minuti || (minuti === migliore.minuti && p.id < migliore.prenotazione.id)) migliore = { prenotazione: p, minuti }
   }
   return migliore
+}
+
+/**
+ * Dove si dorme la notte del giorno `indice`, e la prenotazione che la copre (se c'è).
+ * Con una prenotazione vale il suo luogo (o, se non l'ha, l'alloggio del giorno, o un luogo fatto col titolo);
+ * l'indirizzo in giapponese che manca alla prenotazione si prende dall'alloggio, così non si perde mai.
+ */
+export function luogoDellaNotte(v: Viaggio, indice: number): { luogo: Luogo | null; prenotazione: Prenotazione | null } {
+  const giorno = v.giorni[indice]
+  if (!giorno) return { luogo: null, prenotazione: null }
+  const prenotazione = notteCoperta(v, dataGiorno(v, indice))
+  if (!prenotazione) return { luogo: giorno.alloggio, prenotazione: null }
+  if (!prenotazione.luogo) return { luogo: giorno.alloggio ?? { nome: prenotazione.titolo, query: prenotazione.titolo }, prenotazione }
+  const indirizzoJa = prenotazione.luogo.indirizzoJa ?? giorno.alloggio?.indirizzoJa
+  return { luogo: indirizzoJa === undefined ? prenotazione.luogo : { ...prenotazione.luogo, indirizzoJa }, prenotazione }
 }

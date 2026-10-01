@@ -1,6 +1,6 @@
 import { linkSicuro } from '../servizi/mappe'
 import { aggiungiGiorni, dataGiorno } from './date'
-import { fusoValido, utcDaLocale } from './fusi'
+import { istanteSicuro } from './fusi'
 import type { Luogo, Prenotazione, Viaggio } from './tipi'
 
 const DOMINIO = 'jap-itinerario'
@@ -27,17 +27,9 @@ export function testoIcs(s: string): string {
 
 const codificatore = new TextEncoder()
 
-const LOCALE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/
-
 /** Solo caratteri sicuri in un UID: un id importato con a capo non può iniettare righe nel file. */
 function idSicuro(id: string): string {
   return id.replace(/[^A-Za-z0-9._-]/g, '_')
-}
-
-/** Converte "YYYY-MM-DDTHH:MM" nel fuso dato; null se la stringa o il fuso non sono validi (il file non deve mai lanciare). */
-export function istanteSicuro(locale: string | undefined, fuso: string | undefined): Date | null {
-  if (!locale || !LOCALE.test(locale) || !fusoValido(fuso)) return null
-  return utcDaLocale(locale, fuso)
 }
 
 /** Spezza una riga a 75 ottetti (RFC 5545 §3.1) senza tagliare un carattere; la continuazione comincia con uno spazio. */

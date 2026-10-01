@@ -149,3 +149,41 @@ describe('integraDatiDiPartenza', () => {
     expect([r.prenotazioni, r.orari]).toEqual([0, 0])
   })
 })
+
+describe('impostaIndirizzoNotte', () => {
+  const con = (prenotazioni = [] as ReturnType<typeof prenotazioneDiProva>[]) => viaggioDiProva({
+    giorni: [
+      giornoDiProva({ id: 'g0', alloggio: { nome: 'Hotel A', query: 'Hotel A' } }),
+      giornoDiProva({ id: 'g1', alloggio: { nome: 'Hotel A', query: 'Hotel A' } }),
+      giornoDiProva({ id: 'g2' }),
+    ],
+    prenotazioni,
+  })
+  const hotel = (luogo?: { nome: string; query: string; indirizzoJa?: string }) =>
+    prenotazioneDiProva({ id: 'h', tipo: 'hotel', stato: 'prenotata', inizio: '2027-08-08T15:00', fine: '2027-08-10T10:00', luogo })
+  test('senza prenotazione scrive solo negli alloggi con lo stesso nome', () => {
+    const n = op.impostaIndirizzoNotte(con(), 0, '東京')
+    expect(n.giorni.map(g => g.alloggio?.indirizzoJa)).toEqual(['東京', '東京', undefined])
+    expect(n.prenotazioni).toEqual([])
+  })
+  test('con la prenotazione scrive nel suo luogo (creato dall\'alloggio) e negli alloggi', () => {
+    const n = op.impostaIndirizzoNotte(con([hotel()]), 1, '京都')
+    expect(n.prenotazioni[0].luogo).toMatchObject({ nome: 'Hotel A', query: 'Hotel A', indirizzoJa: '京都' })
+    expect(n.giorni.map(g => g.alloggio?.indirizzoJa)).toEqual(['京都', '京都', undefined])
+  })
+  test('se la prenotazione ha già il luogo, ne tiene nome e coordinate', () => {
+    const n = op.impostaIndirizzoNotte(con([hotel({ nome: 'Gion', query: 'Gion' })]), 0, '祇園')
+    expect(n.prenotazioni[0].luogo).toEqual({ nome: 'Gion', query: 'Gion', indirizzoJa: '祇園' })
+    expect(n.giorni[0].alloggio?.indirizzoJa).toBe('祇園')
+  })
+  test('cancellare l\'indirizzo lo toglie da entrambi', () => {
+    const v = op.impostaIndirizzoNotte(con([hotel()]), 0, '京都')
+    const n = op.impostaIndirizzoNotte(v, 0, undefined)
+    expect(n.prenotazioni[0].luogo?.indirizzoJa).toBeUndefined()
+    expect(n.giorni[0].alloggio?.indirizzoJa).toBeUndefined()
+  })
+  test('notte senza hotel: niente da fare', () => {
+    const v = con()
+    expect(op.impostaIndirizzoNotte(v, 2, 'x')).toBe(v)
+  })
+})

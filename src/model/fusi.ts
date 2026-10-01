@@ -46,3 +46,11 @@ export function utcDaLocale(locale: string, fuso: string): Date {
   for (let i = 0; i < 2; i++) t += voluto - msDaLocale(localeDaUtc(new Date(t), fuso))
   return new Date(t)
 }
+
+const LOCALE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/
+
+/** Converte "YYYY-MM-DDTHH:MM" nel fuso dato; null se la stringa o il fuso non sono validi (dati importati: niente deve lanciare). */
+export function istanteSicuro(locale: string | undefined, fuso: string | undefined): Date | null {
+  if (!locale || !LOCALE.test(locale) || !fusoValido(fuso)) return null
+  return utcDaLocale(locale, fuso)
+}

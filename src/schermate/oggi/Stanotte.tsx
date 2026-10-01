@@ -1,8 +1,7 @@
 import { BedDouble, Copy, Ticket } from 'lucide-react'
 import { useState } from 'react'
-import { dataGiorno } from '../../model/date'
-import { aggiornaAlloggio } from '../../model/operazioni'
-import { aggiornaPrenotazione, notteCoperta } from '../../model/prenotazioni'
+import { impostaIndirizzoNotte } from '../../model/operazioni'
+import { luogoDellaNotte } from '../../model/prenotazioni'
 import { useViaggio } from '../../store/viaggio'
 import { Gruppo, Riga } from '../../ui/componenti'
 import { copia } from '../../ui/copia'
@@ -14,15 +13,10 @@ export function Stanotte({ indice }: { indice: number }) {
   const viaggio = useViaggio(s => s.viaggio)
   const applica = useViaggio(s => s.applica)
   const [taxi, setTaxi] = useState(false)
-  const giorno = viaggio.giorni[indice]
-  if (!giorno) return null
-  const notte = notteCoperta(viaggio, dataGiorno(viaggio, indice))
-  const luogo = notte ? (notte.luogo ?? giorno.alloggio ?? { nome: notte.titolo, query: notte.titolo }) : giorno.alloggio
+  const { luogo, prenotazione: notte } = luogoDellaNotte(viaggio, indice)
   if (!luogo) return null
-  // L'indirizzo scritto qui va dove sta l'hotel: nella prenotazione, o in tutti i giorni con lo stesso alloggio.
-  const cambiaIndirizzo = (indirizzoJa: string | undefined) => applica(v => (notte
-    ? aggiornaPrenotazione(v, notte.id, { luogo: { ...luogo, indirizzoJa } })
-    : aggiornaAlloggio(v, luogo.nome, { indirizzoJa })))
+  // L'indirizzo scritto qui va dove sta l'hotel: nella prenotazione e in tutti i giorni con lo stesso alloggio.
+  const cambiaIndirizzo = (indirizzoJa: string | undefined) => applica(v => impostaIndirizzoNotte(v, indice, indirizzoJa))
   return (
     <>
       <Gruppo titolo="Stanotte">

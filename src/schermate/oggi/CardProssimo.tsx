@@ -1,4 +1,4 @@
-import { Copy, Paperclip } from 'lucide-react'
+import { Copy } from 'lucide-react'
 import { formatoDurata } from '../../model/date'
 import { descriviQuando, prossimaPrenotazione } from '../../model/prenotazioni'
 import { useViaggio } from '../../store/viaggio'
@@ -20,13 +20,14 @@ export function CardProssimo({ adesso }: { adesso: Date }) {
         <Icona size={30} className="card-adesso-icona" aria-hidden />
         <div>
           <h3>{p.titolo}</h3>
-          <p className="testo-2">{[descriviQuando(p), p.riferimento].filter(Boolean).join(' · ')}</p>
+          <p className="testo-2">{[descriviQuando(p), p.riferimento, p.stato === 'da-prenotare' ? 'da prenotare' : '', p.allegati.length ? `${p.allegati.length} ${p.allegati.length === 1 ? 'allegato' : 'allegati'}` : ''].filter(Boolean).join(' · ')}</p>
         </div>
       </a>
-      <div className="fila">
-        {p.codice && <button type="button" className="pulsante primario" onClick={() => copia(p.codice!)}><Copy size={18} aria-hidden /> {p.codice}</button>}
-        <a className="pulsante" href={hrefDocumento(p.id)}><Paperclip size={18} aria-hidden /> {p.allegati.length ? `Allegati (${p.allegati.length})` : 'Dettagli'}</a>
-      </div>
+      {p.codice && (
+        <div className="fila">
+          <button type="button" className="pulsante primario" onClick={() => copia(p.codice!)}><Copy size={18} aria-hidden /> {p.codice}</button>
+        </div>
+      )}
     </article>
   )
 }

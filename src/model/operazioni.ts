@@ -1,5 +1,6 @@
 import { minutiDaOra } from './date'
 import { nuovoId } from './id'
+import { aggiornaPrenotazione, luogoDellaNotte } from './prenotazioni'
 import type { Citta, Giorno, Impostazioni, Luogo, Tappa, Viaggio } from './tipi'
 
 export function nuovaTappa(p: Partial<Tappa> & { titolo: string }): Tappa {
@@ -79,6 +80,20 @@ export function aggiornaGiorno(v: Viaggio, giornoId: string, modifiche: Partial<
 /** Aggiorna l'hotel in tutti i giorni che lo condividono. */
 export function aggiornaAlloggio(v: Viaggio, nome: string, modifiche: Partial<Luogo>): Viaggio {
   return { ...v, giorni: v.giorni.map(g => (g.alloggio?.nome === nome ? { ...g, alloggio: { ...g.alloggio, ...modifiche } } : g)) }
+}
+
+/**
+ * Scrive l'indirizzo in giapponese dell'hotel della notte `indice` dove vive: nella prenotazione che la copre
+ * (il suo luogo nasce qui, dall'alloggio, solo ora che c'è qualcosa da scrivere) e in ogni alloggio con lo stesso nome,
+ * così le due copie non possono più discordare. Senza prenotazione agisce solo sugli alloggi.
+ */
+export function impostaIndirizzoNotte(v: Viaggio, indice: number, indirizzoJa: string | undefined): Viaggio {
+  const { luogo, prenotazione } = luogoDellaNotte(v, indice)
+  if (!luogo) return v
+  let n = v
+  if (prenotazione) n = aggiornaPrenotazione(n, prenotazione.id, { luogo: { ...(prenotazione.luogo ?? luogo), indirizzoJa } })
+  const alloggio = v.giorni[indice].alloggio
+  return alloggio ? aggiornaAlloggio(n, alloggio.nome, { indirizzoJa }) : n
 }
 
 export function aggiungiGiorno(v: Viaggio, dopoIndice: number, cittaId: string): Viaggio {

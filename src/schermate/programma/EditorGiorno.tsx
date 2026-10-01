@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight, Copy, Plus, Trash2 } from 'lucide-react'
-import { aggiornaAlloggio, aggiornaGiorno, aggiungiGiorno, duplicaGiorno, eliminaGiorno, spostaGiorno } from '../../model/operazioni'
+import { aggiornaGiorno, aggiungiGiorno, duplicaGiorno, eliminaGiorno, impostaIndirizzoNotte, spostaGiorno } from '../../model/operazioni'
+import { luogoDellaNotte } from '../../model/prenotazioni'
 import { cittaDi } from '../../model/riepilogo'
 import type { Giorno } from '../../model/tipi'
 import { useViaggio } from '../../store/viaggio'
@@ -14,6 +15,8 @@ export function EditorGiorno({ indice }: { indice: number }) {
   const applicaAnnullabile = useViaggio(s => s.applicaAnnullabile)
   const giorno = viaggio.giorni[indice]
   const n = viaggio.giorni.length
+  // Lo stesso indirizzo che mostra e scrive la scheda del tassista: i due campi non possono discordare.
+  const luogoNotte = luogoDellaNotte(viaggio, indice).luogo
   const agg = (m: Partial<Omit<Giorno, 'id' | 'tappe'>>) => applica(v => aggiornaGiorno(v, giorno.id, m))
 
   return (
@@ -26,10 +29,10 @@ export function EditorGiorno({ indice }: { indice: number }) {
       </Campo>
       <Campo etichetta="Introduzione"><textarea value={giorno.intro} onChange={e => agg({ intro: e.target.value })} /></Campo>
       <CercaLuogo etichetta="Hotel della sera" luogo={giorno.alloggio} citta={cittaDi(viaggio, giorno)} onCambia={l => agg({ alloggio: l ?? null })} />
-      {giorno.alloggio && (
+      {luogoNotte && (
         <Campo etichetta="Indirizzo dell'hotel in giapponese (per il taxi)">
-          <input lang="ja" value={giorno.alloggio.indirizzoJa ?? ''} placeholder="東京都台東区西浅草3-17-1"
-            onChange={e => applica(v => aggiornaAlloggio(v, giorno.alloggio!.nome, { indirizzoJa: e.target.value || undefined }))} />
+          <input lang="ja" value={luogoNotte.indirizzoJa ?? ''} placeholder="東京都台東区西浅草3-17-1"
+            onChange={e => applica(v => impostaIndirizzoNotte(v, indice, e.target.value || undefined))} />
         </Campo>
       )}
       <div className="editor-giorno-azioni">

@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { giornoDiProva, prenotazioneDiProva as p, tappaDiProva, viaggioDiProva } from './fixture'
 import {
   aggiornaPrenotazione, aggiungiPrenotazione, controllaPrenotazione, descriviIstante, descriviQuando, eliminaPrenotazione,
-  etichetteDate, gruppiDocumenti, notteCoperta, nuovaPrenotazione, prossimaPrenotazione, scadenza, sostituisciPrenotazione, tappaCollegata,
+  etichetteDate, gruppiDocumenti, luogoDellaNotte, notteCoperta, nuovaPrenotazione, prossimaPrenotazione, scadenza, sostituisciPrenotazione, tappaCollegata,
 } from './prenotazioni'
 
 describe('notteCoperta', () => {
@@ -160,5 +160,49 @@ describe('prossimaPrenotazione', () => {
       ],
     })
     expect(prossimaPrenotazione(w, new Date('2027-08-07T07:30:00Z'))?.prenotazione.id).toBe('buona')
+  })
+})
+
+describe('prossimaPrenotazione: parità e stato', () => {
+  test('le prenotazioni da prenotare compaiono (la card le segnala)', () => {
+    const v = viaggioDiProva({ prenotazioni: [p({ id: 'x', stato: 'da-prenotare', inizio: '2027-08-07T12:30', fuso: 'Europe/Rome' })] })
+    expect(prossimaPrenotazione(v, new Date('2027-08-07T07:30:00Z'))?.prenotazione.id).toBe('x')
+  })
+  test('a parità di minuti vince l\'id minore, qualunque sia l\'ordine', () => {
+    const a = p({ id: 'a', inizio: '2027-08-07T12:30', fuso: 'Europe/Rome' })
+    const b = p({ id: 'b', inizio: '2027-08-07T12:30', fuso: 'Europe/Rome' })
+    const adesso = new Date('2027-08-07T07:30:00Z')
+    expect(prossimaPrenotazione(viaggioDiProva({ prenotazioni: [b, a] }), adesso)?.prenotazione.id).toBe('a')
+    expect(prossimaPrenotazione(viaggioDiProva({ prenotazioni: [a, b] }), adesso)?.prenotazione.id).toBe('a')
+  })
+})
+
+describe('luogoDellaNotte', () => {
+  const alloggio = { nome: 'Hotel A', query: 'Hotel A Kyoto', lat: 35, lng: 135, indirizzoJa: '京都市東山区' }
+  const giorni = [giornoDiProva({ id: 'g0', alloggio }), giornoDiProva({ id: 'g1' })]
+  const hotel = (luogo?: { nome: string; query: string; indirizzoJa?: string }) =>
+    p({ id: 'h', tipo: 'hotel', titolo: 'Hotel A (booking)', stato: 'prenotata', inizio: '2027-08-08T15:00', fine: '2027-08-09T10:00', luogo })
+  test('senza prenotazione vale l\'alloggio del giorno', () => {
+    const v = viaggioDiProva({ giorni })
+    expect(luogoDellaNotte(v, 0)).toEqual({ luogo: alloggio, prenotazione: null })
+    expect(luogoDellaNotte(v, 1)).toEqual({ luogo: null, prenotazione: null })
+    expect(luogoDellaNotte(v, 9)).toEqual({ luogo: null, prenotazione: null })
+  })
+  test('prenotazione senza luogo: l\'indirizzo scritto nell\'alloggio resta visibile', () => {
+    const r = luogoDellaNotte(viaggioDiProva({ giorni, prenotazioni: [hotel()] }), 0)
+    expect(r.prenotazione?.id).toBe('h')
+    expect(r.luogo).toEqual(alloggio)
+  })
+  test('prenotazione con luogo senza indirizzo: vince il luogo, l\'indirizzo viene dall\'alloggio', () => {
+    const r = luogoDellaNotte(viaggioDiProva({ giorni, prenotazioni: [hotel({ nome: 'Gion', query: 'Gion' })] }), 0)
+    expect(r.luogo).toEqual({ nome: 'Gion', query: 'Gion', indirizzoJa: '京都市東山区' })
+  })
+  test('l\'indirizzo della prenotazione batte quello dell\'alloggio', () => {
+    const r = luogoDellaNotte(viaggioDiProva({ giorni, prenotazioni: [hotel({ nome: 'Gion', query: 'Gion', indirizzoJa: '祇園' })] }), 0)
+    expect(r.luogo?.indirizzoJa).toBe('祇園')
+  })
+  test('prenotazione senza luogo e senza alloggio: un luogo dal titolo', () => {
+    const v = viaggioDiProva({ giorni: [giornoDiProva({ id: 'g0' })], prenotazioni: [hotel()] })
+    expect(luogoDellaNotte(v, 0).luogo).toEqual({ nome: 'Hotel A (booking)', query: 'Hotel A (booking)' })
   })
 })
