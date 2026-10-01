@@ -1,11 +1,23 @@
 import { createStore, del, get, set, type UseStore } from 'idb-keyval'
 import { nuovoId } from '../model/id'
+import { mimeAmmesso, mimeFoto } from '../model/mime'
 import type { Allegato, Viaggio } from '../model/tipi'
 import type { AllegatiBackup } from './backup'
 
 export const LATO_MASSIMO = 1600
 export const QUALITA_JPEG = 0.85
 export const PDF_MASSIMO = 15 * 1024 * 1024
+
+/** Il tipo da dare a un blob ripescato dall'archivio o da un backup: uno dei cinque ammessi, altrimenti octet-stream (mai SVG o HTML). */
+export function mimeSicuro(m: string | null | undefined): string {
+  const tipo = (m ?? '').split(';')[0].trim().toLowerCase()
+  return mimeAmmesso(tipo) ? tipo : 'application/octet-stream'
+}
+
+/** Fra foto originale e foto ridotta: se la ridotta pesa di più e l'originale è una foto ammessa, resta l'originale. */
+export function scegliFoto(originale: Blob, ridotta: Blob): Blob {
+  return ridotta.size > originale.size && mimeFoto(originale.type) ? originale : ridotta
+}
 
 /** Dove stanno i dati degli allegati. Nei test si passa un archivio finto in memoria. */
 export interface ArchivioAllegati {
@@ -41,9 +53,13 @@ export async function riduciFoto(foto: Blob): Promise<Blob> {
   tela.height = altezza
   const ctx = tela.getContext('2d')
   if (!ctx) { immagine.close(); throw new Error('canvas non disponibile') }
+  // Il JPEG non ha trasparenza: senza lo sfondo, un PNG con i vuoti diventerebbe nero.
+  ctx.fillStyle = '#fff'
+  ctx.fillRect(0, 0, larghezza, altezza)
   ctx.drawImage(immagine, 0, 0, larghezza, altezza)
   immagine.close()
-  return new Promise((ok, ko) => tela.toBlob(b => (b ? ok(b) : ko(new Error('conversione non riuscita'))), 'image/jpeg', QUALITA_JPEG))
+  const ridotta = await new Promise<Blob>((ok, ko) => tela.toBlob(b => (b ? ok(b) : ko(new Error('conversione non riuscita'))), 'image/jpeg', QUALITA_JPEG))
+  return scegliFoto(foto, ridotta)
 }
 
 export const ERRORI_ALLEGATO = {
@@ -69,8 +85,8 @@ export async function salvaAllegato(file: File, dip: DipendenzeAllegati = { arch
     try {
       dati = await dip.riduci(file)
     } catch {
-      // Un formato che il canvas non legge: si tiene l'originale, se non è enorme.
-      if (file.size > PDF_MASSIMO) return { ok: false, errore: ERRORI_ALLEGATO.foto }
+      // Un formato che il canvas non legge: si tiene l'originale solo se è una foto ammessa e non enorme.
+      if (!mimeFoto(file.type) || file.size > PDF_MASSIMO) return { ok: false, errore: ERRORI_ALLEGATO.foto }
     }
   }
   const id = nuovoId('a')
@@ -81,7 +97,8 @@ export async function salvaAllegato(file: File, dip: DipendenzeAllegati = { arch
   }
   const ridotta = dati !== file
   const nome = ridotta ? `${file.name.replace(/\.[^.]*$/, '') || 'foto'}.jpg` : file.name || 'allegato'
-  return { ok: true, allegato: { id, nome, mime: dati.type || file.type, byte: dati.size } }
+  const mime = ridotta ? (mimeAmmesso(dati.type) ? dati.type : 'image/jpeg') : file.type
+  return { ok: true, allegato: { id, nome, mime, byte: dati.size } }
 }
 
 export function idAllegati(v: Viaggio): string[] {
@@ -105,26 +122,76 @@ export function byteDaBase64(s: string): Uint8Array<ArrayBuffer> {
   return b
 }
 
-/** Gli allegati del viaggio in base64 per il file di backup; quelli che il telefono non ha più vengono contati. */
-export async function allegatiPerBackup(v: Viaggio, archivio: ArchivioAllegati = archivioIndexedDb): Promise<{ allegati: AllegatiBackup; mancanti: number }> {
+/**
+ * Gli allegati del viaggio in base64 per il file di backup. `mancanti` conta quelli che non si sono potuti includere;
+ * `illeggibili` (solo se > 0) quanti fra questi non si sono potuti leggere dall'archivio (non risultano semplicemente spariti).
+ */
+export async function allegatiPerBackup(v: Viaggio, archivio: ArchivioAllegati = archivioIndexedDb): Promise<{ allegati: AllegatiBackup; mancanti: number; illeggibili?: number }> {
   const mime = new Map(v.prenotazioni.flatMap(p => p.allegati.map(a => [a.id, a.mime] as const)))
   const allegati: AllegatiBackup = {}
   let mancanti = 0
+  let illeggibili = 0
   for (const [id, tipo] of mime) {
     try {
       const b = await archivio.leggi(id)
       if (!b) { mancanti++; continue }
-      allegati[id] = { mime: b.type || tipo, dati: base64DaByte(new Uint8Array(await b.arrayBuffer())) }
+      allegati[id] = { mime: mimeSicuro(b.type || tipo), dati: base64DaByte(new Uint8Array(await b.arrayBuffer())) }
     } catch {
       mancanti++
+      illeggibili++
     }
   }
-  return { allegati, mancanti }
+  return illeggibili > 0 ? { allegati, mancanti, illeggibili } : { allegati, mancanti }
 }
 
-/** Riscrive in IndexedDB gli allegati di un backup importato. Lancia se lo spazio non basta: chi chiama avvisa. */
-export async function ripristinaAllegati(allegati: AllegatiBackup, archivio: ArchivioAllegati = archivioIndexedDb): Promise<void> {
-  for (const [id, a] of Object.entries(allegati)) await archivio.scrivi(id, new Blob([byteDaBase64(a.dati)], { type: a.mime }))
+export interface EsitoRipristino {
+  /** Gli id del backup che ora sono nell'archivio (scritti adesso o già presenti e protetti). Se qualcosa è fallito restano solo i protetti. */
+  scritti: string[]
+  falliti: number
+  /** Almeno un errore era di spazio esaurito. */
+  spazio: boolean
+}
+
+/**
+ * Riscrive in IndexedDB gli allegati di un backup importato; non lancia mai e una voce rovinata non ferma le altre.
+ * `protetti` sono gli id del viaggio attuale: se sono già nell'archivio non si sovrascrivono.
+ * Se anche una sola scrittura fallisce, quelle fatte da questa importazione vengono tolte: niente a metà.
+ */
+export async function ripristinaAllegati(allegati: AllegatiBackup, archivio: ArchivioAllegati = archivioIndexedDb, protetti: Iterable<string> = []): Promise<EsitoRipristino> {
+  const intoccabili = new Set(protetti)
+  const nuovi: string[] = []
+  const presenti: string[] = []
+  let falliti = 0
+  let spazio = false
+  for (const [id, a] of Object.entries(allegati)) {
+    try {
+      if (intoccabili.has(id) && (await archivio.leggi(id).catch(() => undefined))) { presenti.push(id); continue }
+      await archivio.scrivi(id, new Blob([byteDaBase64(a.dati)], { type: mimeSicuro(a.mime) }))
+      nuovi.push(id)
+    } catch (e) {
+      falliti++
+      if (spazioFinito(e)) spazio = true
+    }
+  }
+  if (falliti > 0) {
+    for (const id of nuovi) await archivio.elimina(id).catch(() => undefined)
+    return { scritti: presenti, falliti, spazio }
+  }
+  return { scritti: Object.keys(allegati).filter(id => nuovi.includes(id) || presenti.includes(id)), falliti, spazio }
+}
+
+const nAllegati = (n: number) => (n === 1 ? '1 allegato' : `${n} allegati`)
+
+/** Il messaggio per chi ha importato un backup: cosa è andato storto e quali allegati del nuovo viaggio mancano. Null se è andato tutto bene. */
+export function avvisoImportazione(nuovo: Viaggio, esito: EsitoRipristino, scartati: number): string | null {
+  const parti: string[] = []
+  if (esito.spazio) parti.push("Gli allegati del backup non entrano nello spazio del telefono: importo solo l'itinerario.")
+  else if (esito.falliti > 0) parti.push(`${nAllegati(esito.falliti)} ${esito.falliti === 1 ? 'era danneggiato e è stato saltato' : 'erano danneggiati e sono stati saltati'}.`)
+  if (scartati > 0) parti.push(`${nAllegati(scartati)} del file ${scartati === 1 ? 'non era valido ed è stato scartato' : 'non erano validi e sono stati scartati'}.`)
+  const disponibili = new Set(esito.scritti)
+  const assenti = nuovo.prenotazioni.flatMap(p => p.allegati).filter(a => !disponibili.has(a.id)).map(a => a.nome)
+  if (assenti.length > 0) parti.push(`Mancano: ${assenti.slice(0, 3).join(', ')}${assenti.length > 3 ? ` e altri ${assenti.length - 3}` : ''}.`)
+  return parti.length ? parti.join(' ') : null
 }
 
 /** Cancella dagli allegati `ids` quelli che nessuna prenotazione di `v` usa più. Non lancia mai. */

@@ -1,5 +1,6 @@
 import { aggiungiGiorni } from './date'
 import { fusoValido } from './fusi'
+import { mimeAmmesso } from './mime'
 import {
   CATEGORIE_SPESA, FONTI_ORARI, METODI_PAGAMENTO, MODI_SPOSTAMENTO, STATI_PRENOTAZIONE, STATI_TAPPA,
   TIPI_PRENOTAZIONE, TIPI_TAPPA, VALUTE, VERSIONE_DATI, type Viaggio,
@@ -161,7 +162,7 @@ function erroriPrenotazione(p: Obj): string[] {
     e.push(`${dove}: allegati deve essere un elenco`)
   } else {
     for (const a of p.allegati) {
-      if (!oggetto(a) || !stringa(a.id) || !stringa(a.nome) || !stringa(a.mime) || !numero(a.byte) || a.byte < 0) e.push(`${dove}: allegato non valido`)
+      if (!oggetto(a) || !stringa(a.id) || !stringa(a.nome) || !mimeAmmesso(a.mime) || !numero(a.byte) || a.byte < 0) e.push(`${dove}: allegato non valido`)
     }
   }
   return e

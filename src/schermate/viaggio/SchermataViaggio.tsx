@@ -5,7 +5,7 @@ import { dataGiorno, formatoData } from '../../model/date'
 import { aggiornaImpostazioni, aggiornaPersona, aggiornaViaggio, aggiungiCitta } from '../../model/operazioni'
 import type { Tema, Viaggio } from '../../model/tipi'
 import { validaViaggio } from '../../model/validazione'
-import { eliminaSeOrfani, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
+import { avvisoImportazione, eliminaSeOrfani, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
 import { leggiBackup, type AllegatiBackup } from '../../servizi/backup'
 import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
 import { useViaggio } from '../../store/viaggio'
@@ -29,7 +29,7 @@ export default function SchermataViaggio() {
   const esporta = useEsportaBackup()
   const { installata, ios } = useInstallazione()
   const file = useRef<HTMLInputElement>(null)
-  const [daImportare, setDaImportare] = useState<{ viaggio: Viaggio; allegati: AllegatiBackup } | null>(null)
+  const [daImportare, setDaImportare] = useState<{ viaggio: Viaggio; allegati: AllegatiBackup; scartati: number } | null>(null)
   const [cittaAperta, setCittaAperta] = useState<string | null>(null)
   const [ripristino, setRipristino] = useState(false)
   // La chiave vecchia non cambia mai mentre l'app è aperta: basta leggerla una volta.
@@ -50,7 +50,7 @@ export default function SchermataViaggio() {
     }
     const esito = leggiBackup(testo)
     if (!esito.ok) toast(esito.errore)
-    else setDaImportare({ viaggio: esito.viaggio, allegati: esito.allegati })
+    else setDaImportare({ viaggio: esito.viaggio, allegati: esito.allegati, scartati: esito.scartati })
     if (file.current) file.current.value = ''
   }
   const nuovaCitta = () => {
@@ -78,16 +78,16 @@ export default function SchermataViaggio() {
   }
   const confermaImportazione = async () => {
     if (!daImportare) return
-    const { viaggio: nuovo, allegati } = daImportare
+    const { viaggio: nuovo, allegati, scartati } = daImportare
     setDaImportare(null)
     const vecchi = idAllegati(useViaggio.getState().viaggio)
-    try {
-      await ripristinaAllegati(allegati)
-    } catch {
-      toast("Gli allegati del backup non entrano nello spazio del telefono: importo solo l'itinerario.")
-    }
+    // Gli id che il viaggio attuale usa e che sono già nell'archivio non si sovrascrivono.
+    const esito = await ripristinaAllegati(allegati, undefined, vecchi)
     applicaAnnullabile(() => nuovo, 'Backup importato')
-    pulisciDopo(vecchi)
+    const avviso = avvisoImportazione(nuovo, esito, scartati)
+    if (avviso) toast(avviso)
+    // Se l'importazione viene annullata, gli allegati appena scritti restano orfani: si cancellano insieme ai vecchi.
+    pulisciDopo([...vecchi, ...esito.scritti])
   }
   const ripristina = () => {
     const vecchi = idAllegati(viaggio)
@@ -151,7 +151,7 @@ export default function SchermataViaggio() {
             <p style={{ margin: '8px 0' }}><strong>{daImportare.viaggio.titolo}</strong></p>
             <p className="testo-2" style={{ marginBottom: 16 }}>
               {daImportare.viaggio.giorni.length} giorni dal {formatoData(daImportare.viaggio.dataPartenza, 'lungo')}
-              {Object.keys(daImportare.allegati).length > 0 && `, con ${Object.keys(daImportare.allegati).length} allegati`}.
+              {Object.keys(daImportare.allegati).length > 0 && `, con ${Object.keys(daImportare.allegati).length === 1 ? '1 allegato' : `${Object.keys(daImportare.allegati).length} allegati`}`}.
               {' '}Sostituisce l'itinerario su questo telefono (si può annullare subito dopo).
             </p>
             <button type="button" className="pulsante primario largo" onClick={() => void confermaImportazione()}>Importa</button>

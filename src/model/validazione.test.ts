@@ -163,3 +163,10 @@ test('rifiuta orari e impostazioni sbagliati', () => {
 test('un viaggio della fase 1, senza niente di nuovo, resta valido', () => {
   expect(validaViaggio(viaggioDiProva({ prenotazioni: [], spese: [] })).ok).toBe(true)
 })
+
+test('rifiuta un allegato con un tipo di file non ammesso', () => {
+  for (const mime of ['text/html', 'image/svg+xml', 'application/octet-stream']) {
+    const v = viaggioDiProva({ prenotazioni: [prenotazioneDiProva({ id: 'x', allegati: [{ id: 'a-1', nome: 'x', mime, byte: 1 }] })] })
+    expect(rifiutato(v)).toContain('prenotazione x: allegato non valido')
+  }
+})
