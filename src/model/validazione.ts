@@ -1,11 +1,16 @@
 import { aggiungiGiorni } from './date'
-import { MODI_SPOSTAMENTO, STATI_TAPPA, TIPI_TAPPA, VERSIONE_DATI, type Viaggio } from './tipi'
+import { fusoValido } from './fusi'
+import {
+  CATEGORIE_SPESA, FONTI_ORARI, METODI_PAGAMENTO, MODI_SPOSTAMENTO, STATI_PRENOTAZIONE, STATI_TAPPA,
+  TIPI_PRENOTAZIONE, TIPI_TAPPA, VALUTE, VERSIONE_DATI, type Viaggio,
+} from './tipi'
 
 type Esito = { ok: true; viaggio: Viaggio } | { ok: false; errori: string[] }
 type Obj = Record<string, unknown>
 
 const ORA = /^([01]\d|2[0-3]):[0-5]\d$/
 const DATA = /^\d{4}-\d{2}-\d{2}$/
+const LOCALE = /^(\d{4}-\d{2}-\d{2})T([01]\d|2[0-3]):[0-5]\d$/
 const TEMI = ['auto', 'chiaro', 'scuro']
 const LIVELLI_AVVISO = ['info', 'attenzione']
 const TIPI_SUGGERIMENTO = ['cibo', 'opzionale', 'souvenir']
@@ -26,6 +31,18 @@ function dataVera(d: unknown): boolean {
   } catch {
     return false
   }
+}
+
+/** "YYYY-MM-DDTHH:MM" con una data che esiste. */
+function localeVera(x: unknown): boolean {
+  if (!stringa(x)) return false
+  const m = LOCALE.exec(x)
+  return m !== null && dataVera(m[1])
+}
+
+/** Un importo con una valuta ammessa; `positivo` esclude anche lo zero. */
+function importoValido(x: unknown, positivo: boolean): boolean {
+  return oggetto(x) && numero(x.importo) && (positivo ? x.importo > 0 : x.importo >= 0) && tra(x.valuta, VALUTE)
 }
 
 /** Gli errori di un Luogo, con `dove` davanti; vuoto se è valido. */
@@ -76,6 +93,20 @@ function erroriGiorno(g: Obj): string[] {
   return e
 }
 
+function erroriOrari(o: unknown, dove: string): string[] {
+  if (!oggetto(o)) return [`${dove}: orari non validi`]
+  const e: string[] = []
+  const giorni = o.chiusoIl
+  if (!Array.isArray(giorni) || !giorni.every(g => Number.isInteger(g) && g >= 0 && g <= 6)) e.push(`${dove}: giorni di chiusura non validi`)
+  for (const [k, nome] of [['apre', 'apertura'], ['chiude', 'chiusura']] as const) {
+    const ora = o[k]
+    if (ora !== undefined && !(stringa(ora) && ORA.test(ora))) e.push(`${dove}: ora di ${nome} non valida`)
+  }
+  if (o.nota !== undefined && !stringa(o.nota)) e.push(`${dove}: nota degli orari non valida`)
+  if (o.fonte !== undefined && !tra(o.fonte, FONTI_ORARI)) e.push(`${dove}: fonte degli orari non valida`)
+  return e
+}
+
 function erroriTappa(t: Obj): string[] {
   const e: string[] = []
   const dove = `tappa ${t.id}`
@@ -103,6 +134,54 @@ function erroriTappa(t: Obj): string[] {
     if (!valido) e.push(`${dove}: evento non valido`)
   }
   if (t.foto !== undefined && !stringa(t.foto)) e.push(`${dove}: foto non valida`)
+  if (t.orari !== undefined) e.push(...erroriOrari(t.orari, dove))
+  return e
+}
+
+function erroriPrenotazione(p: Obj): string[] {
+  const e: string[] = []
+  const dove = `prenotazione ${p.id}`
+  if (!tra(p.tipo, TIPI_PRENOTAZIONE)) e.push(`${dove}: tipo non valido "${String(p.tipo)}"`)
+  if (!tra(p.stato, STATI_PRENOTAZIONE)) e.push(`${dove}: stato non valido "${String(p.stato)}"`)
+  if (!stringa(p.titolo)) e.push(`${dove}: titolo mancante`)
+  if (!stringa(p.note)) e.push(`${dove}: note deve essere un testo`)
+  for (const k of ['inizio', 'fine'] as const) {
+    const x = p[k]
+    if (x !== undefined && !localeVera(x)) e.push(`${dove}: ${k} non valido "${String(x)}"`)
+  }
+  if (!fusoValido(p.fuso)) e.push(`${dove}: fuso non valido "${String(p.fuso)}"`)
+  if (p.fusoFine !== undefined && !fusoValido(p.fusoFine)) e.push(`${dove}: fuso della fine non valido "${String(p.fusoFine)}"`)
+  if (p.luogo !== undefined) e.push(...erroriLuogo(p.luogo, dove))
+  for (const k of ['codice', 'riferimento', 'link', 'tappaId'] as const) {
+    if (p[k] !== undefined && !stringa(p[k])) e.push(`${dove}: ${k} deve essere un testo`)
+  }
+  if (p.daPrenotareEntro !== undefined && !dataVera(p.daPrenotareEntro)) e.push(`${dove}: data entro cui prenotare non valida`)
+  if (p.costo !== undefined && !importoValido(p.costo, false)) e.push(`${dove}: costo non valido`)
+  if (!Array.isArray(p.allegati)) {
+    e.push(`${dove}: allegati deve essere un elenco`)
+  } else {
+    for (const a of p.allegati) {
+      if (!oggetto(a) || !stringa(a.id) || !stringa(a.nome) || !stringa(a.mime) || !numero(a.byte) || a.byte < 0) e.push(`${dove}: allegato non valido`)
+    }
+  }
+  return e
+}
+
+function erroriSpesa(s: Obj, persone: Set<string>): string[] {
+  const e: string[] = []
+  const dove = `spesa ${s.id}`
+  if (!dataVera(s.data)) e.push(`${dove}: data non valida`)
+  if (!numero(s.importo) || s.importo <= 0) e.push(`${dove}: importo non valido`)
+  if (!tra(s.valuta, VALUTE)) e.push(`${dove}: valuta non valida "${String(s.valuta)}"`)
+  if (!numero(s.cambio) || s.cambio <= 0) e.push(`${dove}: cambio non valido`)
+  if (!tra(s.categoria, CATEGORIE_SPESA)) e.push(`${dove}: categoria non valida "${String(s.categoria)}"`)
+  if (!stringa(s.descrizione)) e.push(`${dove}: descrizione deve essere un testo`)
+  if (!stringa(s.pagatoDa) || !persone.has(s.pagatoDa)) e.push(`${dove}: chi ha pagato non è fra le persone`)
+  const fra = s.divisaFra
+  const divisaBene = Array.isArray(fra) && fra.length > 0 && fra.every(id => stringa(id) && persone.has(id)) && new Set(fra).size === fra.length
+  if (!divisaBene) e.push(`${dove}: divisione non valida`)
+  if (!tra(s.metodo, METODI_PAGAMENTO)) e.push(`${dove}: metodo non valido "${String(s.metodo)}"`)
+  if (s.rimborso !== undefined && typeof s.rimborso !== 'boolean') e.push(`${dove}: rimborso deve essere sì o no`)
   return e
 }
 
@@ -121,12 +200,20 @@ export function validaViaggio(x: unknown): Esito {
   if (!stringa(x.titolo)) errori.push('titolo mancante')
   if (!dataVera(x.dataPartenza)) errori.push(`dataPartenza non valida: ${String(x.dataPartenza)}`)
 
+  const persone = new Set<string>()
   for (const p of x.persone as unknown[]) {
-    if (!oggetto(p) || !stringa(p.id) || !stringa(p.nome)) errori.push('persona non valida')
+    if (!oggetto(p) || !stringa(p.id) || !stringa(p.nome)) { errori.push('persona non valida'); continue }
+    persone.add(p.id)
   }
   const imp = x.impostazioni as Obj
   if (!tra(imp.tema, TEMI)) errori.push(`tema non valido: ${String(imp.tema)}`)
   if (imp.ultimoBackup !== undefined && !stringa(imp.ultimoBackup)) errori.push('data dell\'ultimo backup non valida')
+  if (imp.budgetGiornaliero !== undefined && !importoValido(imp.budgetGiornaliero, true)) errori.push('budget giornaliero non valido')
+  if (imp.cambioManuale !== undefined && (!numero(imp.cambioManuale) || imp.cambioManuale <= 0)) errori.push('cambio manuale non valido')
+  if (imp.ultimoCambio !== undefined) {
+    const c = imp.ultimoCambio
+    if (!(oggetto(c) && numero(c.valore) && c.valore > 0 && dataVera(c.data))) errori.push('ultimo cambio non valido')
+  }
 
   const citta = new Set<string>()
   for (const c of x.citta as unknown[]) {
@@ -152,6 +239,20 @@ export function validaViaggio(x: unknown): Esito {
       idTappe.add(t.id)
       errori.push(...erroriTappa(t))
     }
+  }
+  const idPrenotazioni = new Set<string>()
+  for (const p of x.prenotazioni as unknown[]) {
+    if (!oggetto(p) || !stringa(p.id)) { errori.push('prenotazione senza id'); continue }
+    if (idPrenotazioni.has(p.id)) errori.push(`id prenotazione duplicato: ${p.id}`)
+    idPrenotazioni.add(p.id)
+    errori.push(...erroriPrenotazione(p))
+  }
+  const idSpese = new Set<string>()
+  for (const s of x.spese as unknown[]) {
+    if (!oggetto(s) || !stringa(s.id)) { errori.push('spesa senza id'); continue }
+    if (idSpese.has(s.id)) errori.push(`id spesa duplicato: ${s.id}`)
+    idSpese.add(s.id)
+    errori.push(...erroriSpesa(s, persone))
   }
   return errori.length ? { ok: false, errori } : { ok: true, viaggio: x as unknown as Viaggio }
 }

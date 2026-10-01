@@ -46,6 +46,7 @@ export interface Tappa {
   stato: StatoTappa
   nota: string
   foto?: string
+  orari?: OrariTappa
 }
 
 export interface Avviso {
@@ -114,6 +115,11 @@ export type Tema = 'auto' | 'chiaro' | 'scuro'
 export interface Impostazioni {
   tema: Tema
   ultimoBackup?: string
+  budgetGiornaliero?: Importo
+  /** Yen per 1 euro scritti a mano: vince sul cambio scaricato. */
+  cambioManuale?: number
+  /** L'ultimo cambio scaricato dalla BCE, con la sua data. */
+  ultimoCambio?: { valore: number; data: string }
 }
 
 export const VERSIONE_DATI = 2
@@ -125,8 +131,89 @@ export interface Viaggio {
   persone: Persona[]
   citta: Citta[]
   giorni: Giorno[]
-  prenotazioni: unknown[]
-  spese: unknown[]
+  prenotazioni: Prenotazione[]
+  spese: Spesa[]
   checklist: unknown[]
   impostazioni: Impostazioni
+}
+
+export const TIPI_PRENOTAZIONE = ['volo', 'hotel', 'treno', 'biglietto', 'ristorante', 'altro'] as const
+export type TipoPrenotazione = (typeof TIPI_PRENOTAZIONE)[number]
+
+export const STATI_PRENOTAZIONE = ['da-prenotare', 'prenotata'] as const
+export type StatoPrenotazione = (typeof STATI_PRENOTAZIONE)[number]
+
+export const VALUTE = ['JPY', 'EUR'] as const
+export type Valuta = (typeof VALUTE)[number]
+
+export interface Importo {
+  importo: number
+  valuta: Valuta
+}
+
+/** I dati dell'allegato stanno in IndexedDB, sotto lo stesso id. */
+export interface Allegato {
+  id: Id
+  nome: string
+  mime: string
+  byte: number
+}
+
+export interface Prenotazione {
+  id: Id
+  tipo: TipoPrenotazione
+  titolo: string
+  stato: StatoPrenotazione
+  /** "2027-08-07T12:30", ora locale di `fuso`. */
+  inizio?: string
+  /** Idem, ma nel fuso `fusoFine` se c'è; per gli hotel è il check-out. */
+  fine?: string
+  /** IANA: "Asia/Tokyo", "Europe/Rome". */
+  fuso: string
+  /** Fuso di `fine` quando è diverso da `fuso` (un volo che atterra in un altro paese). */
+  fusoFine?: string
+  luogo?: Luogo
+  codice?: string
+  riferimento?: string
+  daPrenotareEntro?: string
+  costo?: Importo
+  link?: string
+  note: string
+  allegati: Allegato[]
+  tappaId?: Id
+}
+
+export const CATEGORIE_SPESA = ['cibo', 'trasporti', 'alloggio', 'biglietti', 'shopping', 'altro'] as const
+export type CategoriaSpesa = (typeof CATEGORIE_SPESA)[number]
+
+export const METODI_PAGAMENTO = ['contanti', 'carta'] as const
+export type MetodoPagamento = (typeof METODI_PAGAMENTO)[number]
+
+export interface Spesa {
+  id: Id
+  data: string
+  /** > 0, nella valuta indicata. */
+  importo: number
+  valuta: Valuta
+  /** Yen per 1 euro al momento dell'inserimento: i totali non cambiano col cambio di domani. */
+  cambio: number
+  categoria: CategoriaSpesa
+  descrizione: string
+  pagatoDa: Id
+  divisaFra: Id[]
+  metodo: MetodoPagamento
+  /** Un rimborso fra persone: conta nei saldi, non nei totali delle spese. */
+  rimborso?: boolean
+}
+
+export const FONTI_ORARI = ['manuale', 'osm', 'base'] as const
+export type FonteOrari = (typeof FONTI_ORARI)[number]
+
+export interface OrariTappa {
+  /** Giorni della settimana di chiusura, 0 = domenica. */
+  chiusoIl: number[]
+  apre?: string
+  chiude?: string
+  nota?: string
+  fonte?: FonteOrari
 }
