@@ -1,7 +1,8 @@
 import type { Viaggio } from './tipi'
 
 const GIORNO_MS = 86_400_000
-const SETTIMANA = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato']
+/** I nomi dei giorni, 0 = domenica (come Date.getDay). */
+export const SETTIMANA = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato']
 const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
 
 function utc(data: string): number {
@@ -52,7 +53,8 @@ export function minutiDaOra(ora: string | null): number | null {
   return h * 60 + m
 }
 
-function giornoSettimana(data: string): number {
+/** Il giorno della settimana di una data "YYYY-MM-DD", 0 = domenica. */
+export function giornoSettimana(data: string): number {
   return new Date(utc(data)).getUTCDay()
 }
 
