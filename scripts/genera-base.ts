@@ -15,4 +15,4 @@ if (!esito.ok) {
 mkdirSync(new URL('../src/data/', import.meta.url), { recursive: true })
 writeFileSync(new URL('../src/data/itinerario-base.json', import.meta.url), JSON.stringify(viaggio, null, 1) + '\n')
 writeFileSync(new URL('../src/data/legacy-extra.json', import.meta.url), JSON.stringify(extra, null, 1) + '\n')
-console.log(`Itinerario: ${viaggio.giorni.length} giorni, ${viaggio.giorni.flatMap(g => g.tappe).length} tappe`)
+console.log(`Itinerario: ${viaggio.giorni.length} giorni, ${viaggio.giorni.flatMap(g => g.tappe).length} tappe, ${viaggio.prenotazioni.length} prenotazioni`)

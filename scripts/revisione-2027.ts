@@ -1,5 +1,6 @@
-import { minutiDaOra } from '../src/model/date'
-import type { Avviso, Giorno, InfoEvento, Luogo, Suggerimento, Tappa, TipoTappa, Viaggio } from '../src/model/tipi'
+import { aggiungiGiorni, minutiDaOra } from '../src/model/date'
+import type { Avviso, Giorno, InfoEvento, Luogo, OrariTappa, Prenotazione, Suggerimento, Tappa, TipoTappa, Viaggio } from '../src/model/tipi'
+import { linkSicuro } from '../src/servizi/mappe'
 
 const L = (nome: string, query: string, lat: number, lng: number): Luogo => ({ nome, query, lat, lng })
 const FONTI = {
@@ -18,6 +19,87 @@ function nuova(id: string, ora: string, titolo: string, tipo: TipoTappa, descriz
   }
 }
 const evento = (e: InfoEvento) => ({ evento: e })
+
+const VERIFICA = 'Verifica sul sito prima di andare.'
+
+/** Gli orari pre-compilati dallo spec della fase 2, per id di tappa. Solo questi: il resto lo aggiunge Vito o lo legge da OSM. */
+const ORARI_BASE: Record<string, Omit<OrariTappa, 'fonte'>> = {
+  't3-1': { chiusoIl: [0], nota: `Molti banchi chiusi il mercoledì e i festivi. ${VERIFICA}` }, // Tsukiji Outer Market
+  't5-4': { chiusoIl: [1], apre: '10:00', chiude: '18:00', nota: VERIFICA }, // Museo del 21° secolo
+  't8-1': { chiusoIl: [], apre: '09:00', chiude: '17:00', nota: VERIFICA }, // Kinkaku-ji
+  't8-3': { chiusoIl: [], apre: '08:30', chiude: '17:00', nota: `Orari del giardino. ${VERIFICA}` }, // Tenryu-ji
+  't10-2': { chiusoIl: [], apre: '07:30', chiude: '17:30', nota: VERIFICA }, // Tōdai-ji
+  't-himeji-2': { chiusoIl: [], apre: '09:00', chiude: '17:00', nota: VERIFICA }, // Castello di Himeji
+  't12-1': { chiusoIl: [], apre: '09:00', chiude: '17:00', nota: VERIFICA }, // Castello di Osaka
+  't4-3': { chiusoIl: [], apre: '08:00', chiude: '17:00', nota: VERIFICA }, // Nikko Tōshōgū
+  't1-4': { chiusoIl: [], apre: '10:00', chiude: '21:00', nota: VERIFICA }, // Tokyo Skytree
+  't2-3': { chiusoIl: [], apre: '10:00', chiude: '22:30', nota: VERIFICA }, // Shibuya Sky
+  't13-1': { chiusoIl: [], apre: '09:30', chiude: '22:30', nota: VERIFICA }, // Umeda Sky Building
+  't5-3': { chiusoIl: [], apre: '07:00', chiude: '18:00', nota: VERIFICA }, // Kenrokuen
+}
+
+function conOrari(giorni: Giorno[]): Giorno[] {
+  const trovate = new Set<string>()
+  const nuovi = giorni.map(g => ({
+    ...g,
+    tappe: g.tappe.map(t => {
+      const o = ORARI_BASE[t.id]
+      if (!o) return t
+      trovate.add(t.id)
+      return { ...t, orari: { ...o, fonte: 'base' as const } }
+    }),
+  }))
+  const mancanti = Object.keys(ORARI_BASE).filter(id => !trovate.has(id))
+  if (mancanti.length) throw new Error(`tappe per gli orari non trovate: ${mancanti.join(', ')}`)
+  return nuovi
+}
+
+/** Voli, un hotel per ogni serie di notti con lo stesso alloggio, un biglietto per ogni tappa che lo chiede. Tutto da prenotare. */
+function prenotazioniDiPartenza(giorni: Giorno[], dataPartenza: string, nomeCitta: (id: string) => string): Prenotazione[] {
+  const data = (i: number) => aggiungiGiorni(dataPartenza, i)
+  const nuova = (id: string, tipo: Prenotazione['tipo'], titolo: string, altro: Partial<Prenotazione> = {}): Prenotazione => ({
+    id, tipo, titolo, stato: 'da-prenotare', fuso: 'Asia/Tokyo', note: '', allegati: [], ...altro,
+  })
+  const ultimo = giorni.length - 1
+  const voli = [
+    nuova('pr-volo-andata', 'volo', 'Volo Roma → Tokyo', {
+      inizio: `${data(-1)}T12:30`, fuso: 'Europe/Rome', fine: `${data(0)}T14:00`, fusoFine: 'Asia/Tokyo',
+      luogo: L('Aeroporto di Roma Fiumicino', 'Rome Fiumicino Airport', 41.8003, 12.2389),
+    }),
+    nuova('pr-volo-ritorno', 'volo', 'Volo Tokyo → Roma', { inizio: `${data(ultimo)}T20:00`, luogo: L('Aeroporto di Haneda', 'Haneda Airport', 35.5494, 139.7798) }),
+  ]
+  // L'ultimo giorno si parte: le notti sono dal G0 al penultimo. Le notti senza alloggio diventano un hotel "da scegliere".
+  const hotel: Prenotazione[] = []
+  for (let i = 0; i < ultimo; i++) {
+    const g = giorni[i]
+    const titolo = g.alloggio?.nome ?? `Hotel di ${nomeCitta(g.cittaId)} (da scegliere)`
+    const precedente = hotel[hotel.length - 1]
+    if (precedente && precedente.titolo === titolo && precedente.fine === `${data(i)}T10:00`) {
+      precedente.fine = `${data(i + 1)}T10:00`
+      continue
+    }
+    hotel.push(nuova(`pr-hotel-${i}`, 'hotel', titolo, {
+      inizio: `${data(i)}T15:00`, fine: `${data(i + 1)}T10:00`, ...(g.alloggio ? { luogo: structuredClone(g.alloggio) } : {}),
+    }))
+  }
+  // Le tappe di tipo hotel sono già coperte dall'hotel; due tappe dello stesso giorno con lo stesso link sono un biglietto solo.
+  const biglietti = giorni.flatMap((g, i) => {
+    const linkVisti = new Set<string>()
+    return g.tappe.flatMap(t => {
+      if (!t.biglietti || t.tipo === 'hotel' || t.stato === 'saltata') return []
+      const link = linkSicuro(t.biglietti.link)
+      if (link && linkVisti.has(link)) return []
+      if (link) linkVisti.add(link)
+      return [nuova(`pr-${t.id}`, t.tipo === 'cibo' ? 'ristorante' : 'biglietto', t.titolo, {
+        ...(t.ora ? { inizio: `${data(i)}T${t.ora}` } : {}),
+        ...(t.luogo ? { luogo: structuredClone(t.luogo) } : {}),
+        ...(link ? { link } : {}),
+        tappaId: t.id,
+      })]
+    })
+  })
+  return [...voli, ...hotel, ...biglietti]
+}
 
 /** Applica la sezione 5 dello spec all'itinerario convertito dalla vecchia app. */
 export function revisione2027(vecchio: Viaggio): Viaggio {
@@ -314,7 +396,10 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
 
   // Avvisi sui giorni che restano
   g(2).avvisi = [info('Fuochi di Jingū Gaien: data 2027 da verificare, di solito fra il 7 e il 21 agosto.')]
-  g(3).avvisi = [info('Festa nazionale (Yama no Hi): più gente nei luoghi famosi.')]
+  g(3).avvisi = [
+    info('Festa nazionale (Yama no Hi): più gente nei luoghi famosi.'),
+    attenzione('Tsukiji Outer Market: oggi è mercoledì e festivo, molti banchi restano chiusi. Verificate sul sito prima di andare.'),
+  ]
   g(5).avvisi = [attenzione("Inizio dell'Obon: treni verso le province pienissimi. Prenotate lo Shinkansen appena si apre la vendita, un mese prima alle 10:00.")]
   for (const n of [17, 18]) {
     g(n).avvisi = [info('Kōenji Awa Odori, Azabu-Jūban e Super Yosakoi: date 2027 da annunciare (probabile 28–29 agosto). Se cadono il 21–22, scambiate Osaka e Hakone.')]
@@ -334,16 +419,20 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       ? { ...c, intro: "Base: Kyoto Gion Hotel, nel cuore di Gion. Cinque giorni: l'arrivo con le lanterne di Nara, la notte dei falò ad Arashiyama, i grandi templi e una giornata in montagna fra Kurama e Kibune." }
       : c.id === 'osaka' ? { ...c, intro: `${c.intro} In mezzo, una giornata a Himeji e Kobe.` } : c)
 
+  const giorni = conOrari([
+    arrivo, g(1), g(2), g(3), g(4), g(5), g(6),
+    nara, g8, g(7), g(9), kurama,
+    g(12), g(13), g(14), himeji,
+    g(16), g(17), g(18), partenza,
+  ])
+  const dataPartenza = '2027-08-08'
+  const nomeCitta = (id: string) => citta.find(c => c.id === id)?.nome ?? id
   return {
     ...v,
     titolo: 'Giappone — agosto 2027',
-    dataPartenza: '2027-08-08',
+    dataPartenza,
     citta,
-    giorni: [
-      arrivo, g(1), g(2), g(3), g(4), g(5), g(6),
-      nara, g8, g(7), g(9), kurama,
-      g(12), g(13), g(14), himeji,
-      g(16), g(17), g(18), partenza,
-    ],
+    giorni,
+    prenotazioni: prenotazioniDiPartenza(giorni, dataPartenza, nomeCitta),
   }
 }

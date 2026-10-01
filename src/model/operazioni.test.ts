@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { giornoDiProva, tappaDiProva as t, viaggioDiProva } from './fixture'
+import { giornoDiProva, prenotazioneDiProva, tappaDiProva as t, viaggioDiProva } from './fixture'
 import * as op from './operazioni'
 
 const base = () => viaggioDiProva({
@@ -118,5 +118,34 @@ describe('sostituisciTappa', () => {
   })
   test('una tappa inesistente lancia', () => {
     expect(() => op.sostituisciTappa(base(), 'g0', t({ id: 'z' }))).toThrow('tappa z')
+  })
+})
+
+describe('integraDatiDiPartenza', () => {
+  const base = viaggioDiProva({
+    giorni: [giornoDiProva({ id: 'g0', tappe: [t({ id: 'a', orari: { chiusoIl: [1], fonte: 'base' } }), t({ id: 'b', orari: { chiusoIl: [], apre: '09:00', fonte: 'base' } })] })],
+    prenotazioni: [prenotazioneDiProva({ id: 'pr-1', tappaId: 'a' }), prenotazioneDiProva({ id: 'pr-2', tappaId: 'z' }), prenotazioneDiProva({ id: 'pr-3' })],
+  })
+  test('aggiunge solo quello che manca', () => {
+    const mio = viaggioDiProva({
+      giorni: [giornoDiProva({ id: 'g0', tappe: [t({ id: 'a' }), t({ id: 'b', orari: { chiusoIl: [3], fonte: 'manuale' } })] })],
+      prenotazioni: [prenotazioneDiProva({ id: 'pr-3', codice: 'MIO' })],
+    })
+    const r = op.integraDatiDiPartenza(mio, base)
+    expect(r.prenotazioni).toBe(2)
+    expect(r.orari).toBe(1)
+    expect(r.viaggio.prenotazioni.map(p => p.id)).toEqual(['pr-3', 'pr-1', 'pr-2'])
+    expect(r.viaggio.prenotazioni[0].codice).toBe('MIO')
+    expect(r.viaggio.giorni[0].tappe[0].orari).toEqual({ chiusoIl: [1], fonte: 'base' })
+    expect(r.viaggio.giorni[0].tappe[1].orari).toEqual({ chiusoIl: [3], fonte: 'manuale' })
+  })
+  test('un collegamento a una tappa che non c\'è più viene tolto', () => {
+    const r = op.integraDatiDiPartenza(viaggioDiProva({ giorni: [giornoDiProva({ id: 'g0', tappe: [t({ id: 'a' })] })] }), base)
+    expect(r.viaggio.prenotazioni.find(p => p.id === 'pr-1')?.tappaId).toBe('a')
+    expect('tappaId' in r.viaggio.prenotazioni.find(p => p.id === 'pr-2')!).toBe(false)
+  })
+  test('già tutto presente: niente da aggiungere', () => {
+    const r = op.integraDatiDiPartenza(base, base)
+    expect([r.prenotazioni, r.orari]).toEqual([0, 0])
   })
 })

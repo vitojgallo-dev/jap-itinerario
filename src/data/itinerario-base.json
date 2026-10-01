@@ -341,6 +341,13 @@
      },
      "biglietti": {
       "link": "https://www.tokyo-skytree.jp/"
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "10:00",
+      "chiude": "21:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -552,6 +559,13 @@
      },
      "biglietti": {
       "link": "https://www.shibuya-scramble-square.com/sky/"
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "10:00",
+      "chiude": "22:30",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -704,6 +718,10 @@
     {
      "testo": "Festa nazionale (Yama no Hi): più gente nei luoghi famosi.",
      "livello": "info"
+    },
+    {
+     "testo": "Tsukiji Outer Market: oggi è mercoledì e festivo, molti banchi restano chiusi. Verificate sul sito prima di andare.",
+     "livello": "attenzione"
     }
    ],
    "suggerimenti": [
@@ -897,6 +915,13 @@
       "query": "Tsukiji Outer Market Tokyo",
       "lat": 35.6654,
       "lng": 139.7707
+     },
+     "orari": {
+      "chiusoIl": [
+       0
+      ],
+      "nota": "Molti banchi chiusi il mercoledì e i festivi. Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -1179,6 +1204,13 @@
      },
      "spostamento": {
       "modo": "piedi"
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "08:00",
+      "chiude": "17:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -1404,6 +1436,13 @@
      "spostamento": {
       "modo": "piedi",
       "minuti": 10
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "07:00",
+      "chiude": "18:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -1667,6 +1706,15 @@
      "spostamento": {
       "modo": "piedi",
       "minuti": 15
+     },
+     "orari": {
+      "chiusoIl": [
+       1
+      ],
+      "apre": "10:00",
+      "chiude": "18:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -1870,6 +1918,13 @@
      "spostamento": {
       "modo": "piedi",
       "minuti": 10
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "07:30",
+      "chiude": "17:30",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -2097,6 +2152,13 @@
      "spostamento": {
       "modo": "mezzi",
       "minuti": 45
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "09:00",
+      "chiude": "17:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -2133,6 +2195,13 @@
      "spostamento": {
       "modo": "piedi",
       "minuti": 5
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "08:30",
+      "chiude": "17:00",
+      "nota": "Orari del giardino. Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -2915,6 +2984,13 @@
      },
      "spostamento": {
       "modo": "mezzi"
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "09:00",
+      "chiude": "17:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -3051,6 +3127,13 @@
      },
      "biglietti": {
       "link": "https://www.skybldg.co.jp/en/"
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "09:30",
+      "chiude": "22:30",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -3331,6 +3414,13 @@
      "spostamento": {
       "modo": "piedi",
       "minuti": 5
+     },
+     "orari": {
+      "chiusoIl": [],
+      "apre": "09:00",
+      "chiude": "17:00",
+      "nota": "Verifica sul sito prima di andare.",
+      "fonte": "base"
      }
     },
     {
@@ -4088,7 +4178,333 @@
    ]
   }
  ],
- "prenotazioni": [],
+ "prenotazioni": [
+  {
+   "id": "pr-volo-andata",
+   "tipo": "volo",
+   "titolo": "Volo Roma → Tokyo",
+   "stato": "da-prenotare",
+   "fuso": "Europe/Rome",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-07T12:30",
+   "fine": "2027-08-08T14:00",
+   "fusoFine": "Asia/Tokyo",
+   "luogo": {
+    "nome": "Aeroporto di Roma Fiumicino",
+    "query": "Rome Fiumicino Airport",
+    "lat": 41.8003,
+    "lng": 12.2389
+   }
+  },
+  {
+   "id": "pr-volo-ritorno",
+   "tipo": "volo",
+   "titolo": "Volo Tokyo → Roma",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-27T20:00",
+   "luogo": {
+    "nome": "Aeroporto di Haneda",
+    "query": "Haneda Airport",
+    "lat": 35.5494,
+    "lng": 139.7798
+   }
+  },
+  {
+   "id": "pr-hotel-0",
+   "tipo": "hotel",
+   "titolo": "Asakusa View Hotel",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-08T15:00",
+   "fine": "2027-08-12T10:00",
+   "luogo": {
+    "nome": "Asakusa View Hotel",
+    "query": "Asakusa View Hotel Tokyo",
+    "lat": 35.7146,
+    "lng": 139.792
+   }
+  },
+  {
+   "id": "pr-hotel-4",
+   "tipo": "hotel",
+   "titolo": "ryokan Nikko Hoshinoyado",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-12T15:00",
+   "fine": "2027-08-13T10:00",
+   "luogo": {
+    "nome": "ryokan Nikko Hoshinoyado",
+    "query": "Nikko Hoshinoyado ryokan",
+    "lat": 36.748,
+    "lng": 139.603
+   }
+  },
+  {
+   "id": "pr-hotel-5",
+   "tipo": "hotel",
+   "titolo": "Hotel Kanazawa",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-13T15:00",
+   "fine": "2027-08-15T10:00",
+   "luogo": {
+    "nome": "Hotel Kanazawa",
+    "query": "Hotel Kanazawa station",
+    "lat": 36.578,
+    "lng": 136.647
+   }
+  },
+  {
+   "id": "pr-hotel-7",
+   "tipo": "hotel",
+   "titolo": "Kyoto Gion Hotel",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-15T15:00",
+   "fine": "2027-08-20T10:00",
+   "luogo": {
+    "nome": "Kyoto Gion Hotel",
+    "query": "Kyoto Gion Hotel",
+    "lat": 35.0037,
+    "lng": 135.7745
+   }
+  },
+  {
+   "id": "pr-hotel-12",
+   "tipo": "hotel",
+   "titolo": "Hotel Forza Osaka Namba Dotonbori",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-20T15:00",
+   "fine": "2027-08-24T10:00",
+   "luogo": {
+    "nome": "Hotel Forza Osaka Namba Dotonbori",
+    "query": "Hotel Forza Osaka Namba Dotonbori",
+    "lat": 34.668,
+    "lng": 135.503
+   }
+  },
+  {
+   "id": "pr-hotel-16",
+   "tipo": "hotel",
+   "titolo": "ryokan con onsen a Hakone-Yumoto",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-24T15:00",
+   "fine": "2027-08-25T10:00",
+   "luogo": {
+    "nome": "ryokan con onsen a Hakone-Yumoto",
+    "query": "Hakone-Yumoto Station",
+    "lat": 35.2325,
+    "lng": 139.1069
+   }
+  },
+  {
+   "id": "pr-hotel-17",
+   "tipo": "hotel",
+   "titolo": "Hotel di Tokyo (da scegliere)",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-25T15:00",
+   "fine": "2027-08-27T10:00"
+  },
+  {
+   "id": "pr-t1-4",
+   "tipo": "biglietto",
+   "titolo": "Tokyo Skytree",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-09T11:15",
+   "luogo": {
+    "nome": "Tokyo Skytree",
+    "query": "Tokyo Skytree",
+    "lat": 35.7101,
+    "lng": 139.8107
+   },
+   "link": "https://www.tokyo-skytree.jp/",
+   "tappaId": "t1-4"
+  },
+  {
+   "id": "pr-t2-3",
+   "tipo": "biglietto",
+   "titolo": "Shibuya Sky",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-10T10:00",
+   "luogo": {
+    "nome": "Shibuya Sky",
+    "query": "Shibuya Sky",
+    "lat": 35.658,
+    "lng": 139.7016
+   },
+   "link": "https://www.shibuya-scramble-square.com/sky/",
+   "tappaId": "t2-3"
+  },
+  {
+   "id": "pr-t3-5",
+   "tipo": "biglietto",
+   "titolo": "teamLab Borderless (digital art)",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-11T16:30",
+   "luogo": {
+    "nome": "teamLab Borderless (digital art)",
+    "query": "teamLab Borderless Azabudai Tokyo",
+    "lat": 35.6605,
+    "lng": 139.741
+   },
+   "link": "https://www.teamlab.art/e/borderless-azabudai/",
+   "tappaId": "t3-5"
+  },
+  {
+   "id": "pr-t3-6",
+   "tipo": "biglietto",
+   "titolo": "Tokyo Tower",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-11T18:30",
+   "luogo": {
+    "nome": "Tokyo Tower",
+    "query": "Tokyo Tower night view",
+    "lat": 35.6586,
+    "lng": 139.7454
+   },
+   "link": "https://www.tokyotower.co.jp/",
+   "tappaId": "t3-6"
+  },
+  {
+   "id": "pr-t4-3",
+   "tipo": "biglietto",
+   "titolo": "Nikko Toshogu",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-12T10:30",
+   "luogo": {
+    "nome": "Nikko Toshogu",
+    "query": "Nikko Toshogu shrine",
+    "lat": 36.758,
+    "lng": 139.5989
+   },
+   "tappaId": "t4-3"
+  },
+  {
+   "id": "pr-t5-4",
+   "tipo": "biglietto",
+   "titolo": "Museo del 21 secolo",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-14T15:30",
+   "luogo": {
+    "nome": "Museo del 21 secolo",
+    "query": "Kanazawa 21st Century Museum of Contemporary Art",
+    "lat": 36.5605,
+    "lng": 136.658
+   },
+   "link": "https://www.kanazawa21.jp/",
+   "tappaId": "t5-4"
+  },
+  {
+   "id": "pr-t12-1",
+   "tipo": "biglietto",
+   "titolo": "Castello di Osaka",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-20T10:00",
+   "luogo": {
+    "nome": "Castello di Osaka",
+    "query": "Osaka Castle",
+    "lat": 34.6873,
+    "lng": 135.5259
+   },
+   "link": "https://www.osakacastle.net/",
+   "tappaId": "t12-1"
+  },
+  {
+   "id": "pr-t13-1",
+   "tipo": "biglietto",
+   "titolo": "Umeda Sky Building",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-21T13:00",
+   "luogo": {
+    "nome": "Umeda Sky Building",
+    "query": "Umeda Sky Building Osaka",
+    "lat": 34.7052,
+    "lng": 135.49
+   },
+   "link": "https://www.skybldg.co.jp/en/",
+   "tappaId": "t13-1"
+  },
+  {
+   "id": "pr-t-himeji-2",
+   "tipo": "biglietto",
+   "titolo": "Castello di Himeji",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-23T09:00",
+   "luogo": {
+    "nome": "Castello di Himeji",
+    "query": "Himeji Castle",
+    "lat": 34.8394,
+    "lng": 134.6939
+   },
+   "link": "https://www.himejicastle.jp/en/",
+   "tappaId": "t-himeji-2"
+  },
+  {
+   "id": "pr-t16-5",
+   "tipo": "ristorante",
+   "titolo": "Bagno serale cena kaiseki",
+   "stato": "da-prenotare",
+   "fuso": "Asia/Tokyo",
+   "note": "",
+   "allegati": [],
+   "inizio": "2027-08-24T19:00",
+   "luogo": {
+    "nome": "Bagno serale cena kaiseki",
+    "query": "Hakone-Yumoto Station",
+    "lat": 35.2325,
+    "lng": 139.1069
+   },
+   "tappaId": "t16-5"
+  }
+ ],
  "spese": [],
  "checklist": [],
  "impostazioni": {

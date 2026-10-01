@@ -130,3 +130,29 @@ export function aggiornaPersona(v: Viaggio, id: string, nome: string): Viaggio {
 export function aggiornaImpostazioni(v: Viaggio, modifiche: Partial<Impostazioni>): Viaggio {
   return { ...v, impostazioni: { ...v.impostazioni, ...modifiche } }
 }
+
+/**
+ * Per chi ha già dati salvati: aggiunge le prenotazioni di partenza che non ha (per id) e gli orari
+ * sulle tappe con lo stesso id che non ne hanno. Niente di quello che c'è viene toccato.
+ */
+export function integraDatiDiPartenza(v: Viaggio, base: Viaggio): { viaggio: Viaggio; prenotazioni: number; orari: number } {
+  const tappe = new Set(v.giorni.flatMap(g => g.tappe.map(t => t.id)))
+  const presenti = new Set(v.prenotazioni.map(p => p.id))
+  const nuove = base.prenotazioni.filter(p => !presenti.has(p.id)).map(p => {
+    const copia = structuredClone(p)
+    if (copia.tappaId !== undefined && !tappe.has(copia.tappaId)) delete copia.tappaId
+    return copia
+  })
+  const orariBase = new Map(base.giorni.flatMap(g => g.tappe.flatMap(t => (t.orari ? [[t.id, t.orari] as const] : []))))
+  let orari = 0
+  const giorni = v.giorni.map(g => ({
+    ...g,
+    tappe: g.tappe.map(t => {
+      const o = orariBase.get(t.id)
+      if (!o || t.orari) return t
+      orari++
+      return { ...t, orari: structuredClone(o) }
+    }),
+  }))
+  return { viaggio: { ...v, giorni, prenotazioni: [...v.prenotazioni, ...nuove] }, prenotazioni: nuove.length, orari }
+}

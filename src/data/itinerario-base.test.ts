@@ -101,4 +101,66 @@ describe('itinerario di partenza 2027', () => {
     const titoli = v.giorni.map(g => g.titolo)
     expect(titoli.filter(t => /1 giorno|d'esempio/.test(t))).toEqual([])
   })
+
+  describe('prenotazioni e orari di partenza', () => {
+    const hotel = v.prenotazioni.filter(p => p.tipo === 'hotel')
+    test('ogni notte del viaggio ha esattamente un hotel, lo stesso del giorno', () => {
+      for (let i = 0; i < v.giorni.length - 1; i++) {
+        const data = dataGiorno(v, i)
+        const coprono = hotel.filter(p => p.inizio!.slice(0, 10) <= data && data < p.fine!.slice(0, 10))
+        expect(coprono.map(p => p.titolo), `notte del G${i}`).toHaveLength(1)
+        const alloggio = v.giorni[i].alloggio
+        if (alloggio) expect(coprono[0].titolo, `notte del G${i}`).toBe(alloggio.nome)
+      }
+    })
+    test('check-in e check-out ricavati dai giorni', () => {
+      expect(hotel.map(p => [p.titolo, p.inizio, p.fine])).toEqual([
+        ['Asakusa View Hotel', '2027-08-08T15:00', '2027-08-12T10:00'],
+        ['ryokan Nikko Hoshinoyado', '2027-08-12T15:00', '2027-08-13T10:00'],
+        ['Hotel Kanazawa', '2027-08-13T15:00', '2027-08-15T10:00'],
+        ['Kyoto Gion Hotel', '2027-08-15T15:00', '2027-08-20T10:00'],
+        ['Hotel Forza Osaka Namba Dotonbori', '2027-08-20T15:00', '2027-08-24T10:00'],
+        ['ryokan con onsen a Hakone-Yumoto', '2027-08-24T15:00', '2027-08-25T10:00'],
+        ['Hotel di Tokyo (da scegliere)', '2027-08-25T15:00', '2027-08-27T10:00'],
+      ])
+    })
+    test('voli di andata e ritorno', () => {
+      const andata = v.prenotazioni.find(p => p.id === 'pr-volo-andata')
+      expect(andata).toMatchObject({ tipo: 'volo', inizio: '2027-08-07T12:30', fuso: 'Europe/Rome', fine: '2027-08-08T14:00', fusoFine: 'Asia/Tokyo' })
+      expect(v.prenotazioni.find(p => p.id === 'pr-volo-ritorno')).toMatchObject({ tipo: 'volo', inizio: '2027-08-27T20:00', fuso: 'Asia/Tokyo' })
+    })
+    test('tutto da prenotare, senza codici', () => {
+      expect(v.prenotazioni).toHaveLength(19)
+      expect(v.prenotazioni.filter(p => p.stato !== 'da-prenotare' || p.codice)).toEqual([])
+    })
+    test('un biglietto per ogni tappa che lo chiede, collegato alla tappa', () => {
+      const tappe = new Map(v.giorni.flatMap(g => g.tappe).map(t => [t.id, t]))
+      const collegate = v.prenotazioni.filter(p => p.tappaId)
+      expect(collegate.map(p => p.titolo)).toEqual([
+        'Tokyo Skytree', 'Shibuya Sky', 'teamLab Borderless (digital art)', 'Tokyo Tower', 'Nikko Toshogu',
+        'Museo del 21 secolo', 'Castello di Osaka', 'Umeda Sky Building', 'Castello di Himeji', 'Bagno serale cena kaiseki',
+      ])
+      for (const p of collegate) expect(tappe.get(p.tappaId!)?.biglietti, p.titolo).toBeDefined()
+      expect(collegate.find(p => p.titolo === 'Bagno serale cena kaiseki')?.tipo).toBe('ristorante')
+      expect(collegate.filter(p => p.tipo !== 'ristorante').every(p => p.tipo === 'biglietto')).toBe(true)
+    })
+    test('orari pre-compilati solo sulle tappe dello spec, con la nota di verifica', () => {
+      const conOrari = v.giorni.flatMap(g => g.tappe).filter(t => t.orari)
+      expect(conOrari.map(t => t.titolo).sort()).toEqual([
+        'Castello di Himeji', 'Castello di Osaka', 'Giardino Kenrokuen', "Kinkaku-ji (Padiglione d'Oro)", 'Museo del 21 secolo',
+        'Nikko Toshogu', 'Shibuya Sky', 'Tempio Tenryu-ji', 'Todai-ji (Grande Buddha)', 'Tokyo Skytree', 'Tsukiji Outer Market',
+        'Umeda Sky Building',
+      ])
+      for (const t of conOrari) {
+        expect(t.orari?.fonte, t.titolo).toBe('base')
+        expect(t.orari?.nota, t.titolo).toMatch(/Verifica sul sito prima di andare/)
+      }
+      expect(conOrari.find(t => t.titolo === 'Museo del 21 secolo')?.orari).toMatchObject({ chiusoIl: [1], apre: '10:00', chiude: '18:00' })
+      expect(conOrari.find(t => t.titolo === 'Tsukiji Outer Market')?.orari).toMatchObject({ chiusoIl: [0] })
+    })
+    test('il G3 è mercoledì e festivo: c\'è l\'avviso sul Tsukiji', () => {
+      expect(v.giorni[3].tappe.some(t => t.titolo === 'Tsukiji Outer Market')).toBe(true)
+      expect(v.giorni[3].avvisi.some(a => a.livello === 'attenzione' && /Tsukiji/.test(a.testo) && /mercoledì/.test(a.testo))).toBe(true)
+    })
+  })
 })
