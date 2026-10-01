@@ -11,3 +11,15 @@
 .editor-giorno { margin: 8px 0 16px; }
 .editor-giorno-azioni { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .aggiungi-tappa { margin: 4px 0 8px; }
+
+.orari { border: 0; padding: 0; margin: 16px 0; min-width: 0; display: grid; gap: 8px; }
+.orari legend { padding: 0; margin: 0 0 6px 4px; }
+.giorni-chiusi { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.giorno-chiuso {
+  min-height: 44px; padding: 0; border-radius: 10px; border: 0.5px solid var(--bordo); background: var(--superficie);
+  font-size: 14px; font-weight: 500; cursor: pointer; text-transform: capitalize;
+}
+.giorno-chiuso[aria-pressed='true'] { background: var(--pericolo-sfondo); color: var(--pericolo); border-color: var(--pericolo); font-weight: 700; text-decoration: line-through; }
+.orario-osm { padding: 10px 12px; display: grid; gap: 8px; }
+.orario-osm + .orario-osm { border-top: 0.5px solid var(--bordo); }
+.orario-osm code { display: block; font-size: 14px; overflow-wrap: anywhere; color: var(--testo-2); margin-top: 2px; }

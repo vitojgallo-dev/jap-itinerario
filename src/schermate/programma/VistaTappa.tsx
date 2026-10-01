@@ -1,7 +1,8 @@
-import { Footprints, Info, MapPin, Navigation, Ticket } from 'lucide-react'
+import { Clock, Footprints, Info, MapPin, Navigation, Ticket } from 'lucide-react'
 import { promemoriaBiglietto } from '../../model/adesso'
 import { formatoDurata, istanteTokyo } from '../../model/date'
 import { aggiornaTappa } from '../../model/operazioni'
+import { avvisoApertura, descriviOrari } from '../../model/orari'
 import type { Giorno, StatoTappa, Tappa } from '../../model/tipi'
 import { hrefBiglietti, linkSicuro, urlCerca, urlIndicazioni } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
@@ -23,6 +24,7 @@ export function VistaTappa({ giorno, tappa, data }: { giorno: Giorno; tappa: Tap
   const agg = (m: Partial<Tappa>) => applica(v => aggiornaTappa(v, giorno.id, tappa.id, m))
   const l = tappa.luogo
   const fonte = linkSicuro(tappa.evento?.fonte)
+  const apertura = avvisoApertura(tappa, data)
   const righe = [
     l && <Riga key="mezzi" icona={<Navigation size={20} />} titolo="Indicazioni coi mezzi" href={urlIndicazioni(l, 'transit')} />,
     l && <Riga key="piedi" icona={<Footprints size={20} />} titolo="Indicazioni a piedi" href={urlIndicazioni(l, 'walking')} />,
@@ -52,6 +54,15 @@ export function VistaTappa({ giorno, tappa, data }: { giorno: Giorno; tappa: Tap
       )}
       {tappa.descrizione && <p className="vista-testo">{tappa.descrizione}</p>}
       {tappa.consiglio && <p className="consiglio">{tappa.consiglio}</p>}
+      {tappa.orari && (
+        <div className="vista-orari">
+          <Clock size={18} aria-hidden />
+          <div>
+            <div>{descriviOrari(tappa.orari)} {apertura && <Badge tono="avviso">{apertura}</Badge>}</div>
+            {tappa.orari.nota && <div className="testo-2">{tappa.orari.nota}</div>}
+          </div>
+        </div>
+      )}
       <div className="vista-stato">
         <Segmentato etichetta="Stato della tappa" valore={tappa.stato} opzioni={STATI} onCambia={stato => agg({ stato })} />
       </div>

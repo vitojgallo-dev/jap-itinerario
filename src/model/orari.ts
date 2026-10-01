@@ -60,3 +60,16 @@ export function descriviOrari(o: OrariTappa): string {
   if (chiusi.length) parti.push(`chiuso ${chiusi.length === 1 ? chiusi[0] : `${chiusi.slice(0, -1).join(', ')} e ${chiusi[chiusi.length - 1]}`}`)
   return parti.length ? parti.join(' · ') : 'Orari non indicati'
 }
+
+/** Gli orari senza campi vuoti, giorni in ordine e senza doppioni; undefined se non resta niente da dire. */
+export function orariPuliti(o: OrariTappa | undefined): OrariTappa | undefined {
+  if (!o) return undefined
+  const p: OrariTappa = { chiusoIl: [...new Set(o.chiusoIl)].sort((a, b) => a - b) }
+  if (o.apre) p.apre = o.apre
+  if (o.chiude) p.chiude = o.chiude
+  const nota = o.nota?.trim()
+  if (nota) p.nota = nota
+  if (p.chiusoIl.length === 0 && !p.apre && !p.chiude && !p.nota) return undefined
+  if (o.fonte) p.fonte = o.fonte
+  return p
+}

@@ -2,11 +2,12 @@ import { Check, Navigation } from 'lucide-react'
 import { minutiDaOra, oraDaMinuti } from '../../model/date'
 import type { Tappa } from '../../model/tipi'
 import { urlIndicazioni } from '../../servizi/mappe'
+import { Badge } from '../../ui/componenti'
 import { FotoLuogo } from '../../ui/FotoLuogo'
 
-interface Props { etichetta: string; tappa: Tappa; onApri: () => void; onFatto?: () => void; secondaria?: boolean }
+interface Props { etichetta: string; tappa: Tappa; onApri: () => void; onFatto?: () => void; secondaria?: boolean; avviso?: string | null }
 
-export function CardAdesso({ etichetta, tappa, onApri, onFatto, secondaria }: Props) {
+export function CardAdesso({ etichetta, tappa, onApri, onFatto, secondaria, avviso }: Props) {
   const inizio = minutiDaOra(tappa.ora)
   const orario = tappa.ora ? (tappa.durataMin && inizio !== null ? `${tappa.ora} – ${oraDaMinuti(inizio + tappa.durataMin)}` : tappa.ora) : ''
   return (
@@ -17,6 +18,7 @@ export function CardAdesso({ etichetta, tappa, onApri, onFatto, secondaria }: Pr
         <div>
           <h3>{tappa.titolo}</h3>
           <p className="testo-2">{[orario, tappa.luogo?.nome !== tappa.titolo ? tappa.luogo?.nome : ''].filter(Boolean).join(' · ')}</p>
+          {avviso && <p style={{ marginTop: 6 }}><Badge tono="avviso">{avviso}</Badge></p>}
         </div>
       </button>
       <div className="fila">

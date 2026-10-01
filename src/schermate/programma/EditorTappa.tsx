@@ -1,9 +1,11 @@
 import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
+import { orariPuliti } from '../../model/orari'
 import { MODI_SPOSTAMENTO, TIPI_TAPPA, type Citta, type InfoEvento, type ModoSpostamento, type Tappa, type TipoTappa } from '../../model/tipi'
 import { Campo } from '../../ui/componenti'
 import { ETICHETTA_AFFIDABILITA, ETICHETTA_MODO, ETICHETTA_TIPO } from '../../ui/icone'
 import { CercaLuogo } from './CercaLuogo'
+import { EditorOrari } from './EditorOrari'
 import './editor.css'
 
 const numero = (s: string) => (s === '' ? undefined : Math.max(0, Number(s)))
@@ -26,6 +28,9 @@ export function EditorTappa({ iniziale, citta, onSalva, onElimina }: Props) {
     if (!pulita.biglietti) delete pulita.biglietti
     if (!pulita.foto) delete pulita.foto
     if (pulita.durataMin === undefined) delete pulita.durataMin
+    const orari = orariPuliti(pulita.orari)
+    if (orari) pulita.orari = orari
+    else delete pulita.orari
     onSalva(pulita)
   }
 
@@ -48,6 +53,7 @@ export function EditorTappa({ iniziale, citta, onSalva, onElimina }: Props) {
       <Campo etichetta="Descrizione"><textarea value={b.descrizione} onChange={e => agg({ descrizione: e.target.value })} /></Campo>
       <Campo etichetta="Consiglio"><input value={b.consiglio} placeholder="Arrivate presto: dalle 10 c'è la fila" onChange={e => agg({ consiglio: e.target.value })} /></Campo>
       <CercaLuogo etichetta="Luogo" luogo={b.luogo} citta={citta} onCambia={luogo => agg({ luogo })} />
+      <EditorOrari orari={b.orari} testi={[b.titolo]} luogo={b.luogo} onCambia={orari => agg({ orari })} />
       <div className="fila">
         <Campo etichetta="Poi si va">
           <select value={b.spostamento?.modo ?? ''} onChange={e => agg({ spostamento: e.target.value ? { ...b.spostamento, modo: e.target.value as ModoSpostamento } : undefined })}>

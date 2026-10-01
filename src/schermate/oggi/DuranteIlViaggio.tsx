@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { tappeAdessoDopo } from '../../model/adesso'
 import { dataGiorno, formatoData, formatoDurata, istanteTokyo } from '../../model/date'
 import { aggiornaTappa } from '../../model/operazioni'
+import { avvisoApertura } from '../../model/orari'
 import { cittaDi } from '../../model/riepilogo'
 import { useViaggio } from '../../store/viaggio'
 import { Avvisi } from '../../ui/Avvisi'
@@ -35,9 +36,9 @@ export function DuranteIlViaggio({ indice, adesso }: { indice: number; adesso: D
       <Meteo citta={citta} data={data} oggi={oggi} />
       <Avvisi avvisi={giorno.avvisi} />
       <CardProssimo adesso={adesso} />
-      {ora && <CardAdesso etichetta="Adesso" tappa={ora} onApri={() => setAperta(ora.id)} onFatto={() => fatta(ora.id)} />}
+      {ora && <CardAdesso etichetta="Adesso" tappa={ora} avviso={avvisoApertura(ora, data)} onApri={() => setAperta(ora.id)} onFatto={() => fatta(ora.id)} />}
       {dopo && (
-        <CardAdesso secondaria tappa={dopo} onApri={() => setAperta(dopo.id)}
+        <CardAdesso secondaria tappa={dopo} avviso={avvisoApertura(dopo, data)} onApri={() => setAperta(dopo.id)}
           etichetta={`Dopo${minutiAlDopo && minutiAlDopo > 0 ? ` · fra ${formatoDurata(minutiAlDopo)}` : ''}${spostamento}`} />
       )}
       {!ora && !dopo && <div className="card vuoto"><strong>Giornata finita</strong><p>Riposatevi: domani si riparte.</p></div>}

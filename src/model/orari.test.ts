@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { tappaDiProva as t } from './fixture'
-import { avvisoApertura, descriviOrari, statoApertura } from './orari'
+import { avvisoApertura, descriviOrari, orariPuliti, statoApertura } from './orari'
 
 // 2027-08-11 è mercoledì, 2027-08-08 domenica, 2027-08-12 giovedì.
 const MERCOLEDI = '2027-08-11'
@@ -73,4 +73,11 @@ test('il giorno chiuso vince anche con gli orari', () => {
   const x = t({ id: 'a', ora: '12:00', orari: { chiusoIl: [3], apre: '09:00', chiude: '17:00' } })
   expect(statoApertura(x, MERCOLEDI)).toBe('chiuso-oggi')
   expect(avvisoApertura(x, MERCOLEDI)).toBe('Chiuso il mercoledì')
+})
+
+test('orariPuliti', () => {
+  expect(orariPuliti(undefined)).toBeUndefined()
+  expect(orariPuliti({ chiusoIl: [], apre: '', nota: '  ', fonte: 'manuale' })).toBeUndefined()
+  expect(orariPuliti({ chiusoIl: [3, 1, 3], apre: '09:00', chiude: '', nota: ' verifica ', fonte: 'manuale' }))
+    .toEqual({ chiusoIl: [1, 3], apre: '09:00', nota: 'verifica', fonte: 'manuale' })
 })

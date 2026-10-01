@@ -1,8 +1,9 @@
-import { Check, Navigation, Ticket } from 'lucide-react'
+import { Check, Clock, Navigation, Ticket } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { promemoriaBiglietto, type Promemoria } from '../../model/adesso'
 import { formatoDurata, istanteTokyo } from '../../model/date'
 import { aggiornaTappa } from '../../model/operazioni'
+import { avvisoApertura } from '../../model/orari'
 import type { Tappa } from '../../model/tipi'
 import { hrefBiglietti, urlIndicazioni } from '../../servizi/mappe'
 import { useViaggio } from '../../store/viaggio'
@@ -23,6 +24,7 @@ export function CardTappa({ tappa, giornoId, data, onApri, maniglia }: Props) {
   const Icona = ICONA_TIPO[tappa.tipo]
   const fatta = tappa.stato === 'fatta'
   const promemoria = tappa.biglietti ? promemoriaBiglietto(data, oggi) : null
+  const apertura = avvisoApertura(tappa, data)
   return (
     <article className={'card-tappa' + (fatta ? ' fatta' : '') + (tappa.stato === 'saltata' ? ' saltata' : '')}>
       <button type="button" className="card-tappa-apri" onClick={onApri}>
@@ -33,6 +35,7 @@ export function CardTappa({ tappa, giornoId, data, onApri, maniglia }: Props) {
             {tappa.durataMin ? ` · ${formatoDurata(tappa.durataMin)}` : ''}
             {tappa.evento && <Badge tono={tappa.evento.affidabilita === 'certa' ? 'tinta' : 'avviso'}>{ETICHETTA_AFFIDABILITA[tappa.evento.affidabilita]}</Badge>}
             {promemoria === 'prenota-ora' && <Badge tono="avviso">Prenota oggi</Badge>}
+            {apertura && <Badge tono="avviso"><Clock size={12} aria-hidden /> {apertura}</Badge>}
           </div>
           <h3>{tappa.titolo}</h3>
           {tappa.descrizione && <p className="clamp-3">{tappa.descrizione}</p>}
