@@ -1,5 +1,5 @@
-import { BedDouble, Car, Coffee, FileText, Footprints, Landmark, PartyPopper, Plane, Ticket, Train, TrainFront, TramFront, Utensils, type LucideIcon } from 'lucide-react'
-import type { InfoEvento, ModoSpostamento, TipoPrenotazione, TipoTappa } from '../model/tipi'
+import { BedDouble, Car, Coffee, FileText, Footprints, Landmark, PartyPopper, Plane, Receipt, ShoppingBag, Ticket, Train, TrainFront, TramFront, Utensils, type LucideIcon } from 'lucide-react'
+import type { CategoriaSpesa, InfoEvento, ModoSpostamento, TipoPrenotazione, TipoTappa } from '../model/tipi'
 
 export const ICONA_TIPO: Record<TipoTappa, LucideIcon> = { visita: Landmark, cibo: Utensils, evento: PartyPopper, spostamento: Train, hotel: BedDouble, libero: Coffee }
 export const ETICHETTA_TIPO: Record<TipoTappa, string> = { visita: 'Visita', cibo: 'Cibo', evento: 'Evento', spostamento: 'Spostamento', hotel: 'Hotel', libero: 'Tempo libero' }
@@ -9,3 +9,5 @@ export const ETICHETTA_AFFIDABILITA: Record<InfoEvento['affidabilita'], string> 
 export const ICONA_PRENOTAZIONE: Record<TipoPrenotazione, LucideIcon> = { volo: Plane, hotel: BedDouble, treno: TrainFront, biglietto: Ticket, ristorante: Utensils, altro: FileText }
 export const ETICHETTA_PRENOTAZIONE: Record<TipoPrenotazione, string> = { volo: 'Volo', hotel: 'Hotel', treno: 'Treno', biglietto: 'Biglietto', ristorante: 'Ristorante', altro: 'Altro' }
 export const GRUPPO_PRENOTAZIONE: Record<TipoPrenotazione, string> = { volo: 'Voli', hotel: 'Hotel', treno: 'Treni', biglietto: 'Biglietti', ristorante: 'Ristoranti', altro: 'Altro' }
+export const ICONA_CATEGORIA: Record<CategoriaSpesa, LucideIcon> = { cibo: Utensils, trasporti: TramFront, alloggio: BedDouble, biglietti: Ticket, shopping: ShoppingBag, altro: Receipt }
+export const ETICHETTA_CATEGORIA: Record<CategoriaSpesa, string> = { cibo: 'Cibo', trasporti: 'Trasporti', alloggio: 'Alloggio', biglietti: 'Biglietti', shopping: 'Shopping', altro: 'Altro' }

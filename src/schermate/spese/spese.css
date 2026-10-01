@@ -1,0 +1,40 @@
+.spese-filtro { margin: 4px 0 12px; }
+.spese-totale { margin: 12px 0; display: grid; gap: 2px; }
+.spese-totale-yen { font-size: 40px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.spese-quote { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 4px; }
+.spese-quote li { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; }
+.spese-quote b { font-variant-numeric: tabular-nums; }
+.spese-metodi { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.budget { margin: 12px 0; display: grid; gap: 8px; }
+.budget-testa { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.budget-barra { height: 10px; border-radius: 5px; background: var(--riempimento); overflow: hidden; }
+.budget-barra > div { height: 100%; background: var(--tinta-forte); border-radius: 5px; }
+.budget-barra > div.oltre { background: var(--pericolo); }
+.budget-oltre { color: var(--pericolo); font-weight: 600; }
+.rimborso { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 16px; flex-wrap: wrap; }
+.rimborso + .rimborso { border-top: 0.5px solid var(--bordo); }
+.rimborso > div { min-width: 0; }
+.spese-giorno { display: flex; justify-content: space-between; gap: 12px; }
+.spesa-scorri { position: relative; overflow: hidden; }
+.spesa-scorri + .spesa-scorri { border-top: 0.5px solid var(--bordo); }
+.spesa-scorri-sotto {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-right: 16px;
+  background: var(--pericolo); color: var(--su-pericolo); font-weight: 600;
+}
+.spesa-riga { position: relative; background: var(--superficie); touch-action: pan-y; }
+button.spesa-riga:active { background: var(--superficie-2); }
+.spesa-scorri.oltre .spesa-riga { background: var(--pericolo-sfondo); }
+.spesa-importo { flex-direction: column; align-items: flex-end; gap: 0; color: var(--testo); font-variant-numeric: tabular-nums; }
+.spesa-importo small { font-size: 12px; color: var(--testo-2); }
+.importo-fila { align-items: flex-end; }
+.importo-fila > .campo { flex: 1 1 150px; }
+.importo-valuta { flex: 1 1 150px; margin: 12px 0; }
+.importo-grande { font-size: 30px !important; font-weight: 700; font-variant-numeric: tabular-nums; }
+.scelte { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.scelte.persone { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.scelta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 0; padding: 0 8px;
+  border-radius: 12px; border: 0.5px solid var(--bordo); background: var(--superficie); font-size: 15px; font-weight: 500; cursor: pointer;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.scelta[aria-checked='true'], .scelta[aria-pressed='true'] { background: var(--tinta-forte); color: var(--su-tinta); border-color: transparent; font-weight: 600; }
