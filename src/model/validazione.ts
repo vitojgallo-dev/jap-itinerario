@@ -25,7 +25,7 @@ const tra = (x: unknown, ammessi: readonly string[]) => typeof x === 'string' &&
 const nonStringhe = (o: Obj, chiavi: string[]) => chiavi.filter(k => !stringa(o[k]))
 
 /** Una data "YYYY-MM-DD" che esiste davvero nel calendario. */
-function dataVera(d: unknown): boolean {
+export function dataVera(d: unknown): boolean {
   if (!stringa(d) || !DATA.test(d)) return false
   try {
     return aggiungiGiorni(d, 0) === d
@@ -35,7 +35,7 @@ function dataVera(d: unknown): boolean {
 }
 
 /** "YYYY-MM-DDTHH:MM" con una data che esiste. */
-function localeVera(x: unknown): boolean {
+export function localeVera(x: unknown): boolean {
   if (!stringa(x)) return false
   const m = LOCALE.exec(x)
   return m !== null && dataVera(m[1])

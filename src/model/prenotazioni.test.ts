@@ -78,6 +78,17 @@ describe('controllaPrenotazione', () => {
   test('una fine senza inizio', () => {
     expect(controllaPrenotazione(p({ id: 'h', tipo: 'hotel', fine: '2027-08-15T10:00' }))).toEqual(['Manca il check-in.'])
   })
+  test('date che il salvataggio rifiuterebbe: anno a due cifre, a cinque, giorno inesistente', () => {
+    expect(controllaPrenotazione(p({ id: 'a', inizio: '0027-08-07T12:30' }))).toEqual(["Inizio: data non valida, controlla l'anno."])
+    expect(controllaPrenotazione(p({ id: 'a', inizio: '20277-08-07T12:30' }))).toHaveLength(1)
+    expect(controllaPrenotazione(p({ id: 'a', inizio: '2027-02-30T12:30' }))).toHaveLength(1)
+    expect(controllaPrenotazione(p({ id: 'h', tipo: 'hotel', inizio: '2027-08-15T15:00', fine: '0027-08-16T10:00' }))).toEqual(["Check-out: data non valida, controlla l'anno."])
+    expect(controllaPrenotazione(p({ id: 'a', daPrenotareEntro: '0027-08-07' }))).toEqual(["Data entro cui prenotare: non valida, controlla l'anno."])
+  })
+  test('date valide e assenti passano', () => {
+    expect(controllaPrenotazione(p({ id: 'a', inizio: '2027-08-07T12:30', fine: '2027-08-07T14:00', daPrenotareEntro: '2027-07-01' }))).toEqual([])
+    expect(controllaPrenotazione(p({ id: 'a' }))).toEqual([])
+  })
 })
 
 describe('scadenza', () => {

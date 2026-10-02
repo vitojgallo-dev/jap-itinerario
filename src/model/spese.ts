@@ -1,5 +1,6 @@
 import { differenzaGiorni, istanteTokyo } from './date'
 import { nuovoId } from './id'
+import { dataVera } from './validazione'
 import {
   CATEGORIE_SPESA, type CategoriaSpesa, type Id, type Impostazioni, type MetodoPagamento, type Persona, type Spesa,
   type Valuta, type Viaggio,
@@ -168,6 +169,7 @@ export const ERRORE_CAMBIO_FUORI_INTERVALLO = `Il cambio sembra sbagliato: di so
 /** I messaggi in linea del foglio: importo > 0, almeno una persona, un cambio plausibile. */
 export function controllaSpesa(s: Spesa): string[] {
   const e: string[] = []
+  if (!dataVera(s.data)) e.push("La data non è valida: controlla l'anno.")
   if (!(s.importo > 0)) e.push('Scrivi un importo maggiore di zero.')
   if (s.divisaFra.length === 0) e.push('Scegli almeno una persona con cui dividere.')
   if (!(s.cambio > 0)) e.push('Serve il cambio: scrivi quanti yen vale 1 euro.')

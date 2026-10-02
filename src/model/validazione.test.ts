@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import base from '../data/itinerario-base.json'
 import { cittaDiProva, giornoDiProva, prenotazioneDiProva, spesaDiProva, tappaDiProva, viaggioDiProva } from './fixture'
-import { validaViaggio } from './validazione'
+import { dataVera, localeVera, validaViaggio } from './validazione'
 
 test('accetta un viaggio corretto', () => {
   expect(validaViaggio(viaggioDiProva()).ok).toBe(true)
@@ -169,4 +169,16 @@ test('rifiuta un allegato con un tipo di file non ammesso', () => {
     const v = viaggioDiProva({ prenotazioni: [prenotazioneDiProva({ id: 'x', allegati: [{ id: 'a-1', nome: 'x', mime, byte: 1 }] })] })
     expect(rifiutato(v)).toContain('prenotazione x: allegato non valido')
   }
+})
+
+test('dataVera e localeVera: rifiutano anni a due o cinque cifre e giorni inesistenti', () => {
+  expect(dataVera('2027-08-07')).toBe(true)
+  expect(dataVera('0027-08-07')).toBe(false)
+  expect(dataVera('20277-08-07')).toBe(false)
+  expect(dataVera('2027-02-30')).toBe(false)
+  expect(dataVera(undefined)).toBe(false)
+  expect(localeVera('2027-08-07T12:30')).toBe(true)
+  expect(localeVera('0027-08-07T12:30')).toBe(false)
+  expect(localeVera('2027-08-07T24:30')).toBe(false)
+  expect(localeVera('2027-08-07')).toBe(false)
 })

@@ -134,6 +134,12 @@ describe('inserimento', () => {
       'Serve il cambio: scrivi quanti yen vale 1 euro.',
     ])
   })
+  test('controllaSpesa rifiuta le date che il salvataggio rifiuterebbe', () => {
+    expect(sp.controllaSpesa(s({ id: 'a', data: '0027-08-07' }))).toEqual(["La data non è valida: controlla l'anno."])
+    expect(sp.controllaSpesa(s({ id: 'a', data: '20277-08-07' }))).toHaveLength(1)
+    expect(sp.controllaSpesa(s({ id: 'a', data: '' }))).toHaveLength(1)
+    expect(sp.controllaSpesa(s({ id: 'a', data: '2027-08-07' }))).toEqual([])
+  })
   test('leggiImporto accetta la virgola', () => {
     expect(sp.leggiImporto('12,50')).toBe(12.5)
     expect(sp.leggiImporto(' 1500 ')).toBe(1500)

@@ -1,6 +1,7 @@
 import { dataGiorno, differenzaGiorni, formatoData } from './date'
 import { istanteSicuro, utcDaLocale } from './fusi'
 import { nuovoId } from './id'
+import { dataVera, localeVera } from './validazione'
 import { TIPI_PRENOTAZIONE, type Luogo, type Prenotazione, type Tappa, type TipoPrenotazione, type Viaggio } from './tipi'
 
 /**
@@ -53,7 +54,14 @@ export function controllaPrenotazione(p: Prenotazione): string[] {
   const hotel = p.tipo === 'hotel'
   if (!p.titolo.trim()) e.push('Scrivi un titolo.')
   if (p.fine && !p.inizio) e.push(hotel ? 'Manca il check-in.' : "Manca l'inizio.")
-  if (p.inizio && p.fine && utcDaLocale(p.fine, p.fusoFine ?? p.fuso).getTime() < utcDaLocale(p.inizio, p.fuso).getTime()) {
+  // Le stesse regole di validaViaggio: un anno a due o cinque cifre (come lo scrive il campo su desktop) renderebbe invalido tutto il salvataggio.
+  const [etInizio, etFine] = etichetteDate(p.tipo)
+  const inizioOk = !p.inizio || localeVera(p.inizio)
+  const fineOk = !p.fine || localeVera(p.fine)
+  if (!inizioOk) e.push(`${etInizio}: data non valida, controlla l'anno.`)
+  if (!fineOk) e.push(`${etFine}: data non valida, controlla l'anno.`)
+  if (p.daPrenotareEntro && !dataVera(p.daPrenotareEntro)) e.push("Data entro cui prenotare: non valida, controlla l'anno.")
+  if (inizioOk && fineOk && p.inizio && p.fine && utcDaLocale(p.fine, p.fusoFine ?? p.fuso).getTime() < utcDaLocale(p.inizio, p.fuso).getTime()) {
     e.push(hotel ? 'Il check-out è prima del check-in.' : "La fine è prima dell'inizio.")
   }
   return e
