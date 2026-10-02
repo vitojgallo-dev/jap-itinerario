@@ -121,6 +121,15 @@ describe('backup con allegati', () => {
     const { archivio } = archivioFinto()
     expect(await allegatiPerBackup(conAllegati(), archivio)).toEqual({ allegati: {}, mancanti: 2 })
   })
+  test('un allegato con id "__proto__" finisce nel backup come chiave vera', async () => {
+    const { archivio } = archivioFinto()
+    await archivio.scrivi('__proto__', new Blob(['%PD'], { type: 'application/pdf' }))
+    const v = viaggioDiProva({ prenotazioni: [p({ id: 'pr', allegati: [{ id: '__proto__', nome: 'x.pdf', mime: 'application/pdf', byte: 3 }] })] })
+    const { allegati, mancanti } = await allegatiPerBackup(v, archivio)
+    expect(mancanti).toBe(0)
+    expect(Object.keys(allegati)).toEqual(['__proto__'])
+    expect(Object.getOwnPropertyDescriptor(JSON.parse(JSON.stringify(allegati)), '__proto__')?.value).toMatchObject({ mime: 'application/pdf' })
+  })
   test('un archivio che non si riesce a leggere si distingue da un allegato sparito', async () => {
     const archivio: ArchivioAllegati = { leggi: async () => { throw new Error('IndexedDB assente') }, scrivi: async () => {}, elimina: async () => {} }
     expect(await allegatiPerBackup(conAllegati(), archivio)).toEqual({ allegati: {}, mancanti: 2, illeggibili: 2 })
@@ -257,8 +266,8 @@ describe('avvisoImportazione', () => {
   })
   test('allegati danneggiati e voci scartate', () => {
     expect(avvisoImportazione(v, { scritti: ['a-1', 'a-2', 'a-3', 'a-4'], falliti: 1, spazio: false }, 2))
-      .toBe('1 allegato era danneggiato e è stato saltato. 2 allegati del file non erano validi e sono stati scartati. Mancano: a-5.pdf.')
-    expect(avvisoImportazione(v, { scritti: [], falliti: 3, spazio: false }, 0)).toMatch(/^3 allegati erano danneggiati e sono stati saltati./)
+      .toBe("Gli allegati del backup non sono stati importati (1 non si è potuto scrivere): importo solo l'itinerario. 2 allegati del file non erano validi e sono stati scartati. Mancano: a-5.pdf.")
+    expect(avvisoImportazione(v, { scritti: [], falliti: 3, spazio: false }, 0)).toBe("Gli allegati del backup non sono stati importati (3 non si sono potuti scrivere): importo solo l'itinerario. Mancano: a-1.pdf, a-2.pdf, a-3.pdf e altri 2.")
   })
   test('dati assenti dal file, senza errori di scrittura: solo i nomi', () => {
     expect(avvisoImportazione(v, { scritti: ['a-1', 'a-2', 'a-3', 'a-4'], falliti: 0, spazio: false }, 0)).toBe('Mancano: a-5.pdf.')

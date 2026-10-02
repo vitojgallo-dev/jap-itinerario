@@ -131,7 +131,7 @@ export function byteDaBase64(s: string): Uint8Array<ArrayBuffer> {
  */
 export async function allegatiPerBackup(v: Viaggio, archivio: ArchivioAllegati = archivioIndexedDb): Promise<{ allegati: AllegatiBackup; mancanti: number; illeggibili?: number }> {
   const mime = new Map(v.prenotazioni.flatMap(p => p.allegati.map(a => [a.id, a.mime] as const)))
-  const allegati: AllegatiBackup = {}
+  const allegati: AllegatiBackup = Object.create(null) // vedi filtraAllegati: un id come "__proto__" deve restare una chiave
   let mancanti = 0
   let illeggibili = 0
   for (const [id, tipo] of mime) {
@@ -189,7 +189,8 @@ const nAllegati = (n: number) => (n === 1 ? '1 allegato' : `${n} allegati`)
 export function avvisoImportazione(nuovo: Viaggio, esito: EsitoRipristino, scartati: number): string | null {
   const parti: string[] = []
   if (esito.spazio) parti.push("Gli allegati del backup non entrano nello spazio del telefono: importo solo l'itinerario.")
-  else if (esito.falliti > 0) parti.push(`${nAllegati(esito.falliti)} ${esito.falliti === 1 ? 'era danneggiato e è stato saltato' : 'erano danneggiati e sono stati saltati'}.`)
+  // Una scrittura fallita annulla tutte quelle della stessa importazione (vedi ripristinaAllegati): nessun allegato del backup è entrato.
+  else if (esito.falliti > 0) parti.push(`Gli allegati del backup non sono stati importati (${esito.falliti === 1 ? '1 non si è potuto scrivere' : `${esito.falliti} non si sono potuti scrivere`}): importo solo l'itinerario.`)
   if (scartati > 0) parti.push(`${nAllegati(scartati)} del file ${scartati === 1 ? 'non era valido ed è stato scartato' : 'non erano validi e sono stati scartati'}.`)
   const disponibili = new Set(esito.scritti)
   const assenti = nuovo.prenotazioni.flatMap(p => p.allegati).filter(a => !disponibili.has(a.id)).map(a => a.nome)

@@ -51,7 +51,8 @@ function byteDecodificati(s: string): number | null {
  */
 function filtraAllegati(grezzi: AllegatiBackup, v: Viaggio): { allegati: AllegatiBackup; scartati: number; mancanti: number } {
   const usati = new Set(v.prenotazioni.flatMap(p => p.allegati.map(a => a.id)))
-  const allegati: AllegatiBackup = {}
+  // Senza prototipo: su un oggetto normale un id come "__proto__" (chiave propria dopo JSON.parse) cambierebbe il prototipo invece di entrare, e "toString" risulterebbe già presente.
+  const allegati: AllegatiBackup = Object.create(null)
   let scartati = 0
   let totale = 0
   for (const [id, a] of Object.entries(grezzi)) {
