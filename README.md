@@ -25,6 +25,6 @@ Le icone delle scorciatoie (tenendo premuta l'icona su Android) si rigenerano co
 - **Spese**: inserimento in tre tocchi, yen ed euro col cambio della BCE, budget di ogni giorno, chi deve a chi.
 - **Impostazioni** (ingranaggio in Oggi): viaggio, persone, tema, città, backup con gli allegati, spazio usato.
 
-Tutto resta sul telefono: niente account e niente server. Servizi esterni senza chiave: OpenStreetMap, Open-Meteo, Wikipedia/Commons, Nominatim, Overpass, Frankfurter (BCE). Guide di prova: [fase 1](docs/PROVA-FASE-1.md), [fase 2](docs/PROVA-FASE-2.md).
+Tutto resta sul telefono: niente account e niente server, quindi nessuna sincronizzazione fra telefoni. Il registro delle spese lo tiene una persona sola; importare un backup sostituisce i dati di quel telefono (spese e allegati compresi). Servizi esterni senza chiave: OpenStreetMap, Open-Meteo, Wikipedia/Commons, Nominatim, Overpass, Frankfurter (BCE). Guide di prova: [fase 1](docs/PROVA-FASE-1.md), [fase 2](docs/PROVA-FASE-2.md).
 
 Pubblicazione: ogni push su `main` viene compilato e pubblicato da GitHub Actions (`.github/workflows/pubblica.yml`).

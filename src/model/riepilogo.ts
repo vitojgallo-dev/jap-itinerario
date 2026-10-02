@@ -41,3 +41,17 @@ export const CITTA_SCONOSCIUTA: Citta = {
 export function cittaDi(v: Viaggio, g: Giorno): Citta {
   return v.citta.find(c => c.id === g.cittaId) ?? CITTA_SCONOSCIUTA
 }
+
+/**
+ * Quello che un'importazione o un ripristino sostituirebbe su questo telefono e che nessun altro ha: "12 spese e 3 allegati".
+ * Stringa vuota se non c'è né l'uno né l'altro.
+ */
+export function cosaSiPerde(v: Viaggio): string {
+  const spese = v.spese.length
+  const allegati = v.prenotazioni.reduce((n, p) => n + p.allegati.length, 0)
+  const parti = [
+    spese > 0 ? (spese === 1 ? '1 spesa' : `${spese} spese`) : '',
+    allegati > 0 ? (allegati === 1 ? '1 allegato' : `${allegati} allegati`) : '',
+  ].filter(Boolean)
+  return parti.join(' e ')
+}

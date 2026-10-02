@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
-import { backupDaFare, bigliettiDaPrenotare, cittaDi, statistiche } from './riepilogo'
-import { giornoDiProva, tappaDiProva, viaggioDiProva } from './fixture'
+import { backupDaFare, bigliettiDaPrenotare, cittaDi, cosaSiPerde, statistiche } from './riepilogo'
+import { giornoDiProva, prenotazioneDiProva, spesaDiProva, tappaDiProva, viaggioDiProva } from './fixture'
 
 const v = viaggioDiProva({
   giorni: [
@@ -28,4 +28,14 @@ test('backupDaFare', () => {
 test('cittaDi con città mancante restituisce un segnaposto', () => {
   expect(cittaDi(v, v.giorni[1]).nome).toBe('Kyoto')
   expect(cittaDi(v, giornoDiProva({ id: 'z', cittaId: 'boh' })).nome).toBe('Senza città')
+})
+
+test('cosaSiPerde: spese e allegati che un\'importazione sostituirebbe, in italiano', () => {
+  const conAllegati = (n: number) => Array.from({ length: n }, (_, i) => ({ id: `a-${i}`, nome: `f${i}`, mime: 'image/jpeg', byte: 1 }))
+  const spese = (n: number) => Array.from({ length: n }, (_, i) => spesaDiProva({ id: `s${i}` }))
+  expect(cosaSiPerde(viaggioDiProva())).toBe('')
+  expect(cosaSiPerde(viaggioDiProva({ spese: spese(1) }))).toBe('1 spesa')
+  expect(cosaSiPerde(viaggioDiProva({ spese: spese(12), prenotazioni: [prenotazioneDiProva({ id: 'x', allegati: conAllegati(2) }), prenotazioneDiProva({ id: 'y', allegati: conAllegati(1) })] })))
+    .toBe('12 spese e 3 allegati')
+  expect(cosaSiPerde(viaggioDiProva({ prenotazioni: [prenotazioneDiProva({ id: 'x', allegati: conAllegati(1) })] }))).toBe('1 allegato')
 })

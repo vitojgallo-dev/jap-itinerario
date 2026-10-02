@@ -3,6 +3,7 @@ import { useRef, useState, type CSSProperties } from 'react'
 import { toast } from 'sonner'
 import { dataGiorno, formatoData } from '../../model/date'
 import { aggiornaImpostazioni, aggiornaPersona, aggiornaViaggio, aggiungiCitta } from '../../model/operazioni'
+import { cosaSiPerde } from '../../model/riepilogo'
 import type { Tema, Viaggio } from '../../model/tipi'
 import { dataVera, validaViaggio } from '../../model/validazione'
 import { avvisoImportazione, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
@@ -64,6 +65,8 @@ export default function Impostazioni() {
     try { return leggiV1(localStorage) } catch { return null }
   })
   const ultimo = viaggio.impostazioni.ultimoBackup
+  // Spese e allegati di questo telefono: l'importazione li sostituisce, non li unisce a quelli del file.
+  const perdita = cosaSiPerde(viaggio)
 
   const importa = async (f: File | undefined) => {
     if (!f) return
@@ -188,6 +191,11 @@ export default function Impostazioni() {
               {Object.keys(daImportare.allegati).length > 0 && `, con ${Object.keys(daImportare.allegati).length === 1 ? '1 allegato' : `${Object.keys(daImportare.allegati).length} allegati`}`}.
               {' '}Sostituisce l'itinerario su questo telefono (si può annullare subito dopo).
             </p>
+            {perdita && (
+              <p className="testo-2" style={{ marginBottom: 16 }}>
+                <strong>Su questo telefono ci sono {perdita}</strong>: l'importazione li sostituisce con quelli del backup, non li aggiunge.
+              </p>
+            )}
             <button type="button" className="pulsante primario largo" onClick={() => void confermaImportazione()}>Importa</button>
           </>
         )}

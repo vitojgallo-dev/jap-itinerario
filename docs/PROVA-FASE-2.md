@@ -27,6 +27,7 @@
 La prova di offline e installazione dal computer si fa in **Chrome con l'estensione Claude**: il browser integrato non registra il service worker.
 
 ## Cose da sapere
+- **Niente sincronizzazione fra telefoni**: le spese le tiene una persona sola, su un solo telefono. Importare un backup sostituisce i dati di questo telefono (spese e allegati compresi), non li unisce: l'app lo ricorda prima di confermare.
 - **iPhone**: le scorciatoie dell'icona non esistono; la vibrazione dello scorrimento non c'è; "Tieni acceso lo schermo" compare solo dove Safari supporta la Wake Lock API.
 - Su iPhone, condividere il backup dopo aver letto gli allegati può far cadere il menu di condivisione: in quel caso il file viene scaricato (si trova in File → Download).
 - Gli orari pre-compilati e quelli di OpenStreetMap vanno verificati sul sito del luogo prima di andare.
