@@ -16,6 +16,7 @@
 .miniatura img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .miniatura span { padding: 0 6px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow-wrap: anywhere; }
 .miniatura.mancante { cursor: default; color: var(--pericolo); background: var(--pericolo-sfondo); }
+.miniatura-condividi { width: 100%; margin-top: 6px; padding: 6px 8px; font-size: 14px; line-height: 1.2; white-space: normal; text-align: center; background: var(--riempimento); }
 .miniatura-togli {
   position: absolute; top: 0; right: 0; width: 44px; height: 44px; border: 0; background: none; cursor: pointer;
   display: flex; align-items: flex-start; justify-content: flex-end; padding: 4px;

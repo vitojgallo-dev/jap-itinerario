@@ -1,9 +1,11 @@
 import { ChevronLeft, ChevronRight, FileText, ImageOff, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
+import { toast } from 'sonner'
 import type { Allegato } from '../../model/tipi'
 import { mimeAmmesso, mimeFoto } from '../../model/mime'
 import { archivioIndexedDb, mimeSicuro } from '../../servizi/allegati'
+import { condividiPdf, puoCondividerePdf } from '../../servizi/condividi'
 import { useScorrimento } from '../../ui/scorrimento'
 
 /**
@@ -35,6 +37,25 @@ export function useUrlAllegato(id: string, mime?: string): string | null | undef
 }
 
 const MANCA = 'Allegato non più disponibile: ricaricalo'
+
+/**
+ * Per i PDF, accanto al link che li apre: nell'app sulla Home dell'iPhone un indirizzo `blob:` in una nuova scheda spesso resta bianco,
+ * mentre il menu di condivisione ("Salva su File", "Apri con…") funziona sempre. Compare solo dove il browser lo sa fare.
+ */
+function CondividiPdf({ allegato }: { allegato: Allegato }) {
+  const [occupato, setOccupato] = useState(false)
+  const condividi = async () => {
+    setOccupato(true)
+    try {
+      const b = await archivioIndexedDb.leggi(allegato.id).catch(() => undefined)
+      if (!b) { toast(MANCA); return }
+      if (await condividiPdf(b, allegato.nome) === 'errore') toast('Non riesco a condividere il file. Prova ad aprirlo.')
+    } finally {
+      setOccupato(false)
+    }
+  }
+  return <button type="button" className="pulsante miniatura-condividi" disabled={occupato} onClick={() => void condividi()}>Condividi o salva</button>
+}
 
 /** Senza `onApri` (nell'editor, dentro un foglio) la foto non si apre: si può solo togliere. */
 function Miniatura({ allegato, onApri }: { allegato: Allegato; onApri?: (el: HTMLElement) => void }) {
@@ -152,6 +173,8 @@ export function GrigliaAllegati({ allegati, onTogli }: { allegati: Allegato[]; o
   const ritorno = useRef<HTMLElement | null>(null)
   const chiudi = useCallback(() => setAperto(null), [])
   const immagini = allegati.filter(a => mimeFoto(mimeSicuro(a.mime)))
+  // Una sola volta: il browser non cambia idea mentre la schermata è aperta.
+  const [condivisione] = useState(puoCondividerePdf)
   if (allegati.length === 0) return null
   return (
     <>
@@ -159,6 +182,7 @@ export function GrigliaAllegati({ allegati, onTogli }: { allegati: Allegato[]; o
         {allegati.map(a => (
           <div key={a.id} className="miniatura-cella">
             <Miniatura allegato={a} onApri={onTogli ? undefined : el => { ritorno.current = el; setAperto(immagini.findIndex(x => x.id === a.id)) }} />
+            {!onTogli && condivisione && mimeSicuro(a.mime) === 'application/pdf' && <CondividiPdf allegato={a} />}
             {onTogli && (
               <button type="button" className="miniatura-togli" aria-label={`Togli ${a.nome}`} onClick={() => onTogli(a.id)}>
                 <span><X size={16} aria-hidden /></span>
