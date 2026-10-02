@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "genera-base": "tsx scripts/genera-base.ts",
-    "icone": "pwa-assets-generator"
+    "icone": "pwa-assets-generator",
+    "icone-scorciatoie": "tsx scripts/icone-scorciatoie.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -32,6 +33,7 @@
     "@types/react-dom": "^19.3.0",
     "@vite-pwa/assets-generator": "^1.0.4",
     "@vitejs/plugin-react": "^6.1.1",
+    "sharp": "^0.35.5",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vite": "^8.3.1",

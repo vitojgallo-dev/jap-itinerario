@@ -9,6 +9,7 @@ import { useViaggio } from '../../store/viaggio'
 import { Avvisi } from '../../ui/Avvisi'
 import { BarraNav, Gruppo, LinkImpostazioni, Riga, TitoloGrande } from '../../ui/componenti'
 import { hrefRotta } from '../../ui/rotta'
+import { InterruttoreSchermo } from '../../ui/SchermoAcceso'
 import { FoglioTappa } from '../programma/FoglioTappa'
 import { CardAdesso } from './CardAdesso'
 import { CardProssimo } from './CardProssimo'
@@ -51,6 +52,7 @@ export function DuranteIlViaggio({ indice, adesso }: { indice: number; adesso: D
         </Gruppo>
       )}
       <Stanotte indice={indice} />
+      <InterruttoreSchermo />
       <FoglioTappa giornoId={giorno.id} tappaId={aperta} onChiudi={() => setAperta(null)} />
     </div>
   )

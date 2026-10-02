@@ -33,7 +33,7 @@ export function VoceTimeline({ tappa, successiva, giornoId, data, onApri, childr
   return (
     <>
       <div className={'voce-ora' + (tappa.sera ? ' sera' : '')}>{tappa.ora ?? ''}</div>
-      {children ?? <CardTappa tappa={tappa} giornoId={giornoId} data={data} onApri={() => onApri(tappa.id)} />}
+      {children ?? <CardTappa tappa={tappa} giornoId={giornoId} data={data} onApri={() => onApri(tappa.id)} scorrevole />}
       <Segmento da={tappa} a={successiva} />
     </>
   )

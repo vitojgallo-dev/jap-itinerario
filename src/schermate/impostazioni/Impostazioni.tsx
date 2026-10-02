@@ -18,6 +18,7 @@ import { useInstallazione } from '../../ui/hook'
 import { InvitoInstallazione, IstruzioniInstallazione } from '../../ui/Installazione'
 import { pulisciQuandoNonAnnullabile } from '../../ui/pulisciDopoAnnulla'
 import { hrefRotta } from '../../ui/rotta'
+import { SpazioUsato } from '../../ui/SpazioUsato'
 import { EditorCitta } from './EditorCitta'
 
 const TEMI: { valore: Tema; etichetta: string }[] = [
@@ -138,6 +139,7 @@ export default function Impostazioni() {
         <Riga icona={<Download size={20} />} titolo="Salva o condividi un backup" sottotitolo="Con gli allegati: anche per mandare tutto agli altri" onClick={() => void esporta()} />
         <Riga icona={<Upload size={20} />} titolo="Importa un backup" onClick={() => file.current?.click()} />
         <Riga icona={<ListPlus size={20} />} titolo="Aggiungi prenotazioni e orari del 2027" sottotitolo="Solo quelli che mancano su questo telefono" onClick={aggiungiPartenza} />
+        <SpazioUsato />
         {v1 && <Riga icona={<History size={20} />} titolo="Recupera le modifiche della versione vecchia" onClick={recuperaV1} />}
         <Riga icona={<RotateCcw size={20} />} titolo="Ripristina l'itinerario 2027" pericolo onClick={() => setRipristino(true)} />
       </Gruppo>

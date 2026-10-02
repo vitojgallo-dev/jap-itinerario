@@ -25,6 +25,11 @@ export default defineConfig({
           { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
           { src: 'maskable-icon-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
+        // Tenendo premuta l'icona (Android): Oggi, e una spesa nuova col foglio già aperto.
+        shortcuts: [
+          { name: 'Oggi', short_name: 'Oggi', url: '/jap-itinerario/#/oggi', icons: [{ src: 'scorciatoia-oggi-96.png', sizes: '96x96', type: 'image/png' }] },
+          { name: 'Aggiungi spesa', short_name: 'Spesa', url: '/jap-itinerario/#/spese/nuova', icons: [{ src: 'scorciatoia-spesa-96.png', sizes: '96x96', type: 'image/png' }] },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico,webmanifest}'],

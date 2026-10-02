@@ -11,22 +11,36 @@ import { Badge } from '../../ui/componenti'
 import { FotoLuogo } from '../../ui/FotoLuogo'
 import { useAdesso } from '../../ui/hook'
 import { ETICHETTA_AFFIDABILITA, ETICHETTA_TIPO, ICONA_TIPO } from '../../ui/icone'
+import { riduciMovimento, useScorrimento } from '../../ui/scorrimento'
 
 export function testoPromemoria(p: Promemoria): string {
   return { 'prenota-ora': 'La visita è domani: prenota adesso', oggi: 'La visita è oggi', futuro: 'Prenota per tempo', passato: '' }[p]
 }
 
-interface Props { tappa: Tappa; giornoId: string; data: string; onApri: () => void; maniglia?: ReactNode }
+interface Props {
+  tappa: Tappa
+  giornoId: string
+  data: string
+  onApri: () => void
+  maniglia?: ReactNode
+  /** Scorrendo verso destra oltre 72 px si alterna fatta / da fare. Spento in modalità Modifica. */
+  scorrevole?: boolean
+}
 
-export function CardTappa({ tappa, giornoId, data, onApri, maniglia }: Props) {
+export function CardTappa({ tappa, giornoId, data, onApri, maniglia, scorrevole = false }: Props) {
   const applica = useViaggio(s => s.applica)
   const oggi = istanteTokyo(useAdesso()).data
   const Icona = ICONA_TIPO[tappa.tipo]
   const fatta = tappa.stato === 'fatta'
   const promemoria = tappa.biglietti ? promemoriaBiglietto(data, oggi) : null
   const apertura = avvisoApertura(tappa, data)
-  return (
-    <article className={'card-tappa' + (fatta ? ' fatta' : '') + (tappa.stato === 'saltata' ? ' saltata' : '')}>
+  const alterna = () => applica(v => aggiornaTappa(v, giornoId, tappa.id, { stato: fatta ? 'da-fare' : 'fatta' }))
+  const { gestori, dx, oltre } = useScorrimento({ versi: ['destra'], soglia: 72, attivo: scorrevole, onScatta: alterna })
+  // Con "riduci animazioni" la card non si sposta: si vede solo l'etichetta e il bordo quando il gesto scatta.
+  const sposta = dx !== 0 && !riduciMovimento()
+  const card = (
+    <article className={'card-tappa' + (fatta ? ' fatta' : '') + (tappa.stato === 'saltata' ? ' saltata' : '') + (oltre ? ' oltre' : '')}
+      {...(scorrevole ? gestori : {})} style={sposta ? { transform: `translateX(${dx}px)` } : undefined}>
       <button type="button" className="card-tappa-apri" onClick={onApri}>
         {tappa.luogo && tappa.tipo !== 'spostamento' && <FotoLuogo query={tappa.luogo.query} override={tappa.foto} className="card-tappa-foto" />}
         <div className="card-tappa-testo">
@@ -54,12 +68,18 @@ export function CardTappa({ tappa, giornoId, data, onApri, maniglia }: Props) {
             <Ticket size={16} aria-hidden /> Biglietti
           </a>
         )}
-        <button type="button" className={'pulsante piccolo' + (fatta ? ' pieno' : '')} aria-pressed={fatta}
-          onClick={() => applica(v => aggiornaTappa(v, giornoId, tappa.id, { stato: fatta ? 'da-fare' : 'fatta' }))}>
+        <button type="button" className={'pulsante piccolo' + (fatta ? ' pieno' : '')} aria-pressed={fatta} onClick={alterna}>
           <Check size={16} aria-hidden /> {fatta ? 'Fatta' : 'Fatto'}
         </button>
         {maniglia}
       </div>
     </article>
+  )
+  if (!scorrevole) return card
+  return (
+    <div className="card-tappa-scorri">
+      <div className={'card-tappa-sotto' + (dx > 0 ? ' visibile' : '')} aria-hidden><Check size={20} /> {fatta ? 'Da fare' : 'Fatta'}</div>
+      {card}
+    </div>
   )
 }
