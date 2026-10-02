@@ -41,7 +41,10 @@ export async function spazzaOrfani(v: Viaggio, archivio: ArchivioAllegati = arch
   try {
     if (storage.getItem(CHIAVE_SCARTATO) !== null) return 0
     const salvato = storage.getItem(CHIAVE_VIAGGIO)
-    if (salvato !== null && !validaViaggio((JSON.parse(salvato) as { state?: { viaggio?: unknown } } | null)?.state?.viaggio).ok) return 0
+    // Senza salvataggio il viaggio in memoria è quello di base (primo avvio, o localStorage svuotato dal browser mentre IndexedDB no):
+    // non dice quali allegati servono, e toglierli tutti sarebbe irreversibile.
+    if (salvato === null) return 0
+    if (!validaViaggio((JSON.parse(salvato) as { state?: { viaggio?: unknown } } | null)?.state?.viaggio).ok) return 0
     const usati = new Set(idAllegati(v))
     const orfani = (await archivio.chiavi()).filter(id => !usati.has(id))
     await eliminaSeOrfani(orfani, v, archivio)

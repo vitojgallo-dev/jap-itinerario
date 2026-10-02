@@ -109,6 +109,12 @@ describe('spazzaOrfani (all\'avvio)', () => {
     expect([...m]).toEqual(['a', 'orfano'])
   })
 
+  test('niente da fare se in localStorage non c\'è nessun salvataggio: il viaggio in memoria è quello di base e non dice cosa serve', async () => {
+    const { archivio, m } = archivioFinto(['a', 'b'])
+    expect(await spazzaOrfani(viaggioDiProva(), archivio, memoria())).toBe(0)
+    expect([...m]).toEqual(['a', 'b'])
+  })
+
   test('senza l\'elenco delle chiavi o con storage che lancia non fa niente e non lancia', async () => {
     const senza = archivioFinto(['a'], false)
     expect(await spazzaOrfani(viaggioDiProva(), senza.archivio, memoria())).toBe(0)
