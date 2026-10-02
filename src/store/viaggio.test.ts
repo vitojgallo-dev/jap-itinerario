@@ -1,5 +1,5 @@
-import { expect, test, vi, beforeEach, afterEach } from 'vitest'
-import { viaggioDiProva } from '../model/fixture'
+import { describe, expect, test, vi, beforeEach, afterEach } from 'vitest'
+import { spesaDiProva, viaggioDiProva } from '../model/fixture'
 import type { StatoApp } from './viaggio'
 
 // Stub localStorage prima di importare il store
@@ -134,4 +134,36 @@ test('senza nulla di salvato non copia niente e non avvisa', async () => {
   await import('./viaggio')
   expect(storageMock.has('giappone-viaggio-scartato')).toBe(false)
   expect(toastMock).not.toHaveBeenCalled()
+})
+
+describe('la rete: una modifica che renderebbe invalido il viaggio non passa', () => {
+  const rotto = (v: ReturnType<typeof viaggioDiProva>) => ({ ...v, spese: [spesaDiProva({ id: 's', data: '0027-08-07', pagatoDa: v.persone[0].id, divisaFra: [v.persone[0].id] })] })
+
+  test('applica rifiuta, lascia lo stato com\'è e avvisa sempre con lo stesso toast', () => {
+    const prima = useViaggio.getState().viaggio
+    useViaggio.getState().applica(rotto)
+    useViaggio.getState().applica(rotto)
+    expect(useViaggio.getState().viaggio).toBe(prima)
+    expect(toastMock).toHaveBeenCalledTimes(2)
+    // Stesso id: sonner sostituisce il toast invece di impilarne due.
+    expect(toastMock.mock.calls[0][1]).toMatchObject({ id: 'modifica-rifiutata' })
+    expect(toastMock.mock.calls[1][1]).toMatchObject({ id: 'modifica-rifiutata' })
+    expect(toastMock.mock.calls[0][0]).toBe('Modifica non salvata: un dato non è valido')
+  })
+
+  test('applicaAnnullabile rifiuta senza toccare precedente e senza il toast di Annulla', () => {
+    const prima = useViaggio.getState().viaggio
+    useViaggio.getState().applicaAnnullabile(rotto, 'Fatto')
+    const s = useViaggio.getState()
+    expect(s.viaggio).toBe(prima)
+    expect(s.precedente).toBeNull()
+    expect(toastMock).toHaveBeenCalledTimes(1)
+    expect(toastMock.mock.calls[0][0]).toBe('Modifica non salvata: un dato non è valido')
+  })
+
+  test('una modifica valida passa e non avvisa', () => {
+    useViaggio.getState().applica(v => ({ ...v, titolo: 'Nuovo' }))
+    expect(useViaggio.getState().viaggio.titolo).toBe('Nuovo')
+    expect(toastMock).not.toHaveBeenCalled()
+  })
 })

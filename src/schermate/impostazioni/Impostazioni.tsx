@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 import { dataGiorno, formatoData } from '../../model/date'
 import { aggiornaImpostazioni, aggiornaPersona, aggiornaViaggio, aggiungiCitta } from '../../model/operazioni'
 import type { Tema, Viaggio } from '../../model/tipi'
-import { validaViaggio } from '../../model/validazione'
+import { dataVera, validaViaggio } from '../../model/validazione'
 import { avvisoImportazione, idAllegati, ripristinaAllegati } from '../../servizi/allegati'
 import { leggiBackup, type AllegatiBackup } from '../../servizi/backup'
 import { ERRORE_V1, leggiV1, viaggioBase, viaggioDaV1 } from '../../store/avvio'
@@ -26,6 +26,26 @@ const TEMI: { valore: Tema; etichetta: string }[] = [
   { valore: 'chiaro', etichetta: 'Washi' },
   { valore: 'scuro', etichetta: 'Notte' },
 ]
+
+/**
+ * Il campo data si digita un pezzo alla volta ("0027-08-07" prima di "2027-08-07"): il testo resta qui
+ * e arriva al viaggio solo quando è una data vera, così la rete dello store non scatta mentre si scrive.
+ */
+function InputDataPartenza({ valore, onScrivi }: { valore: string; onScrivi: (data: string) => void }) {
+  const [testo, setTesto] = useState(valore)
+  const [visto, setVisto] = useState(valore)
+  // Se il viaggio cambia da fuori (importazione, annulla), il campo lo segue.
+  if (valore !== visto) {
+    setVisto(valore)
+    setTesto(valore)
+  }
+  return (
+    <input type="date" value={testo} onChange={e => {
+      setTesto(e.target.value)
+      if (dataVera(e.target.value)) onScrivi(e.target.value)
+    }} />
+  )
+}
 
 export default function Impostazioni() {
   const viaggio = useViaggio(s => s.viaggio)
@@ -112,7 +132,7 @@ export default function Impostazioni() {
         <div style={{ padding: '4px 16px 8px' }}>
           <Campo etichetta="Titolo"><input value={viaggio.titolo} onChange={e => applica(v => aggiornaViaggio(v, { titolo: e.target.value }))} /></Campo>
           <Campo etichetta={`Primo giorno (G0) · ultimo: ${viaggio.giorni.length ? formatoData(dataGiorno(viaggio, viaggio.giorni.length - 1), 'lungo') : '—'}`}>
-            <input type="date" value={viaggio.dataPartenza} onChange={e => e.target.value && applica(v => aggiornaViaggio(v, { dataPartenza: e.target.value }))} />
+            <InputDataPartenza valore={viaggio.dataPartenza} onScrivi={d => applica(v => aggiornaViaggio(v, { dataPartenza: d }))} />
           </Campo>
           {viaggio.persone.map((p, i) => (
             <Campo key={p.id} etichetta={`Persona ${i + 1}`}><input value={p.nome} onChange={e => applica(v => aggiornaPersona(v, p.id, e.target.value))} /></Campo>

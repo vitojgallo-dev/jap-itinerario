@@ -56,6 +56,19 @@ function scartaSalvato() {
   if (grezzo !== null) toast('I dati salvati erano danneggiati: ne ho tenuto una copia e riparto dall\'itinerario 2027.')
 }
 
+/** Fisso, così due rifiuti di fila sostituiscono il toast invece di impilarsi. */
+export const ID_TOAST_RIFIUTO = 'modifica-rifiutata'
+
+/**
+ * La rete sotto gli editor: un viaggio che `validaViaggio` rifiuterebbe al riavvio manderebbe in malora tutto il salvataggio,
+ * quindi non entra nello stato. Ritorna false (e avvisa) se la modifica va scartata.
+ */
+function modificaAmmessa(dopo: Viaggio): boolean {
+  if (validaViaggio(dopo).ok) return true
+  toast('Modifica non salvata: un dato non è valido', { id: ID_TOAST_RIFIUTO })
+  return false
+}
+
 export const useViaggio = create<StatoApp>()(
   persist(
     (set, get) => ({
@@ -63,10 +76,16 @@ export const useViaggio = create<StatoApp>()(
       sceltaV1: sceltaIniziale(),
       modifica: false,
       precedente: null,
-      applica: fn => set({ viaggio: fn(get().viaggio), precedente: null }),
+      applica: fn => {
+        const dopo = fn(get().viaggio)
+        if (!modificaAmmessa(dopo)) return
+        set({ viaggio: dopo, precedente: null })
+      },
       applicaAnnullabile: (fn, messaggio) => {
         const prima = get().viaggio
-        set({ viaggio: fn(prima), precedente: prima })
+        const dopo = fn(prima)
+        if (!modificaAmmessa(dopo)) return
+        set({ viaggio: dopo, precedente: prima })
         toast(messaggio, {
           action: {
             label: 'Annulla',
