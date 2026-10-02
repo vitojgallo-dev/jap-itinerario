@@ -12,6 +12,7 @@ import { GRUPPO_PRENOTAZIONE, ICONA_PRENOTAZIONE } from '../../ui/icone'
 import { hrefDocumento } from '../../ui/rotta'
 import { DettaglioDocumento } from './DettaglioDocumento'
 import { FoglioPrenotazione } from './FoglioPrenotazione'
+import { PulsanteRicerca } from '../ricerca/Ricerca'
 import './documenti.css'
 
 export default function Documenti({ id }: { id: string | null }) {
@@ -42,7 +43,7 @@ function ElencoDocumenti() {
   const apriNuova = () => { setChiave(k => k + 1); setNuova(true) }
   return (
     <div className="schermata">
-      <BarraNav titolo="Documenti" />
+      <BarraNav titolo="Documenti" destra={<PulsanteRicerca />} />
       <TitoloGrande sotto={prenotazioni.length ? (daFare ? `${daFare} da prenotare su ${prenotazioni.length}` : 'Tutto prenotato') : undefined}>Documenti</TitoloGrande>
       {gruppi.length === 0 && (
         <Vuoto titolo="Nessuna prenotazione" testo="Voli, hotel, treni e biglietti, con codici, QR e PDF che restano anche offline."

@@ -10,6 +10,7 @@ import { BarraNav, TitoloGrande, Vuoto } from '../../ui/componenti'
 import { useAdesso } from '../../ui/hook'
 import { hrefRotta } from '../../ui/rotta'
 import { Stanotte } from '../oggi/Stanotte'
+import { PulsanteRicerca } from '../ricerca/Ricerca'
 import { EditorGiorno } from './EditorGiorno'
 import { ExtraGiorno } from './ExtraGiorno'
 import { FoglioNuovaTappa, FoglioTappa } from './FoglioTappa'
@@ -53,7 +54,7 @@ export default function Programma({ indice }: { indice: number | null }) {
   const data = dataGiorno(viaggio, i)
   return (
     <div className="schermata">
-      <BarraNav titolo={`G${i} · ${citta.nome}`} destra={pulsanteModifica} />
+      <BarraNav titolo={`G${i} · ${citta.nome}`} sinistra={<PulsanteRicerca />} destra={pulsanteModifica} />
       <StrisciaGiorni viaggio={viaggio} attivo={i} oggi={fase.fase === 'durante' ? fase.indice : null} />
       <TitoloGrande sopra={`${formatoData(data, 'lungo')} · ${citta.nome} ${citta.kanji}`} sotto={giorno.intro || undefined}>
         {giorno.titolo}
