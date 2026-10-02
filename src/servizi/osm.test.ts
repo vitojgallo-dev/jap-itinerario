@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest'
-import { cercaOrariOsm, leggiOverpass, queryOverpass, terminiRicerca, URL_OVERPASS } from './osm'
+import { cercaOrariOsm, leggiOverpass, queryOverpass, terminiRicerca, TIMEOUT_QUERY_S, TIMEOUT_RICHIESTA_MS, URL_OVERPASS } from './osm'
 
 test('terminiRicerca: parole di almeno 4 lettere, senza accenti, senza nomi di città', () => {
   expect(terminiRicerca(["Kinkaku-ji (Padiglione d'Oro)", 'Kinkaku-ji Kyoto'])).toEqual(['kinkaku', 'padiglione'])
@@ -44,4 +44,16 @@ test('cercaOrariOsm: una richiesta sola, e nessuna se non c\'è un nome da cerca
   const mai = vi.fn()
   expect(await cercaOrariOsm(['東京'], 35, 139, mai)).toEqual([])
   expect(mai).not.toHaveBeenCalled()
+})
+
+test('il telefono aspetta più a lungo del timeout che la query dà a Overpass', () => {
+  expect(TIMEOUT_RICHIESTA_MS).toBeGreaterThan(TIMEOUT_QUERY_S * 1000)
+  expect(TIMEOUT_RICHIESTA_MS).toBe(25_000)
+  expect(queryOverpass(['kinkaku'], 35, 135)).toContain(`[timeout:${TIMEOUT_QUERY_S}]`)
+})
+
+test('cercaOrariOsm: se la richiesta fallisce, lancia (chi chiama mostra il messaggio)', async () => {
+  const prendi = vi.fn().mockRejectedValue(new Error('rete'))
+  await expect(cercaOrariOsm(['Kinkaku-ji Temple'], 35.0394, 135.7292, prendi)).rejects.toThrow('rete')
+  expect(prendi).toHaveBeenCalledTimes(1)
 })

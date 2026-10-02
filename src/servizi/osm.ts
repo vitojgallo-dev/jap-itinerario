@@ -2,6 +2,11 @@ import { normalizzaTesto } from '../model/ricerca'
 
 export const URL_OVERPASS = 'https://overpass-api.de/api/interpreter'
 
+/** Il tempo che Overpass concede alla query (`[timeout:…]`). */
+export const TIMEOUT_QUERY_S = 20
+/** Quanto aspetta il telefono: più del server, che altrimenti vedrebbe la richiesta tagliata mentre sta ancora lavorando. */
+export const TIMEOUT_RICHIESTA_MS = 25_000
+
 export interface OrarioOsm { nome: string; orari: string }
 
 /** Parole che non distinguono un luogo da quelli intorno. */
@@ -25,7 +30,7 @@ export function terminiRicerca(testi: string[]): string[] {
 export function queryOverpass(termini: string[], lat: number, lng: number): string {
   const re = termini.join('|')
   const righe = ['name', 'name:en', 'name:it', 'name:ja-Latn'].map(k => `  nwr(around:300,${lat},${lng})["${k}"~"${re}",i]["opening_hours"];`)
-  return `[out:json][timeout:20];\n(\n${righe.join('\n')}\n);\nout tags 20;`
+  return `[out:json][timeout:${TIMEOUT_QUERY_S}];\n(\n${righe.join('\n')}\n);\nout tags 20;`
 }
 
 type Elemento = { tags?: Record<string, unknown> }
@@ -64,7 +69,7 @@ const inviaQuery = async (url: string, corpo: string): Promise<unknown> => {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: corpo,
     // Dove AbortSignal.timeout non esiste (browser vecchi) la richiesta resta senza limite: il pulsante torna libero solo a risposta arrivata.
-    signal: typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(8000) : undefined,
+    signal: typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(TIMEOUT_RICHIESTA_MS) : undefined,
   })
   if (!r.ok) throw new Error(String(r.status))
   return r.json()
