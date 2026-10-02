@@ -6,10 +6,10 @@
 - Oggi: conto alla rovescia; durante il viaggio, cosa c'è adesso e dopo, meteo, avvisi, hotel con scheda per il tassista.
 - Programma: tutto modificabile (tappe, orari, luoghi, ordine trascinando, giorni, città, hotel), note personali, tappe fatte o saltate.
 - Mappa del giorno o dell'intero viaggio, con posizione e tappe vicine.
-- Viaggio: data di partenza, persone, tema, città, backup e importazione, recupero delle modifiche della versione vecchia.
+- Impostazioni: data di partenza, persone, tema, città, backup e importazione, recupero delle modifiche della versione vecchia.
 
 ## Da provare sul telefono (iPhone e Android)
-1. Aprire https://vitojgallo-dev.github.io/jap-itinerario/ e installarla sulla Home (Viaggio → Come si installa).
+1. Aprire https://vitojgallo-dev.github.io/jap-itinerario/ e installarla sulla Home (Impostazioni → Come si installa).
 2. Aprirla dall'icona. Se compare "Nuova versione", scegliere da cosa partire.
 3. Oggi: il conto alla rovescia dice quanti giorni mancano all'8 agosto 2027.
 4. Per vedere l'app "durante" il viaggio, aprire nel browser
@@ -19,15 +19,15 @@
 6. Programma → Modifica: spostare una tappa trascinando la maniglia, aggiungerne una cercando il luogo, eliminare e annullare.
 7. Mappa: toccare un segnaposto; provare il pulsante della posizione.
 8. Modalità aereo: l'app si apre lo stesso, con le foto e le mappe già viste.
-9. Viaggio → Salva o condividi un backup: mandarlo su WhatsApp agli altri; loro lo aprono con Viaggio → Importa un backup.
+9. Impostazioni → Salva o condividi un backup: mandarlo su WhatsApp agli altri; loro lo aprono con Impostazioni → Importa un backup.
 
 ### Nota per iPhone: le modifiche fatte nella versione vecchia
 Su iPhone l'app installata sulla Home ha una memoria separata da Safari: le modifiche fatte nella vecchia versione aperta in Safari non compaiono nell'app installata. Per portarle con sé:
 1. aprire il sito in Safari (non dall'icona);
 2. se compare "Nuova versione", scegliere "Le mie modifiche vecchie", se servono;
-3. Viaggio → Salva o condividi un backup;
+3. Impostazioni → Salva o condividi un backup;
 4. installare l'app sulla Home;
-5. aprirla dall'icona e fare Viaggio → Importa un backup, scegliendo il file appena salvato.
+5. aprirla dall'icona e fare Impostazioni → Importa un backup, scegliendo il file appena salvato.
 
 Su Android non serve: l'app installata e il browser condividono gli stessi dati.
 
