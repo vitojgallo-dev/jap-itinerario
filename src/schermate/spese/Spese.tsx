@@ -1,7 +1,6 @@
 import { Banknote, CreditCard, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { differenzaGiorni, formatoData, istanteTokyo } from '../../model/date'
-import { aggiornaImpostazioni } from '../../model/operazioni'
 import {
   aggiungiSpesa, cambioDaUsare, dataPredefinita, eliminaSpesa, formatoEuro, formatoImporto, formatoYen, inYen,
   riepilogoSpese, rimborsiMinimi, rimborsoDaSaldare, saldi, spesaRimborso, type Rimborso,
@@ -27,16 +26,16 @@ const FILTRI: { valore: Filtro; etichetta: string }[] = [
 let cambioChiesto = false
 
 function useCambioDelGiorno() {
-  const applica = useViaggio(s => s.applica)
+  const aggiornaCambio = useViaggio(s => s.aggiornaCambio)
   useEffect(() => {
     if (cambioChiesto) return
     cambioChiesto = true
     void scaricaCambio().then(c => {
       if (!c) return
       const attuale = useViaggio.getState().viaggio.impostazioni.ultimoCambio
-      if (c.valore !== attuale?.valore || c.data !== attuale?.data) applica(v => aggiornaImpostazioni(v, { ultimoCambio: c }))
+      if (c.valore !== attuale?.valore || c.data !== attuale?.data) aggiornaCambio(c)
     })
-  }, [applica])
+  }, [aggiornaCambio])
 }
 
 /** Una riga: scorrendo verso sinistra oltre 96 px si elimina (con "Annulla"); il tocco apre la modifica. */

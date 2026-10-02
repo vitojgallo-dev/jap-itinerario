@@ -2,7 +2,8 @@ import { toast } from 'sonner'
 import { create } from 'zustand'
 import { persist, type PersistStorage } from 'zustand/middleware'
 import { validaViaggio } from '../model/validazione'
-import type { Viaggio } from '../model/tipi'
+import { aggiornaImpostazioni } from '../model/operazioni'
+import type { Impostazioni, Viaggio } from '../model/tipi'
 import { CHIAVE_SCARTATO, CHIAVE_VIAGGIO, leggiV1, viaggioBase } from './avvio'
 
 type SceltaV1 = 'da-chiedere' | 'fatta'
@@ -14,6 +15,8 @@ export interface StatoApp {
   precedente: Viaggio | null
   applica: (fn: (v: Viaggio) => Viaggio) => void
   applicaAnnullabile: (fn: (v: Viaggio) => Viaggio, messaggio: string) => void
+  /** Il cambio scaricato dalla BCE: aggiorna le impostazioni senza far perdere l'"Annulla" di una modifica in corso. */
+  aggiornaCambio: (cambio: NonNullable<Impostazioni['ultimoCambio']>) => void
   annulla: () => void
   sostituisci: (v: Viaggio) => void
   setModifica: (on: boolean) => void
@@ -98,9 +101,22 @@ export const useViaggio = create<StatoApp>()(
           duration: 6000,
         })
       },
+      aggiornaCambio: cambio => {
+        // Non passa da `applica`: quello azzera `precedente` e un "Annulla" appena offerto smetterebbe di funzionare.
+        // Anche `precedente` resta lo stesso oggetto (il toast e la pulizia degli allegati lo confrontano per identità):
+        // il cambio nuovo lo recupera `annulla`.
+        const dopo = aggiornaImpostazioni(get().viaggio, { ultimoCambio: cambio })
+        if (!modificaAmmessa(dopo)) return
+        set({ viaggio: dopo })
+      },
       annulla: () => {
         const p = get().precedente
-        if (p) set({ viaggio: p, precedente: null })
+        if (!p) return
+        // Annullare riporta il viaggio com'era, ma un cambio più recente (arrivato nel frattempo) non si butta via.
+        const attuale = get().viaggio.impostazioni.ultimoCambio
+        const vecchio = p.impostazioni.ultimoCambio
+        const tieniAttuale = attuale && (!vecchio || attuale.data >= vecchio.data)
+        set({ viaggio: tieniAttuale ? aggiornaImpostazioni(p, { ultimoCambio: attuale }) : p, precedente: null })
       },
       sostituisci: viaggio => set({ viaggio, precedente: null }),
       setModifica: modifica => set({ modifica }),

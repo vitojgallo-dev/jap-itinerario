@@ -167,3 +167,45 @@ describe('la rete: una modifica che renderebbe invalido il viaggio non passa', (
     expect(toastMock).not.toHaveBeenCalled()
   })
 })
+
+describe('il cambio che arriva mentre c\'è una modifica da annullare', () => {
+  const s1 = spesaDiProva({ id: 's1', pagatoDa: 'p1', divisaFra: ['p1'] })
+  const conSpesa = () => useViaggio.getState().applica(v => ({ ...v, persone: [{ id: 'p1', nome: 'Vito' }], spese: [s1] }))
+
+  test('aggiornaCambio non tocca precedente (stesso oggetto): il toast "Annulla" resta valido', () => {
+    conSpesa()
+    useViaggio.getState().applicaAnnullabile(v => ({ ...v, spese: [] }), 'Spesa eliminata')
+    const precedente = useViaggio.getState().precedente
+    expect(precedente).not.toBeNull()
+    useViaggio.getState().aggiornaCambio({ valore: 162, data: '2027-08-09' })
+    const s = useViaggio.getState()
+    expect(s.precedente).toBe(precedente)
+    expect(s.viaggio.spese).toEqual([])
+    expect(s.viaggio.impostazioni.ultimoCambio).toEqual({ valore: 162, data: '2027-08-09' })
+    // Il click sul toast, come lo fa sonner.
+    const azione = (toastMock.mock.calls.find(c => c[0] === 'Spesa eliminata')![1] as { action: { onClick: () => void } }).action
+    azione.onClick()
+    expect(useViaggio.getState().viaggio.spese).toEqual([s1])
+  })
+
+  test('l\'annullamento riporta le spese ma tiene il cambio arrivato nel frattempo', () => {
+    conSpesa()
+    useViaggio.getState().applica(v => ({ ...v, impostazioni: { ...v.impostazioni, ultimoCambio: { valore: 150, data: '2027-08-01' } } }))
+    useViaggio.getState().applicaAnnullabile(v => ({ ...v, spese: [] }), 'Spesa eliminata')
+    useViaggio.getState().aggiornaCambio({ valore: 162, data: '2027-08-09' })
+    useViaggio.getState().annulla()
+    const s = useViaggio.getState()
+    expect(s.viaggio.spese).toEqual([s1])
+    expect(s.viaggio.impostazioni.ultimoCambio).toEqual({ valore: 162, data: '2027-08-09' })
+    expect(s.precedente).toBeNull()
+  })
+
+  test('senza cambio nuovo l\'annullamento ripristina il viaggio com\'era, e un cambio più vecchio non vince', () => {
+    conSpesa()
+    useViaggio.getState().applica(v => ({ ...v, impostazioni: { ...v.impostazioni, ultimoCambio: { valore: 162, data: '2027-08-09' } } }))
+    useViaggio.getState().applicaAnnullabile(v => ({ ...v, spese: [], impostazioni: { ...v.impostazioni, ultimoCambio: { valore: 100, data: '2027-07-01' } } }), 'Importato')
+    useViaggio.getState().annulla()
+    expect(useViaggio.getState().viaggio.impostazioni.ultimoCambio).toEqual({ valore: 162, data: '2027-08-09' })
+    expect(useViaggio.getState().viaggio.spese).toEqual([s1])
+  })
+})
