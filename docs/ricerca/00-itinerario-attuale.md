@@ -1,0 +1,44 @@
+# Itinerario attuale (contesto per la ricerca)
+
+Gruppo di 3 adulti italiani, budget medio-basso, primo viaggio in Giappone. Volo: parte Roma 7/8/2027 12:30, atterra a Tokyo (Haneda o Narita, da verificare) l'8/8 alle 14:00; ripartono da Tokyo il 27/8 alle ~20:00. Si muovono coi mezzi. Agosto = caldo umido (35°C), Obon 13–16 agosto (folla, treni pieni), possibili tifoni.
+
+- **G0 dom 8/8** — Arrivo e prima sera ad Asakusa — dorme: Asakusa View Hotel
+  - 14:00 Arrivo in aeroporto · 16:00 Check-in in hotel · 17:30 Tramonto sul Sumida · 19:00 Cena leggera a Hoppy Street · 21:00 Konbini e a letto
+- **G1 lun 9/8** — Asakusa, Skytree Akihabara — dorme: Asakusa View Hotel
+  - 08:00 Colazione in hotel + partenza · 08:20 Via Nakamise + Kaminarimon · 08:40 Senso-ji · 10:30 Sumida Park · 11:15 Tokyo Skytree · 12:30 Pranzo a Solamachi · 14:30 Akihabara · 18:00 Maidreamin (maid cafe) · 19:30 Don Quijote Akihabara · 20:30 Cena ad Akihabara
+- **G2 mar 10/8** — Shibuya, Harajuku e Shinjuku — dorme: Asakusa View Hotel
+  - 08:30 Partenza dall'hotel · 09:15 Statua di Hachiko · 09:30 Shibuya Crossing · 10:00 Shibuya Sky · 13:30 Meiji Jingu · 14:45 Takeshita Street (Harajuku) · 15:45 Omotesando · 17:00 Tramonto al Tocho (gratis) · 18:30 Omoide Yokocho · 19:30 Kabukicho + testa di Godzilla · 21:00 Golden Gai
+- **G3 mer 11/8** — Tsukiji, Palazzo Imperiale, Ginza e digital art — dorme: Asakusa View Hotel
+  - 07:30 Partenza presto per il mercato · 08:15 Tsukiji Outer Market · 10:30 Giardini Est del Palazzo Imperiale · 12:30 Pranzo a Ginza · 14:00 Ginza + Ginza Six · 16:30 teamLab Borderless (digital art) · 18:30 Tokyo Tower · 20:00 Cena speciale a scelta
+- **G4 gio 12/8** — Templi di Nikko, lago Chuzenji e cascata Kegon — dorme: ryokan Nikko Hoshinoyado
+  - 07:00 Treno Asakusa → Nikko · 09:15 Ponte Shinkyo · 09:40 Tempio Rinno-ji · 10:30 Nikko Toshogu · 12:15 Santuario Futarasan · 13:00 Pranzo a Nikko · 14:30 Lago Chuzenji + Cascata Kegon · 17:30 Onsen e cena kaiseki
+- **G5 ven 13/8** — Verso Kanazawa: mercato, Kenrokuen e il quartiere delle geishe — dorme: Hotel Kanazawa
+  - 07:30 Treno Nikko → Kanazawa · 12:15 Bagagli in hotel e Porta Tsuzumi · 12:45 Mercato Omicho · 14:00 Giardino Kenrokuen · 15:15 Castello di Kanazawa · 16:30 Quartiere geishe Higashi Chaya · 18:00 Lanterne a Higashi Chaya · 19:00 Cena
+- **G6 sab 14/8** — Gita a Shirakawa-go — dorme: Hotel Kanazawa
+  - 08:00 Partenza per Shirakawa-go · 09:30 Villaggio di Shirakawa-go · 14:30 Rientro a Kanazawa · 15:30 Museo del 21 secolo · 17:00 Quartiere samurai Nagamachi
+- **G7 dom 15/8** — Verso Kyoto, sera di lanterne a Nara — dorme: Kyoto Gion Hotel
+  - 08:30 Treno Kanazawa → Kyoto · 11:00 Bagagli in hotel · 11:45 Treno per Nara · 13:00 Parco di Nara + cervi · 13:45 Todai-ji (Grande Buddha) · 15:15 Giardino Isuien · 16:15 Naramachi (centro storico) · 18:00 Cena a Nara · 19:00 Kasuga Chūgen Mantōrō · 20:00 Falò Daimonji e lanterne del Tōdai-ji · 21:00 Rientro a Kyoto
+- **G8 lun 16/8** — Padiglione d'Oro, Arashiyama e i falò dell'Okuribi — dorme: Kyoto Gion Hotel
+  - 08:00 Partenza · 09:00 Kinkaku-ji (Padiglione d'Oro) · 11:30 Pausa nelle ore calde · 15:30 Tempio Tenryu-ji · 16:30 Foresta di bambu di Arashiyama · 17:30 Cena ad Arashiyama · 19:00 Lanterne sul fiume · 20:20 Falò a forma di torii · 21:00 Rientro in hotel
+- **G9 mar 17/8** — Fushimi Inari e Higashiyama — dorme: Kyoto Gion Hotel
+  - 07:00 Partenza presto per Fushimi Inari · 07:30 Fushimi Inari Taisha · 10:30 Kiyomizu-dera · 12:00 Sannenzaka e Ninenzaka · 14:30 Santuario Yasaka + Gion · 18:00 Gion di sera · 19:30 Pontocho
+- **G10 mer 18/8** — Centro, Nishiki e esperienze — dorme: Kyoto Gion Hotel
+  - 09:30 Nishiki Market · 13:00 Esperienze locali · 18:30 Cena tradizionale a Pontocho
+- **G11 gio 19/8** — Kurama e Kibune, in montagna sopra Kyoto — dorme: Kyoto Gion Hotel
+  - 09:00 Treno Eizan per Kurama · 09:45 Tempio Kurama-dera · 11:00 Sentiero da Kurama a Kibune · 12:30 Pranzo sulle kawadoko · 14:00 Santuario Kibune · 16:00 Rientro e riposo · 18:30 Kawaramachi / Nishiki di sera
+- **G12 ven 20/8** — Castello e Dotonbori — dorme: Hotel Forza Osaka Namba Dotonbori
+  - 08:30 Treno Kyoto → Osaka e bagagli in hotel · 09:30 Partenza per il castello · 10:00 Castello di Osaka · 12:00 Mercato Kuromon · 15:00 Dotonbori (di giorno) · 18:00 Dotonbori illuminata · 20:30 Giro per Namba e Shinsaibashi
+- **G13 sab 21/8** — quartieri e cultura — dorme: Hotel Forza Osaka Namba Dotonbori
+  - 09:30 Shinsekai e Tsutenkaku · 13:00 Umeda Sky Building · 17:30 Tramonto dal Floating Garden
+- **G14 dom 22/8** — Templi del sud e ultimi acquisti — dorme: Hotel Forza Osaka Namba Dotonbori
+  - 09:00 Partenza · 09:30 Shitenno-ji · 11:00 Sumiyoshi Taisha · 13:00 Den Den Town (pranzo + otaku) · 16:00 Ultimi acquisti a Shinsaibashi
+- **G15 lun 23/8** — Castello di Himeji e sera a Kobe — dorme: Hotel Forza Osaka Namba Dotonbori
+  - 08:00 Treno per Himeji · 09:00 Castello di Himeji · 11:00 Giardino Kōko-en · 12:30 Pranzo a Himeji · 15:00 Kitano Ijinkan · 17:00 Harborland e il porto · 19:00 Cena col manzo di Kobe · 21:00 Rientro a Osaka
+- **G16 mar 24/8** — Da Osaka a Hakone: museo all'aperto, Owakudani e lago Ashi — dorme: ryokan con onsen a Hakone-Yumoto
+  - 07:30 Treno Osaka → Hakone · 10:30 Bagagli al ryokan · 11:15 Museo all'aperto di Hakone · 13:30 Owakudani · 15:00 Lago Ashi e Torii di Hakone · 17:00 Tenzan Onsen · 19:00 Bagno serale cena kaiseki
+- **G17 mer 25/8** — Ritorno a Tokyo: Ueno, Ameyoko e la vecchia Yanaka — dorme: da scegliere
+  - 09:00 Treno Hakone → Tokyo · 11:30 Ueno: parco e museo · 13:00 Ameyoko (mercato) · 14:30 Yanaka Ginza (vecchia Tokyo) · 16:30 Ginza o Marunouchi · 18:30 Quartiere a scelta di sera
+- **G18 gio 26/8** — Ultimo giorno pieno a Tokyo — dorme: da scegliere
+  - 09:00 Mattina libera · 11:00 Ultimi souvenir · 18:00 Cena di chiusura
+- **G19 ven 27/8** — Ultima mattina e volo di ritorno — dorme: da scegliere
+  - 09:00 Colazione e valigie · 10:30 Check-out e deposito bagagli · 11:00 Ultimo giro in città · 16:00 Trasferimento in aeroporto · 17:00 In aeroporto
