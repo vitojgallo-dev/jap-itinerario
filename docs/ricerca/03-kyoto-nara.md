@@ -4,6 +4,7 @@ Ricerca fatta il 28/10/2026. Gli orari degli eventi 2027 **non sono ancora pubbl
 
 ## 1. Riassunto
 
+> **Correzione del curatore (28/10/2026):** il punto qui sotto è sbagliato. Il **Nara Daimonji Okuribi esiste**: 15/8, accensione verso le 20:00 sul monte Takamado, si vede da Tobihino ([Nara city tourism](https://narashikanko.or.jp/asset/daimonji/naradaimonji2025)). Il Gozan Okuribi di Kyoto è il 16/8.
 1. **Errore nell'itinerario, G7:** "20:00 Falò Daimonji e lanterne del Tōdai-ji" a Nara il 15/8 non esiste. Il Daimonji (Gozan no Okuribi) è il **16/8 a Kyoto**, alle 20:00. A Nara il 15/8 ci sono due cose diverse, in contemporanea dalle 19:00: **Kasuga Taisha Chūgen Mantōrō** (14 e 15/8, ~3.000 lanterne, ingresso al recinto gratis) e **Tōdai-ji Mantō Kuyōe** (15/8, ~2.500 lanterne, la finestra del Daibutsuden si apre e si vede il volto del Grande Buddha da fuori). La **Nara Tōkae** (le candeline nel parco) di solito finisce il 14/8, quindi il 15 non c'è.
 2. **G8 (16/8): Daimonji o Arashiyama, non tutti e due.** Arashiyama vede solo il Torii (20:20) più le lanterne sul fiume (19:00–21:00, ~¥1.700 l'una, finiscono presto). Il Daimonji (20:00) si vede da Demachiyanagi/Kamo/Yoshida-jinja/Gyoen. Alternativa meno affollata di Arashiyama: Hirosawa-no-ike (Henjō-ji), lanterne ~¥1.000, Torii visibile.
 3. **Mercoledì 18/8 (G10) è un cattivo giorno per Nishiki:** moltissimi negozi del mercato chiudono di mercoledì e **Aritsugu (coltelli) risulta chiuso di mercoledì**. Spostare Nishiki e Aritsugu a **martedì 17/8** (entro le 16:30) e usare G10 per altro. Inoltre Nishiki di sera (G11 "18:30") è chiuso: i negozi chiudono alle 17–18.
@@ -66,7 +67,7 @@ Cosa cambiare:
   - **19:00 Kasuga Taisha Chūgen Mantōrō** (camminata a piedi nel parco al buio, ~3.000 lanterne; ingresso gratuito, accesso speciale ¥700, dedica lanterna ¥3.000; orario 2025: 19:00–21:30).
   - **20:15–20:30 Tōdai-ji Mantō Kuyōe**: il picco di folla è **19:00–20:30**, dopo le 20:30 è più calmo. Ingresso al Daibutsuden ¥800 (da verificare 2027), ~2.500 lanterne, la finestra frontale (観相窓) si apre solo questa notte e a Capodanno, per vedere il volto del Daibutsu. Alternativa: mettersi in coda alle 18:00. Orario 2025: 19:00–21:30.
   - 21:45 Rientro a Kyoto (Kintetsu o JR; i treni sono pieni ma ci sono corse fino a tarda sera).
-- **Togliere** "Falò Daimonji" dal programma di Nara.
+- **Togliere** "Falò Daimonji" dal programma di Nara. *(Superato: il Nara Daimonji esiste, vedi la correzione in cima.)*
 - Nara Tōkae 2025: 5–14/8 (19:00–21:30), niente il 15: non rientra nelle loro date.
 
 ### G8 — lunedì 16/8 — Kinkaku-ji, Arashiyama, Okuribi

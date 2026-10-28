@@ -9,14 +9,14 @@ Gli orari indicati sono quelli da scrivere nell'app.
 
 ## FIX (11)
 
-**1. G7 dom 15/8 — falò Daimonji inesistente a Nara** · FIX
+**1. G7 dom 15/8 — sera di Nara: orari e ordine delle tre feste** · FIX
 - Attuale: "19:00 Kasuga Chūgen Mantōrō · 20:00 Falò Daimonji e lanterne del Tōdai-ji"
-- Proposta: "19:00 Kasuga Taisha Chūgen Mantōrō (~3.000 lanterne, recinto gratis) · 20:30 Tōdai-ji Mantō Kuyōe (~2.500 lanterne, finestra aperta sul volto del Grande Buddha, Daibutsuden ~¥800) · 21:45 Rientro a Kyoto"
-- Perché: il Daimonji si fa a Kyoto il 16/8 alle 20:00. A Nara il 15/8 ci sono solo le due feste delle lanterne.
+- Proposta: "19:00 Kasuga Taisha Chūgen Mantōrō (~3.000 lanterne, recinto gratis) · 20:00 Nara Daimonji Okuribi visto da Tobihino (il 大 sul monte Takamado; annullato se piove) · 20:30 Tōdai-ji Mantō Kuyōe (finestra aperta sul volto del Grande Buddha, Daibutsuden ~¥800) · 21:45 Rientro a Kyoto"
+- Perché: il Daimonji di Nara esiste (15/8, accensione verso le 20:00, [Nara city tourism](https://narashikanko.or.jp/asset/daimonji/naradaimonji2025)); le lanterne del Tōdai-ji sono un evento a parte e vanno messe dopo. NB: una prima versione di questa guida diceva per errore che il Daimonji di Nara non esiste.
 
 **2. G6 sab 14/8 — Museo del XXI secolo chiuso** · FIX
 - Attuale: "15:30 Museo del 21 secolo · 17:00 Quartiere samurai Nagamachi"
-- Proposta: "16:00 Museo D.T. Suzuki (¥310, ultimo ingresso 16:30) · 17:00 Nagamachi e Nomura-ke · 18:30 Cena"
+- Proposta: "16:15 Museo D.T. Suzuki (¥310, ultimo ingresso 16:30; si salta se il bus tarda) · 17:00 Nagamachi e Nomura-ke · 18:30 Cena"
 - Perché: il museo è chiuso per lavori dal 6/5/2027 a marzo 2028 (avviso ufficiale).
 
 **3. G3 mer 11/8 — Tsukiji chiuso (festa nazionale e mercoledì)** · FIX
@@ -49,14 +49,11 @@ Gli orari indicati sono quelli da scrivere nell'app.
 - Proposta: "14:00 Arrivo (Suica/PASMO, Visit Japan Web) · 17:00 Check-in (18:00 se Narita) · 18:00 Senso-ji di sera · 19:00 Cena a Hoppy Street · 21:00 Konbini e a letto". Il tramonto sul Sumida diventa facoltativo.
 - Perché: fra immigrazione, bagagli e IC card si esce verso le 15:30, e l'hotel si raggiunge alle 16:30–17:00 da Haneda o alle 17:30–18:00 da Narita.
 
-**9. G4 gio 12/8 + G5 ven 13/8 — ryokan di Nikko fuori budget e trasferimento di 5 ore nel picco Obon** · FIX
-- Attuale: G4 dorme al "ryokan Nikko Hoshinoyado", "17:30 Onsen e cena kaiseki"; G5 "07:30 Treno Nikko → Kanazawa · 12:15 Bagagli in hotel"
-- Proposta: G4 diventa **gita in giornata**: "07:50 Spacia X Asakusa → Nikko · 09:55 Ponte Shinkyo · 10:15 Toshogu · 11:15 Rinno-ji e Futarasan · 12:00 Pranzo yuba · 13:00 Bus per il lago Chuzenji · 14:00 Cascata Kegon e lago · 16:15 Bus di rientro e treno per Asakusa". **Dorme di nuovo ad Asakusa.** G5: "08:30 Kagayaki Tokyo → Kanazawa · 11:00 Zaini in hotel e Porta Tsuzumi · 12:00 Omicho".
-- Perché: Hoshinoyado è un ryokan da 3,5★ e costa ¥25–31k **a persona**. Nikko → Kanazawa richiede ~4h45–5h con 2 cambi il primo giorno di Obon. Il Kagayaki diretto ci mette 2h30, costa meno (~¥14.700 contro ~¥20.500) e vi dà 1,5 ore in più a Kanazawa.
+**9. G4 gio 12/8 + G5 ven 13/8 — Nikko** · RESPINTA da Vito: ryokan e onsen sono obbligatori. Resta la notte a Nikko in ryokan con onsen e cena kaiseki; il 13/8 si parte presto per Kanazawa (Nikko → Utsunomiya → Omiya → Kagayaki, ~4h45–5h, posti riservati il 13/7) e il pomeriggio a Kanazawa è alleggerito.
 
 **10. G0–G4 — Asakusa View Hotel è un 4 stelle** · FIX
 - Attuale: dorme "Asakusa View Hotel" (4 notti)
-- Proposta: un hotel ≤3★ con tripla ad Asakusa/Kuramae (Hotel Mystays Asakusa, Hotel Sunroute Asakusa, Minn Asakusa Kuramae North, Asakusa Central Hotel), per **5 notti, 8–12/8**, perché si aggiunge la notte del G4.
+- Proposta: un hotel ≤3★ con tripla ad Asakusa/Kuramae (Hotel Mystays Asakusa, Hotel Sunroute Asakusa, Minn Asakusa Kuramae North, Asakusa Central Hotel), per **4 notti, 8→12/8** (la notte del G4 è a Nikko in ryokan).
 - Perché: la regola del gruppo è massimo 3 stelle. La zona resta la stessa, che è quella giusta: linea Toei Asakusa diretta per i due aeroporti e Tobu per Nikko.
 
 **11. G19 ven 27/8 — partenza per l'aeroporto troppo tardi** · FIX
@@ -70,8 +67,8 @@ Gli orari indicati sono quelli da scrivere nell'app.
 
 **12. G0–G19 — spedire le valigie con Yamato** · OPZIONALE (consigliato)
 - Attuale: nessuna indicazione sui bagagli.
-- Proposta: aggiungere al G4 "21:00 Valigie grandi a Yamato: Asakusa → hotel di Kyoto" e al G15 "21:00 Valigie a Yamato: Osaka → hotel di Tokyo del 25/8". Nota nel G5–G7 e nel G16: "solo zaino".
-- Perché: Kagayaki, bus per Shirakawa-go, cambio a Tsuruga con Nara la stessa sera e Hakone senza trolley, per ~¥2.000–3.500 a valigia.
+- Proposta: aggiungere al G3 "21:30 Valigia per Yamato: Asakusa → hotel di Kyoto" (si prepara la sera e si consegna la mattina del 12/8, prima dello Spacia X) e al G15 "21:15 Valigie a Yamato: Osaka → hotel di Tokyo del 25/8". Nota nel G4–G7 e nel G16: "solo zaino".
+- Perché: ryokan di Nikko, treno per Kanazawa nel primo giorno di Obon, bus per Shirakawa-go, cambio a Tsuruga con Nara la stessa sera e Hakone senza trolley, per ~¥2.000–3.500 a valigia.
 
 **13. G1 lun 9/8 — Senso-ji presto, Skytree solo da fuori** · OPZIONALE
 - Attuale: "08:00 Colazione · 08:20 Nakamise + Kaminarimon · 08:40 Senso-ji · 10:30 Sumida Park · 11:15 Tokyo Skytree · 12:30 Pranzo a Solamachi"
@@ -80,7 +77,7 @@ Gli orari indicati sono quelli da scrivere nell'app.
 
 **14. G2 mar 10/8 — giro riordinato per il caldo** · OPZIONALE
 - Attuale: "09:15 Hachiko · 09:30 Crossing · 10:00 Shibuya Sky · 13:30 Meiji Jingu · 14:45 Takeshita · 15:45 Omotesando · 17:00 Tocho · 18:30 Omoide Yokocho · 19:30 Kabukicho · 21:00 Golden Gai"
-- Proposta: "08:00 Meiji Jingu · 09:30 Omotesando (Oriental Bazaar, Kiddy Land) · 11:30 Takeshita Street · 12:30 Pranzo a Shibuya e Parco 6F (Nintendo, Pokémon) · 15:00 Hachiko, Crossing dallo Starbucks Tsutaya · 17:30 Shibuya Sky al tramonto · 19:30 Omoide Yokocho · 20:30 Kabukicho e Godzilla · 21:00 Golden Gai". Il Tocho va al G17.
+- Proposta: "08:00 Meiji Jingu · 09:30 Omotesando (Oriental Bazaar, poi Kiddy Land che apre verso le 11:00) · 11:30 Takeshita Street · 12:30 Pranzo a Shibuya e Parco 6F (Nintendo, Pokémon) · 15:00 Hachiko, Crossing dallo Starbucks Tsutaya · 17:30 Shibuya Sky al tramonto · 19:30 Omoide Yokocho · 20:30 Kabukicho e Godzilla · 21:00 Golden Gai". Il Tocho va al G17.
 - Perché: Meiji e Takeshita alle 13:30–15:00 cadono nelle ore peggiori, e lo Shibuya Sky alle 10:00 ha la luce piatta.
 
 **15. G3 mer 11/8 — festivo: palazzo, Ginza pedonale, teamLab, Tokyo Tower da fuori** · OPZIONALE
@@ -94,7 +91,7 @@ Gli orari indicati sono quelli da scrivere nell'app.
 
 **17. G5 ven 13/8 — Kanazawa alleggerita** · OPZIONALE
 - Attuale: "15:15 Castello di Kanazawa"
-- Proposta: "13:30 Kenrokuen · 15:30 Parco del castello (solo esterno)"
+- Proposta: "15:00 Kenrokuen, castello solo da fuori · 16:30 Higashi Chaya" (si arriva da Nikko verso le 13:15)
 - Perché: gli interni costano ¥320 e sono ricostruiti, e la giornata a 33 °C è già piena.
 
 **18. G6 sab 14/8 — Shirakawa-go in dettaglio** · OPZIONALE
@@ -104,7 +101,7 @@ Gli orari indicati sono quelli da scrivere nell'app.
 
 **19. G7 dom 15/8 — treno con cambio e Nara in ordine** · OPZIONALE
 - Attuale: "08:30 Treno Kanazawa → Kyoto · 11:00 Bagagli in hotel · 11:45 Treno per Nara · 13:00 Parco di Nara · 13:45 Todai-ji · 15:15 Isuien · 16:15 Naramachi · 18:00 Cena"
-- Proposta: "08:30 Shinkansen → Tsuruga, poi Thunderbird → Kyoto · 11:15 Zaini in hotel · 11:45 Kintetsu per Nara · 12:45 Pranzo e cervi · 13:30 Tōdai-ji · 15:00 Isuien · 16:15 Naramachi · 17:30 Cena presto", poi come nel fix n. 1.
+- Proposta: "08:30 Shinkansen → Tsuruga, poi Thunderbird → Kyoto · 11:15 Zaini in hotel (se il treno tarda, dritti a Nara con gli zaini) · 12:15 Kintetsu per Nara · 13:15 Pranzo e cervi · 14:00 Tōdai-ji · 15:15 Isuien · 16:30 Naramachi · 17:30 Cena presto", poi come nel fix n. 1.
 - Perché: da Kanazawa non c'è più un treno diretto. La Kintetsu arriva accanto al parco. La sera si sta in piedi fino alle 21:30.
 
 **20. G8 lun 16/8 — lanterne di Arashiyama e variante Daimonji** · OPZIONALE
@@ -154,7 +151,7 @@ Gli orari indicati sono quelli da scrivere nell'app.
 
 **29. G16 mar 24/8 — Hakone in ordine e Freepass** · OPZIONALE
 - Attuale: "07:30 Treno Osaka → Hakone · 10:30 Bagagli al ryokan · 11:15 Museo all'aperto · 13:30 Owakudani · 15:00 Lago Ashi e Torii · 17:00 Tenzan Onsen · 19:00 Bagno serale e cena kaiseki"
-- Proposta: "07:30 Hikari Shin-Osaka → Odawara (deve fermare a Odawara) · 10:00 Hakone Freepass a Odawara · 10:30 Zaini al ryokan · 11:15 Museo all'aperto · 13:45 Owakudani · 14:45 Nave pirata da Togendai · 15:45 Torii di Hakone · 16:45 Bus per Yumoto · 18:00 Bagno e cena". Tenzan Onsen facoltativo, la sera stessa o il mattino del G17.
+- Proposta: "07:30 Hikari Shin-Osaka → Odawara (deve fermare a Odawara) · 10:00 Hakone Freepass a Odawara · 10:30 Zaini al ryokan · 11:15 Museo all'aperto · 13:45 Owakudani · 14:45 Nave pirata da Togendai · 15:45 Torii di Hakone · 16:45 Bus per Yumoto · 18:00 Bagno e cena". Tenzan Onsen facoltativo, la sera stessa: il mattino del G17 apre alle 9:00, quando parte il Romancecar.
 - Perché: cinque tappe più due bagni in un giorno sono troppe. Il Freepass da Odawara (¥6.000) conviene solo facendo l'anello in quest'ordine.
 
 **30. G17 mer 25/8 — Romancecar per Shinjuku e Tocho** · OPZIONALE

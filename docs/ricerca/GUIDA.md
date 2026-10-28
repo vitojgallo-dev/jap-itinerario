@@ -10,11 +10,11 @@ Calendario 2027: dom 8 · lun 9 · mar 10 · **mer 11 (festa: Mountain Day)** ·
 
 1. **L'11/8 è festa nazionale (Mountain Day) e cade di mercoledì.** Il mercato esterno di Tsukiji e Kappabashi sono quasi tutti chiusi. Tsukiji va spostato a **giovedì 26/8 mattina**. I Giardini Est del Palazzo Imperiale invece sono aperti.
 2. **Il Museo del XXI secolo di Kanazawa è chiuso** per lavori dal 6/5/2027 a marzo 2028 ([avviso ufficiale](https://www.kanazawa21.jp/data_list.php?g=75&d=141)). Il pomeriggio del 14/8 va su Museo D.T. Suzuki, Nagamachi e Nomura-ke.
-3. **A Nara la sera del 15/8 non c'è nessun falò Daimonji.** Il Daimonji si fa a Kyoto il 16/8 alle 20:00. A Nara il 15/8, dalle 19:00, ci sono il **Kasuga Taisha Chūgen Mantōrō** (~3.000 lanterne) e il **Tōdai-ji Mantō Kuyōe** (~2.500 lanterne; si apre la finestra davanti al volto del Grande Buddha).
+3. **La sera del 15/8 a Nara ci sono tre cose insieme:** dalle 19:00 il **Kasuga Taisha Chūgen Mantōrō** (~3.000 lanterne) e il **Tōdai-ji Mantō Kuyōe** (~2.500 lanterne; si apre la finestra davanti al volto del Grande Buddha), e verso le 20:00 il **Nara Daimonji Okuribi**, il carattere 大 acceso sul monte Takamado (cerimonia a Tobihino dalle 18:50, si vede dal parco; annullato se piove) ([Nara city tourism](https://narashikanko.or.jp/asset/daimonji/naradaimonji2025)). Il Gozan Okuribi di Kyoto invece è il 16/8.
 4. **Il 16/8 ad Arashiyama si vede solo il falò a forma di torii (20:20)** con le lanterne sul fiume. Il Daimonji vero da lì non si vede bene. Dovete scegliere: o Arashiyama (il piano di adesso) o il Daimonji visto dal fiume Kamo.
-5. **Nikko si fa in giornata, con un'altra notte ad Asakusa.** Il 13/8 si prende il Kagayaki diretto Tokyo → Kanazawa (2h30) invece di Nikko → Kanazawa (~5 ore con 2 cambi, primo giorno di Obon). Il ryokan Nikko Hoshinoyado costa ¥25.000–31.000 **a persona** ed è da 3,5 stelle: si toglie. L'onsen lo fate a Hakone.
+5. **Nikko: notte in ryokan con onsen e cena kaiseki (obbligatoria, scelta del gruppo).** Il 13/8 il trasferimento Nikko → Utsunomiya → Omiya → Kanazawa dura ~4h45–5h con 2 cambi nel primo giorno di Obon: partite presto, con tutti i posti riservati (si prenotano il 13/7). Il pomeriggio a Kanazawa è alleggerito. Il ryokan Nikko Hoshinoyado costa ~¥25.000–31.000 a persona con cena e colazione: alternative più economiche con onsen in "Dove dormire".
 6. **Hotel fuori regola:** l'Asakusa View Hotel è un **4 stelle**. Il Kyoto Gion Hotel ha stelle incoerenti fra un sito e l'altro, e la **tripla e l'aria condizionata non sono confermate**. L'Hotel Forza di Osaka va bene (3 stelle, triple con 3 letti). Prenotate **adesso** tutti gli hotel, con cancellazione gratuita.
-7. **Le valigie grandi viaggiano con Yamato (takkyubin)** da Asakusa a Kyoto (12–13/8) e da Osaka a Tokyo (23/8). Così Kanazawa, Shirakawa-go e Hakone si fanno con lo zaino. Costa ~¥2.000–3.500 a valigia.
+7. **Le valigie grandi viaggiano con Yamato (takkyubin)** da Asakusa a Kyoto (si prepara la sera dell'11/8 e si consegna la mattina del 12/8, prima dello Spacia X) e da Osaka a Tokyo (23/8). Così Nikko, Kanazawa, Shirakawa-go e Hakone si fanno con lo zaino. Costa ~¥2.000–3.500 a valigia.
 8. **Niente JR Pass.** Con i biglietti singoli spendete ~¥55.000 a testa per tutti i viaggi lunghi. Un JR Pass da 7 giorni costa ¥53.000 e coprirebbe solo ~¥25.000 di viaggi.
 9. **I treni dell'Obon si prenotano 1 mese prima alle 10:00 giapponesi, cioè alle 03:00 in Italia:** il 13/7 (Kanazawa), il 15/7 (Kyoto) e il 24/7 (Hakone). Spacia per Nikko dal 12/7, bus per Shirakawa-go entro il 14/7. Il Ghibli Museum apre il **10/7 alle 03:00 italiane**.
 10. **Kyoto, mercoledì 18/8: Nishiki in gran parte chiuso e coltelli Aritsugu chiusi.** Nishiki e Aritsugu vanno a martedì 17/8. Il castello di Nijō invece va il mercoledì, perché il martedì di agosto il palazzo Ninomaru è chiuso.
@@ -28,7 +28,7 @@ Calendario 2027: dom 8 · lun 9 · mar 10 · **mer 11 (festa: Mountain Day)** ·
 Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A Tokyo il sole tramonta verso le 18:20 il 10/8 e verso le 18:00 il 27/8.
 
 **Come ho risolto i disaccordi fra i ricercatori (una riga ciascuno):**
-- **Nikko in giornata, non con la notte** (02 contro 05): il 13/8 si risparmiano ~2h30 e 2 cambi in pieno Obon, si spende meno di treno (Kagayaki ¥14.700 contro ~¥20.500) e si evita il ryokan da ¥25–31k a testa.
+- **Nikko con la notte in ryokan** (scelta del gruppo: ryokan e onsen sono obbligatori). I ricercatori 02 e 05 proponevano la gita in giornata per accorciare il 13/8; il piano tiene la notte e accetta il trasferimento lungo, partendo presto.
 - **Valigie mandate a Kyoto, non a Kanazawa** (05 contro 01): a Kanazawa si dorme 2 notti e il 15/8 (Tsuruga + Nara la sera) è il giorno più duro, quindi le valigie devono già aspettarvi a Kyoto.
 - **Kanazawa → Kyoto con cambio a Tsuruga** (02 e 05 contro 03): due ricercatori su tre danno Shinkansen fino a Tsuruga e poi Thunderbird. Il "Thunderbird diretto" del ricercatore 03 non era confermato.
 - **Bus per Shirakawa-go** (02 dice 1 mese prima, 05 dice 2 mesi): controllate dal 14/6 e prenotate appena apre, al più tardi il 14/7.
@@ -39,7 +39,7 @@ Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A T
 ---
 
 ### G0 · domenica 8/8 — Arrivo, Asakusa
-**Dorme:** hotel 3★ ad Asakusa/Kuramae (1ª di 5 notti, vedi "Dove dormire").
+**Dorme:** hotel 3★ ad Asakusa/Kuramae (1ª di 4 notti, vedi "Dove dormire").
 - 14:00 atterraggio (Haneda o Narita: **da verificare**). Comprate Welcome Suica o Tourist PASMO in aeroporto e mostrate il QR di Visit Japan Web.
 - 16:30–17:00 in hotel se arrivate a Haneda, 17:30–18:00 se arrivate a Narita. **Il check-in alle 16:00 non è realistico.**
 - 18:00 Senso-ji di sera: il tempio è aperto e fa più fresco. Nakamise chiude verso le 17–18 (da verificare).
@@ -75,7 +75,7 @@ Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A T
 ### G2 · martedì 10/8 — Meiji, Harajuku, Shibuya, Shinjuku (riordinata per il caldo)
 **Dorme:** Asakusa/Kuramae.
 - 08:00 **Meiji Jingu**: nel bosco ci sono ~5 °C in meno ed è l'ora più fresca.
-- 09:30 Harajuku: **Oriental Bazaar** (apre alle 10:00), **Kiddy Land**, Omotesando.
+- 09:30 Harajuku: **Oriental Bazaar** (apre alle 10:00), Omotesando, poi **Kiddy Land** (apre verso le 11:00) prima di Takeshita.
 - 11:30 **Takeshita Street**, più calma prima delle 13.
 - 12:30 ☀ Shibuya: pranzo, poi al chiuso allo **Shibuya Parco 6F** (Nintendo Tokyo, Pokémon Center, Capcom Store), Loft e Hands.
 - 15:00 caffè con vista sullo **Shibuya Crossing** dallo Starbucks Tsutaya.
@@ -110,31 +110,31 @@ Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A T
 - **Kabukiza** (Ginza) — biglietto "Makumi" per un solo atto, ¥1.000–2.000, si compra il giorno stesso (da verificare per agosto 2027).
 - **Tokyo Station, Gransta e Character Street** — dolci e souvenir (Tokyo Banana, Ginza no Chocolat).
 
-### G4 · giovedì 12/8 — Nikko in giornata
-**Dorme:** di nuovo ad Asakusa/Kuramae (stessa camera, la valigia resta lì).
+### G4 · giovedì 12/8 — Nikko, notte in ryokan
+**Dorme:** ryokan con onsen a Nikko (Nikko Hoshinoyado o un'alternativa, vedi "Dove dormire").
+- Mattina, prima di uscire: check-out ad Asakusa e **valigia grande a Yamato** per l'hotel di Kyoto (preparata la sera prima; arriva il 13–14/8). A Nikko e Kanazawa si va con lo zaino.
 - 07:50 **Spacia X** da Asakusa → arrivo alle 09:39 a Tobu-Nikko (posto prenotato; esistono treni prima, da verificare).
-- 09:55 **Ponte Shinkyo** (¥300 se lo attraversate, gratis guardandolo dal ponte vicino).
-- 10:15 **Toshogu** (¥1.600) → **Rinno-ji Sanbutsudo** (¥400) → **Futarasan** (gratis, giardino ¥300).
-- 12:00 pranzo a base di **yuba** prima delle 13: in montagna i locali sono pochi e più cari.
-- 13:00 bus per il lago Chuzenji (~50 min, ¥1.250 a tratta) → 14:00 ☀ **Cascata Kegon** (ascensore ¥600) e **lago Chuzenji**, ~10 °C più freschi che in città.
-- 16:15 bus di rientro → treno Tobu del tardo pomeriggio (orario da verificare) → Asakusa verso le 20.
+- 10:00 zaini al ryokan (Hoshinoyado è sulla strada fra la stazione e lo Shinkyo: ~5 min di bus o ~25 a piedi dalla stazione).
+- 10:15 **Ponte Shinkyo** (¥300 se lo attraversate) → 10:45 **Toshogu** (¥1.600, 1,5–2 ore) → 12:00 **Rinno-ji Sanbutsudo** (¥400) → 12:30 **Futarasan** (gratis, giardino ¥300).
+- 12:45 pranzo veloce a base di **yuba**: in montagna i locali sono pochi e più cari.
+- 13:30 bus per il lago Chuzenji (~50 min, ¥1.250 a tratta) → 14:30 ☀ **Cascata Kegon** (ascensore ¥600) e **lago Chuzenji**, ~10 °C più freschi che in città.
+- 16:45 bus di rientro → 17:45 check-in al ryokan.
+- 18:00 **onsen** → 19:00 **cena kaiseki** (al Hoshinoyado è a base di yuba). Chi ha tatuaggi chieda prima del bagno privato.
 - **La funivia Akechidaira è chiusa** da gennaio 2026 almeno fino ad agosto 2027.
-- Non serve il Nikko Pass All Area (¥8.000): fate i biglietti singoli. Fra santuari e Okunikko sono ~¥13.300 a testa.
-- **Sera, in hotel:** consegnate alla reception la valigia grande per Yamato, indirizzata all'hotel di Kyoto (vedi "Spostamenti").
+- Non serve il Nikko Pass All Area (¥8.000): fate i biglietti singoli.
 
 **Lungo la strada**
 - **Negozi di yuba** sulla strada principale fra Tobu-Nikko e lo Shinkyo — pranzo ~¥1.800. Molti chiudono alle 15–16 (da verificare). **Gyoshintei**, vicino al Rinno-ji: da verificare.
-- **Kanmangafuchi Abyss** — gola con centinaia di statue di Jizo, gratis, 20–30 min a piedi dal Rinno-ji. Fatela solo se avanza tempo.
+- **Kanmangafuchi Abyss** — gola con centinaia di statue di Jizo, gratis, 20–30 min a piedi dal Rinno-ji. Bella la mattina presto del 13/8 prima del treno, se il ryokan è vicino.
 - **Souvenir di Nikko:** yuba, legno intagliato Nikko-bori, ghiaccio Himitsu no Kori.
 
-### G5 · venerdì 13/8 (Obon) — Tokyo → Kanazawa
+### G5 · venerdì 13/8 (Obon) — Nikko → Kanazawa
 **Dorme:** Kanazawa, zona stazione (1ª di 2 notti, stessa camera).
-- ~08:30 **Kagayaki** Tokyo → Kanazawa (2h30, tutto a posti riservati) → arrivo verso le 11:00 con lo zaino.
-- 11:00 zaini in hotel → 11:30 **Porta Tsuzumi** e Motenashi Dome (gratis, davanti alla stazione).
-- 12:00 ☀ **Mercato Omicho**: pranzo con kaisendon (ciotola di pesce crudo). Il venerdì è aperto, e i piatti migliori finiscono nel primo pomeriggio.
-- 13:30 ☀ **Kenrokuen** (¥320, 7:00–18:00, in parte all'ombra).
-- 15:30 parco del castello **solo da fuori**: gli edifici costano ¥320 e sono ricostruiti.
-- 16:15 **Higashi Chaya**: case da tè, gelato alla foglia d'oro. I negozi chiudono verso le 17–18.
+- 07:30 colazione al ryokan → ~08:15 **JR Nikko Line** per Utsunomiya (~45 min, ¥770) → **Shinkansen Tohoku** fino a Omiya → **Kagayaki** fino a Kanazawa (~2h). Totale ~4h45–5h con 2 cambi, ~¥20.500 a testa: **tutti i posti riservati**, si prenotano il 13/7. Orario del primo treno da verificare su [JR East](https://timetables.jreast.co.jp/).
+- ~13:15 arrivo, zaini in hotel → **Porta Tsuzumi** (gratis, davanti alla stazione).
+- 13:45 ☀ **Mercato Omicho**: pranzo tardo con kaisendon (molti banchi chiudono nel primo pomeriggio: se è tardi, mangiate in stazione).
+- 15:00 **Kenrokuen** (¥320, 7:00–18:00, in parte all'ombra). Il castello **solo da fuori**.
+- 16:30 **Higashi Chaya**: case da tè, gelato alla foglia d'oro. I negozi chiudono verso le 17–18.
 - 18:00 cena a **Katamachi/Korinbo**.
 - Le "lanterne a Higashi Chaya" non esistono: nessuna fonte trova un evento ad agosto, e la sera il quartiere è solo silenzioso.
 
@@ -152,7 +152,7 @@ Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A T
 - 08:00 bus prenotato dal **lato ovest della stazione, fermata 2** (75–85 min, ¥2.800 a tratta) → 09:30 Shirakawa-go.
 - 09:30–13:00 villaggio di **Ogimachi** (gratis), **Wada-ke** (¥400), **Kanda-ke** (¥300), punto panoramico **Shiroyama** (gratis; navetta ~¥300, da verificare). 30–32 °C e poca ombra: cappello e acqua.
 - 12:30 pranzo presto → 14:30 bus di ritorno (prenotato insieme all'andata; **l'ultimo bus è da verificare**).
-- ~16:00 **Museo D.T. Suzuki** (¥310, ultimo ingresso alle 16:30, chiuso il lunedì: se il bus tarda, saltatelo) → **Nagamachi** (le strade del quartiere samurai sono gratis) → **Nomura-ke** (orari da verificare).
+- ~16:15 **Museo D.T. Suzuki** (¥310, ultimo ingresso alle 16:30, chiuso il lunedì: se il bus tarda, saltatelo) → **Nagamachi** (le strade del quartiere samurai sono gratis) → **Nomura-ke** (orari da verificare).
 - **Il Museo del XXI secolo è chiuso** (lavori, 6/5/2027 – marzo 2028).
 - Con tifone o pioggia forte il bus può essere sospeso.
 
@@ -164,15 +164,17 @@ Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A T
 ### G7 · domenica 15/8 (Obon) — Kanazawa → Kyoto → Nara, sera delle lanterne
 **Dorme:** Kyoto, Gion-Shijō / Kawaramachi (1ª di 5 notti). Le valigie sono già arrivate con Yamato.
 - 08:30 **Shinkansen Hokuriku fino a Tsuruga** (~35 min) → cambio → **Thunderbird fino a Kyoto** (~45–53 min). Arrivo verso le 10:45–11:15. Posti riservati su entrambi i treni.
-- 11:15 zaini in hotel (il check-in di solito è dalle 14–15) → treno **Kintetsu** per Nara (Express ¥760, 51 min; Limited Express ¥1.130–1.490, ~35 min). Arriva a Kintetsu-Nara, vicino al parco.
-- 12:45 pranzo leggero e i cervi.
-- 13:30 **Tōdai-ji** (di giorno chiude alle 17:00/17:30).
-- 15:00 ☀ **Isuien** (aperto la domenica, 9:30–16:30, ultimo ingresso 16:00, ¥1.200 con il museo Neiraku; chiuso il martedì).
-- 16:15 **Naramachi** → 17:30 cena presto: dopo si sta in piedi tutta la sera.
+- 11:15 zaini in hotel (il check-in di solito è dalle 14–15). **Se il treno da Tsuruga è in ritardo, saltate l'hotel e andate dritti a Nara con gli zaini.**
+- ~12:15 treno **Kintetsu** per Nara dalla stazione di Kyoto (Express ¥760, 51 min; Limited Express ¥1.130–1.490, ~35 min). Arriva a Kintetsu-Nara, vicino al parco.
+- 13:15 pranzo leggero e i cervi.
+- 14:00 **Tōdai-ji** (di giorno chiude alle 17:00/17:30).
+- 15:15 ☀ **Isuien** (aperto la domenica, 9:30–16:30, ultimo ingresso 16:00, ¥1.200 con il museo Neiraku; chiuso il martedì).
+- 16:30 **Naramachi** → 17:30 cena presto: dopo si sta in piedi tutta la sera.
 - 19:00 **Kasuga Taisha Chūgen Mantōrō**: ~3.000 lanterne, ingresso al recinto gratis, accesso speciale ¥700. Nel 2025 era 19:00–21:30.
+- 20:00 **Nara Daimonji Okuribi**: il 大 si accende sul monte Takamado, si vede bene dal prato di **Tobihino** (cerimonia dalle 18:50, annullato se piove; [Nara city tourism](https://narashikanko.or.jp/asset/daimonji/naradaimonji2025)).
 - 20:30 **Tōdai-ji Mantō Kuyōe**: ~2.500 lanterne e la finestra aperta sul volto del Daibutsu, Daibutsuden ¥800 (da verificare). La folla più grande è fra le 19:00 e le 20:30, dopo è più calmo.
 - 21:45 rientro a Kyoto. I treni sono pieni ma ci sono corse fino a tardi.
-- **Niente falò Daimonji: quello è domani a Kyoto.** La Nara Tōkae (le candeline nel parco) di solito finisce il 14/8.
+- Il Daimonji di Nara (15/8) è diverso dal Gozan Okuribi di Kyoto (16/8): li vedete tutti e due. La Nara Tōkae (le candeline nel parco) di solito finisce il 14/8.
 
 **Lungo la strada**
 - **Naramachi / Higashimuki** — souvenir di Nara: kuzu (kuzukiri), narazuke, pennelli e inchiostro sumi, peluche di cervo, kakinoha-zushi.
@@ -335,7 +337,7 @@ Legenda: ☀ = ore calde (11:00–16:00, 33–36 °C), da passare al chiuso. A T
 
 ### G17 · mercoledì 25/8 — Hakone → Tokyo: Tocho, Ueno, Ameyoko
 **Dorme:** Tokyo, Asakusa/Kuramae (oppure Ueno se il volo parte da Narita; 1ª di 2 notti). Le valigie arrivano qui con Yamato.
-- (07:30 Tenzan Onsen, se non l'avete fatto ieri.)
+- Tenzan Onsen apre alle 9:00, quando parte il Romancecar: se vi interessa, fatelo ieri sera.
 - 09:00 **Romancecar** da Hakone-Yumoto → Shinjuku (~85 min, ¥2.470, prenotato).
 - 10:45 **Tocho**, osservatorio gratis (il mercoledì sono aperti tutti e due).
 - 12:00 ☀ pranzo a Shinjuku → hotel per lasciare gli zaini.
@@ -389,13 +391,13 @@ Regola del gruppo: **al massimo 3 stelle, per 3 adulti.** Le triple vere sono ra
 
 **Hotel dell'itinerario attuale da cambiare:**
 - **Asakusa View Hotel (G0–G3): 4 stelle**, fuori regola. Ha le triple, ma il prezzo per le date non è verificabile.
-- **Nikko Hoshinoyado (G4): ryokan da 3,5 stelle, ¥25.000–31.000 a persona** (¥70–90k a notte per tre con cena). Fuori budget, e con Nikko in giornata non serve più.
+- **Nikko Hoshinoyado (G4): ryokan da 3,5 stelle, ¥25.000–31.000 a persona** con cena e colazione. Resta: ryokan e onsen sono una scelta del gruppo. Sopra il tetto delle 3 stelle, per scelta.
 - **Kyoto Gion Hotel (G7–G11): stelle incoerenti** (2★ su Hotels.com, 4★ su un altro sito), **tripla non confermata**, una fonte dice **senza aria condizionata autonoma**. Prima di tenerlo, chiedete tutte e tre le cose per iscritto.
 - **"Hotel Kanazawa" (G5–G6):** è un nome generico, nessun ricercatore l'ha identificato. Sceglietene uno preciso vicino alla stazione.
 - **Hotel Forza Osaka Namba Dotonbori (G12–G15): va bene** (3 stelle, voto 9,1, triple con 3 letti singoli).
 - **Hakone (G16) e Tokyo (G17–G19): ancora da scegliere.** Il Tokyo del 25/8 serve **prima del 23/8**, perché è l'indirizzo dove spedire le valigie.
 
-### Tokyo, Asakusa / Kuramae — 5 notti (8–12/8) + 2 notti (25–26/8)
+### Tokyo, Asakusa / Kuramae — 4 notti (8→12/8) + 2 notti (25–26/8)
 **Perché qui:** Senso-ji e Hoppy Street a piedi. Il treno Tobu per Nikko parte da Asakusa. La linea Toei Asakusa va **diretta a Haneda e a Narita**, la Ginza Line arriva a Ueno, Ginza e Shibuya, e Kappabashi è a piedi. Kuramae costa meno ed è a 5–10 minuti. Per il secondo soggiorno, se il volo è da Narita, Ueno è altrettanto buona (Skyliner 41 min). Gli hotel sono tutti da verificare per le stelle e il prezzo.
 - **Hotel Mystays Asakusa** (Kuramae, 4 min a piedi) — "Deluxe Triple Skytree View", solo non fumatori — ~¥25.000–35.000 — [Tsunagu Japan](https://tsunagujapan.com/comfortable-yet-budget-friendly-15-recommended-business-hotels-in-asakusa-and-ueno)
 - **Hop Inn Tokyo Ueno** (Ueno) — "Superior Triple" — ~¥25.000–35.000 — [Expedia](https://www.expedia.com/Tokyo-Hotels-Hop-Inn-Tokyo-Ueno.h101955979.Hotel-Information)
@@ -405,8 +407,11 @@ Regola del gruppo: **al massimo 3 stelle, per 3 adulti.** Le triple vere sono ra
 - Per la seconda volta, a Ueno: **APA Hotel Ueno Ekikita** — triple da verificare — [Trip.com](https://nz.trip.com/hotels/tokyo-hotel-detail-21144917/apa-hotel-ueno-ekikita)
 - Se dovete fare twin + singola: **APA Hotel Asakusa Kuramae**, **Super Hotel Asakusa** (camere comunicanti, niente triple), **Richmond Hotel Asakusa** — triple da verificare.
 
-### Nikko — nessuna notte
-Con Nikko in giornata non serve. Se proprio volete dormirci, la soluzione ≤3★ è **Turtle Inn Nikko**: guesthouse con onsen e "Japanese Style Triple", voto 8,8, da ~€72 per 2 persone (istantanea di settembre 2026), colazione ¥1.000 — [Expedia](https://www.expedia.co.in/Nikko-Hotels-Turtle-Inn-Nikko.h8308163.Hotel-Information). Ma così il 13/8 torna a essere il trasferimento lungo.
+### Nikko — 1 notte in ryokan (12/8)
+**Perché qui:** sulla strada fra la stazione Tobu-Nikko e lo Shinkyo, a piedi dai santuari; la mattina dopo il treno per Utsunomiya parte dalla stazione JR Nikko, vicina.
+- **Nikko Hoshinoyado** (日光 星の宿) — ryokan 3,5★, Kamihachiishi-cho 1115, kaiseki di yuba, voto 9,0 — ~¥25.000–31.000 a persona con cena e colazione — [KNT](https://yado.knt.co.jp/st/S090062/) · [Expedia](https://www.expedia.com.ph/Nikko-Hotels-Nikko-Hoshinoyado.h5275445.Hotel-Information)
+- **Turtle Inn Nikko** — guesthouse con onsen e "Japanese Style Triple", voto 8,8, da ~€72 per 2 (istantanea di settembre 2026), colazione ¥1.000; cena da cercare fuori — [Expedia](https://www.expedia.co.in/Nikko-Hotels-Turtle-Inn-Nikko.h8308163.Hotel-Information)
+- Altri ryokan con onsen e cena vanno cercati su Jalan/Rakuten con le date: da verificare.
 
 ### Kanazawa, zona stazione — 2 notti (13–14/8)
 **Perché qui:** il bus per Shirakawa-go parte dal **lato ovest della stazione** alle 8:00, e anche lo Shinkansen del 15/8 parte da lì. Katamachi/Korinbo, la zona della sera, è a ~15 minuti di bus. La stessa camera per 2 notti vi permette di lasciare lo zaino il giorno di Shirakawa-go. I prezzi sono istantanee, **da verificare**.
@@ -674,9 +679,9 @@ Prezzi a persona, 2025–2026, **da verificare** su Navitime/Jorudan/Ekitan prim
 |---|---|---|---|---|---|
 | G0 8/8 | Haneda → Asakusa | Keikyu / Toei Asakusa diretto | ~45–50 min | ¥600–700 | no |
 | G0 8/8 | (oppure) Narita → Asakusa | Keisei Access Express diretto / Skyliner + metro | 65 / ~50 min | ¥1.300–1.500 / ~¥2.800 | no |
-| G4 12/8 | Asakusa ↔ Tobu-Nikko | **Spacia X** (oppure Revaty/Spacia) | 1h50 | **¥3.340** a tratta (A/R ¥6.680); un rapido costa ~¥1.400 e ci mette 2h15 con cambio | **12/7**, Tobu online; il JR Pass non vale |
+| G4 12/8 | Asakusa → Tobu-Nikko (solo andata) | **Spacia X** (oppure Revaty/Spacia) | 1h50 | **¥3.340**; un rapido costa ~¥1.400 e ci mette 2h15 con cambio | **12/7**, Tobu online; il JR Pass non vale |
 | G4 12/8 | Nikko → Chuzenji | bus Tobu | ~50 min | ¥1.250 a tratta | no |
-| G5 13/8 | Tokyo → Kanazawa | **Kagayaki** (solo posti riservati) | 2h30 | **~¥14.700** (a Obon possibile supplemento) | **13/7 03:00**, [JR-EAST Train Reservation](https://www.eki-net.com/en) |
+| G5 13/8 | Nikko → Utsunomiya → Omiya → Kanazawa | JR Nikko Line + Tohoku Shinkansen + **Kagayaki** (posti riservati) | ~4h45–5h, 2 cambi | **~¥20.500** | **13/7 03:00**, [JR-EAST Train Reservation](https://www.eki-net.com/en) |
 | G6 14/8 | Kanazawa ↔ Shirakawa-go | bus Hokutetsu/Nohi, lato ovest fermata 2 | 75–85 min | **¥2.800** a tratta | **obbligatorio**: dal 14/6 al più tardi il 14/7, [Japan Bus Online](https://japanbusonline.com/en/Detail/11900050001/0/4172014/4172014/) o [Hokutetsu](https://www.hokuriku-railroad.co.jp/en/highway/) (tel. +81 76 234 0123). Si cancella fino a 24 h prima con penale |
 | G7 15/8 | Kanazawa → Tsuruga → Kyoto | Hokuriku Shinkansen + **Thunderbird** (solo posti riservati) | ~2h | **~¥7.400–7.900**; "Hokuriku One-way Ticket" per stranieri ¥6.500 (da verificare) | **15/7 03:00**, JR West; quale canale accetti le carte estere è da verificare, altrimenti biglietteria di Kanazawa |
 | G7 15/8 | Kyoto ↔ Nara | Kintetsu Express / Limited Express / JR Miyakoji Rapid | 51 / ~35 / 45–49 min | ¥760 / ¥1.130–1.490 / ¥710–760 | il Limited Express ha il posto riservato |
@@ -693,14 +698,14 @@ Prezzi a persona, 2025–2026, **da verificare** su Navitime/Jorudan/Ekitan prim
 **Mezzi in città:** Kyoto Subway & Bus 1 giorno ¥1.100 · Osaka metro ~¥240–380 a corsa (Osaka Amazing Pass ¥3.500/5.000 con ingressi, periodo di vendita da verificare) · Tokyo metro 24 ore ~¥800 (da verificare).
 
 ### JR Pass: no
-- JR Pass 7 giorni **¥53.000**, 14 giorni ¥84.000 (prezzi dal 1/10/2026). Con Nikko in giornata, la settimana migliore (13–19/8) coprirebbe solo Kagayaki ~¥14.700 + Kanazawa–Kyoto ~¥7.700 + Nara ~¥1.450 + JR locali ~¥1.000 = **~¥25.000**. **Perdete ~¥28.000 a testa.** Tobu, Odakyu, Hakone e il Nozomi non sono comunque coperti.
+- JR Pass 7 giorni **¥53.000**, 14 giorni ¥84.000 (prezzi dal 1/10/2026). La settimana migliore (13–19/8) coprirebbe Nikko → Utsunomiya → Kanazawa ~¥20.500 + Kanazawa–Kyoto ~¥7.700 + Nara ~¥1.450 + JR locali ~¥1.000 = **~¥31.000**. **Perdete ~¥22.000 a testa.** Tobu, Odakyu, Hakone e il Nozomi non sono comunque coperti.
 - Nemmeno l'**Hokuriku Arch Pass** (¥35.000) conviene: coprirebbe ~¥23.700.
 - Il **Nozomi rincara dal 1/7/2027** (Tokyo–Shin-Osaka da ¥14.720 a ¥15.420). Voi non lo prendete. — [The Star/Kyodo](https://www.thestar.com.my/aseanplus/aseanplus-news/2026/10/17/japan-bullet-train-fares-for-some-routes-to-go-up-from-july-2027)
 - Bagagli sul Tokaido (24/8): con una somma dei tre lati di 161–250 cm si prenota il posto con spazio bagagli. Con Yamato il problema non c'è — [JR Central](https://global.jr-central.co.jp/en/info/oversized-baggage)
 
 ### Piano bagagli (Yamato / takkyubin)
 Si consegna alla reception dell'hotel o al konbini; il prezzo dipende dalla somma dei tre lati e dalla distanza. **L'hotel di arrivo deve accettare il pacco**: scrivetegli prima con nome, date e "luggage arriving", e fatevelo confermare per iscritto (di solito accettano fino a 1–3 giorni prima del check-in).
-1. **Sera del 12/8 (o mattina presto del 13/8): Asakusa → hotel di Kyoto.** Arriva il giorno dopo (13–14/8), voi fate il check-in il 15/8. Poi 3 notti con lo zaino: Kagayaki, Kanazawa, bus per Shirakawa-go, cambio a Tsuruga e Nara il 15/8. ~¥2.000–3.500 a valigia.
+1. **Sera dell'11/8 si prepara, mattina del 12/8 si consegna (prima dello Spacia X): Asakusa → hotel di Kyoto.** Arriva il 13–14/8, voi fate il check-in il 15/8. Poi 3 notti con lo zaino: ryokan di Nikko, treno per Kanazawa, bus per Shirakawa-go, cambio a Tsuruga e Nara il 15/8. ~¥2.000–3.500 a valigia.
 2. **20/8 Kyoto → Osaka: niente spedizione.** Sono 30 minuti di treno e il Forza tiene le valigie gratis prima del check-in (spedirle costerebbe ~¥2.000 a valigia).
 3. **Sera del 23/8: Forza Osaka → hotel di Tokyo del 25/8.** A Hakone andate con lo zaino per 1 notte. L'hotel di Tokyo va quindi prenotato prima.
 4. **27/8:** valigie al banco dell'hotel dopo il check-out. In alternativa, a Haneda c'è la consegna in giornata JAL ABC (¥4.500 a valigia) — [JAL](https://jal.co.jp/uk/en/offers/same-day-delivery-service/index.html)
@@ -714,7 +719,7 @@ Ora italiana = ora giapponese meno 7 (in estate). "Da verificare" = la regola di
 
 | Data | Ora italiana | Cosa prenotare / fare | Link |
 |---|---|---|---|
-| **Subito (nov 2026)** | — | **Tutti gli hotel** con cancellazione gratuita: Tokyo 8–13/8 (5 notti), Kanazawa 13–15/8, Kyoto 15–20/8, Osaka 20–24/8, Hakone 24–25/8, Tokyo 25–27/8. A Kyoto in Obon l'occupazione arriva all'85% già prima del 1/8 | [Booking](https://www.booking.com/threestars/city/jp/kanazawa.html?aid=813486) |
+| **Subito (nov 2026)** | — | **Tutti gli hotel** con cancellazione gratuita: Tokyo 8–12/8 (4 notti), ryokan di Nikko 12–13/8, Kanazawa 13–15/8, Kyoto 15–20/8, Osaka 20–24/8, Hakone 24–25/8, Tokyo 25–27/8. A Kyoto in Obon l'occupazione arriva all'85% già prima del 1/8 | [Booking](https://www.booking.com/threestars/city/jp/kanazawa.html?aid=813486) |
 | Subito | — | Kyoto Gion Hotel (se lo tenete): chiedere per iscritto **tripla, aria condizionata, stelle**. Hakone: chiedere **bagno privato e tatuaggi** | [Booking](https://www.booking.com/hotel/jp/kyoto-gion-jing-du-fu-jing-du-shi-dong-shan-qu-qing-ben-ting.html) |
 | Subito | — | Passaporti: validità ≥ 6 mesi dopo il 27/8/2027 consigliata, nome uguale a quello del biglietto aereo | — |
 | Feb 2027 | — | Assicurazione: spese mediche ≥ €200.000–500.000, rimpatrio, bagaglio, tifoni. Decidere chi ha iPhone e chi Android (IC card, eSIM) | — |
@@ -727,8 +732,8 @@ Ora italiana = ora giapponese meno 7 (in estate). "Da verificare" = la regola di
 | 9/7 (opz.) | 17:00 | Piattaforma Skytree per il 9/8 (30 giorni prima, 00:00 JST). La guida consiglia di saltarla | [Art Visit Guide](https://www.artvisitguide.com/tokyo-skytree-tickets-how-to-book-best-time-to-visit-2026/) |
 | **10/7 (sab)** | **03:00** | **Ghibli Museum** (tutto agosto), Lawson Ticket. Si esaurisce in pochi minuti: preparate 3–4 date alternative (giovedì 26/8 è la migliore) | [Ghibli](https://www.ghibli-museum.jp/en/tickets/) |
 | 11/7 (opz.) | 11:00 | Pokémon Cafe per l'11/8 (31 giorni prima, 18:00 JST). Nel 2026 era chiuso per lavori: verificate | [Pokémon Cafe](https://www.pokemon-cafe.jp/en/cafe/news/260601_3428.html) |
-| **12/7** | ora da verificare | **Spacia X Asakusa ⇄ Nikko 12/8**, andata 7:50 e ritorno del tardo pomeriggio | [Ekitan](https://ekitan.com/en/article/spacia-x) |
-| **13/7** | **03:00** | **Kagayaki Tokyo → Kanazawa 13/8**, ~8:30, primo giorno di Obon | [JR-EAST](https://www.eki-net.com/en) |
+| **12/7** | ora da verificare | **Spacia X Asakusa → Nikko 12/8**, partenza 7:50 | [Ekitan](https://ekitan.com/en/article/spacia-x) |
+| **13/7** | **03:00** | **Nikko → Utsunomiya → Omiya → Kanazawa 13/8**, ~8:15 (primo treno da verificare), posti riservati sui due Shinkansen, primo giorno di Obon | [JR-EAST](https://www.eki-net.com/en) |
 | Dal ~13/7 | — | **Shibuya Sky 10/8, 17:30** (2–4 settimane prima, da verificare; prima possibile per il tramonto) | [Tabimania](https://tabimaniajapan.com/japan-trip/complete-guide-to-shibuya-sky-tokyo-tickets-rules-best-time) |
 | **15/7** | **03:00** | **Kanazawa → Tsuruga → Kyoto 15/8**, posti su tutti e due i treni | [Kanazawa Station](https://www.kanazawastation.com/traveling-between-kyoto-and-kanazawa/) |
 | Lug 2027 | — | Email agli hotel di **Kyoto** (valigie in arrivo il 13–14/8) e di **Tokyo** (valigie in arrivo il 24–25/8) | — |
@@ -739,7 +744,7 @@ Ora italiana = ora giapponese meno 7 (in estate). "Da verificare" = la regola di
 | Fine lug | — | Noleggio yukata a Kyoto per il 17/8, online. Maidreamin per il 9/8 (regole da verificare) | [Waraku](https://waraku-kimono.jp/en/?p=35664) |
 | 31/7–6/8 | — | **Visit Japan Web** (3 account, QR salvato), eSIM installata, contanti (~¥30.000–50.000 a testa), adattatori tipo A | [Visit Japan Web](https://services.digital.go.jp/en/visit-japan-web/) |
 | 11/8 (opz.) | — | Visita alla fabbrica Shōyeidō per il 18/8 (1 settimana prima) | [Kyoto Museums](https://www.kyoto-museums.jp/en/museum/central/3797) |
-| 12/8 sera | — | **Yamato: Asakusa → Kyoto** | — |
+| 11/8 sera – 12/8 mattina | — | **Yamato: Asakusa → Kyoto** (si prepara la sera, si consegna prima dello Spacia X) | — |
 | 16/8 | 16:30–17:00 ora locale | Lanterna sul fiume ad Arashiyama (≥90 min prima) | [Self Guide Japan](https://selfguidejapan.com/blog/toro-nagashi-2026) |
 | 23/8 sera | — | **Yamato: Osaka → Tokyo** | — |
 | 24/8 | — | Hakone Freepass a Odawara (o su EMot) | [Odakyu](https://hakonetrip.odakyu-global.com/passes/hakone-freepass/) |
