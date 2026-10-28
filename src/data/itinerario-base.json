@@ -25,7 +25,7 @@
    "colore": "#E4572E",
    "lat": 35.6762,
    "lng": 139.6503,
-   "intro": "Base: Hotel Mystays Asakusa, a Kuramae. Tre giornate intense con serate ricche: dai vicoli di izakaya ai maid cafe, dalle terrazze panoramiche al digital art. Alla fine si torna nello stesso hotel per le ultime due notti.",
+   "intro": "Base: Hotel Mystays Asakusa, a Kuramae. Quattro giornate intense con serate ricche: dai vicoli di izakaya ai maid cafe, dalle terrazze panoramiche al digital art. Alla fine si torna nello stesso hotel per le ultime due notti.",
    "clima": {
     "max": 31,
     "min": 24
@@ -444,7 +444,7 @@
      "ora": "14:30",
      "titolo": "Akihabara",
      "descrizione": "Tutto al chiuso nelle ore calde: Radio Kaikan, Super Potato e Mandarake Complex. Elettronica, anime, manga, retro-gaming e gachapon su più piani.",
-     "consiglio": "Da non perdere: i palazzi multipiano di figure videogiochi usati,",
+     "consiglio": "Da non perdere: i palazzi multipiano di figure e videogiochi usati.",
      "tipo": "visita",
      "sera": false,
      "stato": "da-fare",
@@ -460,7 +460,7 @@
      "id": "t1-7",
      "ora": "18:00",
      "titolo": "Maidreamin (maid cafe)",
-     "descrizione": "L'esperienza pop tipica di Akihabara: cameriere in costume, show kawaii, parfait e omurice con disegni di ketchup. Divertente turistico al punto giusto. spettacolino incluso",
+     "descrizione": "L'esperienza pop tipica di Akihabara: cameriere in costume, show kawaii, parfait e omurice con disegni di ketchup. Divertente e turistico al punto giusto, spettacolino incluso.",
      "consiglio": "Prenotate online. ~¥2.000–3.000 a testa fra consumazione minima e coperto (da verificare).",
      "tipo": "cibo",
      "sera": true,
@@ -498,7 +498,7 @@
      "ora": "20:30",
      "titolo": "Cena ad Akihabara",
      "descrizione": "Tanti ramen e izakaya economici aperti fino a tardi tra i vicoli.",
-     "consiglio": "Vuoi provare la capsule hotel? Akihabara è perfetta: puoi dormire",
+     "consiglio": "",
      "tipo": "cibo",
      "sera": true,
      "stato": "da-fare",
@@ -652,7 +652,7 @@
      "id": "t2-6",
      "ora": "09:30",
      "titolo": "Omotesando: Oriental Bazaar e Kiddy Land",
-     "descrizione": "Regali giapponesi all'Oriental Bazaar (apre alle 10:00, chiuso il giovedì), giocattoli e personaggi da Kiddy Land, sul viale elegante dei brand.",
+     "descrizione": "Regali giapponesi all'Oriental Bazaar (apre alle 10:00, chiuso il giovedì) sul viale elegante dei brand. Kiddy Land, giocattoli e personaggi, apre verso le 11:00: passateci per ultimo, prima di Takeshita.",
      "consiglio": "",
      "tipo": "visita",
      "sera": false,
@@ -1200,8 +1200,7 @@
    },
    "consigli": [
     "La stazione Tobu-Nikko NON è coperta dal Japan Rail Pass (linea privata).",
-    "Il bus per il lago fa molti tornanti: siediti davanti se soffri il mal d'auto.",
-    "Autunno (ott-nov): foliage spettacolare ma molto affollato."
+    "Il bus per il lago fa molti tornanti: siediti davanti se soffri il mal d'auto."
    ],
    "avvisi": [
     {
@@ -1209,7 +1208,7 @@
      "livello": "info"
     },
     {
-     "testo": "Non serve il Nikko Pass All Area (¥8.000): con i biglietti singoli sono ~¥13.300 a testa fra santuari e Okunikko.",
+     "testo": "Non serve il Nikko Pass All Area (¥8.000): in un giorno conviene fare i biglietti singoli.",
      "livello": "info"
     },
     {
@@ -1333,8 +1332,29 @@
      }
     },
     {
+     "id": "t4-11",
+     "ora": "10:00",
+     "titolo": "Zaini al ryokan",
+     "descrizione": "Dalla stazione al ryokan sono ~5 minuti di bus o ~25 a piedi: è sulla strada principale verso il ponte Shinkyo. Lasciate gli zaini, il check-in è nel pomeriggio.",
+     "consiglio": "",
+     "tipo": "hotel",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "ryokan Nikko Hoshinoyado",
+      "query": "Nikko Hoshinoyado ryokan",
+      "lat": 36.748,
+      "lng": 139.603
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
+     }
+    },
+    {
      "id": "t4-1",
-     "ora": "09:55",
+     "ora": "10:15",
      "titolo": "Ponte Shinkyo",
      "descrizione": "L'iconico ponte rosso laccato sul fiume Daiya: ¥300 per attraversarlo, gratis guardandolo dal ponte vicino.",
      "consiglio": "",
@@ -1349,15 +1369,16 @@
       "lng": 139.599
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
      "id": "t4-3",
-     "ora": "10:15",
+     "ora": "10:45",
      "titolo": "Nikko Toshogu",
      "descrizione": "Il capolavoro: mausoleo decoratissimo, tre scimmie sagge, gatto dormiente, pagoda a 5 piani. ~1.5-2 ore.",
-     "consiglio": "Biglietto ¥1.600. Apre alle 9:00 (l'apertura alle 8:00 è da verificare).",
+     "consiglio": "Biglietto ¥1.600. Servono 1,5–2 ore.",
      "tipo": "visita",
      "sera": false,
      "stato": "da-fare",
@@ -1372,7 +1393,8 @@
       "link": null
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 10
      },
      "orari": {
       "chiusoIl": [],
@@ -1384,7 +1406,7 @@
     },
     {
      "id": "t4-2",
-     "ora": "11:15",
+     "ora": "12:00",
      "titolo": "Rinno-ji Sanbutsudo",
      "descrizione": "Tempio buddista con la sala dei tre Buddha dorati, ¥400.",
      "consiglio": "",
@@ -1399,12 +1421,13 @@
       "lng": 139.598
      },
      "spostamento": {
-      "modo": "piedi"
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
      "id": "t4-4",
-     "ora": "11:40",
+     "ora": "12:30",
      "titolo": "Santuario Futarasan",
      "descrizione": "Il santuario più antico di Nikko, tra i cedri. Gratis, giardino ¥300.",
      "consiglio": "",
@@ -1425,9 +1448,9 @@
     },
     {
      "id": "t4-5",
-     "ora": "12:00",
+     "ora": "12:45",
      "titolo": "Pranzo a Nikko",
-     "descrizione": "Pranzo a base di yuba (~¥1.800) prima delle 13: in montagna i locali sono pochi e più cari.",
+     "descrizione": "Pranzo veloce a base di yuba (~¥1.800): in montagna i locali sono pochi e più cari.",
      "consiglio": "",
      "tipo": "cibo",
      "sera": false,
@@ -1445,7 +1468,7 @@
     },
     {
      "id": "t4-8",
-     "ora": "13:00",
+     "ora": "13:30",
      "titolo": "Bus per il lago Chuzenji",
      "descrizione": "Bus Tobu, ~50 minuti di tornanti, ¥1.250 a tratta.",
      "consiglio": "",
@@ -1460,7 +1483,7 @@
     },
     {
      "id": "t4-6",
-     "ora": "14:00",
+     "ora": "14:30",
      "titolo": "Lago Chuzenji + Cascata Kegon",
      "descrizione": "Lago di montagna e cascata di 97 m, con l'ascensore per la base (¥600). Lassù ci sono ~10 °C in meno che in città.",
      "consiglio": "",
@@ -1477,7 +1500,7 @@
     },
     {
      "id": "t4-9",
-     "ora": "16:15",
+     "ora": "16:45",
      "titolo": "Bus di rientro a Nikko",
      "descrizione": "Bus Tobu dal lago fino in paese, ~50 minuti: il ryokan è sulla strada principale fra la stazione e il ponte Shinkyo.",
      "consiglio": "",
@@ -1492,12 +1515,12 @@
     },
     {
      "id": "t4-7",
-     "ora": "17:30",
+     "ora": "18:00",
      "titolo": "Onsen e cena kaiseki",
      "descrizione": "Bagno termale cena kaiseki tradizionale inclusa nel ryokan. Nikko di sera è tranquilla: serata di relax dopo una giornata piena.",
-     "consiglio": "Nikko la sera 'si addormenta' presto: pochi locali aperti, è il",
+     "consiglio": "Check-in verso le 17:45, onsen alle 18:00 e cena kaiseki alle 19:00. Chi ha tatuaggi chieda prima del bagno privato.",
      "tipo": "cibo",
-     "sera": false,
+     "sera": true,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
@@ -1644,11 +1667,32 @@
    "speciale": null,
    "tappe": [
     {
-     "id": "t-kanazawa-1",
+     "id": "t5-9",
      "ora": "07:30",
+     "titolo": "Colazione al ryokan",
+     "descrizione": "Colazione presto e check-out, poi alla stazione JR con lo zaino.",
+     "consiglio": "",
+     "tipo": "cibo",
+     "sera": false,
+     "stato": "da-fare",
+     "nota": "",
+     "luogo": {
+      "nome": "ryokan Nikko Hoshinoyado",
+      "query": "Nikko Hoshinoyado ryokan",
+      "lat": 36.748,
+      "lng": 139.603
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
+     }
+    },
+    {
+     "id": "t-kanazawa-1",
+     "ora": "08:15",
      "titolo": "Treno Nikko → Kanazawa",
-     "descrizione": "JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya, Hokuriku Shinkansen fino a Kanazawa: ~4 ore e 45 con 2 cambi (~¥20.500). Primo giorno di Obon: i posti riservati sono indispensabili.",
-     "consiglio": "Colazione presto al ryokan, o fatevi preparare qualcosa la sera prima.",
+     "descrizione": "JR Nikko Line fino a Utsunomiya (~45 minuti), Tohoku Shinkansen fino a Omiya, Kagayaki fino a Kanazawa (~2 ore): ~4 ore e 45–5 ore con 2 cambi, ~¥20.500. Arrivo verso le 13:15. Primo giorno di Obon: tutti i posti riservati. Orario del primo treno da verificare.",
+     "consiglio": "Gli orari si controllano su timetables.jreast.co.jp.",
      "tipo": "spostamento",
      "sera": false,
      "stato": "da-fare",
@@ -1664,12 +1708,12 @@
      },
      "spostamento": {
       "modo": "treno",
-      "minuti": 285
+      "minuti": 300
      }
     },
     {
      "id": "t5-0",
-     "ora": "12:15",
+     "ora": "13:15",
      "titolo": "Porta Tsuzumi e zaini in hotel",
      "descrizione": "Passate sotto la grande porta di legno Tsuzumi-mon e la cupola Motenashi, davanti alla stazione (gratis), poi lasciate gli zaini in hotel.",
      "consiglio": "",
@@ -1688,9 +1732,9 @@
     },
     {
      "id": "t5-1",
-     "ora": "12:45",
+     "ora": "13:45",
      "titolo": "Mercato Omicho",
-     "descrizione": "La 'cucina di Kanazawa': pesce, granchio, ricci freschissimi. Pranzo col kaisendon (ciotola di pesce crudo): il venerdì è aperto, ma i piatti migliori finiscono nel primo pomeriggio.",
+     "descrizione": "La 'cucina di Kanazawa': pesce, granchio, ricci freschissimi. Pranzo tardo col kaisendon (ciotola di pesce crudo): molti banchi chiudono nel primo pomeriggio, e se è tardi si mangia in stazione.",
      "consiglio": "",
      "tipo": "cibo",
      "sera": false,
@@ -1709,9 +1753,9 @@
     },
     {
      "id": "t5-3",
-     "ora": "14:00",
+     "ora": "15:00",
      "titolo": "Giardino Kenrokuen",
-     "descrizione": "Uno dei tre giardini più belli del Giappone, ¥320, in parte all'ombra.",
+     "descrizione": "Uno dei tre giardini più belli del Giappone, ¥320, in parte all'ombra. Il castello accanto si guarda solo da fuori: gli edifici costano ¥320 e sono ricostruiti.",
      "consiglio": "",
      "tipo": "visita",
      "sera": false,
@@ -1725,7 +1769,7 @@
      },
      "spostamento": {
       "modo": "piedi",
-      "minuti": 10
+      "minuti": 25
      },
      "orari": {
       "chiusoIl": [],
@@ -1736,29 +1780,8 @@
      }
     },
     {
-     "id": "t5-2",
-     "ora": "15:30",
-     "titolo": "Parco del castello (da fuori)",
-     "descrizione": "Mura in pietra e torrette bianche in un grande parco. Gli edifici costano ¥320 e sono ricostruiti: basta il giro fuori.",
-     "consiglio": "",
-     "tipo": "visita",
-     "sera": false,
-     "stato": "da-fare",
-     "nota": "",
-     "luogo": {
-      "nome": "Parco del castello (da fuori)",
-      "query": "Kanazawa Castle Park",
-      "lat": 36.5654,
-      "lng": 136.6591
-     },
-     "spostamento": {
-      "modo": "piedi",
-      "minuti": 25
-     }
-    },
-    {
      "id": "t5-6",
-     "ora": "16:15",
+     "ora": "16:30",
      "titolo": "Quartiere geishe Higashi Chaya",
      "descrizione": "Case da tè in legno e botteghe della foglia d'oro, gelato alla foglia d'oro. I negozi chiudono verso le 17–18.",
      "consiglio": "",
@@ -1782,7 +1805,7 @@
      "ora": "18:00",
      "titolo": "Cena a Katamachi/Korinbo",
      "descrizione": "La zona della sera di Kanazawa, a ~15 minuti di bus dalla stazione: sushi, tempura e izakaya.",
-     "consiglio": "Kanazawa la sera è raccolta: i quartieri storici e qualche izakaya",
+     "consiglio": "Kanazawa la sera è raccolta: i quartieri storici e qualche izakaya.",
      "tipo": "cibo",
      "sera": true,
      "stato": "da-fare",
@@ -2044,9 +2067,9 @@
     },
     {
      "id": "t6-5",
-     "ora": "16:00",
+     "ora": "16:15",
      "titolo": "Museo D.T. Suzuki",
-     "descrizione": "Il museo dedicato al filosofo zen, con lo specchio d'acqua: ¥310, ultimo ingresso alle 16:30. Se il bus tarda, saltatelo.",
+     "descrizione": "Il museo dedicato al filosofo zen, con lo specchio d'acqua: ¥310, ultimo ingresso alle 16:30. Si può saltare: se il bus tarda, andate dritti a Nagamachi.",
      "consiglio": "",
      "tipo": "visita",
      "sera": false,
@@ -2228,7 +2251,7 @@
      "ora": "11:15",
      "titolo": "Zaini in hotel",
      "descrizione": "Lasciate gli zaini (il check-in di solito è dalle 14–15): le valigie spedite con Yamato sono già lì.",
-     "consiglio": "",
+     "consiglio": "Se il treno da Tsuruga è in ritardo, saltate l'hotel e andate dritti a Nara con gli zaini: il Kintetsu parte dalla stazione di Kyoto.",
      "tipo": "hotel",
      "sera": false,
      "stato": "da-fare",
@@ -2244,7 +2267,7 @@
     },
     {
      "id": "t-nara-3",
-     "ora": "11:45",
+     "ora": "12:15",
      "titolo": "Kintetsu per Nara",
      "descrizione": "Kintetsu Kyoto Line: Express ¥760, 51 minuti; Limited Express ¥1.130–1.490, ~35 minuti, col posto riservato. Arriva a Kintetsu-Nara, accanto al parco.",
      "consiglio": "",
@@ -2265,7 +2288,7 @@
     },
     {
      "id": "t10-1",
-     "ora": "12:45",
+     "ora": "13:15",
      "titolo": "Parco di Nara + cervi",
      "descrizione": "I cervi liberi che si inchinano per i biscotti 'shika senbei'. Pranzo leggero vicino al parco.",
      "consiglio": "",
@@ -2286,7 +2309,7 @@
     },
     {
      "id": "t10-2",
-     "ora": "13:30",
+     "ora": "14:00",
      "titolo": "Todai-ji (Grande Buddha)",
      "descrizione": "Colossale Buddha di bronzo in una delle più grandi strutture in legno al mondo. Di giorno chiude alle 17:00/17:30.",
      "consiglio": "",
@@ -2314,7 +2337,7 @@
     },
     {
      "id": "t10-4",
-     "ora": "15:00",
+     "ora": "15:15",
      "titolo": "Giardino Isuien",
      "descrizione": "Elegante giardino con lo 'scenario preso in prestito': inquadra il monte Wakakusa e la porta del Tōdai-ji. Oggi è aperto (chiuso il martedì), ¥1.200 col museo Neiraku.",
      "consiglio": "",
@@ -2344,7 +2367,7 @@
     },
     {
      "id": "t10-5",
-     "ora": "16:15",
+     "ora": "16:30",
      "titolo": "Naramachi (centro storico)",
      "descrizione": "Quartiere di antiche case di mercanti in legno (machiya): botteghe artigiane, caffè nascosti e un museo del giocattolo. Perfetto per il pomeriggio.",
      "consiglio": "",
@@ -2368,9 +2391,9 @@
      "ora": "17:30",
      "titolo": "Cena presto a Nara",
      "descrizione": "Cena presto a Naramachi o vicino alla stazione Kintetsu: dopo si sta in piedi tutta la sera.",
-     "consiglio": "Nara la sera si svuota presto: se vuoi vita serale, rientra a",
+     "consiglio": "",
      "tipo": "cibo",
-     "sera": true,
+     "sera": false,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
@@ -2407,7 +2430,7 @@
      "evento": {
       "nome": "Kasuga Chūgen Mantōrō",
       "nomeJa": "中元万燈籠",
-      "affidabilita": "certa",
+      "affidabilita": "probabile",
       "fonte": "https://www.narashikanko.or.jp/event/detail_10262.html"
      }
     },
@@ -2430,7 +2453,7 @@
      "evento": {
       "nome": "Nara Daimonji Okuribi",
       "nomeJa": "奈良大文字送り火",
-      "affidabilita": "certa",
+      "affidabilita": "probabile",
       "fonte": "https://narashikanko.or.jp/asset/daimonji/naradaimonji2025"
      },
      "spostamento": {
@@ -2457,7 +2480,7 @@
      "evento": {
       "nome": "Tōdai-ji Mantō Kuyōe",
       "nomeJa": "東大寺万灯供養会",
-      "affidabilita": "certa",
+      "affidabilita": "probabile",
       "fonte": "https://banzokubiology.com/todaiji-mantoue-konzatsu/"
      },
      "spostamento": {
@@ -2760,7 +2783,7 @@
      "evento": {
       "nome": "Arashiyama Tōrō Nagashi",
       "nomeJa": "嵐山灯籠流し",
-      "affidabilita": "certa",
+      "affidabilita": "probabile",
       "fonte": "https://www.arashiyamahoshokai.com/event/arashiyama-toronagashi"
      }
     },
@@ -2783,7 +2806,7 @@
      "evento": {
       "nome": "Gozan no Okuribi",
       "nomeJa": "五山送り火",
-      "affidabilita": "certa",
+      "affidabilita": "probabile",
       "fonte": "https://kyototravel.info/gozannookuribi"
      },
      "spostamento": {
@@ -4433,7 +4456,7 @@
      "ora": "18:00",
      "titolo": "Ultimi acquisti a Shinsaibashi",
      "descrizione": "La grande galleria coperta dello shopping, fino a Dotonbori: regali e souvenir prima di ripartire.",
-     "consiglio": "Alternative al giorno 14: gita a Nara (cervi e Grande Buddha) o",
+     "consiglio": "",
      "tipo": "visita",
      "sera": true,
      "stato": "da-fare",
@@ -4712,7 +4735,7 @@
     },
     {
      "id": "t-himeji-11",
-     "ora": "21:00",
+     "ora": "21:15",
      "titolo": "Valigie a Yamato",
      "descrizione": "Consegnate le valigie alla reception per Yamato, indirizzate all'hotel di Tokyo del 25/8: a Hakone si va con lo zaino.",
      "consiglio": "Prima scrivete all'hotel di Tokyo con nome, date e \"luggage arriving\", e fatevelo confermare per iscritto.",
@@ -4745,7 +4768,8 @@
     "L'Hakone Free Pass copre treno, funicolare, funivia, battello e bus: indispensabile.",
     "Meteo e vento: la funivia di Owakudani chiude col vento forte (c'è bus sostitutivo).",
     "Onsen e tatuaggi: molte terme non li ammettono; Tenzan è tattoo-friendly.",
-    "Il Fuji si vede solo col cielo limpido: mattina presto è la fascia migliore."
+    "Il Fuji si vede solo col cielo limpido: mattina presto è la fascia migliore.",
+    "Dallo Shinkansen Shin-Osaka → Odawara il Fuji appare per qualche minuto sul lato sinistro, se il cielo è limpido: tenete pronta la fotocamera."
    ],
    "avvisi": [
     {
@@ -4990,9 +5014,7 @@
      "nota": "",
      "luogo": {
       "nome": "Togendai",
-      "query": "Togendai Port Lake Ashi",
-      "lat": 35.243,
-      "lng": 139.021
+      "query": "Togendai Port Lake Ashi"
      },
      "spostamento": {
       "modo": "mezzi",
@@ -5057,15 +5079,15 @@
     {
      "id": "t16-4",
      "ora": "20:00",
-     "titolo": "Tenzan Onsen",
-     "descrizione": "Terme con vasche all'aperto (rotenburo) fra i monti, 9:00–23:00, ¥1.450 (¥1.350 col Freepass), ammette i tatuaggi. Navetta da Yumoto ¥100. Domattina non c'è tempo: apre alle 9:00, quando parte il Romancecar.",
+     "titolo": "Tenzan Onsen (facoltativo)",
+     "descrizione": "Se vi resta energia dopo l'onsen del ryokan: terme con vasche all'aperto (rotenburo) fra i monti, 9:00–23:00, ¥1.450 (¥1.350 col Freepass), ammette i tatuaggi. Navetta da Yumoto ¥100. Domattina non c'è tempo: apre alle 9:00, quando parte il Romancecar.",
      "consiglio": "",
      "tipo": "visita",
      "sera": true,
      "stato": "da-fare",
      "nota": "",
      "luogo": {
-      "nome": "Tenzan Onsen",
+      "nome": "Tenzan Onsen (facoltativo)",
       "query": "Tenzan Onsen Hakone",
       "lat": 35.227,
       "lng": 139.101
@@ -5294,10 +5316,7 @@
    },
    "consigli": [
     "Lascia spazio in valigia: gli ultimi giorni sono i più pericolosi per gli acquisti.",
-    "Conserva un po' di contanti per l'ultimo giorno (mercati e piccoli negozi).",
-    "Tokyo Skytree (giorno 1): nelle giornate limpide si scorge all'orizzonte.",
-    "Hakone --- Owakudani e Lago Ashi (giorno 16): la vista classica del Fuji, se il cielo è sereno. È il tuo miglior colpo 'incluso'.",
-    "Dal Shinkansen tra Tokyo e Osaka: sul lato destro (direzione Osaka) il Fuji appare per qualche minuto --- tieni pronta la fotocamera."
+    "Conserva un po' di contanti per l'ultimo giorno (mercati e piccoli negozi)."
    ],
    "avvisi": [
     {
@@ -5310,24 +5329,6 @@
     }
    ],
    "suggerimenti": [
-    {
-     "tipo": "cibo",
-     "nome": "Hoto",
-     "descrizione": "zuppa locale di noodle piatti e verdure nel miso, piatto tipico dello Yamanashi",
-     "luogo": {
-      "nome": "Hoto",
-      "query": "Kawaguchiko Lake Mount Fuji view"
-     }
-    },
-    {
-     "tipo": "cibo",
-     "nome": "Yoshida udon",
-     "descrizione": "udon spessi e gommosi, specialità di Fujiyoshida",
-     "luogo": {
-      "nome": "Yoshida udon",
-      "query": "Fujiyoshida"
-     }
-    },
     {
      "tipo": "opzionale",
      "nome": "Odaiba",
@@ -5600,7 +5601,7 @@
    "alloggio": null,
    "speciale": null,
    "consigli": [
-    "Scegli un hotel ben collegato all'aeroporto per l'ultima notte: risparmi stress il giorno della partenza.",
+    "Ultima notte ad Asakusa/Kuramae, collegata direttamente agli aeroporti: il giorno della partenza niente cambi.",
     "Tax-free: porta il passaporto per gli acquisti sopra i 5.000 yen nei negozi aderenti.",
     "Per l'aeroporto: la Toei Asakusa va diretta a Haneda (~45–50 minuti); per Narita, Skyliner da Ueno (41 minuti) o Access Express (~70 minuti)."
    ],
@@ -5814,7 +5815,7 @@
    "fuso": "Asia/Tokyo",
    "note": "4 notti, 8–12/8. \"Deluxe Triple Skytree View\", solo non fumatori, ~¥25.000–35.000 a notte (stima). Alternative ≤3★ con tripla: Hotel Sunroute Asakusa, Minn Asakusa Kuramae North, Asakusa Central Hotel. Prenotate con cancellazione gratuita e chiedete per iscritto la configurazione dei letti. La mattina del 12/8 da qui parte la valigia grande con Yamato.",
    "allegati": [],
-   "inizio": "2027-08-08T15:00",
+   "inizio": "2027-08-08T17:00",
    "fine": "2027-08-12T10:00",
    "luogo": {
     "nome": "Hotel Mystays Asakusa",
@@ -5828,7 +5829,7 @@
    "titolo": "ryokan Nikko Hoshinoyado",
    "stato": "da-prenotare",
    "fuso": "Asia/Tokyo",
-   "note": "Ryokan con onsen e cena kaiseki (specialità: kaiseki di yuba), sulla strada principale fra la stazione e il ponte Shinkyo. Costa ~¥25.000–31.000 a persona con i pasti (per tre con cena ~¥70.000–90.000 a notte); su Expedia è un 3,5 stelle. Più economico, con onsen: Turtle Inn Nikko, guesthouse con \"Japanese Style Triple\", voto 8,8, da ~€72 per 2 persone (istantanea di settembre 2026), colazione ¥1.000. Se qualcuno ha tatuaggi, chiedete prima del bagno privato.",
+   "note": "Ryokan con onsen e cena kaiseki (specialità: kaiseki di yuba), sulla strada principale fra la stazione e il ponte Shinkyo. Costa ~¥25.000–31.000 a persona con i pasti; su Expedia è un 3,5 stelle. Più economico, con onsen: Turtle Inn Nikko, guesthouse con \"Japanese Style Triple\", voto 8,8, da ~€72 per 2 persone (istantanea di settembre 2026), colazione ¥1.000. Se qualcuno ha tatuaggi, chiedete prima del bagno privato.",
    "allegati": [],
    "inizio": "2027-08-12T15:00",
    "fine": "2027-08-13T10:00",
@@ -5880,7 +5881,7 @@
    "fuso": "Asia/Tokyo",
    "note": "3 stelle, triple con 3 letti singoli (26–28 m²), deposito bagagli gratis, check-out alle 11. Stima ¥25.000–40.000 a notte. La sera del 23/8 da qui partono le valigie con Yamato.",
    "allegati": [],
-   "inizio": "2027-08-20T15:00",
+   "inizio": "2027-08-20T14:00",
    "fine": "2027-08-24T10:00",
    "luogo": {
     "nome": "Hotel Forza Osaka Namba Dotonbori",
@@ -6007,7 +6008,7 @@
    "fuso": "Asia/Tokyo",
    "note": "Si compra all'ingresso, ¥1.600.",
    "allegati": [],
-   "inizio": "2027-08-12T10:15",
+   "inizio": "2027-08-12T10:45",
    "luogo": {
     "nome": "Nikko Toshogu",
     "query": "Nikko Toshogu shrine",
@@ -6022,9 +6023,9 @@
    "titolo": "Treno Nikko → Kanazawa",
    "stato": "da-prenotare",
    "fuso": "Asia/Tokyo",
-   "note": "JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya e Hokuriku Shinkansen fino a Kanazawa: ~4 ore e 45 con 2 cambi, ~¥20.500. Posti riservati sui due Shinkansen. Vendita il 13/7 alle 10:00 giapponesi, cioè alle 03:00 in Italia, su JR-EAST Train Reservation. Primo giorno di Obon: prenotate appena apre.",
+   "note": "Partenza da Nikko verso le 8:15 (primo treno da verificare), arrivo a Kanazawa verso le 13:15. JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya e Kagayaki fino a Kanazawa: ~4 ore e 45–5 ore con 2 cambi, ~¥20.500. Posti riservati sui due Shinkansen. Vendita il 13/7 alle 10:00 giapponesi, cioè alle 03:00 in Italia, su JR-EAST Train Reservation. Primo giorno di Obon: prenotate appena apre.",
    "allegati": [],
-   "inizio": "2027-08-13T07:30",
+   "inizio": "2027-08-13T08:15",
    "luogo": {
     "nome": "Stazione JR di Nikko",
     "query": "JR Nikko Station",
@@ -6219,7 +6220,6 @@
    "fuso": "Asia/Tokyo",
    "note": "Entro luglio scrivete all'hotel di Kyoto: nome, date e \"luggage arriving\", e fatevelo confermare per iscritto. La mattina del 12/8, prima del treno per Nikko, valigie alla reception (o la sera prima, se l'hotel le tiene): arrivano il 13–14/8. ~¥2.000–3.500 a valigia, secondo misure e distanza.",
    "allegati": [],
-   "inizio": "2027-08-12T07:15",
    "daPrenotareEntro": "2027-07-31",
    "luogo": {
     "nome": "Hotel Mystays Asakusa",
@@ -6234,7 +6234,7 @@
    "fuso": "Asia/Tokyo",
    "note": "Entro luglio scrivete all'hotel di Tokyo del 25/8 (valigie in arrivo il 24–25/8). La sera del 23/8 valigie alla reception del Forza: a Hakone si va con lo zaino.",
    "allegati": [],
-   "inizio": "2027-08-23T21:00",
+   "inizio": "2027-08-23T21:15",
    "daPrenotareEntro": "2027-07-31",
    "luogo": {
     "nome": "Hotel Forza Osaka Namba Dotonbori",

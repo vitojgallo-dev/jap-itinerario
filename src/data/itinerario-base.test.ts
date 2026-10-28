@@ -53,18 +53,19 @@ describe('itinerario di partenza 2027', () => {
     expect(testo).not.toMatch(/Facile in 6/)
     expect(v.persone).toHaveLength(3)
   })
-  test('ogni tappa con un luogo ha le coordinate, tranne gli hotel ancora da prenotare', () => {
+  test('ogni tappa con un luogo ha le coordinate, tranne gli hotel ancora da prenotare e i luoghi senza coordinate verificate', () => {
     const alloggi = new Set(v.giorni.flatMap(g => g.alloggio ? [g.alloggio.nome] : []))
     const senza = v.giorni.flatMap(g => g.tappe)
       .filter(t => t.luogo && !alloggi.has(t.luogo.nome) && (t.luogo.lat == null || t.luogo.lng == null))
-    expect(senza.map(t => t.titolo)).toEqual([])
+    expect(senza.map(t => t.titolo)).toEqual(['Nave pirata sul lago Ashi'])
   })
   test('i giorni di trasferimento cominciano col viaggio da dove si è dormito', () => {
-    for (const i of [4, 5, 12, 16, 17]) {
+    for (const i of [4, 12, 16, 17]) {
       expect(v.giorni[i].tappe[0].tipo, `G${i}`).toBe('spostamento')
     }
+    // A Nikko prima si fa colazione al ryokan, poi si parte.
+    expect(v.giorni[5].tappe.slice(0, 2).map(t => [t.ora, t.titolo])).toEqual([['07:30', 'Colazione al ryokan'], ['08:15', 'Treno Nikko → Kanazawa']])
     expect(v.giorni[4].tappe[0].titolo).toBe('Treno Asakusa → Nikko')
-    expect(v.giorni[5].tappe[0].titolo).toBe('Treno Nikko → Kanazawa')
     expect(v.giorni[12].tappe[0].titolo).toBe('Treno Kyoto → Osaka e bagagli in hotel')
     expect(v.giorni[16].tappe[0].titolo).toBe('Treno Osaka → Hakone')
     expect(v.giorni[17].tappe[0].titolo).toBe('Treno Hakone → Tokyo')
@@ -88,7 +89,9 @@ describe('itinerario di partenza 2027', () => {
     expect(v.giorni[4].alloggio?.nome).toBe('ryokan Nikko Hoshinoyado')
     expect(v.giorni[4].tappe.map(t => t.titolo)).toContain('Onsen e cena kaiseki')
     expect(v.giorni[16].alloggio?.nome).toBe('ryokan con onsen a Hakone-Yumoto')
-    expect(v.giorni[16].tappe.map(t => t.titolo)).toEqual(expect.arrayContaining(['Bagno serale e cena kaiseki', 'Tenzan Onsen']))
+    expect(v.giorni[16].tappe.map(t => t.titolo)).toEqual(expect.arrayContaining(['Bagno serale e cena kaiseki', 'Tenzan Onsen (facoltativo)']))
+    expect(v.giorni[4].tappe.find(t => t.titolo === 'Zaini al ryokan')?.ora).toBe('10:00')
+    expect(v.giorni[4].consigli.some(c => /Autunno/.test(c))).toBe(false)
   })
   test('gli orari di ogni giorno sono in ordine', () => {
     for (const [i, g] of v.giorni.entries()) {
@@ -119,6 +122,19 @@ describe('itinerario di partenza 2027', () => {
     const titoli = v.giorni.map(g => g.titolo)
     expect(titoli.filter(t => /1 giorno|d'esempio/.test(t))).toEqual([])
   })
+  test('nessun consiglio tronco a metà frase o con i "---" della vecchia app', () => {
+    const consigli = [...v.giorni.flatMap(g => g.consigli), ...v.giorni.flatMap(g => g.tappe).map(t => t.consiglio).filter(Boolean)]
+    expect(consigli.filter(c => /---/.test(c) || !/[.!?)]$/.test(c.trim()))).toEqual([])
+  })
+  test('al G18 niente consigli e cibi del Fuji; il Fuji dallo Shinkansen è al G16, a sinistra', () => {
+    expect(JSON.stringify(v.giorni[18])).not.toMatch(/Fuji|Kawaguchiko|Fujiyoshida/)
+    expect(v.giorni[16].consigli.some(c => /Shin-Osaka → Odawara.*sinistro/.test(c))).toBe(true)
+  })
+  test('le feste del 2027 sono "probabili": gli orari non sono ancora pubblicati', () => {
+    const eventi = v.giorni.flatMap(g => g.tappe).filter(t => t.evento)
+    expect(eventi.length).toBe(5)
+    expect(eventi.every(t => t.evento?.affidabilita === 'probabile')).toBe(true)
+  })
 
   describe('prenotazioni e orari di partenza', () => {
     const hotel = v.prenotazioni.filter(p => p.tipo === 'hotel')
@@ -133,11 +149,11 @@ describe('itinerario di partenza 2027', () => {
     })
     test('check-in e check-out ricavati dai giorni', () => {
       expect(hotel.map(p => [p.titolo, p.inizio, p.fine])).toEqual([
-        ['Hotel Mystays Asakusa', '2027-08-08T15:00', '2027-08-12T10:00'],
+        ['Hotel Mystays Asakusa', '2027-08-08T17:00', '2027-08-12T10:00'],
         ['ryokan Nikko Hoshinoyado', '2027-08-12T15:00', '2027-08-13T10:00'],
         ['Mitsui Garden Hotel Kanazawa', '2027-08-13T15:00', '2027-08-15T10:00'],
         ['Travelodge Kyoto Shijo Kawaramachi', '2027-08-15T15:00', '2027-08-20T10:00'],
-        ['Hotel Forza Osaka Namba Dotonbori', '2027-08-20T15:00', '2027-08-24T10:00'],
+        ['Hotel Forza Osaka Namba Dotonbori', '2027-08-20T14:00', '2027-08-24T10:00'],
         ['ryokan con onsen a Hakone-Yumoto', '2027-08-24T15:00', '2027-08-25T10:00'],
         ['Hotel Mystays Asakusa', '2027-08-25T15:00', '2027-08-27T10:00'],
       ])
@@ -182,7 +198,7 @@ describe('itinerario di partenza 2027', () => {
         entro('pr-t-nara-1'), entro('pr-t-hakone-1'), entro('pr-t-tokyo-1'), entro('pr-ghibli'),
       ]).toEqual(['2027-06-11', '2027-07-12', '2027-07-13', '2027-07-13', '2027-07-14', '2027-07-15', '2027-07-24', '2027-07-25', '2027-07-10'])
       expect(v.prenotazioni.find(p => p.id === 'pr-ghibli')?.note).toMatch(/^Solo se vi interessa/)
-      expect(v.prenotazioni.filter(p => p.tipo === 'altro' && /Yamato/.test(p.titolo)).map(p => p.inizio)).toEqual(['2027-08-12T07:15', '2027-08-23T21:00'])
+      expect(v.prenotazioni.filter(p => p.tipo === 'altro' && /Yamato/.test(p.titolo)).map(p => p.inizio)).toEqual([undefined, '2027-08-23T21:15'])
     })
     test('orari pre-compilati solo sulle tappe dello spec, con la nota di verifica', () => {
       const conOrari = v.giorni.flatMap(g => g.tappe).filter(t => t.orari)
@@ -190,7 +206,7 @@ describe('itinerario di partenza 2027', () => {
         'Castello di Himeji', 'Castello di Nijō', 'Castello di Osaka', 'Giardini Est del Palazzo Imperiale', 'Giardino Isuien',
         'Giardino Kenrokuen', 'Giardino Kōko-en', 'Ginkaku-ji', "Kinkaku-ji (Padiglione d'Oro)", 'Museo D.T. Suzuki',
         'Museo Nazionale di Tokyo', "Museo all'aperto di Hakone", 'Nikko Toshogu', 'Nishiki Market e coltelli Aritsugu', 'Santuario Kibune',
-        'Shibuya Sky', 'Sumiyoshi Taisha', 'Tempio Tenryu-ji', 'Tenzan Onsen', 'Tocho, osservatorio gratis',
+        'Shibuya Sky', 'Sumiyoshi Taisha', 'Tempio Tenryu-ji', 'Tenzan Onsen (facoltativo)', 'Tocho, osservatorio gratis',
         'Todai-ji (Grande Buddha)', 'Tower Knives', 'Tsukiji Outer Market', 'Umeda Sky Building, Floating Garden al tramonto',
         'Yanaka Ginza e cimitero di Yanaka',
       ])
@@ -218,7 +234,7 @@ describe('itinerario di partenza 2027', () => {
       }
     })
     test('il primo hotel di Tokyo è di 4 notti, poi la notte al ryokan di Nikko', () => {
-      expect(v.prenotazioni.find(p => p.id === 'pr-hotel-0')).toMatchObject({ inizio: '2027-08-08T15:00', fine: '2027-08-12T10:00' })
+      expect(v.prenotazioni.find(p => p.id === 'pr-hotel-0')).toMatchObject({ inizio: '2027-08-08T17:00', fine: '2027-08-12T10:00' })
       const ryokan = v.prenotazioni.find(p => p.id === 'pr-hotel-4')
       expect(ryokan).toMatchObject({ titolo: 'ryokan Nikko Hoshinoyado', inizio: '2027-08-12T15:00', fine: '2027-08-13T10:00' })
       expect(ryokan?.note).toMatch(/25\.000–31\.000 a persona/)

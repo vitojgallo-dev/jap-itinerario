@@ -254,7 +254,7 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
     rif(g2, 'Meiji Jingu', '08:00', { descrizione: "Santuario immerso in una foresta, gratuito: nel bosco ci sono ~5 °C in meno ed è l'ora più fresca.", spostamento: { modo: 'piedi', minuti: 15 } }),
     rif(g2, 'Omotesando', '09:30', {
       titolo: 'Omotesando: Oriental Bazaar e Kiddy Land', spostamento: { modo: 'piedi', minuti: 10 },
-      descrizione: "Regali giapponesi all'Oriental Bazaar (apre alle 10:00, chiuso il giovedì), giocattoli e personaggi da Kiddy Land, sul viale elegante dei brand.",
+      descrizione: "Regali giapponesi all'Oriental Bazaar (apre alle 10:00, chiuso il giovedì) sul viale elegante dei brand. Kiddy Land, giocattoli e personaggi, apre verso le 11:00: passateci per ultimo, prima di Takeshita.",
     }),
     rif(g2, 'Takeshita Street (Harajuku)', '11:30', { descrizione: 'La via dello street style giovane: moda kawaii e dolci colorati. Prima delle 13 è più calma.', spostamento: { modo: 'mezzi', minuti: 10 } }),
     nuova('t2-11', '12:30', 'Pranzo a Shibuya e Shibuya Parco', 'visita',
@@ -336,9 +336,10 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
   const g4 = g(4)
   g4.titolo = 'Templi di Nikko, lago Chuzenji e cascata Kegon'
   g4.alloggio = alloggio(ryokanNikko)
+  g4.consigli = g4.consigli.filter(c => !/Autunno/.test(c))
   g4.avvisi = [
     info('La funivia Akechidaira è chiusa da gennaio 2026, almeno fino ad agosto 2027.'),
-    info('Non serve il Nikko Pass All Area (¥8.000): con i biglietti singoli sono ~¥13.300 a testa fra santuari e Okunikko.'),
+    info('Non serve il Nikko Pass All Area (¥8.000): in un giorno conviene fare i biglietti singoli.'),
     info('Solo zaino da oggi a Kyoto: la valigia grande parte stamattina con Yamato.'),
   ]
   g4.tappe = [
@@ -346,16 +347,19 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       'Tobu Spacia X da Asakusa, arrivo a Tobu-Nikko alle 09:39 (posto prenotato; ci sono treni anche prima, da verificare). ¥3.340: il JR Pass non vale.',
       L('Stazione Tobu di Asakusa', 'Tobu Asakusa Station', 35.7115, 139.7982),
       { consiglio: "Prima di uscire, la valigia grande alla reception per Yamato (vedi ieri sera).", biglietti: { link: null }, spostamento: { modo: 'treno', minuti: 110 } }),
-    rif(g4, 'Ponte Shinkyo', '09:55', { descrizione: "L'iconico ponte rosso laccato sul fiume Daiya: ¥300 per attraversarlo, gratis guardandolo dal ponte vicino." }),
-    rif(g4, 'Nikko Toshogu', '10:15', { consiglio: 'Biglietto ¥1.600. Apre alle 9:00 (l\'apertura alle 8:00 è da verificare).' }),
-    rif(g4, 'Tempio Rinno-ji', '11:15', { titolo: 'Rinno-ji Sanbutsudo', descrizione: 'Tempio buddista con la sala dei tre Buddha dorati, ¥400.', spostamento: { modo: 'piedi' } }),
-    rif(g4, 'Santuario Futarasan', '11:40', { descrizione: 'Il santuario più antico di Nikko, tra i cedri. Gratis, giardino ¥300.', spostamento: { modo: 'piedi', minuti: 15 } }),
-    rif(g4, 'Pranzo a Nikko', '12:00', { descrizione: 'Pranzo a base di yuba (~¥1.800) prima delle 13: in montagna i locali sono pochi e più cari.' }),
-    nuova('t4-8', '13:00', 'Bus per il lago Chuzenji', 'spostamento', 'Bus Tobu, ~50 minuti di tornanti, ¥1.250 a tratta.', undefined, { spostamento: { modo: 'mezzi', minuti: 50 } }),
-    rif(g4, 'Lago Chuzenji + Cascata Kegon', '14:00', { descrizione: 'Lago di montagna e cascata di 97 m, con l\'ascensore per la base (¥600). Lassù ci sono ~10 °C in meno che in città.', spostamento: undefined }),
-    nuova('t4-9', '16:15', 'Bus di rientro a Nikko', 'spostamento',
+    nuova('t4-11', '10:00', 'Zaini al ryokan', 'hotel',
+      "Dalla stazione al ryokan sono ~5 minuti di bus o ~25 a piedi: è sulla strada principale verso il ponte Shinkyo. Lasciate gli zaini, il check-in è nel pomeriggio.",
+      alloggio(ryokanNikko), { spostamento: { modo: 'piedi', minuti: 10 } }),
+    rif(g4, 'Ponte Shinkyo', '10:15', { descrizione: "L'iconico ponte rosso laccato sul fiume Daiya: ¥300 per attraversarlo, gratis guardandolo dal ponte vicino.", spostamento: { modo: 'piedi', minuti: 15 } }),
+    rif(g4, 'Nikko Toshogu', '10:45', { consiglio: 'Biglietto ¥1.600. Servono 1,5–2 ore.', spostamento: { modo: 'piedi', minuti: 10 } }),
+    rif(g4, 'Tempio Rinno-ji', '12:00', { titolo: 'Rinno-ji Sanbutsudo', descrizione: 'Tempio buddista con la sala dei tre Buddha dorati, ¥400.', spostamento: { modo: 'piedi', minuti: 10 } }),
+    rif(g4, 'Santuario Futarasan', '12:30', { descrizione: 'Il santuario più antico di Nikko, tra i cedri. Gratis, giardino ¥300.', spostamento: { modo: 'piedi', minuti: 15 } }),
+    rif(g4, 'Pranzo a Nikko', '12:45', { descrizione: 'Pranzo veloce a base di yuba (~¥1.800): in montagna i locali sono pochi e più cari.' }),
+    nuova('t4-8', '13:30', 'Bus per il lago Chuzenji', 'spostamento', 'Bus Tobu, ~50 minuti di tornanti, ¥1.250 a tratta.', undefined, { spostamento: { modo: 'mezzi', minuti: 50 } }),
+    rif(g4, 'Lago Chuzenji + Cascata Kegon', '14:30', { descrizione: 'Lago di montagna e cascata di 97 m, con l\'ascensore per la base (¥600). Lassù ci sono ~10 °C in meno che in città.', spostamento: undefined }),
+    nuova('t4-9', '16:45', 'Bus di rientro a Nikko', 'spostamento',
       'Bus Tobu dal lago fino in paese, ~50 minuti: il ryokan è sulla strada principale fra la stazione e il ponte Shinkyo.', undefined, { spostamento: { modo: 'mezzi', minuti: 50 } }),
-    rif(g4, 'Onsen e cena kaiseki', '17:30'),
+    rif(g4, 'Onsen e cena kaiseki', '18:00', { consiglio: 'Check-in verso le 17:45, onsen alle 18:00 e cena kaiseki alle 19:00. Chi ha tatuaggi chieda prima del bagno privato.' }),
   ]
   g4.suggerimenti = [
     ...g4.suggerimenti,
@@ -376,22 +380,23 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
     info('Le "lanterne a Higashi Chaya" non esistono: nessuna fonte trova un evento ad agosto, e la sera il quartiere è solo silenzioso.'),
   ]
   g5.tappe = [
-    nuova('t-kanazawa-1', '07:30', 'Treno Nikko → Kanazawa', 'spostamento',
-      "JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya, Hokuriku Shinkansen fino a Kanazawa: ~4 ore e 45 con 2 cambi (~¥20.500). Primo giorno di Obon: i posti riservati sono indispensabili.",
+    nuova('t5-9', '07:30', 'Colazione al ryokan', 'cibo', 'Colazione presto e check-out, poi alla stazione JR con lo zaino.', alloggio(ryokanNikko),
+      { spostamento: { modo: 'mezzi', minuti: 15 } }),
+    nuova('t-kanazawa-1', '08:15', 'Treno Nikko → Kanazawa', 'spostamento',
+      "JR Nikko Line fino a Utsunomiya (~45 minuti), Tohoku Shinkansen fino a Omiya, Kagayaki fino a Kanazawa (~2 ore): ~4 ore e 45–5 ore con 2 cambi, ~¥20.500. Arrivo verso le 13:15. Primo giorno di Obon: tutti i posti riservati. Orario del primo treno da verificare.",
       L('Stazione JR di Nikko', 'JR Nikko Station', 36.7479, 139.6187),
-      { consiglio: 'Colazione presto al ryokan, o fatevi preparare qualcosa la sera prima.', biglietti: { link: 'https://www.eki-net.com/en' }, spostamento: { modo: 'treno', minuti: 285 } }),
-    rif(g5, 'Partenza e Porta Tsuzumi', '12:15', {
+      { consiglio: 'Gli orari si controllano su timetables.jreast.co.jp.', biglietti: { link: 'https://www.eki-net.com/en' }, spostamento: { modo: 'treno', minuti: 300 } }),
+    rif(g5, 'Partenza e Porta Tsuzumi', '13:15', {
       titolo: 'Porta Tsuzumi e zaini in hotel', tipo: 'hotel', luogo: alloggio(hotelKanazawa), spostamento: { modo: 'piedi', minuti: 10 },
       descrizione: 'Passate sotto la grande porta di legno Tsuzumi-mon e la cupola Motenashi, davanti alla stazione (gratis), poi lasciate gli zaini in hotel.',
     }),
-    { ...omicho, ora: '12:45', sera: false, tipo: 'cibo', spostamento: { modo: 'piedi', minuti: 20 },
-      descrizione: `${omicho.descrizione} Pranzo col kaisendon (ciotola di pesce crudo): il venerdì è aperto, ma i piatti migliori finiscono nel primo pomeriggio.` },
-    rif(g5, 'Giardino Kenrokuen', '14:00', { descrizione: 'Uno dei tre giardini più belli del Giappone, ¥320, in parte all\'ombra.', spostamento: { modo: 'piedi', minuti: 10 } }),
-    rif(g5, 'Castello di Kanazawa', '15:30', {
-      titolo: 'Parco del castello (da fuori)', spostamento: { modo: 'piedi', minuti: 25 },
-      descrizione: 'Mura in pietra e torrette bianche in un grande parco. Gli edifici costano ¥320 e sono ricostruiti: basta il giro fuori.',
+    { ...omicho, ora: '13:45', sera: false, tipo: 'cibo', spostamento: { modo: 'piedi', minuti: 20 },
+      descrizione: `${omicho.descrizione} Pranzo tardo col kaisendon (ciotola di pesce crudo): molti banchi chiudono nel primo pomeriggio, e se è tardi si mangia in stazione.` },
+    rif(g5, 'Giardino Kenrokuen', '15:00', {
+      spostamento: { modo: 'piedi', minuti: 25 },
+      descrizione: "Uno dei tre giardini più belli del Giappone, ¥320, in parte all'ombra. Il castello accanto si guarda solo da fuori: gli edifici costano ¥320 e sono ricostruiti.",
     }),
-    rif(g5, 'Quartiere geishe Higashi Chaya', '16:15', {
+    rif(g5, 'Quartiere geishe Higashi Chaya', '16:30', {
       descrizione: 'Case da tè in legno e botteghe della foglia d\'oro, gelato alla foglia d\'oro. I negozi chiudono verso le 17–18.', spostamento: { modo: 'mezzi', minuti: 15 },
     }),
     rif(g5, 'Cena', '18:00', {
@@ -436,7 +441,7 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       titolo: 'Bus di ritorno a Kanazawa', luogo: { ...structuredClone(shirakawago), nome: 'Terminal bus di Shirakawa-go' }, spostamento: { modo: 'mezzi', minuti: 85 },
       descrizione: "Bus prenotato insieme all'andata (l'ultimo bus è da verificare).",
     }),
-    nuova('t6-5', '16:00', 'Museo D.T. Suzuki', 'visita', "Il museo dedicato al filosofo zen, con lo specchio d'acqua: ¥310, ultimo ingresso alle 16:30. Se il bus tarda, saltatelo.",
+    nuova('t6-5', '16:15', 'Museo D.T. Suzuki', 'visita', "Il museo dedicato al filosofo zen, con lo specchio d'acqua: ¥310, ultimo ingresso alle 16:30. Si può saltare: se il bus tarda, andate dritti a Nagamachi.",
       L('Museo D.T. Suzuki', 'D.T. Suzuki Museum Kanazawa', 36.5583, 136.6612), { spostamento: { modo: 'mezzi', minuti: 15 } }),
     { ...nagamachi, ora: '17:00', sera: false,
       titolo: 'Nagamachi e Nomura-ke', spostamento: { modo: 'piedi', minuti: 10 },
@@ -479,30 +484,33 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
         "Hokuriku Shinkansen fino a Tsuruga (~35 minuti), cambio, poi Limited Express Thunderbird fino a Kyoto (~45–53 minuti): da Kanazawa non c'è più un treno diretto. Arrivo verso le 10:45–11:15, posti riservati su tutti e due i treni.",
         structuredClone(stazioneKanazawa), { biglietti: { link: null }, spostamento: { modo: 'treno', minuti: 120 } }),
       nuova('t-nara-2', '11:15', 'Zaini in hotel', 'hotel', 'Lasciate gli zaini (il check-in di solito è dalle 14–15): le valigie spedite con Yamato sono già lì.',
-        alloggio(hotelKyoto), { spostamento: { modo: 'mezzi', minuti: 20 } }),
-      nuova('t-nara-3', '11:45', 'Kintetsu per Nara', 'spostamento',
+        alloggio(hotelKyoto), {
+          consiglio: "Se il treno da Tsuruga è in ritardo, saltate l'hotel e andate dritti a Nara con gli zaini: il Kintetsu parte dalla stazione di Kyoto.",
+          spostamento: { modo: 'mezzi', minuti: 20 },
+        }),
+      nuova('t-nara-3', '12:15', 'Kintetsu per Nara', 'spostamento',
         'Kintetsu Kyoto Line: Express ¥760, 51 minuti; Limited Express ¥1.130–1.490, ~35 minuti, col posto riservato. Arriva a Kintetsu-Nara, accanto al parco.',
         L('Stazione di Kyoto', 'Kyoto Station', 34.9858, 135.7588), { spostamento: { modo: 'treno', minuti: 45 } }),
-      { ...tappa(g10, 'Parco di Nara + cervi'), ora: '12:45', descrizione: "I cervi liberi che si inchinano per i biscotti 'shika senbei'. Pranzo leggero vicino al parco.", spostamento: { modo: 'piedi', minuti: 10 } },
-      { ...tappa(g10, 'Todai-ji (Grande Buddha)'), ora: '13:30', descrizione: 'Colossale Buddha di bronzo in una delle più grandi strutture in legno al mondo. Di giorno chiude alle 17:00/17:30.', spostamento: { modo: 'piedi', minuti: 10 } },
-      { ...tappa(g10, 'Giardino Isuien'), ora: '15:00', consiglio: '', spostamento: { modo: 'piedi', minuti: 20 },
+      { ...tappa(g10, 'Parco di Nara + cervi'), ora: '13:15', descrizione: "I cervi liberi che si inchinano per i biscotti 'shika senbei'. Pranzo leggero vicino al parco.", spostamento: { modo: 'piedi', minuti: 10 } },
+      { ...tappa(g10, 'Todai-ji (Grande Buddha)'), ora: '14:00', descrizione: 'Colossale Buddha di bronzo in una delle più grandi strutture in legno al mondo. Di giorno chiude alle 17:00/17:30.', spostamento: { modo: 'piedi', minuti: 10 } },
+      { ...tappa(g10, 'Giardino Isuien'), ora: '15:15', consiglio: '', spostamento: { modo: 'piedi', minuti: 20 },
         descrizione: "Elegante giardino con lo 'scenario preso in prestito': inquadra il monte Wakakusa e la porta del Tōdai-ji. Oggi è aperto (chiuso il martedì), ¥1.200 col museo Neiraku." },
-      { ...tappa(g10, 'Naramachi (centro storico)'), ora: '16:15', spostamento: { modo: 'piedi', minuti: 5 } },
-      { ...cena, ora: '17:30', titolo: 'Cena presto a Nara', sera: true, descrizione: 'Cena presto a Naramachi o vicino alla stazione Kintetsu: dopo si sta in piedi tutta la sera.', spostamento: { modo: 'piedi', minuti: 25 } },
+      { ...tappa(g10, 'Naramachi (centro storico)'), ora: '16:30', spostamento: { modo: 'piedi', minuti: 5 } },
+      { ...cena, ora: '17:30', titolo: 'Cena presto a Nara', sera: false, descrizione: 'Cena presto a Naramachi o vicino alla stazione Kintetsu: dopo si sta in piedi tutta la sera.', spostamento: { modo: 'piedi', minuti: 25 } },
       {
         ...kasuga, ora: '19:00', sera: true, tipo: 'evento', titolo: 'Kasuga Taisha Chūgen Mantōrō', spostamento: { modo: 'piedi', minuti: 15 },
         descrizione: 'Le ~3.000 lanterne di pietra e bronzo del santuario accese tutte insieme, solo il 14 e il 15 agosto. Ingresso al recinto gratis, accesso speciale ¥700. Nel 2025 era 19:00–21:30.',
         consiglio: "Il corridoio interno costa circa 700 ¥ e c'è coda: arrivate entro le 19.",
-        ...evento({ nome: 'Kasuga Chūgen Mantōrō', nomeJa: '中元万燈籠', affidabilita: 'certa', fonte: FONTI.nara }),
+        ...evento({ nome: 'Kasuga Chūgen Mantōrō', nomeJa: '中元万燈籠', affidabilita: 'probabile', fonte: FONTI.nara }),
       },
       nuova('t-nara-4', '20:00', 'Nara Daimonji Okuribi', 'evento',
         'Il carattere 大 si accende sul monte Takamado: si vede bene dal prato di Tobihino, dove la cerimonia comincia alle 18:50. Annullato se piove. È diverso dal Gozan Okuribi di Kyoto di domani.',
         L('Prato di Tobihino', 'Tobihino Nara Park', 34.6845, 135.844),
-        { ...evento({ nome: 'Nara Daimonji Okuribi', nomeJa: '奈良大文字送り火', affidabilita: 'certa', fonte: FONTI.naraDaimonji }), spostamento: { modo: 'piedi', minuti: 15 } }),
+        { ...evento({ nome: 'Nara Daimonji Okuribi', nomeJa: '奈良大文字送り火', affidabilita: 'probabile', fonte: FONTI.naraDaimonji }), spostamento: { modo: 'piedi', minuti: 15 } }),
       nuova('t-nara-6', '20:30', 'Tōdai-ji Mantō Kuyōe', 'evento',
         "~2.500 lanterne e la finestra aperta davanti al volto del Grande Buddha; Daibutsuden ~¥800 (da verificare). La folla più grande è fra le 19:00 e le 20:30, dopo è più calmo.",
         L('Tōdai-ji', 'Todai-ji Nara', 34.6889, 135.8398),
-        { ...evento({ nome: 'Tōdai-ji Mantō Kuyōe', nomeJa: '東大寺万灯供養会', affidabilita: 'certa', fonte: FONTI.todaiji }), spostamento: { modo: 'piedi', minuti: 20 } }),
+        { ...evento({ nome: 'Tōdai-ji Mantō Kuyōe', nomeJa: '東大寺万灯供養会', affidabilita: 'probabile', fonte: FONTI.todaiji }), spostamento: { modo: 'piedi', minuti: 20 } }),
       nuova('t-nara-5', '21:45', 'Rientro a Kyoto', 'spostamento', 'Treni pieni, ma le corse Kintetsu vanno avanti fino a tardi.',
         L('Stazione Kintetsu Nara', 'Kintetsu Nara Station', 34.6843, 135.8279), { spostamento: { modo: 'treno', minuti: 45 } }),
     ],
@@ -536,10 +544,10 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       { spostamento: { modo: 'piedi', minuti: 5 } }),
     nuova('t-okuribi-3', '19:00', 'Lanterne sul fiume', 'evento',
       "Migliaia di lanterne affidate alla corrente del Katsura per accompagnare gli spiriti dell'Obon, fra il Tōgetsukyō e Nakanoshima, 19:00–21:00.",
-      structuredClone(togetsukyo), evento({ nome: 'Arashiyama Tōrō Nagashi', nomeJa: '嵐山灯籠流し', affidabilita: 'certa', fonte: FONTI.arashiyama })),
+      structuredClone(togetsukyo), evento({ nome: 'Arashiyama Tōrō Nagashi', nomeJa: '嵐山灯籠流し', affidabilita: 'probabile', fonte: FONTI.arashiyama })),
     nuova('t-okuribi-4', '20:20', 'Falò a forma di torii', 'evento',
       "L'ultimo dei cinque falò dell'Okuribi, sul monte Mandara, proprio sopra il fiume: si vede dal ponte e dal parco. Da qui gli altri falò non si vedono bene.",
-      structuredClone(togetsukyo), { ...evento({ nome: 'Gozan no Okuribi', nomeJa: '五山送り火', affidabilita: 'certa', fonte: FONTI.okuribi }), spostamento: { modo: 'treno', minuti: 50 } }),
+      structuredClone(togetsukyo), { ...evento({ nome: 'Gozan no Okuribi', nomeJa: '五山送り火', affidabilita: 'probabile', fonte: FONTI.okuribi }), spostamento: { modo: 'treno', minuti: 50 } }),
     nuova('t-okuribi-5', '21:00', 'Attendere 30 minuti, poi rientro', 'spostamento',
       'Fra le 20:50 e le 22:00 i treni sono pienissimi: aspettate mezz\'ora sul posto, poi Randen o JR Sagano Line.', alloggio(hotelKyoto)),
   ]
@@ -780,7 +788,7 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       nuova('t-himeji-6', '18:30', 'Harborland al tramonto', 'visita', 'Il lungomare di Meriken Park con la Port Tower rossa illuminata: la vista è gratis.',
         L('Harborland', 'Kobe Harborland', 34.6793, 135.183), { spostamento: { modo: 'treno', minuti: 45 } }),
       nuova('t-himeji-8', '20:15', 'Rientro a Osaka', 'spostamento', 'Linea Hanshin da Sannomiya a Namba, ~40–45 minuti (treno diretto da verificare).', structuredClone(hotelOsaka)),
-      nuova('t-himeji-11', '21:00', 'Valigie a Yamato', 'hotel',
+      nuova('t-himeji-11', '21:15', 'Valigie a Yamato', 'hotel',
         "Consegnate le valigie alla reception per Yamato, indirizzate all'hotel di Tokyo del 25/8: a Hakone si va con lo zaino.",
         structuredClone(hotelOsaka), { consiglio: "Prima scrivete all'hotel di Tokyo con nome, date e \"luggage arriving\", e fatevelo confermare per iscritto." }),
     ],
@@ -813,7 +821,7 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
     }),
     rif(g16, 'Owakudani', '13:45', { descrizione: 'Gora, funicolare fino a Sounzan, funivia: la valle vulcanica con le fumarole e le uova nere cotte nell\'acqua sulfurea.', spostamento: { modo: 'mezzi', minuti: 30 } }),
     nuova('t16-7', '14:45', 'Nave pirata sul lago Ashi', 'visita', 'Funivia fino a Togendai, poi la nave pirata fino a Moto-Hakone: tutto incluso nel Freepass.',
-      L('Togendai', 'Togendai Port Lake Ashi', 35.243, 139.021), { spostamento: { modo: 'mezzi', minuti: 40 } }),
+      Q('Togendai', 'Togendai Port Lake Ashi'), { spostamento: { modo: 'mezzi', minuti: 40 } }),
     rif(g16, 'Lago Ashi e Torii di Hakone', '15:45', { titolo: 'Torii di Hakone', descrizione: 'Il torii rosso sul lago e il santuario, gratis.', consiglio: 'Per la foto al torii c\'è la coda: mettetela in conto.' }),
     nuova('t16-8', '16:45', 'Bus per Yumoto', 'spostamento', 'Bus Tozan da Moto-Hakone a Hakone-Yumoto, ~40 minuti, incluso nel Freepass.', undefined, { spostamento: { modo: 'mezzi', minuti: 40 } }),
     {
@@ -821,7 +829,8 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
       consiglio: 'Se qualcuno ha tatuaggi, chiedete al ryokan il bagno privato (kashikiri), ¥2.000–5.000 a sessione; Tenzan Onsen li ammette.',
     },
     rif(g16, 'Tenzan Onsen', '20:00', {
-      descrizione: "Terme con vasche all'aperto (rotenburo) fra i monti, 9:00–23:00, ¥1.450 (¥1.350 col Freepass), ammette i tatuaggi. Navetta da Yumoto ¥100. Domattina non c'è tempo: apre alle 9:00, quando parte il Romancecar.",
+      titolo: 'Tenzan Onsen (facoltativo)',
+      descrizione: "Se vi resta energia dopo l'onsen del ryokan: terme con vasche all'aperto (rotenburo) fra i monti, 9:00–23:00, ¥1.450 (¥1.350 col Freepass), ammette i tatuaggi. Navetta da Yumoto ¥100. Domattina non c'è tempo: apre alle 9:00, quando parte il Romancecar.",
     }),
   ]
   g16.suggerimenti = [
@@ -895,9 +904,16 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
     S('souvenir', 'Kumade-ya Yamanoi Shoten', 'Utensili da cucina per professionisti, nel vicolo di Higashi-dori a Tsukiji.', 'Tsukiji Outer Market Higashi-dori'),
     S('opzionale', 'Variante Ghibli', 'Solo se avete i biglietti (di solito chiude il martedì): 10:00 Ghibli Museum, poi Kichijoji (Inokashira Park, Harmonica Yokocho) fino alle 15:00. Tsukiji passa a domani alle 7:30.', 'Ghibli Museum Mitaka'),
   ]
+  // I cibi del Fuji (Kawaguchiko, Fujiyoshida) erano di un giorno che non c'è più.
+  g18.suggerimenti = g18.suggerimenti.filter(s => s.nome !== 'Hoto' && s.nome !== 'Yoshida udon')
   const perIlG19 = (c: string) => /ultima notte|aeroporto|tax-free/i.test(c)
+  // I consigli sul Fuji della vecchia app (Skytree dall'alto, Hakone, lato dello Shinkansen) non valgono più al G18:
+  // la Skytree si guarda da fuori, e il Fuji dallo Shinkansen si cerca il G16, in direzione di Tokyo, a sinistra.
+  const sulFuji = (c: string) => /Fuji|Skytree/.test(c)
   const consigliPartenza = g18.consigli.filter(perIlG19)
-  g18.consigli = g18.consigli.filter(c => !perIlG19(c))
+    .map(c => /^Scegli un hotel/.test(c) ? "Ultima notte ad Asakusa/Kuramae, collegata direttamente agli aeroporti: il giorno della partenza niente cambi." : c)
+  g18.consigli = g18.consigli.filter(c => !perIlG19(c) && !sulFuji(c))
+  g16.consigli = [...g16.consigli, 'Dallo Shinkansen Shin-Osaka → Odawara il Fuji appare per qualche minuto sul lato sinistro, se il cielo è limpido: tenete pronta la fotocamera.']
 
   // G19 — venerdì 27/8: Kappabashi l'ultima mattina, in aeroporto entro le 16:30
   const partenza: Giorno = {
@@ -940,10 +956,20 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
 
   // Una tappa della vecchia app che cambia titolo porta con sé il luogo che si chiamava come lei: il nome segue il titolo.
   const titoliVecchi = new Map(vecchio.giorni.flatMap(d => d.tappe).map(t => [t.id, t.titolo]))
+  // Testi della vecchia app rimasti tronchi a metà frase: completati, o tolti se non servono più.
+  const TESTI_COMPLETI: Record<string, Partial<Tappa>> = {
+    't1-6': { consiglio: 'Da non perdere: i palazzi multipiano di figure e videogiochi usati.' },
+    't1-7': { descrizione: "L'esperienza pop tipica di Akihabara: cameriere in costume, show kawaii, parfait e omurice con disegni di ketchup. Divertente e turistico al punto giusto, spettacolino incluso." },
+    't1-9': { consiglio: '' },
+    't5-8': { consiglio: 'Kanazawa la sera è raccolta: i quartieri storici e qualche izakaya.' },
+    't10-7': { consiglio: '' },
+    't14-4': { consiglio: '' },
+  }
   const allinea = (d: Giorno) => {
     d.tappe = d.tappe.map(t => {
       const prima = titoliVecchi.get(t.id)
-      return prima && t.luogo?.nome === prima && t.titolo !== prima ? { ...t, luogo: { ...t.luogo, nome: t.titolo } } : t
+      const c = { ...t, ...TESTI_COMPLETI[t.id] }
+      return prima && c.luogo?.nome === prima && c.titolo !== prima ? { ...c, luogo: { ...c.luogo, nome: c.titolo } } : c
     })
   }
 
@@ -956,7 +982,7 @@ export function revisione2027(vecchio: Viaggio): Viaggio {
   }
 
   const INTRO_CITTA: Record<string, string> = {
-    tokyo: 'Base: Hotel Mystays Asakusa, a Kuramae. Tre giornate intense con serate ricche: dai vicoli di izakaya ai maid cafe, dalle terrazze panoramiche al digital art. Alla fine si torna nello stesso hotel per le ultime due notti.',
+    tokyo: 'Base: Hotel Mystays Asakusa, a Kuramae. Quattro giornate intense con serate ricche: dai vicoli di izakaya ai maid cafe, dalle terrazze panoramiche al digital art. Alla fine si torna nello stesso hotel per le ultime due notti.',
     kanazawa: 'Il Giappone tradizionale ben conservato. Base: Mitsui Garden Hotel Kanazawa, per due notti con lo zaino.',
     kyoto: "Base: Travelodge Kyoto Shijo Kawaramachi, fra Gion e Kawaramachi. Cinque giorni: l'arrivo con le lanterne di Nara, la notte dei falò ad Arashiyama, i grandi templi e una giornata in montagna fra Kurama e Kibune.",
   }
@@ -989,12 +1015,12 @@ const SUBITO = '2026-11-30'
 /** Note, scadenze e titoli dal "Calendario prenotazioni" di GUIDA.md, per id di prenotazione. */
 const DETTAGLI: Record<string, Partial<Prenotazione>> = {
   'pr-hotel-0': {
-    daPrenotareEntro: SUBITO,
+    inizio: '2027-08-08T17:00', daPrenotareEntro: SUBITO,
     note: "4 notti, 8–12/8. \"Deluxe Triple Skytree View\", solo non fumatori, ~¥25.000–35.000 a notte (stima). Alternative ≤3★ con tripla: Hotel Sunroute Asakusa, Minn Asakusa Kuramae North, Asakusa Central Hotel. Prenotate con cancellazione gratuita e chiedete per iscritto la configurazione dei letti. La mattina del 12/8 da qui parte la valigia grande con Yamato.",
   },
   'pr-hotel-4': {
     daPrenotareEntro: SUBITO,
-    note: "Ryokan con onsen e cena kaiseki (specialità: kaiseki di yuba), sulla strada principale fra la stazione e il ponte Shinkyo. Costa ~¥25.000–31.000 a persona con i pasti (per tre con cena ~¥70.000–90.000 a notte); su Expedia è un 3,5 stelle. Più economico, con onsen: Turtle Inn Nikko, guesthouse con \"Japanese Style Triple\", voto 8,8, da ~€72 per 2 persone (istantanea di settembre 2026), colazione ¥1.000. Se qualcuno ha tatuaggi, chiedete prima del bagno privato.",
+    note: "Ryokan con onsen e cena kaiseki (specialità: kaiseki di yuba), sulla strada principale fra la stazione e il ponte Shinkyo. Costa ~¥25.000–31.000 a persona con i pasti; su Expedia è un 3,5 stelle. Più economico, con onsen: Turtle Inn Nikko, guesthouse con \"Japanese Style Triple\", voto 8,8, da ~€72 per 2 persone (istantanea di settembre 2026), colazione ¥1.000. Se qualcuno ha tatuaggi, chiedete prima del bagno privato.",
   },
   'pr-hotel-5': {
     daPrenotareEntro: SUBITO,
@@ -1005,7 +1031,7 @@ const DETTAGLI: Record<string, Partial<Prenotazione>> = {
     note: "Family triple, camere compatte, colazione ¥1.300, 3 minuti da Kyoto-Kawaramachi. Deve accettare le valigie spedite con Yamato il 13–14/8. Il Kyoto Gion Hotel va bene solo se conferma per iscritto tripla, aria condizionata e stelle. Altre: Hotel MyStays Kyoto Shijo (Comfort Triple: chiedete i letti), APA Hotel Kyoto Gion Excellent, Shiki Shiki Higashiyama (la più economica, bagno in parte condiviso). In Obon ~¥25.000–45.000 a camera; la tassa di soggiorno è a parte.",
   },
   'pr-hotel-12': {
-    daPrenotareEntro: SUBITO,
+    inizio: '2027-08-20T14:00', daPrenotareEntro: SUBITO,
     note: '3 stelle, triple con 3 letti singoli (26–28 m²), deposito bagagli gratis, check-out alle 11. Stima ¥25.000–40.000 a notte. La sera del 23/8 da qui partono le valigie con Yamato.',
   },
   'pr-hotel-16': {
@@ -1022,7 +1048,7 @@ const DETTAGLI: Record<string, Partial<Prenotazione>> = {
   },
   'pr-t-kanazawa-1': {
     daPrenotareEntro: '2027-07-13',
-    note: "JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya e Hokuriku Shinkansen fino a Kanazawa: ~4 ore e 45 con 2 cambi, ~¥20.500. Posti riservati sui due Shinkansen. Vendita il 13/7 alle 10:00 giapponesi, cioè alle 03:00 in Italia, su JR-EAST Train Reservation. Primo giorno di Obon: prenotate appena apre.",
+    note: "Partenza da Nikko verso le 8:15 (primo treno da verificare), arrivo a Kanazawa verso le 13:15. JR Nikko Line fino a Utsunomiya, Tohoku Shinkansen fino a Omiya e Kagayaki fino a Kanazawa: ~4 ore e 45–5 ore con 2 cambi, ~¥20.500. Posti riservati sui due Shinkansen. Vendita il 13/7 alle 10:00 giapponesi, cioè alle 03:00 in Italia, su JR-EAST Train Reservation. Primo giorno di Obon: prenotate appena apre.",
   },
   'pr-t6-0': {
     titolo: 'Bus Kanazawa ⇄ Shirakawa-go', daPrenotareEntro: '2027-07-14',
@@ -1080,11 +1106,11 @@ function completaPrenotazioni(ps: Prenotazione[], hotel: { hotelTokyo: Luogo; ho
       note: "Solo se vi interessa. Vendita il 10/7 alle 03:00 italiane su Lawson Ticket, per tutto agosto: finisce in pochi minuti. Preparate 3–4 date alternative; giovedì 26/8 è la migliore (di solito chiude il martedì). Con il Ghibli, Tsukiji passa al 27/8 alle 7:30.",
     }),
     nuovaPrenotazione('pr-yamato-kyoto', 'altro', 'Valigie con Yamato: Asakusa → Kyoto', {
-      inizio: '2027-08-12T07:15', daPrenotareEntro: '2027-07-31', luogo: structuredClone(hotel.hotelTokyo),
+      daPrenotareEntro: '2027-07-31', luogo: structuredClone(hotel.hotelTokyo),
       note: "Entro luglio scrivete all'hotel di Kyoto: nome, date e \"luggage arriving\", e fatevelo confermare per iscritto. La mattina del 12/8, prima del treno per Nikko, valigie alla reception (o la sera prima, se l'hotel le tiene): arrivano il 13–14/8. ~¥2.000–3.500 a valigia, secondo misure e distanza.",
     }),
     nuovaPrenotazione('pr-yamato-tokyo', 'altro', 'Valigie con Yamato: Osaka → Tokyo', {
-      inizio: '2027-08-23T21:00', daPrenotareEntro: '2027-07-31', luogo: structuredClone(hotel.hotelOsaka),
+      inizio: '2027-08-23T21:15', daPrenotareEntro: '2027-07-31', luogo: structuredClone(hotel.hotelOsaka),
       note: "Entro luglio scrivete all'hotel di Tokyo del 25/8 (valigie in arrivo il 24–25/8). La sera del 23/8 valigie alla reception del Forza: a Hakone si va con lo zaino.",
     }),
   ]
