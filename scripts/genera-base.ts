@@ -2,11 +2,12 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { migraV1 } from '../src/model/migrazioneV1'
 import { validaViaggio } from '../src/model/validazione'
 import { leggiLegacy } from './legacy'
+import { itinerarioV3 } from './itinerario-v3'
 import { revisione2027 } from './revisione-2027'
 
 const html = readFileSync(new URL('../legacy/index-v1.html', import.meta.url), 'utf8')
 const { dati, extra } = leggiLegacy(html)
-const viaggio = revisione2027(migraV1(dati, extra, { dataPartenza: '2027-08-09' }))
+const viaggio = itinerarioV3(revisione2027(migraV1(dati, extra, { dataPartenza: '2027-08-09' })))
 const esito = validaViaggio(viaggio)
 if (!esito.ok) {
   console.error('Itinerario non valido:\n' + esito.errori.join('\n'))

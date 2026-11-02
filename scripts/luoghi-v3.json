@@ -1,0 +1,598 @@
+{
+ "akihabara": {
+  "lat": 35.6972,
+  "lng": 139.7752
+ },
+ "amemura": {
+  "lat": 34.6721,
+  "lng": 135.4979
+ },
+ "ameyoko": {
+  "lat": 35.7101,
+  "lng": 139.7745
+ },
+ "asakusaTobu": {
+  "lat": 35.7113,
+  "lng": 139.7983
+ },
+ "atHome": {
+  "lat": 35.6996,
+  "lng": 139.7712
+ },
+ "azumabashi": {
+  "lat": 35.7101,
+  "lng": 139.7989
+ },
+ "bambu": {
+  "lat": 35.0167,
+  "lng": 135.6711
+ },
+ "busta": {
+  "lat": 35.6883,
+  "lng": 139.701
+ },
+ "byodoin": {
+  "lat": 34.891,
+  "lng": 135.8065
+ },
+ "catStreet": {
+  "lat": 35.6655,
+  "lng": 139.7055
+ },
+ "chinatown": {
+  "lat": 35.4427,
+  "lng": 139.6452
+ },
+ "chureito": {
+  "lat": 35.5013,
+  "lng": 138.8014
+ },
+ "chuzenji": {
+  "lat": 36.7368,
+  "lng": 139.4769
+ },
+ "cosmoClock": {
+  "lat": 35.4554,
+  "lng": 139.6368
+ },
+ "crossing": {
+  "lat": 35.6595,
+  "lng": 139.7005
+ },
+ "daibutsu": {
+  "lat": 35.3165,
+  "lng": 139.5357
+ },
+ "demachi": {
+  "lat": 35.0301,
+  "lng": 135.7696
+ },
+ "denden": {
+  "lat": 34.6592,
+  "lng": 135.5058
+ },
+ "doguyasuji": {
+  "lat": 34.664,
+  "lng": 135.5035
+ },
+ "donkiAsakusa": {
+  "lat": 35.7139,
+  "lng": 139.7931
+ },
+ "dormyKanazawa": {
+  "lat": 36.5792,
+  "lng": 136.6506
+ },
+ "dotonbori": {
+  "lat": 34.6689,
+  "lng": 135.5011
+ },
+ "eigamura": {
+  "lat": 35.0165,
+  "lng": 135.7082
+ },
+ "enoshima": {
+  "lat": 35.3003,
+  "lng": 139.4798
+ },
+ "filosofia": {
+  "lat": 35.023,
+  "lng": 135.795
+ },
+ "forza": {
+  "lat": 34.6686,
+  "lng": 135.5034
+ },
+ "fujiq": {
+  "lat": 35.4873,
+  "lng": 138.7816
+ },
+ "fukagawa": {
+  "lat": 35.6811,
+  "lng": 139.8005
+ },
+ "gekkeikan": {
+  "lat": 34.9289,
+  "lng": 135.7616
+ },
+ "ginkakuji": {
+  "lat": 35.0269,
+  "lng": 135.7984
+ },
+ "ginza": {
+  "lat": 35.672,
+  "lng": 139.766
+ },
+ "goldenGai": {
+  "lat": 35.694,
+  "lng": 139.7047
+ },
+ "gundamBase": {
+  "lat": 35.6246,
+  "lng": 139.776
+ },
+ "hakoneJinja": {
+  "lat": 35.2045,
+  "lng": 139.0255
+ },
+ "haneda": {
+  "lat": 35.5457,
+  "lng": 139.7761
+ },
+ "higashiChaya": {
+  "lat": 36.573,
+  "lng": 136.6651
+ },
+ "higashiyamaTakayama": {
+  "lat": 36.143,
+  "lng": 137.2655
+ },
+ "himatsuri": {
+  "lat": 35.471,
+  "lng": 138.7926
+ },
+ "himeji": {
+  "lat": 34.8393,
+  "lng": 134.694
+ },
+ "himejiSt": {
+  "lat": 34.8264,
+  "lng": 134.6908
+ },
+ "hirobun": {
+  "lat": 35.1249,
+  "lng": 135.7639
+ },
+ "hoppy": {
+  "lat": 35.7138,
+  "lng": 139.7942
+ },
+ "hozenji": {
+  "lat": 34.668,
+  "lng": 135.5033
+ },
+ "ichinoyu": {
+  "lat": 35.2333,
+  "lng": 139.0934
+ },
+ "inari": {
+  "lat": 34.9675,
+  "lng": 135.7797
+ },
+ "izuju": {
+  "lat": 35.0037,
+  "lng": 135.7767
+ },
+ "jinya": {
+  "lat": 36.1398,
+  "lng": 137.2591
+ },
+ "kamoDelta": {
+  "lat": 35.0303,
+  "lng": 135.772
+ },
+ "kanazawaSt": {
+  "lat": 36.5787,
+  "lng": 136.6468
+ },
+ "kanmangafuchi": {
+  "lat": 36.749,
+  "lng": 139.5883
+ },
+ "kappabashi": {
+  "lat": 35.714,
+  "lng": 139.788
+ },
+ "kasuga": {
+  "lat": 34.6805,
+  "lng": 135.8461
+ },
+ "katamachi": {
+  "lat": 36.5604,
+  "lng": 136.6515
+ },
+ "katsugyu": {
+  "lat": 34.996,
+  "lng": 135.779
+ },
+ "kegon": {
+  "lat": 36.738,
+  "lng": 139.502
+ },
+ "kenrokuen": {
+  "lat": 36.5624,
+  "lng": 136.6624
+ },
+ "kibune": {
+  "lat": 35.1219,
+  "lng": 135.7629
+ },
+ "kinkakuji": {
+  "lat": 35.0395,
+  "lng": 135.7295
+ },
+ "kintetsuNara": {
+  "lat": 34.6842,
+  "lng": 135.8282
+ },
+ "kitano": {
+  "lat": 34.701,
+  "lng": 135.1913
+ },
+ "kiyamachi": {
+  "lat": 35.0044,
+  "lng": 135.7703
+ },
+ "kiyomizu": {
+  "lat": 34.9949,
+  "lng": 135.785
+ },
+ "kiyosumi": {
+  "lat": 35.6806,
+  "lng": 139.7983
+ },
+ "koenji": {
+  "lat": 35.7053,
+  "lng": 139.65
+ },
+ "kokoen": {
+  "lat": 34.8365,
+  "lng": 134.6904
+ },
+ "kokyo": {
+  "lat": 35.6867,
+  "lng": 139.7574
+ },
+ "komachi": {
+  "lat": 35.3195,
+  "lng": 139.5507
+ },
+ "koshien": {
+  "lat": 34.7223,
+  "lng": 135.3634
+ },
+ "kuraRox": {
+  "lat": 35.7145,
+  "lng": 139.7922
+ },
+ "kurama": {
+  "lat": 35.1179,
+  "lng": 135.7707
+ },
+ "kuromon": {
+  "lat": 34.665,
+  "lng": 135.507
+ },
+ "kyotoSt": {
+  "lat": 34.9867,
+  "lng": 135.7585
+ },
+ "maimon": {
+  "lat": 36.5781,
+  "lng": 136.648
+ },
+ "manga": {
+  "lat": 35.0117,
+  "lng": 135.7592
+ },
+ "meiji": {
+  "lat": 35.6748,
+  "lng": 139.6996
+ },
+ "meriken": {
+  "lat": 34.6826,
+  "lng": 135.1867
+ },
+ "mimaruAsakusa": {
+  "lat": 35.711,
+  "lng": 139.7955
+ },
+ "mimaruKyoto": {
+  "lat": 34.9965,
+  "lng": 135.769
+ },
+ "miyagawa": {
+  "lat": 36.1447,
+  "lng": 137.2579
+ },
+ "motomura": {
+  "lat": 35.657,
+  "lng": 139.704
+ },
+ "nagamachi": {
+  "lat": 36.5638,
+  "lng": 136.65
+ },
+ "nakabashi": {
+  "lat": 36.1399,
+  "lng": 137.259
+ },
+ "nakamise": {
+  "lat": 35.7116,
+  "lng": 139.7964
+ },
+ "nakano": {
+  "lat": 35.7092,
+  "lng": 139.6657
+ },
+ "nankinmachi": {
+  "lat": 34.6881,
+  "lng": 135.1884
+ },
+ "nanzenji": {
+  "lat": 35.0173,
+  "lng": 135.7952
+ },
+ "naraPark": {
+  "lat": 34.6829,
+  "lng": 135.8546
+ },
+ "naramachi": {
+  "lat": 34.677,
+  "lng": 135.83
+ },
+ "nijo": {
+  "lat": 35.014,
+  "lng": 135.7485
+ },
+ "nishiki": {
+  "lat": 35.005,
+  "lng": 135.7656
+ },
+ "odawara": {
+  "lat": 35.2562,
+  "lng": 139.1553
+ },
+ "ogimachi": {
+  "lat": 36.262,
+  "lng": 136.9069
+ },
+ "okochi": {
+  "lat": 35.0166,
+  "lng": 135.6696
+ },
+ "omicho": {
+  "lat": 36.5719,
+  "lng": 136.6558
+ },
+ "omoide": {
+  "lat": 35.6931,
+  "lng": 139.6995
+ },
+ "openair": {
+  "lat": 35.2443,
+  "lng": 139.0521
+ },
+ "orientalBazaar": {
+  "lat": 35.6672,
+  "lng": 139.7074
+ },
+ "osakajo": {
+  "lat": 34.6872,
+  "lng": 135.5254
+ },
+ "osanbashi": {
+  "lat": 35.4517,
+  "lng": 139.6478
+ },
+ "owakudani": {
+  "lat": 35.2474,
+  "lng": 139.0242
+ },
+ "parco": {
+  "lat": 35.6619,
+  "lng": 139.6987
+ },
+ "pasela": {
+  "lat": 35.6987,
+  "lng": 139.7738
+ },
+ "pontocho": {
+  "lat": 35.0042,
+  "lng": 135.7712
+ },
+ "radioKaikan": {
+  "lat": 35.6979,
+  "lng": 139.7719
+ },
+ "redBrick": {
+  "lat": 35.4524,
+  "lng": 139.6429
+ },
+ "rinnoji": {
+  "lat": 36.7485,
+  "lng": 139.5878
+ },
+ "rokkasen": {
+  "lat": 35.6934,
+  "lng": 139.6989
+ },
+ "ryoanji": {
+  "lat": 35.0279,
+  "lng": 135.7211
+ },
+ "sanjo": {
+  "lat": 35.009,
+  "lng": 135.7717
+ },
+ "sanmachi": {
+  "lat": 36.1409,
+  "lng": 137.2597
+ },
+ "sannenzaka": {
+  "lat": 34.9963,
+  "lng": 135.7808
+ },
+ "sensoji": {
+  "lat": 35.7134,
+  "lng": 139.7955
+ },
+ "shibuyaSky": {
+  "lat": 35.6584,
+  "lng": 139.7022
+ },
+ "shimogamo": {
+  "lat": 35.037,
+  "lng": 135.7725
+ },
+ "shimokita": {
+  "lat": 35.6616,
+  "lng": 139.6671
+ },
+ "shinkyo": {
+  "lat": 36.7533,
+  "lng": 139.604
+ },
+ "shinsekai": {
+  "lat": 34.6525,
+  "lng": 135.5063
+ },
+ "shiroyama": {
+  "lat": 36.2685,
+  "lng": 136.907
+ },
+ "shitennoji": {
+  "lat": 34.6531,
+  "lng": 135.5128
+ },
+ "slamdunk": {
+  "lat": 35.3067,
+  "lng": 139.5007
+ },
+ "steakland": {
+  "lat": 34.693,
+  "lng": 135.1921
+ },
+ "sunamachi": {
+  "lat": 35.681,
+  "lng": 139.838
+ },
+ "superPotato": {
+  "lat": 35.6995,
+  "lng": 139.7712
+ },
+ "taitoAkiba": {
+  "lat": 35.6995,
+  "lng": 139.7716
+ },
+ "taiyo": {
+  "lat": 34.8095,
+  "lng": 135.5324
+ },
+ "takayamaSt": {
+  "lat": 36.1411,
+  "lng": 137.2513
+ },
+ "takeshita": {
+  "lat": 35.6712,
+  "lng": 139.705
+ },
+ "teamlab": {
+  "lat": 35.6494,
+  "lng": 139.7897
+ },
+ "tenryuji": {
+  "lat": 35.0157,
+  "lng": 135.6738
+ },
+ "teramachi": {
+  "lat": 35.0197,
+  "lng": 135.7674
+ },
+ "tobihino": {
+  "lat": 34.6807,
+  "lng": 135.8408
+ },
+ "todaiji": {
+  "lat": 34.689,
+  "lng": 135.8398
+ },
+ "togendai": {
+  "lat": 35.2376,
+  "lng": 138.9946
+ },
+ "tokichi": {
+  "lat": 34.8894,
+  "lng": 135.8017
+ },
+ "tokyoSt": {
+  "lat": 35.6806,
+  "lng": 139.765
+ },
+ "tokyuTakayama": {
+  "lat": 36.1418,
+  "lng": 137.2531
+ },
+ "tomioka": {
+  "lat": 35.6716,
+  "lng": 139.7998
+ },
+ "toshogu": {
+  "lat": 36.7559,
+  "lng": 139.6002
+ },
+ "toyosu": {
+  "lat": 35.6451,
+  "lng": 139.7849
+ },
+ "tsukiji": {
+  "lat": 35.6654,
+  "lng": 139.7705
+ },
+ "tsukishima": {
+  "lat": 35.6643,
+  "lng": 139.7825
+ },
+ "ueno": {
+  "lat": 35.7117,
+  "lng": 139.776
+ },
+ "umedaHep": {
+  "lat": 34.7041,
+  "lng": 135.5004
+ },
+ "umedaSky": {
+  "lat": 34.7053,
+  "lng": 135.4905
+ },
+ "uraNamba": {
+  "lat": 34.6645,
+  "lng": 135.5045
+ },
+ "yakinikuM": {
+  "lat": 34.6681,
+  "lng": 135.503
+ },
+ "yasaka": {
+  "lat": 35.0036,
+  "lng": 135.7783
+ },
+ "yodobashiAkiba": {
+  "lat": 35.6988,
+  "lng": 139.7747
+ },
+ "yumoto": {
+  "lat": 35.2332,
+  "lng": 139.1035
+ }
+}
