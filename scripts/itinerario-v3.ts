@@ -1,6 +1,7 @@
 import { aggiungiGiorni, minutiDaOra } from '../src/model/date'
 import type { Avviso, Citta, Giorno, InfoEvento, Luogo, OrariTappa, Prenotazione, Spostamento, Suggerimento, Tappa, TipoTappa, Viaggio } from '../src/model/tipi'
 import { linkSicuro } from '../src/servizi/mappe'
+import fotoScelte from './foto-v3.json'
 import coordinate from './luoghi-v3.json'
 
 /**
@@ -642,6 +643,37 @@ function prenotazioni(giorni: Giorno[], dataPartenza: string): Prenotazione[] {
   return conDettagli
 }
 
+/**
+ * Le foto delle tappe, per id: le stesse scelte a mano su Wikimedia Commons per il sito visuale
+ * (docs/ricerca/v2/visual). Le tappe senza foto qui la cercano da sole, come prima.
+ */
+const FOTO = fotoScelte as Record<string, string>
+
+function distanzaKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const rad = Math.PI / 180
+  const dLat = (b.lat - a.lat) * rad, dLng = (b.lng - a.lng) * rad
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLng / 2) ** 2
+  return 6371 * 2 * Math.asin(Math.sqrt(h))
+}
+const cinqueMinuti = (m: number) => Math.max(5, Math.round(m / 5) * 5)
+
+/**
+ * Come si va da una tappa alla successiva, quando non è già scritto. Stima dalla distanza in linea d'aria:
+ * a piedi fino a 1,2 km, coi mezzi fino a 25 km, oltre in treno. Sotto i 150 m non serve.
+ */
+function conSpostamenti(tappe: Tappa[]): Tappa[] {
+  return tappe.map((t, i) => {
+    const dopo = tappe[i + 1]
+    if (t.spostamento || !dopo || t.luogo?.lat == null || t.luogo.lng == null || dopo.luogo?.lat == null || dopo.luogo.lng == null) return t
+    const km = distanzaKm({ lat: t.luogo.lat, lng: t.luogo.lng }, { lat: dopo.luogo.lat, lng: dopo.luogo.lng })
+    if (km < 0.15) return t
+    const spostamento: Spostamento = km < 1.2 ? { modo: 'piedi', minuti: cinqueMinuti(km * 1.3 / 4.5 * 60) }
+      : km < 25 ? { modo: 'mezzi', minuti: cinqueMinuti(10 + km * 2.5) }
+      : { modo: 'treno', minuti: cinqueMinuti(15 + km * 0.6) }
+    return { ...t, spostamento }
+  })
+}
+
 /** Il viaggio con città, giorni e prenotazioni della terza versione. */
 export function itinerarioV3(vecchio: Viaggio): Viaggio {
   const v = structuredClone(vecchio)
@@ -652,9 +684,12 @@ export function itinerarioV3(vecchio: Viaggio): Viaggio {
       id: `g${i}`, cittaId: d.citta, titolo: d.titolo, intro: d.intro, note: '',
       alloggio: d.alloggio ? L(d.alloggio) : null,
       consigli: d.consigli ?? [], avvisi: d.avvisi ?? [], suggerimenti: d.suggerimenti ?? [],
-      speciale: null, tappe: d.tappe,
+      speciale: null,
+      tappe: conSpostamenti(d.tappe.map(t => FOTO[t.id] ? { ...t, foto: FOTO[t.id] } : t)),
     }
   })
+  const senzaTappa = Object.keys(FOTO).filter(id => !giorni.some(g => g.tappe.some(t => t.id === id)))
+  if (senzaTappa.length) throw new Error(`foto per tappe che non esistono: ${senzaTappa.join(', ')}`)
   const idTappe = giorni.flatMap(g => g.tappe.map(t => t.id))
   const doppi = idTappe.filter((id, i) => idTappe.indexOf(id) !== i)
   if (doppi.length) throw new Error(`id di tappa ripetuti: ${doppi.join(', ')}`)

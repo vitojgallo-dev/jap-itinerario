@@ -230,6 +230,10 @@
       "query": "MIMARU Tokyo Asakusa Station",
       "lat": 35.711,
       "lng": 139.7955
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -247,6 +251,11 @@
       "query": "Senso-ji Asakusa",
       "lat": 35.7134,
       "lng": 139.7955
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Illuminated_Senso-ji_Temple_%2810492173864%29.jpg/500px-Illuminated_Senso-ji_Temple_%2810492173864%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -264,6 +273,11 @@
       "query": "Kura Sushi Asakusa ROX",
       "lat": 35.7145,
       "lng": 139.7922
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/010_Sushi_master_in_Kyoto%2C_Japan_-_sushi_chef_%E5%AF%BF%E5%8F%B8%E8%81%B7%E4%BA%BA.jpg/500px-010_Sushi_master_in_Kyoto%2C_Japan_-_sushi_chef_%E5%AF%BF%E5%8F%B8%E8%81%B7%E4%BA%BA.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -281,7 +295,8 @@
       "query": "Azumabashi Bridge Tokyo",
       "lat": 35.7101,
       "lng": 139.7989
-     }
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/2/22/Don_Quijote_Shinjuku_Okubo_store_in_2013.jpg"
     }
    ]
   },
@@ -354,6 +369,11 @@
       "query": "Senso-ji Asakusa",
       "lat": 35.7134,
       "lng": 139.7955
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Kaminarimon_of_Sensoji_Temple_1.JPG/500px-Kaminarimon_of_Sensoji_Temple_1.JPG",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -371,6 +391,10 @@
       "query": "Nakamise Shopping Street",
       "lat": 35.7116,
       "lng": 139.7964
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -395,7 +419,8 @@
       ],
       "nota": "Molti negozi chiudono la domenica. Verifica sul sito prima di andare.",
       "fonte": "base"
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg/500px-Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg"
     },
     {
      "id": "g1-4",
@@ -423,6 +448,11 @@
       "query": "Akihabara Radio Kaikan",
       "lat": 35.6979,
       "lng": 139.7719
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Akihabara_Radio_Kaikan_1st_-01.jpg/500px-Akihabara_Radio_Kaikan_1st_-01.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -440,7 +470,8 @@
       "query": "Super Potato Akihabara",
       "lat": 35.6995,
       "lng": 139.7712
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Super_Potato_in_Akihabara_%284066556528%29.jpg/500px-Super_Potato_in_Akihabara_%284066556528%29.jpg"
     },
     {
      "id": "g1-7",
@@ -457,6 +488,11 @@
       "query": "Taito Station Akihabara",
       "lat": 35.6995,
       "lng": 139.7716
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/UFO_Catcher_Arcade_Game%2C_Shinjuku_%2853416842023%29.jpg/500px-UFO_Catcher_Arcade_Game%2C_Shinjuku_%2853416842023%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -481,6 +517,11 @@
       "chiude": "22:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Batting_Center_or_Batting_Cage_in_Japan.jpg/500px-Batting_Center_or_Batting_Cage_in_Japan.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -501,6 +542,11 @@
      },
      "biglietti": {
       "link": null
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/8/89/Maid_cafe_-_Welcome_at_home_cheesecake_%282009-04-23_22.54.52_by_panina.anna%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -591,6 +637,11 @@
       "query": "Meiji Jingu",
       "lat": 35.6748,
       "lng": 139.6996
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Meiji-jingu_Torii_3.jpg/500px-Meiji-jingu_Torii_3.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -608,6 +659,11 @@
       "query": "Takeshita Street",
       "lat": 35.6712,
       "lng": 139.705
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Marion_Cr%C3%AApes_in_Harajuku_Takeshita_2.jpg/500px-Marion_Cr%C3%AApes_in_Harajuku_Takeshita_2.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -632,6 +688,11 @@
       "chiude": "21:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Shibuya_Parco_191229b.jpg/500px-Shibuya_Parco_191229b.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -649,6 +710,11 @@
       "query": "Gyukatsu Motomura Shibuya",
       "lat": 35.657,
       "lng": 139.704
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Beef_cutlet_%288567066968%29.jpg/500px-Beef_cutlet_%288567066968%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -666,6 +732,11 @@
       "query": "Shibuya Scramble Crossing",
       "lat": 35.6595,
       "lng": 139.7005
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Shibuya_scramble_crossing_during_Halloween_2023%2C_actually_less_crowded_than_usual%2C_high_police_presence_2.jpg/500px-Shibuya_scramble_crossing_during_Halloween_2023%2C_actually_less_crowded_than_usual%2C_high_police_presence_2.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -683,6 +754,10 @@
       "query": "Cat Street Harajuku",
       "lat": 35.6655,
       "lng": 139.7055
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -700,6 +775,11 @@
       "query": "Shimokitazawa Station",
       "lat": 35.6616,
       "lng": 139.6671
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Shimokitazawa_Street_2015.jpg/500px-Shimokitazawa_Street_2015.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -727,6 +807,11 @@
       "chiude": "22:30",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Tokyo_Tower_and_Skyscrapers_from_Shibuya_Sky_Observation_Deck_%2853416648661%29.jpg/500px-Tokyo_Tower_and_Skyscrapers_from_Shibuya_Sky_Observation_Deck_%2853416648661%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -744,6 +829,11 @@
       "query": "Omoide Yokocho",
       "lat": 35.6931,
       "lng": 139.6995
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Shinjuku-West_Omoide-Yokocho.jpg/500px-Shinjuku-West_Omoide-Yokocho.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -761,7 +851,8 @@
       "query": "Shinjuku Golden Gai",
       "lat": 35.694,
       "lng": 139.7047
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Golden_Gai_%282%29.jpg/500px-Golden_Gai_%282%29.jpg"
     }
    ]
   },
@@ -833,6 +924,11 @@
      },
      "biglietti": {
       "link": "https://www.teamlab.art/e/planets/"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Photos_at_teamlab_planets_tokyo.jpg/500px-Photos_at_teamlab_planets_tokyo.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -850,6 +946,11 @@
       "query": "DiverCity Tokyo Plaza",
       "lat": 35.6246,
       "lng": 139.776
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Gunpla_model_sprues.jpg/500px-Gunpla_model_sprues.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -867,6 +968,11 @@
       "query": "Tsukishima Monja Street",
       "lat": 35.6643,
       "lng": 139.7825
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Monjayaki_After.JPG/500px-Monjayaki_After.JPG",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -891,6 +997,11 @@
       "chiude": "17:00",
       "nota": "Chiuso il 2° e 4° lunedì del mese. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Fukagawa_Edo_Museum.JPG/500px-Fukagawa_Edo_Museum.JPG",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -908,6 +1019,10 @@
       "query": "Tomioka Hachimangu",
       "lat": 35.6716,
       "lng": 139.7998
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -948,7 +1063,8 @@
       "nomeJa": "江東花火大会",
       "affidabilita": "probabile",
       "fonte": "https://www.city.koto.lg.jp/101000/kotohanabi.html"
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Sumidagawa_Fireworks_Festival_2023_%2853327934432%29.jpg/500px-Sumidagawa_Fireworks_Festival_2023_%2853327934432%29.jpg"
     }
    ]
   },
@@ -1038,6 +1154,11 @@
       "query": "Shinkyo Bridge Nikko",
       "lat": 36.7533,
       "lng": 139.604
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Shinkyo_bridge_of_Nikko_-_January_2024.jpg/500px-Shinkyo_bridge_of_Nikko_-_January_2024.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -1062,7 +1183,8 @@
       "chiude": "17:00",
       "nota": "Ultimo ingresso 16:30. Verifica sul sito prima di andare.",
       "fonte": "base"
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Kamijinko%2C_T%C5%8Dsh%C5%8D-g%C5%AB%2C_Nikko%2C_South_view_20190423_1.jpg/500px-Kamijinko%2C_T%C5%8Dsh%C5%8D-g%C5%AB%2C_Nikko%2C_South_view_20190423_1.jpg"
     },
     {
      "id": "g4-4",
@@ -1073,7 +1195,8 @@
      "tipo": "cibo",
      "sera": false,
      "stato": "da-fare",
-     "nota": ""
+     "nota": "",
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Hanayori_Kiyoe_Yuba_Croquette.jpg/500px-Hanayori_Kiyoe_Yuba_Croquette.jpg"
     },
     {
      "id": "g4-5",
@@ -1090,6 +1213,11 @@
       "query": "Lake Chuzenji",
       "lat": 36.7368,
       "lng": 139.4769
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Mount_nantai_and_lake_chuzenji.jpg/500px-Mount_nantai_and_lake_chuzenji.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1107,7 +1235,8 @@
       "query": "Kegon Falls",
       "lat": 36.738,
       "lng": 139.502
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Kegon_Taki.jpg/500px-Kegon_Taki.jpg"
     },
     {
      "id": "g4-7",
@@ -1139,7 +1268,8 @@
       "query": "Ameyoko Shopping Street",
       "lat": 35.7101,
       "lng": 139.7745
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Vibrant_Ameyoko_street_Market%2C_%E3%82%A2%E3%83%A1%E6%A8%AA_%286156024678%29.jpg/500px-Vibrant_Ameyoko_street_Market%2C_%E3%82%A2%E3%83%A1%E6%A8%AA_%286156024678%29.jpg"
     }
    ]
   },
@@ -1245,6 +1375,10 @@
       "query": "Dormy Inn Kanazawa",
       "lat": 36.5792,
       "lng": 136.6506
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -1262,6 +1396,11 @@
       "query": "Omicho Market",
       "lat": 36.5719,
       "lng": 136.6558
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Omicho_covered_market_western_entrance%2C_Kanazawa%2C_2016.jpg/500px-Omicho_covered_market_western_entrance%2C_Kanazawa%2C_2016.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1286,6 +1425,11 @@
       "chiude": "18:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Kotojitoro_%28lantern%29_in_Kenrokuen_garden%2C_Kanazawa%2C_Japan_%282621642647%29.jpg/500px-Kotojitoro_%28lantern%29_in_Kenrokuen_garden%2C_Kanazawa%2C_Japan_%282621642647%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -1303,6 +1447,11 @@
       "query": "Nagamachi Samurai District",
       "lat": 36.5638,
       "lng": 136.65
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Nagamachi_Bukeyashiki.jpg/500px-Nagamachi_Bukeyashiki.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1320,6 +1469,11 @@
       "query": "Higashi Chaya District",
       "lat": 36.573,
       "lng": 136.6651
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Higashi_Chaya_district%2C_Kanazawa_%283810720612%29.jpg/500px-Higashi_Chaya_district%2C_Kanazawa_%283810720612%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1337,6 +1491,11 @@
       "query": "Maimon Sushi Kanazawa",
       "lat": 36.5781,
       "lng": 136.648
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Shichifuku_Nigiri_Sushi_at_Tsukiji_Tamasushi%2C_Wing_Takanawa_%2820230802203124%29.jpg/500px-Shichifuku_Nigiri_Sushi_at_Tsukiji_Tamasushi%2C_Wing_Takanawa_%2820230802203124%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1456,6 +1615,11 @@
       "query": "Shirakawa-go Ogimachi",
       "lat": 36.262,
       "lng": 136.9069
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Shirakawa-go_from_Ogimachi_Joseki_Observatory_36446961844.jpg/500px-Shirakawa-go_from_Ogimachi_Joseki_Observatory_36446961844.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -1473,6 +1637,10 @@
       "query": "Shiroyama Viewpoint Shirakawa-go",
       "lat": 36.2685,
       "lng": 136.907
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -1490,7 +1658,8 @@
       "query": "Shirakawa-go Ogimachi",
       "lat": 36.262,
       "lng": 136.9069
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Hida_Beef_Box_Lunch.jpg/500px-Hida_Beef_Box_Lunch.jpg"
     },
     {
      "id": "g6-5",
@@ -1525,7 +1694,8 @@
       "query": "Sanmachi Suji Takayama",
       "lat": 36.1409,
       "lng": 137.2597
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Sanmachi_Takayama02ds3872.jpg/500px-Sanmachi_Takayama02ds3872.jpg"
     },
     {
      "id": "g6-7",
@@ -1542,6 +1712,10 @@
       "query": "Takayama Jinya",
       "lat": 36.1398,
       "lng": 137.2591
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -1570,7 +1744,8 @@
      "tipo": "cibo",
      "sera": true,
      "stato": "da-fare",
-     "nota": ""
+     "nota": "",
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/3/34/Houbamiso.jpg"
     }
    ]
   },
@@ -1639,6 +1814,11 @@
       "query": "Miyagawa Morning Market",
       "lat": 36.1447,
       "lng": 137.2579
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Hida-Takayama_Miyagawa_Morning_Market_%2815668520238%29.jpg/500px-Hida-Takayama_Miyagawa_Morning_Market_%2815668520238%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -1701,6 +1881,11 @@
       "query": "Nara Park",
       "lat": 34.6829,
       "lng": 135.8546
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Shika_Senbei_%2815180042473%29.jpg/500px-Shika_Senbei_%2815180042473%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1725,6 +1910,11 @@
       "chiude": "17:30",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Todai-ji_Daibutsuden_front_view_in_2011.jpg/500px-Todai-ji_Daibutsuden_front_view_in_2011.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1742,6 +1932,10 @@
       "query": "Naramachi",
       "lat": 34.677,
       "lng": 135.83
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1765,6 +1959,11 @@
       "nomeJa": "春日大社 中元万燈籠",
       "affidabilita": "probabile",
       "fonte": "https://www.jalan.net/kankou/spt_guide000000212177/event/"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Setsubun_Mantoro_Festival_20150203_07.jpg/500px-Setsubun_Mantoro_Festival_20150203_07.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -1788,6 +1987,10 @@
       "nomeJa": "奈良大文字送り火",
       "affidabilita": "probabile",
       "fonte": "https://narashikanko.or.jp/asset/daimonji/naradaimonji2025"
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -1810,6 +2013,11 @@
       "nome": "Tōdai-ji Mantō Kuyōe",
       "nomeJa": "東大寺 万灯供養会",
       "affidabilita": "probabile"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/20190121_T%C5%8Ddai-ji_Great_Buddha-1.jpg/500px-20190121_T%C5%8Ddai-ji_Great_Buddha-1.jpg",
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 35
      }
     },
     {
@@ -1895,6 +2103,11 @@
       "query": "Arashiyama Bamboo Grove",
       "lat": 35.0167,
       "lng": 135.6711
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Bamboo_Grove%2C_Arashiyama%2C_Kyoto%2C_Japan.jpg/500px-Bamboo_Grove%2C_Arashiyama%2C_Kyoto%2C_Japan.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -1919,6 +2132,11 @@
       "chiude": "17:00",
       "nota": "Orari del giardino. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Tenryu-ji_garden%2C_May_2017.jpg/500px-Tenryu-ji_garden%2C_May_2017.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 25
      }
     },
     {
@@ -1943,6 +2161,11 @@
       "chiude": "17:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Water_reflection_of_Kinkaku-ji_Temple_a_sunny_day%2C_Kyoto%2C_Japan.jpg/500px-Water_reflection_of_Kinkaku-ji_Temple_a_sunny_day%2C_Kyoto%2C_Japan.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -1960,6 +2183,11 @@
       "query": "Ryoanji",
       "lat": 35.0279,
       "lng": 135.7211
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/RyoanJi-Dry_garden.jpg/500px-RyoanJi-Dry_garden.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 25
      }
     },
     {
@@ -1977,6 +2205,10 @@
       "query": "Izuju Gion",
       "lat": 35.0037,
       "lng": 135.7767
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2003,6 +2235,11 @@
       "chiude": "17:30",
       "nota": "Chiuso il mercoledì. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Sitting_people_reading_outdoors_at_Kyoto_International_Manga_Museum_20080608.jpg/500px-Sitting_people_reading_outdoors_at_Kyoto_International_Manga_Museum_20080608.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -2020,6 +2257,10 @@
       "query": "Shimogamo Shrine",
       "lat": 35.037,
       "lng": 135.7725
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -2060,7 +2301,8 @@
       "nomeJa": "京都五山送り火",
       "affidabilita": "certa",
       "fonte": "https://kyototravel.info/gozannookuribi"
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Gozanokuribi_Daimonji2.jpg/500px-Gozanokuribi_Daimonji2.jpg"
     }
    ]
   },
@@ -2142,6 +2384,11 @@
       "query": "Fushimi Inari Taisha",
       "lat": 34.9675,
       "lng": 135.7797
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Fushimi_Inari_-_Torii_Tunnel_03.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -2159,6 +2406,11 @@
       "query": "Gekkeikan Okura Sake Museum",
       "lat": 34.9289,
       "lng": 135.7616
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Gekkeikan_Okura_Sake_Museum01nt3200.jpg/500px-Gekkeikan_Okura_Sake_Museum01nt3200.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 30
      }
     },
     {
@@ -2176,6 +2428,11 @@
       "query": "Kiyomizudera",
       "lat": 34.9949,
       "lng": 135.785
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Kiyomizu-dera%2C_Kyoto%2C_November_2016_-01.jpg/500px-Kiyomizu-dera%2C_Kyoto%2C_November_2016_-01.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -2193,6 +2450,10 @@
       "query": "Kyoto Katsugyu Kiyomizu Gojozaka",
       "lat": 34.996,
       "lng": 135.779
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2219,6 +2480,11 @@
       "chiude": "17:00",
       "nota": "Orari di Aritsugu; molti banchi chiudono il mercoledì. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Tsukemono_shop_by_collinox_in_Nishiki_Ichiba%2C_Kyoto.jpg/500px-Tsukemono_shop_by_collinox_in_Nishiki_Ichiba%2C_Kyoto.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2236,6 +2502,10 @@
       "query": "Teramachi Kyoto",
       "lat": 35.0197,
       "lng": 135.7674
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2256,6 +2526,11 @@
      },
      "biglietti": {
       "link": null
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/JP_%E6%97%A5%E6%9C%AC_Japan_%E4%BA%AC%E9%83%BD_Kyoto_Higashiyama-ku_Gion_%E8%8A%B1%E8%A6%8B%E5%B0%8F%E8%B7%AF%E9%80%9A_Hanamikoji_Dori_10am_morning_June_2026_N13P_16.jpg/500px-JP_%E6%97%A5%E6%9C%AC_Japan_%E4%BA%AC%E9%83%BD_Kyoto_Higashiyama-ku_Gion_%E8%8A%B1%E8%A6%8B%E5%B0%8F%E8%B7%AF%E9%80%9A_Hanamikoji_Dori_10am_morning_June_2026_N13P_16.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -2276,7 +2551,8 @@
      },
      "biglietti": {
       "link": null
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Pontocho_Alley%2C_Kyoto_-_Flickr_-_Sergiy_Galyonkin.jpg/500px-Pontocho_Alley%2C_Kyoto_-_Flickr_-_Sergiy_Galyonkin.jpg"
     },
     {
      "id": "g9-9",
@@ -2366,6 +2642,11 @@
       "query": "Byodoin",
       "lat": 34.891,
       "lng": 135.8065
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Phoenix_Hall%2C_Byodo-in%2C_November_2016_-01.jpg/500px-Phoenix_Hall%2C_Byodo-in%2C_November_2016_-01.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -2383,6 +2664,11 @@
       "query": "Nakamura Tokichi Uji",
       "lat": 34.8894,
       "lng": 135.8017
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/%E3%82%A2%E3%83%8B%E3%83%BC%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E5%B1%8B%E3%81%95%E3%82%93%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%28%E6%8A%B9%E8%8C%B6%E3%83%95%E3%82%A7%E3%82%A2%E3%81%AB%E6%83%B9%E3%81%8B%E3%82%8C%E3%81%A6%292.jpg/500px-%E3%82%A2%E3%83%8B%E3%83%BC%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%E5%B1%8B%E3%81%95%E3%82%93%E3%81%AE%E3%82%A2%E3%82%A4%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%A0%28%E6%8A%B9%E8%8C%B6%E3%83%95%E3%82%A7%E3%82%A2%E3%81%AB%E6%83%B9%E3%81%8B%E3%82%8C%E3%81%A6%292.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 45
      }
     },
     {
@@ -2409,6 +2695,11 @@
       "chiude": "17:00",
       "nota": "Ultimo ingresso 16:00; il palazzo è chiuso il martedì di agosto. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Ninomaru_Palace%2C_November_2016.jpg/500px-Ninomaru_Palace%2C_November_2016.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -2426,6 +2717,11 @@
       "query": "Toei Kyoto Studio Park",
       "lat": 35.0165,
       "lng": 135.7082
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Toei_Kyoto_Studio_Park_from_above.jpg/500px-Toei_Kyoto_Studio_Park_from_above.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 25
      }
     },
     {
@@ -2443,7 +2739,8 @@
       "query": "Kyoto Station",
       "lat": 34.9867,
       "lng": 135.7585
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Kyoto_Station_November_2016_-02.jpg/500px-Kyoto_Station_November_2016_-02.jpg"
     }
    ]
   },
@@ -2522,6 +2819,11 @@
       "query": "Kuramadera",
       "lat": 35.1179,
       "lng": 135.7707
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e4/Kurama-dera_sanmon.jpg/500px-Kurama-dera_sanmon.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -2539,6 +2841,11 @@
       "query": "Hirobun Kibune",
       "lat": 35.1249,
       "lng": 135.7639
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Somen_001.jpg/500px-Somen_001.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -2563,6 +2870,11 @@
       "chiude": "20:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/%E8%B2%B4%E8%88%B9%E7%A5%9E%E7%A4%BE_Kibune_Jinja_%28KYOTO-JAPAN%29_%284951368080%29.jpg/500px-%E8%B2%B4%E8%88%B9%E7%A5%9E%E7%A4%BE_Kibune_Jinja_%28KYOTO-JAPAN%29_%284951368080%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 35
      }
     },
     {
@@ -2580,6 +2892,10 @@
       "query": "Demachi Futaba",
       "lat": 35.0301,
       "lng": 135.7696
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2604,6 +2920,11 @@
       "chiude": "17:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/Sunlight_through_clouds_and_view_of_Ginkaku-ji_Temple_from_above%2C_Kyoto%2C_Japan.jpg/500px-Sunlight_through_clouds_and_view_of_Ginkaku-ji_Temple_from_above%2C_Kyoto%2C_Japan.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -2621,6 +2942,11 @@
       "query": "Philosopher's Path",
       "lat": 35.023,
       "lng": 135.795
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Tetsugaku_no_Michi_01.JPG/500px-Tetsugaku_no_Michi_01.JPG",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2638,7 +2964,8 @@
       "query": "Sanjo Ohashi",
       "lat": 35.009,
       "lng": 135.7717
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Kamo_River_in_Kyoto%2C_20240820_1748_5192.jpg/500px-Kamo_River_in_Kyoto%2C_20240820_1748_5192.jpg"
     },
     {
      "id": "g11-9",
@@ -2768,6 +3095,11 @@
       "nome": "Kōshien, torneo estivo dei licei",
       "nomeJa": "全国高等学校野球選手権大会",
       "affidabilita": "probabile"
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/8/83/2020_Koshien_High_School_Baseball_Exchange_Game_Opening_Ceremony_1.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 45
      }
     },
     {
@@ -2785,6 +3117,11 @@
       "query": "Kuromon Market",
       "lat": 34.665,
       "lng": 135.507
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Kuromon-ichiba_in_201408.JPG/500px-Kuromon-ichiba_in_201408.JPG",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -2802,6 +3139,11 @@
       "query": "Sennichimae Doguyasuji",
       "lat": 34.664,
       "lng": 135.5035
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Sennichimae-doguya-suji_in_201408.JPG/500px-Sennichimae-doguya-suji_in_201408.JPG",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -2819,6 +3161,11 @@
       "query": "Hozenji Yokocho",
       "lat": 34.668,
       "lng": 135.5033
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Hozenji_Yokocho_at_night.jpg/500px-Hozenji_Yokocho_at_night.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 5
      }
     },
     {
@@ -2836,6 +3183,11 @@
       "query": "Dotonbori Glico Sign",
       "lat": 34.6689,
       "lng": 135.5011
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Dotonbori%2C_Osaka%2C_at_night%2C_November_2016.jpg/500px-Dotonbori%2C_Osaka%2C_at_night%2C_November_2016.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -2931,6 +3283,11 @@
       "nome": "Daishi-e, mercatino del Shitenno-ji",
       "nomeJa": "四天王寺 大師会",
       "affidabilita": "certa"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/View_of_Abeno_Harukas_and_Shitenn%C5%8D-ji_five-storied_pagoda_at_dusk%2C_January_2024_%28clone_version%29_-_9978.jpg/500px-View_of_Abeno_Harukas_and_Shitenn%C5%8D-ji_five-storied_pagoda_at_dusk%2C_January_2024_%28clone_version%29_-_9978.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -2955,6 +3312,11 @@
       "chiude": "18:00",
       "nota": "Orari del mastio. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Osaka_Castle_-_Japan.jpg/500px-Osaka_Castle_-_Japan.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -2972,6 +3334,11 @@
       "query": "Tsutenkaku",
       "lat": 34.6525,
       "lng": 135.5063
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Shinsekai_and_Tsutenkaku_Tower.jpg/500px-Shinsekai_and_Tsutenkaku_Tower.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -2992,6 +3359,11 @@
      },
      "biglietti": {
       "link": null
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Yakiniku_Bento_-_close-up_-_Takumi_AU13.80_%284656015712%29.jpg/500px-Yakiniku_Bento_-_close-up_-_Takumi_AU13.80_%284656015712%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -3009,6 +3381,11 @@
       "query": "Den Den Town Nipponbashi",
       "lat": 34.6592,
       "lng": 135.5058
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Den-Den_Town%2C_Nipponbashi%2C_Osaka_-_Jul_12%2C_2023.jpg/500px-Den-Den_Town%2C_Nipponbashi%2C_Osaka_-_Jul_12%2C_2023.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3026,6 +3403,11 @@
       "query": "Amerikamura",
       "lat": 34.6721,
       "lng": 135.4979
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Americamura.JPG",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -3043,6 +3425,11 @@
       "query": "HEP FIVE",
       "lat": 34.7041,
       "lng": 135.5004
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/9/9f/HEP_Five_Ferris_wheel%2C_October_2005.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -3067,7 +3454,8 @@
       "chiude": "22:30",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Umeda_Sky_Building%2C_Osaka%2C_November_2016_-01.jpg/500px-Umeda_Sky_Building%2C_Osaka%2C_November_2016_-01.jpg"
     },
     {
      "id": "g13-9",
@@ -3084,6 +3472,11 @@
       "query": "Umeda Sky Building",
       "lat": 34.7053,
       "lng": 135.4905
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Okonomiyaki_001.jpg/500px-Okonomiyaki_001.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -3192,6 +3585,11 @@
       "chiude": "17:00",
       "nota": "Ultimo ingresso 16:00. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Ch%C3%A2teau_de_Himeji02.jpg/500px-Ch%C3%A2teau_de_Himeji02.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -3216,6 +3614,11 @@
       "chiude": "17:00",
       "nota": "Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Himeji_Koukoen32n4592.jpg/500px-Himeji_Koukoen32n4592.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -3233,6 +3636,10 @@
       "query": "Himeji Station",
       "lat": 34.8264,
       "lng": 134.6908
+     },
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 45
      }
     },
     {
@@ -3250,6 +3657,11 @@
       "query": "Steakland Kobe",
       "lat": 34.693,
       "lng": 135.1921
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/0/07/KobeBeefOnGrill.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -3267,6 +3679,11 @@
       "query": "Nankinmachi Kobe",
       "lat": 34.6881,
       "lng": 135.1884
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Kobe-Nankinmachi.JPG/500px-Kobe-Nankinmachi.JPG",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3284,6 +3701,11 @@
       "query": "Kitano Ijinkan",
       "lat": 34.701,
       "lng": 135.1913
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Weathercock_House_Kobe_Kitano_Ijinkan_%E9%A2%A8%E8%A6%8B%E9%B6%8F%E3%81%AE%E9%A4%A8%EF%BC%88%E6%97%A7%E3%83%88%E3%83%BC%E3%83%9E%E3%82%B9%E4%BD%8F%E5%AE%85%EF%BC%89.jpg/500px-Weathercock_House_Kobe_Kitano_Ijinkan_%E9%A2%A8%E8%A6%8B%E9%B6%8F%E3%81%AE%E9%A4%A8%EF%BC%88%E6%97%A7%E3%83%88%E3%83%BC%E3%83%9E%E3%82%B9%E4%BD%8F%E5%AE%85%EF%BC%89.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3301,6 +3723,11 @@
       "query": "Kobe Port Tower",
       "lat": 34.6826,
       "lng": 135.1867
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Kobe_Port_Tower_and_Maritime_Museum%2C_November_2016.jpg/500px-Kobe_Port_Tower_and_Maritime_Museum%2C_November_2016.jpg",
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 30
      }
     },
     {
@@ -3410,6 +3837,10 @@
       "query": "Ichinoyu Honkan Tonosawa",
       "lat": 35.2333,
       "lng": 139.0934
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -3434,6 +3865,11 @@
       "chiude": "17:00",
       "nota": "Aperto tutti i giorni. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Hakone_Open-air_Museum_20211202-5.jpg/500px-Hakone_Open-air_Museum_20211202-5.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3451,6 +3887,11 @@
       "query": "Owakudani",
       "lat": 35.2474,
       "lng": 139.0242
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Mount_Myojingatake_and_Owakudani_Station_from_Owakudani_Valley.JPG/500px-Mount_Myojingatake_and_Owakudani_Station_from_Owakudani_Valley.JPG",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3468,6 +3909,11 @@
       "query": "Togendai Port",
       "lat": 35.2376,
       "lng": 138.9946
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Pirate_ship_on_Lake_Ashi_%289412052470%29.jpg/500px-Pirate_ship_on_Lake_Ashi_%289412052470%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -3485,6 +3931,11 @@
       "query": "Hakone Shrine Peace Torii",
       "lat": 35.2045,
       "lng": 139.0255
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Torii_on_Lake_Ashi_%40_Hakone_Shrine_%2813776879364%29.jpg/500px-Torii_on_Lake_Ashi_%40_Hakone_Shrine_%2813776879364%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 30
      }
     },
     {
@@ -3523,7 +3974,8 @@
       "query": "Ichinoyu Honkan Tonosawa",
       "lat": 35.2333,
       "lng": 139.0934
-     }
+     },
+     "foto": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Ryokan_roomIMG_0819C.JPG"
     }
    ]
   },
@@ -3602,6 +4054,11 @@
       "query": "Enoshima Shrine",
       "lat": 35.3003,
       "lng": 139.4798
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Enoshima%2C_Japan_%2815662062438%29.jpg/500px-Enoshima%2C_Japan_%2815662062438%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3619,7 +4076,8 @@
       "query": "Kamakurakokomae Station",
       "lat": 35.3067,
       "lng": 139.5007
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Kamakurakokomae_station_2020_8_21.jpg/500px-Kamakurakokomae_station_2020_8_21.jpg"
     },
     {
      "id": "g16-4",
@@ -3647,6 +4105,11 @@
       "query": "Kotoku-in",
       "lat": 35.3165,
       "lng": 139.5357
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Kamakura_Budda_Daibutsu_front_1885.jpg/500px-Kamakura_Budda_Daibutsu_front_1885.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3664,6 +4127,11 @@
       "query": "Komachi Street Kamakura",
       "lat": 35.3195,
       "lng": 139.5507
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/Komachi_Dori-Kamakura.jpg/500px-Komachi_Dori-Kamakura.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 50
      }
     },
     {
@@ -3681,6 +4149,11 @@
       "query": "Yokohama Red Brick Warehouse",
       "lat": 35.4524,
       "lng": 139.6429
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Yokohama_Red_Brick_Warehouse_2012.JPG/500px-Yokohama_Red_Brick_Warehouse_2012.JPG",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -3698,6 +4171,10 @@
       "query": "Osanbashi Pier",
       "lat": 35.4517,
       "lng": 139.6478
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 20
      }
     },
     {
@@ -3715,6 +4192,11 @@
       "query": "Yokohama Chinatown",
       "lat": 35.4427,
       "lng": 139.6452
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Yokohama_Chinatown_9.jpg/500px-Yokohama_Chinatown_9.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3732,6 +4214,11 @@
       "query": "Cosmo Clock 21",
       "lat": 35.4554,
       "lng": 139.6368
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/The_night_view_of_Minato_Mirai_21_-_3.jpg/500px-The_night_view_of_Minato_Mirai_21_-_3.jpg",
+     "spostamento": {
+      "modo": "treno",
+      "minuti": 35
      }
     },
     {
@@ -3825,6 +4312,10 @@
       ],
       "nota": "Ultimo ingresso verso le 17:30. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -3842,6 +4333,11 @@
       "query": "Tokyo Station",
       "lat": 35.6806,
       "lng": 139.765
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Tokyo_Station_%28Marunouchi_Building%29.jpg/500px-Tokyo_Station_%28Marunouchi_Building%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -3859,6 +4355,11 @@
       "query": "Ginza Itoya",
       "lat": 35.672,
       "lng": 139.766
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Illuminated_street_corner_at_blue_hour_-_facade_of_the_building_Fujiya_in_Ginza_Chuo-ku_Tokyo_Japan.jpg/500px-Illuminated_street_corner_at_blue_hour_-_facade_of_the_building_Fujiya_in_Ginza_Chuo-ku_Tokyo_Japan.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 35
      }
     },
     {
@@ -3883,6 +4384,11 @@
       "chiude": "20:00",
       "nota": "Alcuni negozi chiudono il mercoledì. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Nakano_broadway_entrance.JPG/500px-Nakano_broadway_entrance.JPG",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -3900,6 +4406,11 @@
       "query": "Koenji Station",
       "lat": 35.7053,
       "lng": 139.65
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/Koenji_Awa_Odori_street.jpg/500px-Koenji_Awa_Odori_street.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 20
      }
     },
     {
@@ -3920,6 +4431,11 @@
      },
      "biglietti": {
       "link": null
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Yakiniku_Bento_-_close-up_-_Takumi_AU13.80_%284656015712%29.jpg/500px-Yakiniku_Bento_-_close-up_-_Takumi_AU13.80_%284656015712%29.jpg",
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 10
      }
     },
     {
@@ -3937,7 +4453,8 @@
       "query": "Shinjuku Golden Gai",
       "lat": 35.694,
       "lng": 139.7047
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Golden_Gai_%282%29.jpg/500px-Golden_Gai_%282%29.jpg"
     }
    ]
   },
@@ -4035,7 +4552,8 @@
      },
      "biglietti": {
       "link": null
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/80/Eejanaika_coaster_FujiQ_1024.jpg/500px-Eejanaika_coaster_FujiQ_1024.jpg"
     },
     {
      "id": "g18-3",
@@ -4052,6 +4570,10 @@
       "query": "Fuji-Q Highland",
       "lat": 35.4873,
       "lng": 138.7816
+     },
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -4069,7 +4591,8 @@
       "query": "Chureito Pagoda",
       "lat": 35.5013,
       "lng": 138.8014
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Chureito_Pagoda_and_Mount_Fuji_20241022.jpg/500px-Chureito_Pagoda_and_Mount_Fuji_20241022.jpg"
     },
     {
      "id": "g18-5",
@@ -4103,7 +4626,8 @@
       "nomeJa": "吉田の火祭り",
       "affidabilita": "probabile",
       "fonte": "https://summer.walkerplus.com/odekake/detail_e/ar0419e596240/"
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Ignition_torches_in_the_main_street_of_Yoshida_Fire_Festival.JPG/500px-Ignition_torches_in_the_main_street_of_Yoshida_Fire_Festival.JPG"
     },
     {
      "id": "g18-7",
@@ -4171,6 +4695,11 @@
       "query": "Toyosu Market",
       "lat": 35.6451,
       "lng": 139.7849
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Shichifuku_Nigiri_Sushi_at_Tsukiji_Tamasushi%2C_Wing_Takanawa_%2820230802203124%29.jpg/500px-Shichifuku_Nigiri_Sushi_at_Tsukiji_Tamasushi%2C_Wing_Takanawa_%2820230802203124%29.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -4196,6 +4725,11 @@
       ],
       "nota": "Chiuso anche nei festivi. Verifica sul sito prima di andare.",
       "fonte": "base"
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Tsukiji_Outer_Market_2.jpg/500px-Tsukiji_Outer_Market_2.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 25
      }
     },
     {
@@ -4213,6 +4747,10 @@
       "query": "MIMARU Tokyo Asakusa Station",
       "lat": 35.711,
       "lng": 139.7955
+     },
+     "spostamento": {
+      "modo": "piedi",
+      "minuti": 15
      }
     },
     {
@@ -4230,6 +4768,11 @@
       "query": "Kappabashi Dougu Street",
       "lat": 35.714,
       "lng": 139.788
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg/500px-Kappabashi-dori_streetcorner_%28Kitchen_town_-_southern_end%29_a_sunny_morning_in_Tokyo_Japan.jpg",
+     "spostamento": {
+      "modo": "mezzi",
+      "minuti": 15
      }
     },
     {
@@ -4247,7 +4790,8 @@
       "query": "Ameyoko Shopping Street",
       "lat": 35.7101,
       "lng": 139.7745
-     }
+     },
+     "foto": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Vibrant_Ameyoko_street_Market%2C_%E3%82%A2%E3%83%A1%E6%A8%AA_%286156024678%29.jpg/500px-Vibrant_Ameyoko_street_Market%2C_%E3%82%A2%E3%83%A1%E6%A8%AA_%286156024678%29.jpg"
     },
     {
      "id": "g19-6",

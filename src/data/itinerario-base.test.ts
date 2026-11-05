@@ -180,4 +180,18 @@ describe('itinerario di partenza 2027, terza versione', () => {
       }
     })
   })
+  describe('foto e spostamenti', () => {
+    test('le tappe da vedere hanno quasi tutte la foto scelta a mano, da Wikimedia', () => {
+      const daVedere = tappe.filter(x => x.luogo && x.tipo !== 'spostamento' && x.tipo !== 'hotel')
+      const conFoto = daVedere.filter(x => x.foto)
+      expect(conFoto.length / daVedere.length).toBeGreaterThan(0.8)
+      expect(conFoto.every(x => /^https:\/\/(upload|thumb)\.wikimedia\.org\//.test(x.foto!))).toBe(true)
+    })
+    test('fra due tappe con un luogo c\'è sempre il modo e il tempo per arrivarci', () => {
+      const mancanti = v.giorni.flatMap(g => g.tappe.slice(0, -1).filter((x, i) => x.luogo?.lat != null && g.tappe[i + 1].luogo?.lat != null && !x.spostamento
+        && (Math.abs(x.luogo.lat - g.tappe[i + 1].luogo!.lat!) > 0.002 || Math.abs(x.luogo.lng! - g.tappe[i + 1].luogo!.lng!) > 0.002)).map(x => x.id))
+      expect(mancanti).toEqual([])
+      expect(tappe.filter(x => x.spostamento).length).toBeGreaterThan(100)
+    })
+  })
 })
